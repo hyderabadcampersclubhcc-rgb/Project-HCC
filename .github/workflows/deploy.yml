@@ -51,22 +51,30 @@ jobs:
           SITE_URL: ${{ vars.STAGING_URL }}
           PUBLIC_CMS_REPO: ${{ vars.CMS_REPO }}
           PUBLIC_SHOW_SAMPLES: ${{ vars.STAGING_SHOW_SAMPLES }}
-      - name: Normalise FTP host
+      - name: Normalise FTP login
         id: ftp
-        # Accepts "145.79.213.106", "ftp://145.79.213.106", trailing spaces/newlines, ":21".
+        # Tolerates copy-paste noise: "ftp://" prefixes, ":21", spaces and line breaks around the
+        # host/username, and a trailing line break on the password.
         run: |
-          host=$(printf '%s' "$RAW" | tr -d '[:space:]' | sed -E 's#^[a-zA-Z]+://##; s#/.*$##; s#:[0-9]+$##')
-          if [ -z "$host" ]; then echo "::error::FTP_SERVER secret is empty"; exit 1; fi
-          echo "::add-mask::$host"
-          echo "host=$host" >> "$GITHUB_OUTPUT"
+          host=$(printf '%s' "$RAW_HOST" | tr -d '[:space:]' | sed -E 's#^[a-zA-Z]+://##; s#/.*$##; s#:[0-9]+$##')
+          user=$(printf '%s' "$RAW_USER" | tr -d '[:space:]')
+          pass=$(printf '%s' "$RAW_PASS" | tr -d '\r\n')
+          for v in host user pass; do
+            if [ -z "${!v}" ]; then echo "::error::FTP secret for $v is empty"; exit 1; fi
+          done
+          echo "::add-mask::$host"; echo "::add-mask::$user"; echo "::add-mask::$pass"
+          { echo "host=$host"; echo "user=$user"; echo "pass=$pass"; } >> "$GITHUB_OUTPUT"
+          echo "FTP login prepared (user length ${#user}, password length ${#pass})"
         env:
-          RAW: ${{ secrets.FTP_SERVER }}
+          RAW_HOST: ${{ secrets.FTP_SERVER }}
+          RAW_USER: ${{ secrets.FTP_USERNAME }}
+          RAW_PASS: ${{ secrets.FTP_PASSWORD }}
       - name: Deploy to Hostinger (staging)
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           server: ${{ steps.ftp.outputs.host }}
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
+          username: ${{ steps.ftp.outputs.user }}
+          password: ${{ steps.ftp.outputs.pass }}
           protocol: ${{ vars.FTP_PROTOCOL || 'ftps' }}
           local-dir: ./dist/
           server-dir: ${{ vars.STAGING_DIR }}
@@ -95,22 +103,30 @@ jobs:
           SITE_URL: https://hyderabadcampersclubhcc.in
           PUBLIC_ALLOW_INDEXING: 'true'
           PUBLIC_CMS_REPO: ${{ vars.CMS_REPO }}
-      - name: Normalise FTP host
+      - name: Normalise FTP login
         id: ftp
-        # Accepts "145.79.213.106", "ftp://145.79.213.106", trailing spaces/newlines, ":21".
+        # Tolerates copy-paste noise: "ftp://" prefixes, ":21", spaces and line breaks around the
+        # host/username, and a trailing line break on the password.
         run: |
-          host=$(printf '%s' "$RAW" | tr -d '[:space:]' | sed -E 's#^[a-zA-Z]+://##; s#/.*$##; s#:[0-9]+$##')
-          if [ -z "$host" ]; then echo "::error::FTP_SERVER secret is empty"; exit 1; fi
-          echo "::add-mask::$host"
-          echo "host=$host" >> "$GITHUB_OUTPUT"
+          host=$(printf '%s' "$RAW_HOST" | tr -d '[:space:]' | sed -E 's#^[a-zA-Z]+://##; s#/.*$##; s#:[0-9]+$##')
+          user=$(printf '%s' "$RAW_USER" | tr -d '[:space:]')
+          pass=$(printf '%s' "$RAW_PASS" | tr -d '\r\n')
+          for v in host user pass; do
+            if [ -z "${!v}" ]; then echo "::error::FTP secret for $v is empty"; exit 1; fi
+          done
+          echo "::add-mask::$host"; echo "::add-mask::$user"; echo "::add-mask::$pass"
+          { echo "host=$host"; echo "user=$user"; echo "pass=$pass"; } >> "$GITHUB_OUTPUT"
+          echo "FTP login prepared (user length ${#user}, password length ${#pass})"
         env:
-          RAW: ${{ secrets.FTP_SERVER }}
+          RAW_HOST: ${{ secrets.FTP_SERVER }}
+          RAW_USER: ${{ secrets.FTP_USERNAME }}
+          RAW_PASS: ${{ secrets.FTP_PASSWORD }}
       - name: Deploy to Hostinger (production)
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           server: ${{ steps.ftp.outputs.host }}
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
+          username: ${{ steps.ftp.outputs.user }}
+          password: ${{ steps.ftp.outputs.pass }}
           protocol: ${{ vars.FTP_PROTOCOL || 'ftps' }}
           local-dir: ./dist/
           server-dir: ${{ vars.PRODUCTION_DIR }}
