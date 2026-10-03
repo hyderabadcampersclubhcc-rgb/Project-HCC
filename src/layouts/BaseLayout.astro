@@ -5,6 +5,8 @@
  */
 import { Font } from 'astro:assets';
 import SeoHead, { type SeoProps } from '@/components/seo/SeoHead.astro';
+import TrackingHead from '@/components/seo/TrackingHead.astro';
+import ConsentBanner from '@/components/consent/ConsentBanner.astro';
 import AnnouncementBar from '@/components/layout/AnnouncementBar.astro';
 import Header from '@/components/layout/Header.astro';
 import Footer from '@/components/layout/Footer.astro';
@@ -21,15 +23,18 @@ type Props = SeoProps & {
   mobileBar?: 'nav' | 'none';
   chrome?: boolean;
   bodyClass?: string;
+  /** Keep the cookie banner open (consent preview page only). */
+  consentPreview?: boolean;
 };
 
-const { headerOverlay = false, mobileBar = 'nav', chrome = true, bodyClass, ...seo } = Astro.props;
+const { headerOverlay = false, mobileBar = 'nav', chrome = true, bodyClass, consentPreview = false, ...seo } = Astro.props;
 ---
 
 <!doctype html>
 <html lang="en-IN">
   <head>
     <meta charset="utf-8" />
+    <TrackingHead />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="theme-color" content="#0A241C" />
     <meta name="format-detection" content="telephone=no" />
@@ -56,6 +61,7 @@ const { headerOverlay = false, mobileBar = 'nav', chrome = true, bodyClass, ...s
     {chrome && mobileBar === 'nav' && <MobileNav />}
     {chrome && <CompareTray />}
     <slot name="end" />
+    <ConsentBanner forceOpen={consentPreview} />
     <script>
       import '@/scripts/site';
     </script>

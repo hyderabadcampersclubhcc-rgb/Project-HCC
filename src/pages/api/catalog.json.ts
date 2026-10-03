@@ -12,6 +12,8 @@ export const GET: APIRoute = async () => {
   const body = {
     generatedAt: new Date().toISOString(),
     payments: { enabled: settings.payments.enabled, provider: settings.payments.provider },
+    // Public ID only; the Conversions API token lives in api/config.php on the server.
+    tracking: { metaPixelId: settings.tracking.metaPixelId },
     trips: Object.fromEntries(
       trips.map((t) => [
         t.id,

@@ -36,7 +36,14 @@ Enquiries are stored in a Google Sheet on HCC's Google account, with a private b
 
 ## Cookies and analytics
 
-This website stores small pieces of information in your browser to remember the campaign link you arrived from and your "compare trips" selection. If we enable analytics or advertising tools (such as Google Analytics, Google Ads or Meta Pixel), they may set cookies to measure visits and ad performance. Where required, we will ask for your consent first.
+This website stores small pieces of information in your browser that it needs to work: the campaign link you arrived from, your "compare trips" selection and your cookie choice.
+
+Analytics and advertising tools are only used if you allow them in the cookie banner. You can change your choice at any time from **Privacy choices** at the bottom of every page.
+
+- **Analytics** (Google Analytics): which pages and trips are viewed and which buttons are used. We never send your name or phone number to Google.
+- **Advertising** (Google Ads and Meta, the company behind Instagram and Facebook): which ads lead to enquiries, and showing our trips to people who visited this website. If you allow Advertising and send an enquiry, our server also tells Meta that an enquiry was made, together with your phone number in a scrambled (hashed) form that Meta uses only to match the enquiry to an ad. Your name and message are never shared.
+
+Booking, enquiries and WhatsApp work the same whatever you choose.
 
 ## How long we keep it
 

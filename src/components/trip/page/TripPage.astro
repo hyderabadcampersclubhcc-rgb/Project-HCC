@@ -26,6 +26,8 @@ import FAQ from '@/components/content/FAQ.astro';
 import Reviews from '@/components/trust/Reviews.astro';
 import WhatsAppBand from '@/components/cta/WhatsAppBand.astro';
 import SectionNote from '@/components/home/SectionNote.astro';
+import TrackView from '@/components/seo/TrackView.astro';
+import { itemParams } from '@/lib/tracking';
 import type { ReviewView } from '@/components/trust/ReviewCard.astro';
 import type { TripView } from '@/lib/catalog';
 
@@ -135,6 +137,7 @@ const sections = [
 <RelatedTrips trip={trip} catalog={catalog} />
 
 <StickyBar trip={trip} origin={o.city} />
+{!preview && <TrackView event="view_item" params={{ ...itemParams(trip, o), item_list_name: undefined, value: o.fromPrice ?? undefined }} />}
 <EnquirySheet tripId={trip.id} tripTitle={d.title} originLabel={o.label} transport={d.transportOptions} stay={d.stayOptions} advance={d.advanceAmount} gstPercent={d.gstPercent} />
 
 <style>

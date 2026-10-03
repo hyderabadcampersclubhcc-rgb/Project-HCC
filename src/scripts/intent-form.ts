@@ -12,6 +12,8 @@
  */
 import { getAttribution } from './attribution';
 import { track } from './analytics';
+import { getConsent } from './consent';
+import { metaCookies } from './tags';
 
 const PHONE = /^[6-9]\d{9}$/;
 const TIMEOUT_MS = 12000;
@@ -95,6 +97,9 @@ function init(form: HTMLFormElement) {
       departureId: form.dataset.departureId,
       page: location.pathname,
       attribution: getAttribution(),
+      // Meta Conversions API runs server-side only when the visitor allowed Advertising.
+      consent: { ads: getConsent()?.ads ?? false },
+      meta: metaCookies(),
     };
 
     submit?.setAttribute('data-loading', '');

@@ -51,6 +51,10 @@
   "tracking": {
     "gtmId": "",
     "ga4Id": "",
+    "adsId": "",
+    "adsLeadLabel": "",
+    "adsWhatsappLabel": "",
+    "adsCallLabel": "",
     "metaPixelId": ""
   }
 }

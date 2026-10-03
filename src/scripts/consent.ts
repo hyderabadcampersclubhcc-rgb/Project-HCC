@@ -58,7 +58,10 @@ export function initConsent() {
 
   const stored = getConsent();
   if (stored) apply(stored);
-  banner.hidden = !!stored && !forced;
+  // No tag configured (staging, or before IDs are added): nothing to ask about.
+  const t = window.hccTags;
+  const anyTag = !!(t && (t.ga4 || t.ads || t.pixel || t.gtm));
+  banner.hidden = !forced && (!!stored || !anyTag);
 
   const sw = (name: string) => dialog.querySelector<HTMLInputElement>(`input[name="${name}"]`)!;
   const open = () => {

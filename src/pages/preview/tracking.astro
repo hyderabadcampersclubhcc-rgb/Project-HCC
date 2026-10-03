@@ -1,7 +1,6 @@
 ---
 /** Approval preview: Phase 6 consent banner, privacy dialog and tracking plan. noindex. */
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import ConsentBanner from '@/components/consent/ConsentBanner.astro';
 
 type Row = { action: string; ga4: string; ads: string; meta: string; status?: 'new' };
 
@@ -12,8 +11,8 @@ const CONVERSIONS: Row[] = [
 ];
 
 const FUNNEL: Row[] = [
-  { action: 'Trip page viewed', ga4: 'view_item', ads: 'Remarketing', meta: 'ViewContent', status: 'new' },
-  { action: 'Trip list / category viewed', ga4: 'view_item_list', ads: 'Remarketing', meta: '—', status: 'new' },
+  { action: 'Trip page viewed', ga4: 'view_item', ads: 'Remarketing', meta: 'ViewContent' },
+  { action: 'Trip list / category viewed', ga4: 'view_item_list', ads: 'Remarketing', meta: '—' },
   { action: 'Trip card tapped', ga4: 'select_item', ads: '—', meta: '—' },
   { action: 'Date picked', ga4: 'select_departure', ads: '—', meta: '—' },
   { action: '"Book" / "Enquire" tapped', ga4: 'begin_checkout', ads: 'Remarketing', meta: 'InitiateCheckout' },
@@ -30,9 +29,9 @@ const AUDIENCES = [
 ];
 ---
 
-<BaseLayout title="PREVIEW · Cookie consent & tracking | HCC" rawTitle description="Phase 6 approval preview" noindex>
+<BaseLayout title="PREVIEW · Cookie consent & tracking | HCC" rawTitle description="Phase 6 approval preview" noindex consentPreview>
   <div class="container pv">
-    <p class="overline">Phase 6 · for approval</p>
+    <p class="overline">Phase 6 · built</p>
     <h1>Cookie consent &amp; tracking</h1>
     <p class="pv__lead">
       The banner at the bottom is the real one: try every button. On the live site it appears once per visitor and comes back after 180 days.
@@ -80,8 +79,7 @@ const AUDIENCES = [
                 <tr>
                   <td>
                     {r.action}
-                    {r.status === 'new' && <span class="pv__new">new</span>}
-                  </td>
+                                      </td>
                   <td><code>{r.ga4}</code></td>
                   <td>{r.ads}</td>
                   <td>{r.meta}</td>
@@ -108,16 +106,16 @@ const AUDIENCES = [
     <section>
       <h2>5. What HCC needs to provide (later is fine)</h2>
       <ul class="pv__ul">
-        <li>Google Tag Manager container ID <code>GTM-…</code></li>
         <li>Google Analytics measurement ID <code>G-…</code></li>
         <li>Google Ads conversion ID + labels (only if you run Google Ads)</li>
         <li>Meta Pixel ID + Conversions API token (token goes into the server file, never into the CMS)</li>
+        <li>Google Tag Manager is optional (only for extra tags later)</li>
       </ul>
+      <p class="pv__note">Step-by-step setup: <code>docs/tracking-setup.md</code>.</p>
       <p class="pv__note">Until an ID is entered in CMS → Site settings, that tool simply stays off. Nothing breaks.</p>
     </section>
   </div>
 
-  <ConsentBanner forceOpen />
 </BaseLayout>
 
 <style>
@@ -177,14 +175,5 @@ const AUDIENCES = [
   .pv code {
     font-size: 0.75rem;
     word-break: break-word;
-  }
-  .pv__new {
-    margin-left: 6px;
-    padding: 1px 6px;
-    border-radius: var(--r-pill);
-    background: var(--alert-bg);
-    color: var(--alert);
-    font-size: 0.6875rem;
-    font-weight: 600;
   }
 </style>

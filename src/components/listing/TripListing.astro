@@ -8,6 +8,7 @@
  *   URL in sync (?month=&style=&q=), so the homepage TripFinder lands on a filtered view.
  */
 import TripCard from '@/components/trip/TripCard.astro';
+import TrackView from '@/components/seo/TrackView.astro';
 import Icon from '@/components/ui/Icon.astro';
 import WhatsAppBand from '@/components/cta/WhatsAppBand.astro';
 import type { TripView } from '@/lib/catalog';
@@ -38,8 +39,16 @@ const {
 const chipGroups = tripFacets(trips, chipKeys);
 const sheetGroups = tripFacets(trips, sheetKeys);
 const showSheet = sheetGroups.some((g) => !chipKeys.includes(g.key));
+const viewItems = trips.slice(0, 20).map((t, index) => ({
+  item_id: t.id,
+  item_name: t.data.title,
+  item_category: t.data.tripTypes[0],
+  price: t.primary.fromPrice ?? undefined,
+  index,
+}));
 ---
 
+{trips.length > 0 && <TrackView event="view_item_list" params={{ item_list_name: listName, items: viewItems }} />}
 <div class="tl" data-listing={listName} data-today={today} data-noun="trip">
   {
     trips.length > 0 ? (

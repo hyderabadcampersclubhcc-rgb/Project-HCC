@@ -51,6 +51,7 @@ jobs:
           SITE_URL: ${{ vars.STAGING_URL }}
           PUBLIC_CMS_REPO: ${{ vars.CMS_REPO }}
           PUBLIC_SHOW_SAMPLES: ${{ vars.STAGING_SHOW_SAMPLES }}
+          PUBLIC_ENABLE_TRACKING: ${{ vars.STAGING_ENABLE_TRACKING }}
       - name: Normalise FTP login
         id: ftp
         # Tolerates copy-paste noise: "ftp://" prefixes, ":21", spaces and line breaks around the

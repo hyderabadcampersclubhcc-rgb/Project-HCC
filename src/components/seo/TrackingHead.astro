@@ -1,0 +1,77 @@
+---
+/**
+ * Tag bootstrap, first thing in <head>:
+ *   1. Google Consent Mode v2 defaults: everything denied until the visitor chooses
+ *      (a choice stored by src/scripts/consent.ts is re-applied here, before any tag runs)
+ *   2. gtag.js for GA4 + Google Ads, and GTM if configured (both respect consent)
+ *   3. window.hccTags: IDs for src/scripts/tags.ts (event routing + Meta Pixel after consent)
+ *
+ * Tags only load on production (PUBLIC_ALLOW_INDEXING) or when PUBLIC_ENABLE_TRACKING=true,
+ * so staging and previews never pollute real reports.
+ */
+import { settings } from '@/lib/settings';
+
+const t = settings.tracking;
+const enabled = import.meta.env.PUBLIC_ALLOW_INDEXING === 'true' || import.meta.env.PUBLIC_ENABLE_TRACKING === 'true';
+const cfg = enabled
+  ? {
+      gtm: t.gtmId,
+      ga4: t.ga4Id,
+      ads: t.adsId,
+      labels: { generate_lead: t.adsLeadLabel, click_whatsapp: t.adsWhatsappLabel, click_call: t.adsCallLabel },
+      pixel: t.metaPixelId,
+    }
+  : { gtm: '', ga4: '', ads: '', labels: {}, pixel: '' };
+const gtagId = cfg.ga4 || cfg.ads;
+---
+
+<script is:inline define:vars={{ cfg, gtagId }}>
+  window.dataLayer = window.dataLayer || [];
+  function gtag() {
+    dataLayer.push(arguments);
+  }
+  window.gtag = gtag;
+  window.hccTags = cfg;
+  gtag('consent', 'default', {
+    ad_storage: 'denied',
+    ad_user_data: 'denied',
+    ad_personalization: 'denied',
+    analytics_storage: 'denied',
+    functionality_storage: 'granted',
+    security_storage: 'granted',
+    wait_for_update: 500,
+  });
+  gtag('set', 'ads_data_redaction', true);
+  gtag('set', 'url_passthrough', true);
+  try {
+    var c = JSON.parse(localStorage.getItem('hcc_consent') || 'null');
+    if (c && c.v === 1 && Date.now() - c.ts < 180 * 864e5) {
+      var g = function (on) {
+        return on ? 'granted' : 'denied';
+      };
+      gtag('consent', 'update', {
+        analytics_storage: g(c.analytics),
+        ad_storage: g(c.ads),
+        ad_user_data: g(c.ads),
+        ad_personalization: g(c.ads),
+      });
+    }
+  } catch (e) {}
+  var load = function (src) {
+    var s = document.createElement('script');
+    s.async = true;
+    s.src = src;
+    document.head.appendChild(s);
+  };
+  if (gtagId) {
+    gtag('js', new Date());
+    if (cfg.ga4) gtag('config', cfg.ga4);
+    if (cfg.ads) gtag('config', cfg.ads);
+    load('https://www.googletagmanager.com/gtag/js?id=' + gtagId);
+  }
+  if (cfg.gtm) {
+    dataLayer.push({ 'gtm.start': Date.now(), event: 'gtm.js' });
+    load('https://www.googletagmanager.com/gtm.js?id=' + cfg.gtm);
+  }
+</script>
+{gtagId && <link rel="preconnect" href="https://www.googletagmanager.com" />}

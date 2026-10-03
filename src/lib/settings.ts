@@ -55,7 +55,16 @@ const SettingsSchema = z.object({
     defaultBookingMode: z.enum(['enquiry', 'payment']),
   }),
   urgency: z.object({ seatThreshold: z.number().int().min(1).max(30) }),
-  tracking: z.object({ gtmId: optionalText, ga4Id: optionalText, metaPixelId: optionalText }),
+  // Each tool stays off until its ID is entered. Formats are checked so a typo fails the build.
+  tracking: z.object({
+    gtmId: optionalText.refine((v) => v === '' || /^GTM-[A-Z0-9]{4,10}$/.test(v), 'GTM ID looks like GTM-XXXXXXX'),
+    ga4Id: optionalText.refine((v) => v === '' || /^G-[A-Z0-9]{6,12}$/.test(v), 'GA4 ID looks like G-XXXXXXXXXX'),
+    adsId: optionalText.refine((v) => v === '' || /^AW-\d{6,12}$/.test(v), 'Google Ads ID looks like AW-123456789'),
+    adsLeadLabel: optionalText,
+    adsWhatsappLabel: optionalText,
+    adsCallLabel: optionalText,
+    metaPixelId: optionalText.refine((v) => v === '' || /^\d{10,20}$/.test(v), 'Meta Pixel ID is 15–16 digits'),
+  }),
 });
 
 export type Settings = z.infer<typeof SettingsSchema>;

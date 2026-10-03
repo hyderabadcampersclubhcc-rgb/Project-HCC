@@ -10,6 +10,7 @@
  *   3. appends a backup copy to a private JSONL file (outside the web root when possible)
  *   4. forwards the lead to the Google Sheet via the Apps Script web app
  *   5. responds { ok, id, next } with next = "confirm" (or "pay" once Razorpay is enabled)
+ *   6. after responding, reports the Lead to Meta Conversions API (if configured + consented)
  *
  * Secrets live in api/config.php on the server (never in git). See config.sample.php.
  * Requires PHP 8.0+ with curl (standard on Hostinger).
@@ -309,6 +310,72 @@ function send_to_sheet(array $lead, string $url, string $secret): bool
     return true;
 }
 
+/**
+ * Meta Conversions API: reports the Lead server-side with the same event_id the browser
+ * Pixel uses (the lead ID), so Meta counts it once even when the Pixel is blocked.
+ * Only runs when the visitor allowed Advertising cookies. The phone number is sent
+ * SHA-256 hashed, as Meta requires; nothing else personal is sent.
+ */
+function send_to_meta(array $lead, array $in, string $phone, ?array $quote, array $config, string $pixelId): void
+{
+    $token = (string) ($config['meta_capi_token'] ?? '');
+    if ($pixelId === '' || $token === '' || !function_exists('curl_init')) {
+        return;
+    }
+    if (($in['consent']['ads'] ?? false) !== true) {
+        return;
+    }
+    $cookie = fn (string $k) => preg_match('/^fb\.\d\.\d{10,13}\.[A-Za-z0-9_.\-]{4,500}$/', (string) ($in['meta'][$k] ?? '')) ? (string) $in['meta'][$k] : '';
+    $fbc = $cookie('fbc');
+    if ($fbc === '' && $lead['fbclid'] !== '') {
+        $fbc = 'fb.1.' . (int) (microtime(true) * 1000) . '.' . $lead['fbclid'];
+    }
+    $host = strtolower(preg_replace('/:\d+$/', '', $_SERVER['HTTP_HOST'] ?? '') ?? '');
+    $event = [
+        'event_name' => 'Lead',
+        'event_time' => time(),
+        'event_id' => $lead['id'],
+        'action_source' => 'website',
+        'event_source_url' => 'https://' . $host . ($lead['page'] !== '' ? $lead['page'] : '/'),
+        'user_data' => array_filter([
+            'ph' => [hash('sha256', '91' . $phone)],
+            'country' => [hash('sha256', 'in')],
+            'client_ip_address' => $_SERVER['REMOTE_ADDR'] ?? null,
+            'client_user_agent' => mb_substr((string) ($_SERVER['HTTP_USER_AGENT'] ?? ''), 0, 400) ?: null,
+            'fbp' => $cookie('fbp') ?: null,
+            'fbc' => $fbc ?: null,
+        ]),
+        'custom_data' => array_filter([
+            'currency' => 'INR',
+            'value' => $quote['total'] ?? null,
+            'content_ids' => $lead['tripId'] !== '' ? [$lead['tripId']] : null,
+            'content_type' => $lead['tripId'] !== '' ? 'product' : null,
+            'lead_type' => $lead['kind'],
+        ], fn ($v) => $v !== null),
+    ];
+    $body = ['data' => [$event]];
+    if (!empty($config['meta_test_event_code'])) {
+        $body['test_event_code'] = (string) $config['meta_test_event_code'];
+    }
+    $version = (string) ($config['meta_api_version'] ?? 'v23.0');
+    $base = rtrim((string) ($config['meta_api_base'] ?? 'https://graph.facebook.com'), '/'); // overridable for local tests
+    $ch = curl_init("$base/$version/" . rawurlencode($pixelId) . '/events?access_token=' . rawurlencode($token));
+    curl_setopt_array($ch, [
+        CURLOPT_POST => true,
+        CURLOPT_POSTFIELDS => json_encode($body, JSON_UNESCAPED_SLASHES),
+        CURLOPT_HTTPHEADER => ['Content-Type: application/json'],
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_CONNECTTIMEOUT => 3,
+        CURLOPT_TIMEOUT => 5,
+    ]);
+    $res = curl_exec($ch);
+    $status = (int) curl_getinfo($ch, CURLINFO_RESPONSE_CODE);
+    curl_close($ch);
+    if ($status !== 200) {
+        error_log("HCC leads: Meta CAPI failed for {$lead['id']} (HTTP $status) " . mb_substr((string) $res, 0, 300));
+    }
+}
+
 $backedUp = backup_lead($lead, (string) $config['backup_dir']);
 $delivered = send_to_sheet($lead, (string) $config['leads_webhook_url'], (string) $config['leads_secret']);
 
@@ -320,4 +387,12 @@ if (!$delivered) {
     error_log("HCC leads: lead $id saved to backup only");
 }
 
-respond(200, ['ok' => true, 'id' => $id, 'next' => $next]);
+// Answer the visitor first, then talk to Meta (LiteSpeed/FPM let the script continue).
+http_response_code(200);
+echo json_encode(['ok' => true, 'id' => $id, 'next' => $next]);
+if (function_exists('litespeed_finish_request')) {
+    litespeed_finish_request();
+} elseif (function_exists('fastcgi_finish_request')) {
+    fastcgi_finish_request();
+}
+send_to_meta($lead, $in, $phone, $quote, $config, (string) ($config['meta_pixel_id'] ?? '') ?: (string) ($catalog['tracking']['metaPixelId'] ?? ''));

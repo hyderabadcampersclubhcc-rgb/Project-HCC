@@ -13,6 +13,12 @@ return [
     // Private backup of every lead (JSON lines). Default: one level above public_html.
     // 'backup_dir' => '/home/uXXXXXXX/hcc-leads',
 
+    // Meta Conversions API (Events Manager → your Pixel → Settings → Conversions API →
+    // "Generate access token"). The Pixel ID itself is set in the CMS (Site settings → Tracking).
+    'meta_capi_token' => '',
+    // Optional while testing: the code from Events Manager → Test events (remove afterwards)
+    'meta_test_event_code' => '',
+
     // Decap CMS login via GitHub (GitHub → Settings → Developer settings → OAuth Apps)
     'github_client_id' => '',
     'github_client_secret' => '',

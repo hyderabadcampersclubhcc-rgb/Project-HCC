@@ -714,6 +714,10 @@ collections:
             name: tracking
             widget: object
             fields:
-              - { label: Google Tag Manager ID, name: gtmId, widget: string, required: false }
-              - { label: GA4 measurement ID, name: ga4Id, widget: string, required: false }
-              - { label: Meta Pixel ID, name: metaPixelId, widget: string, required: false }
+              - { label: Google Analytics 4 measurement ID, name: ga4Id, widget: string, required: false, hint: 'G-XXXXXXXXXX (Analytics → Admin → Data streams). Leave empty to switch Google Analytics off.' }
+              - { label: Google Ads ID, name: adsId, widget: string, required: false, hint: 'AW-123456789 (Google Ads → Goals → Conversions → Tag setup). Leave empty if you do not run Google Ads.' }
+              - { label: Google Ads label · Enquiry sent, name: adsLeadLabel, widget: string, required: false, hint: 'The part after the slash in AW-123456789/AbCdEf… for the "Enquiry" conversion.' }
+              - { label: Google Ads label · WhatsApp click, name: adsWhatsappLabel, widget: string, required: false }
+              - { label: Google Ads label · Call click, name: adsCallLabel, widget: string, required: false }
+              - { label: Meta Pixel ID, name: metaPixelId, widget: string, required: false, hint: 'Digits only (Meta Events Manager → Data sources). The Conversions API token goes in api/config.php on the server, never here.' }
+              - { label: Google Tag Manager ID (optional), name: gtmId, widget: string, required: false, hint: 'GTM-XXXXXXX. Only for extra tags. Do NOT add GA4, Google Ads or Meta Pixel tags inside GTM if their IDs are set above, or everything counts twice.' }

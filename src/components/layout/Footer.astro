@@ -107,7 +107,10 @@ const year = new Date().getFullYear();
 
     <div class="ftr__bottom">
       <p>© {year} {settings.brand.name}</p>
-      <ul>{FOOTER_LEGAL.map((l) => <li><a href={l.href}>{l.label}</a></li>)}</ul>
+      <ul>
+        {FOOTER_LEGAL.map((l) => <li><a href={l.href}>{l.label}</a></li>)}
+        <li><button type="button" class="ftr__consent" data-consent-open>Privacy choices</button></li>
+      </ul>
     </div>
   </div>
 </footer>
@@ -208,6 +211,16 @@ const year = new Date().getFullYear();
     margin: 0;
     padding: 0;
     list-style: none;
+  }
+  .ftr__consent {
+    padding: 0;
+    background: none;
+    border: 0;
+    font: inherit;
+    color: inherit;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    cursor: pointer;
   }
   @media (min-width: 1024px) {
     .ftr__top {

@@ -1,0 +1,12 @@
+---
+/** Declares a page-view analytics event (view_item, view_item_list); fired by src/scripts/analytics.ts. */
+interface Props {
+  event: 'view_item' | 'view_item_list';
+  params: Record<string, unknown>;
+}
+
+const { event, params } = Astro.props;
+const json = JSON.stringify(params).replace(/</g, '\\u003c');
+---
+
+<script is:inline type="application/json" data-track-view={event} set:html={json} />

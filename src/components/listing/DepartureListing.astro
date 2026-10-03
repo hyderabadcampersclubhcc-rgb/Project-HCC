@@ -4,6 +4,7 @@
  * with TripListing: When / Style / City chips filter in place; empty months collapse.
  */
 import DepartureCard from '@/components/trip/DepartureCard.astro';
+import TrackView from '@/components/seo/TrackView.astro';
 import WhatsAppBand from '@/components/cta/WhatsAppBand.astro';
 import type { UpcomingItem } from '@/lib/catalog';
 import { monthLong } from '@/lib/format';
@@ -31,8 +32,17 @@ const attrs = (i: UpcomingItem) => ({
   'data-price': String(i.departure.price),
   'data-text': [i.trip.data.title, ...i.trip.destinationNames].join(' ').toLowerCase(),
 });
+const viewItems = items.slice(0, 20).map((i, index) => ({
+  item_id: i.trip.id,
+  item_name: i.trip.data.title,
+  item_category: i.trip.data.tripTypes[0],
+  item_variant: i.origin.city,
+  price: i.departure.price,
+  index,
+}));
 ---
 
+{items.length > 0 && <TrackView event="view_item_list" params={{ item_list_name: 'upcoming_page', items: viewItems }} />}
 <div class="dl" data-listing="upcoming" data-today={today} data-noun="departure">
   {
     items.length > 0 ? (

@@ -1,12 +1,16 @@
 /**
- * Analytics bridge. Everything goes to window.dataLayer; GTM (Phase 6) routes
- * events to GA4, Google Ads and Meta. Components declare tracking in markup:
+ * Analytics bridge. Every event goes to window.dataLayer (for GTM) and through
+ * routeEvent() to GA4, Google Ads and Meta (src/scripts/tags.ts). Components declare
+ * tracking in markup:
  *
  *   <a data-track="select_item" data-track-params='{"item_id":"ooty-coonoor"}'>
  *
  * Auto-tracked: tel: links → click_call, external links → outbound_click.
+ * Page-view events (view_item, view_item_list) come from <TrackView> JSON blocks.
  * Never send personal data (names, phone numbers) in event params.
  */
+import { routeEvent } from './tags';
+
 type Params = Record<string, string | number | boolean | null | undefined | object>;
 
 declare global {
@@ -18,6 +22,7 @@ declare global {
 export function track(event: string, params: Params = {}) {
   window.dataLayer = window.dataLayer || [];
   window.dataLayer.push({ event, ...params });
+  routeEvent(event, params);
   if (import.meta.env.DEV) console.debug('[track]', event, params);
 }
 
@@ -47,4 +52,15 @@ export function initClickTracking() {
     },
     { capture: true },
   );
+}
+
+/** Fires the events declared by <TrackView> on this page (view_item, view_item_list). */
+export function initViewEvents() {
+  document.querySelectorAll<HTMLScriptElement>('script[data-track-view]').forEach((el) => {
+    try {
+      track(el.dataset.trackView!, JSON.parse(el.textContent ?? '{}'));
+    } catch {
+      /* malformed block: skip */
+    }
+  });
 }
