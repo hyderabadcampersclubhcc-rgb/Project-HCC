@@ -1,0 +1,94 @@
+---
+/**
+ * Global mobile bottom bar (<1024px): Trips · Dates · Search · WhatsApp.
+ * Hidden while the keyboard is open (a form field has focus). Trip pages use StickyBar instead.
+ */
+import Icon from '@/components/ui/Icon.astro';
+import { waHref, waRef } from '@/lib/whatsapp';
+
+const path = Astro.url.pathname;
+const wa = waHref();
+const items = [
+  { href: '/trips/', label: 'Trips', icon: 'compass' as const },
+  { href: '/upcoming-trips/', label: 'Dates', icon: 'calendar' as const },
+  { href: '/trips/#search', label: 'Search', icon: 'search' as const },
+];
+---
+
+<nav class="mnav" aria-label="Quick links" data-mobile-bar>
+  {
+    items.map((i) => (
+      <a href={i.href} aria-current={path.startsWith(i.href.replace('#search', '')) && i.label !== 'Search' ? 'page' : undefined}>
+        <Icon name={i.icon} />
+        <span>{i.label}</span>
+      </a>
+    ))
+  }
+  {
+    wa ? (
+      <a href={wa} class="mnav__wa" target="_blank" rel="noopener" data-wa data-wa-ref={waRef()} data-cta-location="bottom_bar">
+        <Icon name="whatsapp" />
+        <span>WhatsApp</span>
+      </a>
+    ) : (
+      <a href="/contact/">
+        <Icon name="phone" />
+        <span>Contact</span>
+      </a>
+    )
+  }
+</nav>
+
+<script>
+  // Hide bottom bars while typing so they never sit on top of the keyboard.
+  const bars = () => document.querySelectorAll<HTMLElement>('[data-mobile-bar]');
+  const isField = (el: EventTarget | null) => el instanceof HTMLElement && el.matches('input, textarea, select');
+  document.addEventListener('focusin', (e) => isField(e.target) && bars().forEach((b) => (b.dataset.hidden = '')));
+  document.addEventListener('focusout', (e) => isField(e.target) && bars().forEach((b) => delete b.dataset.hidden));
+</script>
+
+<style>
+  .mnav {
+    position: fixed;
+    inset: auto 0 0;
+    z-index: 30;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    padding: 6px 4px calc(6px + env(safe-area-inset-bottom));
+    background: var(--surface);
+    border-top: 1px solid var(--line);
+    box-shadow: 0 -8px 24px -14px rgb(18 24 22 / 0.2);
+    transition: transform var(--t) var(--ease);
+  }
+  .mnav[data-hidden] {
+    transform: translateY(110%);
+  }
+  .mnav a {
+    display: grid;
+    justify-items: center;
+    align-content: center;
+    gap: 3px;
+    min-height: 50px;
+    border-radius: 10px;
+    font: 600 0.6875rem / 1 var(--font-body);
+    color: var(--text-2);
+    text-decoration: none;
+  }
+  .mnav a :global(.icon) {
+    font-size: 1.3rem;
+  }
+  .mnav a[aria-current='page'] {
+    color: var(--ink-900);
+  }
+  .mnav__wa {
+    color: var(--forest-700) !important;
+  }
+  .mnav__wa :global(.icon) {
+    color: var(--wa-green);
+  }
+  @media (min-width: 1024px) {
+    .mnav {
+      display: none;
+    }
+  }
+</style>

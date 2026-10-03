@@ -1,0 +1,576 @@
+---
+/**
+ * Living style guide: every token and component rendered from real code and sample
+ * data. noindex, excluded from the sitemap and blocked in robots.txt.
+ * Sample data is pinned to SAMPLE_TODAY so states never expire.
+ */
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Button from '@/components/ui/Button.astro';
+import Badge from '@/components/ui/Badge.astro';
+import Icon, { ICONS, type IconName } from '@/components/ui/Icon.astro';
+import Stub from '@/components/ui/Stub.astro';
+import RouteLine from '@/components/ui/RouteLine.astro';
+import DateStub from '@/components/ui/DateStub.astro';
+import Price from '@/components/ui/Price.astro';
+import Field from '@/components/ui/Field.astro';
+import SectionHeader from '@/components/ui/SectionHeader.astro';
+import Logo from '@/components/ui/Logo.astro';
+import TripCard from '@/components/trip/TripCard.astro';
+import DepartureCard from '@/components/trip/DepartureCard.astro';
+import DestinationCard from '@/components/trip/DestinationCard.astro';
+import FeaturedTripCard from '@/components/trip/FeaturedTripCard.astro';
+import BookingCard from '@/components/trip/BookingCard.astro';
+import StickyBar from '@/components/trip/StickyBar.astro';
+import TrustBar from '@/components/trust/TrustBar.astro';
+import ReviewCard from '@/components/trust/ReviewCard.astro';
+import Reviews from '@/components/trust/Reviews.astro';
+import BlogCard from '@/components/content/BlogCard.astro';
+import FAQ from '@/components/content/FAQ.astro';
+import Breadcrumbs from '@/components/content/Breadcrumbs.astro';
+import TripFinder from '@/components/search/TripFinder.astro';
+import FilterBar, { type Facet } from '@/components/search/FilterBar.astro';
+import WhatsAppBand from '@/components/cta/WhatsAppBand.astro';
+import { getCollection } from 'astro:content';
+import { getTrips, getUpcoming, getTripsForDestination, toneFor } from '@/lib/catalog';
+import { monthLong } from '@/lib/format';
+import { visibleTrustItems, whatsappNumber } from '@/lib/settings';
+
+const SAMPLE_TODAY = '2026-10-03';
+const opts = { samples: true, today: SAMPLE_TODAY };
+
+const trips = await getTrips(opts);
+const byId = Object.fromEntries(trips.map((t) => [t.id, t]));
+const upcoming = await getUpcoming({ ...opts, limit: 6 });
+const destinations = (await getCollection('destinations')).filter((d) => d.data.sample);
+const destCards = await Promise.all(
+  destinations.slice(0, 4).map(async (d) => {
+    const ts = await getTripsForDestination(d.id, opts);
+    const prices = ts.map((t) => t.primary.fromPrice).filter((p): p is number => p != null);
+    const shortest = ts.sort((a, b) => a.data.durationNights - b.data.durationNights)[0];
+    return {
+      id: d.id,
+      name: d.data.name,
+      tripCount: ts.length,
+      fromPrice: prices.length ? Math.min(...prices) : null,
+      duration: shortest ? ([shortest.data.durationNights, shortest.data.durationDays] as [number, number]) : null,
+      bestMonths: d.data.bestMonths,
+      tone: shortest ? toneFor(shortest.data) : ('hills' as const),
+    };
+  }),
+);
+
+const months = [...new Set(upcoming.map((u) => u.departure.start.slice(0, 7)))];
+const facets: Facet[] = [
+  { key: 'month', value: 'this-weekend', label: 'This weekend' },
+  { key: 'month', value: 'next-weekend', label: 'Next weekend' },
+  ...months.map((m) => ({ key: 'month', value: m, label: monthLong(m).split(' ')[0] })),
+  { key: 'budget', value: 'under-8000', label: 'Under ₹8k' },
+  { key: 'transport', value: 'train', label: 'Train' },
+];
+
+const swatches = [
+  ['--forest-950', 'Forest 950', 'Deep sections, footer'],
+  ['--forest-900', 'Forest 900', 'Brand, secondary buttons'],
+  ['--forest-700', 'Forest 700', 'Hover, selected'],
+  ['--forest-500', 'Forest 500', 'Links, icons'],
+  ['--forest-50', 'Forest 50', 'Selected fills'],
+  ['--marigold-500', 'Marigold 500', 'Primary CTA only'],
+  ['--marigold-600', 'Marigold 600', 'CTA hover'],
+  ['--marigold-100', 'Marigold 100', 'Highlights'],
+  ['--ember-600', 'Ember 600', 'Seat status, errors'],
+  ['--ember-100', 'Ember 100', 'Alert backgrounds'],
+  ['--sand-50', 'Sand 50', 'Page background'],
+  ['--sand-100', 'Sand 100', 'Bands, inputs'],
+  ['--sand-200', 'Sand 200', 'Borders'],
+  ['--ink-900', 'Ink 900', 'Text'],
+  ['--ink-500', 'Ink 500', 'Secondary text'],
+  ['--sky-600', 'Sky 600', 'Info notes'],
+];
+const darkSwatch = new Set(['--forest-950', '--forest-900', '--forest-700', '--forest-500', '--ember-600', '--ink-900', '--ink-500', '--sky-600']);
+
+const demoReview = {
+  name: 'Reviewer name',
+  rating: 5,
+  text: 'LAYOUT DEMO, NOT A REVIEW. Real Google review text appears here exactly as written by the traveller. Long reviews are trimmed with a "Read more" toggle so cards stay even in a rail.',
+  date: '2026-09-14',
+  source: 'google' as const,
+  tripTitle: 'Ooty & Coonoor',
+  tripUrl: '#',
+};
+const demoTrust = [
+  { icon: 'star' as const, value: '4.x ★', label: 'Google rating', detail: 'N reviews', sourceUrl: '', enabled: true },
+  { icon: 'users' as const, value: 'N+', label: 'travellers', detail: '', sourceUrl: '', enabled: true },
+  { icon: 'calendar' as const, value: 'Weekly', label: 'departures', detail: '', sourceUrl: '', enabled: true },
+  { icon: 'pin' as const, value: 'Hyderabad', label: 'based team', detail: '', sourceUrl: '', enabled: true },
+];
+const iconNames = Object.keys(ICONS) as IconName[];
+
+const sections = [
+  ['tokens', 'Tokens'],
+  ['type', 'Type'],
+  ['buttons', 'Buttons'],
+  ['badges', 'Badges & signature'],
+  ['forms', 'Forms'],
+  ['trip-cards', 'Trip cards'],
+  ['departures', 'Departures'],
+  ['destinations', 'Destinations'],
+  ['featured', 'Featured'],
+  ['booking', 'Booking card'],
+  ['search', 'Search & filters'],
+  ['trust', 'Trust & reviews'],
+  ['content', 'Content'],
+  ['icons', 'Icons'],
+];
+---
+
+<BaseLayout title="Style guide" description="HCC design system: tokens, primitives and components." noindex mobileBar="none">
+  <div class="sg-hero">
+    <div class="container">
+      <p class="overline">HCC design system · v1.0</p>
+      <h1>Style guide</h1>
+      <p class="lede">Every component on this page is the production component, rendered from the content model. Trips, prices and dates are <b>sample data</b> (pinned to {SAMPLE_TODAY}). They never appear on public pages.</p>
+    </div>
+  </div>
+
+  <nav class="sg-toc" aria-label="Style guide sections">
+    <div class="container chips">
+      {sections.map(([id, label]) => <a class="chip" href={`#${id}`}>{label}</a>)}
+    </div>
+  </nav>
+
+  <div class="container sg">
+    <!-- TOKENS -->
+    <section id="tokens" class="sg-sec">
+      <SectionHeader overline="01" title="Colour tokens" subtitle="Components use semantic tokens (--cta, --surface, --text-2). Raw palette shown for reference." />
+      <div class="sg-swatches">
+        {
+          swatches.map(([v, name, use]) => (
+            <div class="sg-sw">
+              <div class="sg-sw__c" style={`background:var(${v});color:${darkSwatch.has(v) ? '#fff' : 'var(--ink-900)'}`}>{v}</div>
+              <p><b>{name}</b><br />{use}</p>
+            </div>
+          ))
+        }
+      </div>
+      <h3 class="sg-h3">Radius · elevation</h3>
+      <div class="sg-row">
+        {['--r-sm', '--r-md', '--r-lg', '--r-xl', '--r-pill'].map((r) => <div class="sg-shape" style={`border-radius:var(${r})`}>{r}</div>)}
+        {['--sh-1', '--sh-2', '--sh-3'].map((s) => <div class="sg-shape sg-shape--sh" style={`box-shadow:var(${s})`}>{s}</div>)}
+      </div>
+    </section>
+
+    <!-- TYPE -->
+    <section id="type" class="sg-sec">
+      <SectionHeader overline="02" title="Typography" subtitle="Bricolage Grotesque (display) + Inter (UI/body), self-hosted Latin subsets with metric-matched fallbacks." />
+      <div class="sg-type">
+        <p class="sg-t" style="font:800 var(--fs-display)/1 var(--font-display);letter-spacing:var(--tracking-display)">Your people.</p>
+        <p class="sg-t" style="font:700 var(--fs-h1)/1.1 var(--font-display);letter-spacing:-.02em">Ooty &amp; Coonoor Group Trip</p>
+        <p class="sg-t" style="font:700 var(--fs-h2)/1.15 var(--font-display);letter-spacing:-.02em">Upcoming trips</p>
+        <p class="sg-t" style="font:700 var(--fs-h3)/1.25 var(--font-display)">Day 2 · Tea estates &amp; viewpoints</p>
+        <p class="sg-t lede">Escape the city on Friday night, wake up in the Nilgiris, and be back at your desk on Monday.</p>
+        <p class="sg-t">Clear inclusions, honest timings and a coordinator from pickup to drop.</p>
+        <p class="sg-t overline">Weekend trips from Hyderabad</p>
+        <Price amount={6999} was={7999} per="/person" size="lg" />
+      </div>
+    </section>
+
+    <!-- BUTTONS -->
+    <section id="buttons" class="sg-sec">
+      <SectionHeader overline="03" title="Buttons" subtitle="Labels say what happens next. One marigold button per viewport." />
+      <div class="sg-demo">
+        <Button>Book Your Seat</Button>
+        <Button variant="secondary">Get Full Itinerary</Button>
+        <Button variant="whatsapp" icon="whatsapp">WhatsApp HCC</Button>
+        <Button variant="dark">Plan My Trip</Button>
+        <Button variant="text" href="#" iconRight="arrow">See all dates</Button>
+      </div>
+      <div class="sg-demo">
+        <Button size="lg">Find My Trip</Button>
+        <Button size="sm">View Dates</Button>
+        <Button data-loading>Sending</Button>
+        <Button disabled>Sold out</Button>
+        <Button variant="whatsapp" iconOnly icon="whatsapp" aria-label="WhatsApp HCC" />
+      </div>
+      <div class="sg-demo sg-demo--dark">
+        <Button>Explore Trips</Button>
+        <Button variant="ghost">Plan a Custom Trip</Button>
+        <Button variant="whatsapp-deep" icon="whatsapp">WhatsApp HCC</Button>
+      </div>
+      {
+        !whatsappNumber && (
+          <p class="note note--highlight">
+            <Icon name="info" />
+            <span>
+              <b>Live WhatsApp buttons are hidden site-wide</b> because no WhatsApp number is set in Site settings. The static buttons above show the styling. Add the number and every WhatsApp CTA (header, cards, booking card, sticky bar) appears automatically.
+            </span>
+          </p>
+        )
+      }
+    </section>
+
+    <!-- BADGES / SIGNATURE -->
+    <section id="badges" class="sg-sec">
+      <SectionHeader overline="04" title="Badges & signature elements" subtitle="Urgency badges only ever render from team-entered data." />
+      <div class="sg-demo">
+        <Badge tone="alert">6 seats left</Badge>
+        <Badge tone="alert">Filling fast</Badge>
+        <Badge tone="muted">Sold out</Badge>
+        <Badge tone="info">Waitlist</Badge>
+        <Badge tone="ok">New dates</Badge>
+        <Badge tone="dark">Long weekend</Badge>
+        <Badge tone="outline">Easy</Badge>
+        <Badge tone="cta">Offer</Badge>
+      </div>
+      <div class="sg-demo sg-demo--photo ph ph--hills">
+        <Stub nights={2} days={3} />
+        <Badge tone="glass">Weekend</Badge>
+        <Badge tone="solid-white">4 seats left</Badge>
+      </div>
+      <div class="sg-demo">
+        <RouteLine stops={['Hyderabad', 'Ooty', 'Coonoor']} />
+      </div>
+      <div class="sg-demo">
+        <DateStub date="2026-10-09" />
+        <DateStub date="2026-10-16" selected as="button" />
+        <DateStub date="2026-10-23" flag="5 left" flagTone="alert" />
+        <DateStub date="2026-10-30" flag="Full" disabled />
+        <Stub nights={3} days={4} outlined />
+      </div>
+      <div class="sg-demo">
+        <Logo />
+        <span class="sg-demo sg-demo--dark" style="padding:12px;margin:0"><Logo tone="light" href={null} /></span>
+      </div>
+    </section>
+
+    <!-- FORMS -->
+    <section id="forms" class="sg-sec">
+      <SectionHeader overline="05" title="Form fields" subtitle="Visible labels, 16px inputs (no iOS zoom), right keyboard per field, two required fields max." />
+      <div class="sg-forms">
+        <Field label="Your name" name="sg-name" placeholder="e.g. Priya" autocomplete="name" />
+        <Field label="WhatsApp number" name="sg-phone" kind="tel" placeholder="98765 43210" help="We'll send the itinerary here." />
+        <Field label="Phone" name="sg-phone-err" kind="tel" value="98765" error="Enter a 10-digit mobile number" />
+        <Field label="Travel type" name="sg-type" kind="select" optional options={['Weekend getaway', 'Trek / adventure', 'Couple', 'Family', 'Corporate']} />
+        <Field label="Anything else?" name="sg-notes" kind="textarea" optional placeholder="Dates, group size, budget…" />
+        <label class="check"><input type="checkbox" checked /> Send me trip updates on WhatsApp (opt out anytime)</label>
+      </div>
+      <div class="sg-row" style="margin-top:16px">
+        <p class="note"><Icon name="info" /><span>Info note: neutral guidance.</span></p>
+        <p class="note note--highlight"><Icon name="calendar" /><span>Showing the <b>Fri 9 Oct</b> departure from your link</span></p>
+        <p class="note note--alert"><Icon name="info" /><span>That date is full. Next available: <b>Fri 16 Oct</b></span></p>
+      </div>
+    </section>
+
+    <!-- TRIP CARDS -->
+    <section id="trip-cards" class="sg-sec">
+      <SectionHeader overline="06" title="TripCard" subtitle="Four data states, all computed by the catalog from Trip + Departure records." />
+      <div class="grid-cards">
+        <div><p class="sg-state">Default · strike-through from originalPrice</p><TripCard trip={byId['ooty-coonoor']} headingLevel="h4" showPhotoLabel listName="styleguide" /></div>
+        <div><p class="sg-state">Next departure has seatsLeft: 6</p><TripCard trip={byId['gokarna-dandeli']} headingLevel="h4" listName="styleguide" /></div>
+        <div><p class="sg-state">Nearest date sold out · next shown</p><TripCard trip={byId['coorg-chikmagalur']} headingLevel="h4" listName="styleguide" /></div>
+        <div><p class="sg-state">No departures, no recurrence</p><TripCard trip={byId['manali']} headingLevel="h4" listName="styleguide" /></div>
+      </div>
+    </section>
+
+    <!-- DEPARTURES -->
+    <section id="departures" class="sg-sec">
+      <SectionHeader overline="07" title="DepartureCard" subtitle="Upcoming rail: one card per date, sorted by date. Swipe on mobile, grid on desktop.">
+        <Button variant="text" href="#" iconRight="arrow">See all dates</Button>
+      </SectionHeader>
+      <div class="rail rail--grid" style="--rail-cols:3">
+        {upcoming.map((item, i) => <DepartureCard item={item} index={i} headingLevel="h4" listName="styleguide" />)}
+      </div>
+    </section>
+
+    <!-- DESTINATIONS -->
+    <section id="destinations" class="sg-sec">
+      <SectionHeader overline="08" title="DestinationCard" subtitle="Trip count, from-price and shortest duration computed from live trips." />
+      <div class="rail rail--grid" style="--rail-cols:4;--rail-item:46%">
+        {destCards.map((d) => <DestinationCard {...d} headingLevel="h4" href="#" />)}
+      </div>
+    </section>
+
+    <!-- FEATURED -->
+    <section id="featured" class="sg-sec">
+      <SectionHeader overline="09" title="FeaturedTripCard" subtitle="Story first, price second. Uses trip.featuredStory and highlights." />
+      <div class="sg-featured">
+        <FeaturedTripCard trip={byId['coorg-chikmagalur']} showPhotoLabel />
+        <FeaturedTripCard trip={byId['ooty-coonoor']} />
+      </div>
+    </section>
+
+    <!-- BOOKING -->
+    <section id="booking" class="sg-sec">
+      <SectionHeader overline="10" title="BookingCard (live)" subtitle="Fully interactive. Try ?d=2026-10-30 (sold out → next date), ?d=2026-10-16, ?opt=3a or ?view=dates on this URL." />
+      <div class="sg-booking">
+        <BookingCard trip={byId['ooty-coonoor']} id="sg-book" />
+        <div class="stack">
+          <p class="sg-state">Events emitted (open the console)</p>
+          <pre class="sg-log" data-sg-log>Interact with the card…</pre>
+          <p class="muted" style="font-size:.875rem">
+            <b>Book Your Seat</b> emits <code>hcc:book</code> with the full selection. In Phase 4 the EnquirySheet turns it into a BookingIntent (<code>/api/intents</code>). When Razorpay is enabled the same intent returns <code>next: "pay"</code>, and this component stays unchanged. On mobile, scroll past the card to see the StickyBar.
+          </p>
+          <BookingCard trip={byId['manali']} id="sg-book-empty" />
+        </div>
+      </div>
+    </section>
+
+    <!-- SEARCH -->
+    <section id="search" class="sg-sec">
+      <SectionHeader overline="11" title="TripFinder & FilterBar" subtitle="Finder is a plain GET form to /trips/ with native pickers on mobile. Months come from real departures." />
+      <div class="sg-finder ph ph--dusk">
+        <TripFinder id="sg-finder-row" layout="row" />
+      </div>
+      <div class="sg-row" style="align-items:flex-start">
+        <div style="flex:1 1 340px;max-width:420px"><TripFinder id="sg-finder-stack" /></div>
+        <div style="flex:1 1 340px;min-width:0" data-filter-scope>
+          <FilterBar facets={facets} active={{ month: months[0] ?? '' }} resultLabel={`${trips.length} trips · ${upcoming.length}+ departures`} showFiltersButton basePath="/styleguide/" />
+        </div>
+      </div>
+    </section>
+
+    <!-- TRUST -->
+    <section id="trust" class="sg-sec">
+      <SectionHeader overline="12" title="Trust & reviews" subtitle="Rendered only from real data. Empty values hide; under 3 reviews the section collapses." />
+      <p class="sg-state">Live, from Site settings ({visibleTrustItems().length} item(s) with real values)</p>
+      <TrustBar />
+      {visibleTrustItems().length < 2 && <p class="note"><Icon name="info" /><span>Hidden: fewer than 2 trust items have real values in Site settings. This is intentional.</span></p>}
+      <p class="sg-state" style="margin-top:20px">Layout demo with placeholder values</p>
+      <TrustBar items={demoTrust} />
+      <div class="sg-row" style="margin-top:20px;align-items:flex-start">
+        <div style="flex:1 1 320px;max-width:420px">
+          <p class="sg-state">ReviewCard (layout demo)</p>
+          <ReviewCard review={demoReview} clampAt={120} />
+        </div>
+        <div style="flex:1 1 320px">
+          <p class="sg-state">Live reviews section</p>
+          <Reviews />
+          <p class="note"><Icon name="info" /><span>No reviews in the <code>reviews</code> collection yet, so the section renders nothing (or a Google link once the profile URL is set).</span></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTENT -->
+    <section id="content" class="sg-sec">
+      <SectionHeader overline="13" title="Content components" />
+      <Breadcrumbs items={[{ label: 'Weekend Trips from Hyderabad', href: '/weekend-trips-from-hyderabad/' }, { label: 'Ooty & Coonoor' }]} />
+      <div class="grid-cards" style="margin-top:20px">
+        <BlogCard title="Best Weekend Getaways from Hyderabad" href="#" category="Weekend getaways" excerpt="Sample card. Guides render from the guides collection." date="2026-09-20" readMinutes={9} tone="hills" headingLevel="h4" />
+        <BlogCard title="Ooty vs Coorg: Which to Pick?" href="#" category="Comparisons" excerpt="Sample card." date="2026-08-02" readMinutes={6} tone="coffee" headingLevel="h4" />
+        <BlogCard title="Best Camping Places Near Hyderabad" href="#" category="Camping" excerpt="Sample card." date="2026-07-11" readMinutes={7} tone="camp" headingLevel="h4" />
+      </div>
+      <div class="sg-row" style="margin-top:28px;align-items:flex-start">
+        <div style="flex:1 1 360px">
+          <FAQ
+            openFirst
+            items={[
+              { q: 'Can I join if I am travelling alone?', a: 'Sample answer. Real answers are written per trip by HCC.' },
+              { q: 'How much do I pay to reserve a seat?', a: 'Sample answer.' },
+              { q: 'Where is the pickup point in Hyderabad?', a: 'Sample answer.' },
+            ]}
+          />
+        </div>
+        <div style="flex:1 1 360px">
+          <WhatsAppBand location="styleguide" headingLevel="h3" />
+        </div>
+      </div>
+    </section>
+
+    <!-- ICONS -->
+    <section id="icons" class="sg-sec">
+      <SectionHeader overline="14" title="Icons" subtitle="Lucide-style 24px line icons, inlined per use (no icon font, no sprite request)." />
+      <ul class="sg-icons">
+        {iconNames.map((n) => <li><Icon name={n} /><span>{n}</span></li>)}
+      </ul>
+    </section>
+  </div>
+
+  <StickyBar trip={byId['ooty-coonoor']} slot="end" />
+</BaseLayout>
+
+<script>
+  const log = document.querySelector('[data-sg-log]');
+  const write = (name: string, detail: unknown) => {
+    if (log) log.textContent = `${name}\n${JSON.stringify(detail, null, 2)}`;
+    console.log(name, detail);
+  };
+  window.addEventListener('hcc:selection', (e) => write('hcc:selection', e.detail));
+  window.addEventListener('hcc:book', (e) => write('hcc:book', e.detail));
+  window.addEventListener('hcc:itinerary', (e) => write('hcc:itinerary', e.detail));
+</script>
+
+<style>
+  .sg-hero {
+    padding-block: var(--s-12) var(--s-8);
+  }
+  .sg-hero h1 {
+    margin: var(--s-2) 0 var(--s-3);
+    font-size: var(--fs-display);
+    letter-spacing: var(--tracking-display);
+    line-height: 1;
+  }
+  .sg-toc {
+    position: sticky;
+    top: var(--header-h);
+    z-index: 20;
+    padding-block: 10px;
+    background: color-mix(in srgb, var(--bg) 92%, transparent);
+    backdrop-filter: blur(8px);
+    border-block: 1px solid var(--line);
+  }
+  .sg-sec {
+    padding-block: var(--s-16) var(--s-4);
+    scroll-margin-top: calc(var(--header-h) + 70px);
+  }
+  .sg-h3 {
+    margin: var(--s-8) 0 var(--s-3);
+    font-size: 1.125rem;
+  }
+  .sg-state {
+    margin-bottom: 8px;
+    font: 600 0.6875rem / 1.3 var(--font-body);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--text-2);
+  }
+  .sg-demo {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+    padding: var(--s-5);
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--r-xl);
+  }
+  .sg-demo--dark {
+    background: var(--brand-deep);
+    border-color: var(--brand-deep);
+  }
+  .sg-demo--photo {
+    min-height: 120px;
+    align-items: flex-start;
+    border: 0;
+  }
+  .sg-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-4);
+  }
+  .sg-swatches {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: var(--s-3);
+  }
+  .sg-sw {
+    overflow: hidden;
+    border: 1px solid var(--line);
+    border-radius: var(--r-lg);
+    background: var(--surface);
+  }
+  .sg-sw__c {
+    display: flex;
+    align-items: flex-end;
+    height: 72px;
+    padding: 8px 10px;
+    font: 600 0.6875rem / 1 ui-monospace, monospace;
+  }
+  .sg-sw p {
+    padding: 10px 12px;
+    font-size: 0.78rem;
+    color: var(--text-2);
+  }
+  .sg-sw b {
+    color: var(--ink-900);
+  }
+  .sg-shape {
+    display: grid;
+    place-items: center;
+    width: 96px;
+    height: 64px;
+    border: 1.5px solid var(--line-strong);
+    background: var(--surface);
+    font: 600 0.6875rem / 1 ui-monospace, monospace;
+  }
+  .sg-shape--sh {
+    border: 0;
+    border-radius: var(--r-md);
+  }
+  .sg-type {
+    display: grid;
+    gap: var(--s-4);
+    padding: var(--s-6);
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--r-xl);
+  }
+  .sg-forms {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+    gap: var(--s-4);
+    padding: var(--s-5);
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--r-xl);
+  }
+  .sg-featured {
+    display: grid;
+    gap: var(--s-4);
+  }
+  @media (min-width: 1024px) {
+    .sg-featured {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  .sg-booking {
+    display: grid;
+    gap: var(--s-6);
+    align-items: start;
+  }
+  @media (min-width: 900px) {
+    .sg-booking {
+      grid-template-columns: minmax(0, 420px) 1fr;
+    }
+  }
+  .sg-log {
+    max-height: 280px;
+    overflow: auto;
+    margin: 0;
+    padding: 14px 16px;
+    border-radius: var(--r-lg);
+    background: var(--brand-deep);
+    color: #dbe7e0;
+    font: 0.75rem / 1.5 ui-monospace, monospace;
+  }
+  .sg-finder {
+    display: grid;
+    align-items: end;
+    min-height: 260px;
+    margin-bottom: var(--s-4);
+    padding: var(--s-6);
+    border-radius: var(--r-xl);
+  }
+  .sg-icons {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+    gap: var(--s-2);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .sg-icons li {
+    display: grid;
+    justify-items: center;
+    gap: 6px;
+    padding: 14px 6px;
+    border: 1px solid var(--line);
+    border-radius: var(--r-md);
+    background: var(--surface);
+    font-size: 0.6875rem;
+    color: var(--text-2);
+  }
+  .sg-icons :global(.icon) {
+    font-size: 1.4rem;
+    color: var(--ink-900);
+  }
+</style>

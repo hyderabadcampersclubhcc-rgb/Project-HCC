@@ -1,0 +1,61 @@
+---
+/**
+ * The one WhatsApp button. Pre-fills a contextual message, carries tracking data
+ * (src/scripts/whatsapp.ts adds the attribution ref + fires click_whatsapp).
+ * Renders NOTHING when no WhatsApp number is configured in settings.
+ */
+import Icon from '@/components/ui/Icon.astro';
+import { waHref, waRef, type WaContext } from '@/lib/whatsapp';
+
+interface Props {
+  context?: WaContext;
+  tripId?: string;
+  /** Where on the page (header, bottom_bar, trip_card, booking_card…): sent with the event. */
+  location: string;
+  label?: string;
+  variant?: 'whatsapp' | 'whatsapp-deep' | 'ghost' | 'text';
+  size?: 'sm' | 'md' | 'lg';
+  block?: boolean;
+  iconOnly?: boolean;
+  class?: string;
+  /** Extra attributes for client islands that rewrite the link (e.g. BookingCard). */
+  [key: `data-${string}`]: string | undefined;
+}
+
+const {
+  context = {},
+  tripId,
+  location,
+  label = 'WhatsApp HCC',
+  variant = 'whatsapp',
+  size = 'md',
+  block = false,
+  iconOnly = false,
+  class: className,
+  ...data
+} = Astro.props;
+
+const href = waHref(context);
+---
+
+{
+  href && (
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener"
+      class:list={['btn', `btn--${variant}`, size !== 'md' && `btn--${size}`, block && 'btn--block', iconOnly && 'btn--icon', className]}
+      aria-label={iconOnly ? label : undefined}
+      data-wa
+      data-wa-ref={waRef(tripId, context.date)}
+      data-cta-location={location}
+      data-trip-id={tripId}
+      data-trip-name={context.tripTitle}
+      data-departure-date={context.date}
+      {...data}
+    >
+      <Icon name="whatsapp" />
+      {!iconOnly && <span>{label}</span>}
+    </a>
+  )
+}

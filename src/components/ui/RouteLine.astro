@@ -1,0 +1,23 @@
+---
+/** Signature route line: HYDERABAD ○···● OOTY ○···● COONOOR */
+interface Props {
+  stops: string[];
+  light?: boolean;
+  class?: string;
+}
+
+const { stops, light = false, class: className } = Astro.props;
+---
+
+<p class:list={['route', light && 'route--light', className]} aria-label={`Route: ${stops.join(' to ')}`}>
+  {
+    stops.map((stop, i) => (
+      <>
+        {i > 0 && <span class="route__line" aria-hidden="true" />}
+        <span class="route__stop" aria-hidden="true">
+          {stop}
+        </span>
+      </>
+    ))
+  }
+</p>

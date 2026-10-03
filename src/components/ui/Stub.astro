@@ -1,0 +1,17 @@
+---
+/** Signature ticket-stub duration chip: "2N | 3D". */
+interface Props {
+  nights: number;
+  days: number;
+  outlined?: boolean;
+  class?: string;
+}
+
+const { nights, days, outlined = false, class: className } = Astro.props;
+---
+
+<span class:list={['stub', outlined && 'stub--outlined', className]} aria-label={`${nights} nights, ${days} days`}>
+  <span aria-hidden="true">{nights}N</span>
+  <span class="stub__sep" aria-hidden="true"></span>
+  <span aria-hidden="true">{days}D</span>
+</span>

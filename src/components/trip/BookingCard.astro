@@ -1,0 +1,377 @@
+---
+/**
+ * BookingCard: date → options → travellers → summary → Book / WhatsApp / Itinerary.
+ *
+ * Server-renders the correct default state (works without JS); src/scripts/booking.ts
+ * enhances it: selection, live price, ?d= / ?opt= / ?view= campaign deep links, and
+ * a date-specific WhatsApp message.
+ *
+ * "Book Your Seat" dispatches `hcc:book` with the full selection. At launch the
+ * EnquirySheet (Phase 4) turns that into a BookingIntent; when Razorpay is enabled
+ * the same intent returns next:"pay". This component does not change.
+ */
+import DateStub from '@/components/ui/DateStub.astro';
+import Icon from '@/components/ui/Icon.astro';
+import WhatsAppCTA from '@/components/cta/WhatsAppCTA.astro';
+import { comboKey, type TripView } from '@/lib/catalog';
+import { inr, dateLong } from '@/lib/format';
+import { settings, whatsappNumber } from '@/lib/settings';
+
+interface Props {
+  trip: TripView;
+  origin?: string;
+  id?: string;
+}
+
+const { trip, origin: originCity, id = 'book' } = Astro.props;
+const o = trip.origins.find((x) => x.city === originCity) ?? trip.primary;
+const d = trip.data;
+
+const deps = o.departures.slice(0, 12);
+const sel = o.next;
+const cheapestKey = sel ? Object.entries(sel.prices).sort((a, b) => a[1] - b[1])[0][0] : comboKey(d.transportOptions[0].id, d.stayOptions[0].id);
+const [selT, selS] = cheapestKey.split('|');
+// No bookable date and no recurrence → no price shown (matches TripCard's "Price on request").
+const price = sel?.prices[cheapestKey] ?? o.fromPrice ?? null;
+const allFull = deps.length > 0 && !sel;
+const stayLabel = d.stayOptions.find((s) => s.id === selS)?.label;
+const multiTransport = d.transportOptions.length > 1;
+const multiStay = d.stayOptions.length > 1;
+const optPrice = (t: string, s: string) => sel?.prices[comboKey(t, s)];
+
+const payload = {
+  tripId: trip.id,
+  title: d.title,
+  origin: o.city,
+  originLabel: o.label,
+  gstPercent: d.gstPercent ?? null,
+  advance: d.advanceAmount ?? null,
+  payments: settings.payments.enabled,
+  wa: whatsappNumber,
+  transport: d.transportOptions.map(({ id, label }) => ({ id, label })),
+  stay: d.stayOptions.map(({ id, label }) => ({ id, label })),
+  departures: deps.map((x) => ({
+    id: x.id,
+    start: x.start,
+    end: x.end,
+    status: x.status,
+    bookable: x.bookable,
+    prices: x.prices,
+    originalPrice: x.originalPrice,
+    seatsLeft: x.seatsLeft,
+    bookingMode: x.bookingMode,
+  })),
+};
+
+const flagFor = (x: (typeof deps)[number]) =>
+  x.status === 'soldout' ? 'Full' : x.status === 'waitlist' ? 'Waitlist' : x.urgency === 'seats' ? `${x.seatsLeft} left` : null;
+---
+
+<section class="book" id={id} aria-labelledby={`${id}-title`} data-booking-card>
+  <h2 class="sr-only" id={`${id}-title`}>Dates and booking</h2>
+  <script type="application/json" data-booking-data set:html={JSON.stringify(payload)} />
+
+  <div class="note note--highlight book__deeplink" hidden data-deeplink-note aria-live="polite">
+    <Icon name="calendar" /><span data-deeplink-text></span>
+  </div>
+
+  {price != null && (
+  <div class="book__price">
+    <span class="price__from">From</span>
+    <s class="price__was num" data-was hidden={!sel?.originalPrice}>{sel?.originalPrice ? inr(sel.originalPrice) : ''}</s>
+    <strong class="book__amount num" data-price>{inr(price)}</strong>
+    <span class="price__per">/person{stayLabel && multiStay ? <> · <span data-stay-label>{stayLabel}</span></> : ''}</span>
+  </div>
+  )}
+  {allFull && (
+    <p class="note note--alert"><Icon name="info" /><span>All upcoming dates are full. Message us to join the waitlist or hear about new dates first.</span></p>
+  )}
+
+  {
+    deps.length > 0 ? (
+      <>
+        <fieldset class="book__group">
+          <legend class="book__label">
+            <span>1 · Pick a date</span>
+            {o.departures.length > deps.length && <a href="#dates">All dates</a>}
+          </legend>
+          <div class="book__dates" role="radiogroup" aria-label="Departure date">
+            {deps.map((x) => (
+              <DateStub
+                as="button"
+                date={x.start}
+                flag={flagFor(x)}
+                flagTone={x.urgency === 'seats' ? 'alert' : 'muted'}
+                selected={x.id === sel?.id}
+                disabled={!x.bookable}
+                data-dep={x.id}
+              />
+            ))}
+          </div>
+        </fieldset>
+
+        {multiTransport && (
+          <fieldset class="book__group">
+            <legend class="book__label">
+              <span>2 · Travel</span>
+            </legend>
+            <div class="book__opts" role="radiogroup" aria-label="Travel option">
+              {d.transportOptions.map((t) => (
+                <button type="button" class="opt" role="radio" aria-checked={t.id === selT ? 'true' : 'false'} data-opt="transport" data-id={t.id}>
+                  <span class="opt__radio" aria-hidden="true" />
+                  <span class="opt__label">{t.label}</span>
+                  <b class="num" data-opt-price>{optPrice(t.id, selS) ? inr(optPrice(t.id, selS)!) : ''}</b>
+                </button>
+              ))}
+            </div>
+          </fieldset>
+        )}
+
+        {multiStay && (
+          <fieldset class="book__group">
+            <legend class="book__label">
+              <span>{multiTransport ? '3' : '2'} · Room sharing</span>
+            </legend>
+            <div class="book__opts" role="radiogroup" aria-label="Room sharing">
+              {d.stayOptions.map((s) => (
+                <button type="button" class="opt" role="radio" aria-checked={s.id === selS ? 'true' : 'false'} data-opt="stay" data-id={s.id}>
+                  <span class="opt__radio" aria-hidden="true" />
+                  <span class="opt__label">{s.label}</span>
+                  <b class="num" data-opt-price>{optPrice(selT, s.id) ? inr(optPrice(selT, s.id)!) : ''}</b>
+                </button>
+              ))}
+            </div>
+          </fieldset>
+        )}
+
+        {sel && (<>
+        <div class="book__trav">
+          <span class="book__label" id={`${id}-trav`}>Travellers</span>
+          <div class="stepper" role="group" aria-labelledby={`${id}-trav`}>
+            <button type="button" aria-label="Fewer travellers" data-trav="-1" disabled>−</button>
+            <output data-trav-count aria-live="polite">1</output>
+            <button type="button" aria-label="More travellers" data-trav="1">+</button>
+          </div>
+        </div>
+
+        <dl class="book__sum" data-summary>
+          <div>
+            <dt data-sum-line>1 traveller × {inr(price ?? 0)}</dt>
+            <dd class="num" data-sum-sub>{inr(price ?? 0)}</dd>
+          </div>
+          {d.gstPercent != null && (
+            <div>
+              <dt>GST ({d.gstPercent}%)</dt>
+              <dd class="num" data-sum-gst>{inr(Math.round(((price ?? 0) * d.gstPercent) / 100))}</dd>
+            </div>
+          )}
+          {d.advanceAmount != null && (
+            <div class="book__tot">
+              <dt>Reserve now with</dt>
+              <dd class="num" data-sum-adv>{inr(d.advanceAmount)} advance</dd>
+            </div>
+          )}
+        </dl>
+        </>)}
+      </>
+    ) : (
+      <p class="book__nodates">
+        <Icon name="calendar" />
+        <span>
+          <b>{d.recurrence ?? 'New dates coming soon'}</b>
+          <br />
+          Ask us for the next departure. We'll reply on WhatsApp.
+        </span>
+      </p>
+    )
+  }
+
+  <div class="book__cta">
+    <button type="button" class="btn btn--primary btn--lg btn--block" data-book>
+      <span data-book-label>{sel ? (sel.status === 'waitlist' ? 'Join the Waitlist' : 'Book Your Seat') : allFull ? 'Join the Waitlist' : 'Request Dates'}</span>
+    </button>
+    <WhatsAppCTA
+      location="booking_card"
+      tripId={trip.id}
+      context={{ tripTitle: d.title, originLabel: o.label, date: sel?.start }}
+      label={sel ? `WhatsApp HCC about ${dateLong(sel.start).split(' ').slice(1).join(' ')}` : 'WhatsApp HCC'}
+      block
+      data-booking-wa
+    />
+    <button type="button" class="btn btn--text book__itin" data-itinerary>
+      <Icon name="file" /> Get Full Itinerary
+    </button>
+  </div>
+
+  <p class="book__note">
+    <Icon name="shield" />
+    <span>
+      {
+        settings.payments.enabled
+          ? 'Secure payment of the advance via Razorpay. Balance due before departure.'
+          : 'No payment is taken online. The HCC team confirms your seat with you directly.'
+      }
+    </span>
+  </p>
+</section>
+
+<script>
+  import { initBookingCards } from '@/scripts/booking';
+  initBookingCards();
+</script>
+
+<style>
+  .book {
+    display: grid;
+    gap: var(--s-4);
+    padding: var(--s-5);
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--r-xl);
+    box-shadow: var(--sh-2);
+  }
+  .book__price {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 4px 8px;
+  }
+  .book__amount {
+    font: 800 2rem / 1 var(--font-display);
+    letter-spacing: -0.02em;
+  }
+  .book__group {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    min-width: 0;
+  }
+  .book__label {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: var(--s-2);
+    padding: 0;
+    font: 600 0.75rem / 1.2 var(--font-body);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-2);
+  }
+  .book__label a {
+    color: var(--link);
+    text-transform: none;
+    letter-spacing: 0;
+    font-size: 0.8125rem;
+  }
+  .book__dates {
+    display: flex;
+    gap: var(--s-2);
+    overflow-x: auto;
+    padding: 2px;
+    margin: -2px;
+    scrollbar-width: none;
+  }
+  .book__dates::-webkit-scrollbar {
+    display: none;
+  }
+  .book__dates :global(.dstub) {
+    flex: none;
+  }
+  .book__opts {
+    display: grid;
+    gap: var(--s-2);
+  }
+  .opt {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    min-height: 48px;
+    padding: 10px 14px;
+    border: 1.5px solid var(--line);
+    border-radius: var(--r-md);
+    background: var(--surface);
+    font-size: 0.875rem;
+    text-align: left;
+  }
+  .opt[aria-checked='true'] {
+    border-color: var(--brand);
+    background: var(--forest-50);
+  }
+  .opt__radio {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    border: 2px solid var(--line-strong);
+    flex: none;
+    transition: border-width var(--t-fast) var(--ease);
+  }
+  .opt[aria-checked='true'] .opt__radio {
+    border: 5px solid var(--brand);
+  }
+  .opt__label {
+    flex: 1;
+  }
+  .book__trav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .book__trav .book__label {
+    width: auto;
+    margin: 0;
+  }
+  .book__sum {
+    display: grid;
+    gap: 6px;
+    margin: 0;
+    padding: 14px;
+    border-radius: var(--r-md);
+    background: var(--surface-2);
+    font-size: 0.875rem;
+  }
+  .book__sum div {
+    display: flex;
+    justify-content: space-between;
+    gap: var(--s-3);
+  }
+  .book__sum dd {
+    margin: 0;
+  }
+  .book__tot {
+    padding-top: 6px;
+    border-top: 1px dashed var(--line-strong);
+    font-weight: 700;
+  }
+  .book__nodates {
+    display: flex;
+    gap: 10px;
+    padding: 14px;
+    border-radius: var(--r-md);
+    background: var(--surface-2);
+    font-size: 0.875rem;
+    color: var(--ink-700);
+  }
+  .book__nodates :global(.icon) {
+    margin-top: 2px;
+    color: var(--forest-500);
+  }
+  .book__cta {
+    display: grid;
+    gap: var(--s-2);
+  }
+  .book__itin {
+    justify-self: center;
+    min-height: 40px;
+  }
+  .book__note {
+    display: flex;
+    gap: 8px;
+    font-size: 0.78rem;
+    color: var(--text-2);
+  }
+  .book__note :global(.icon) {
+    margin-top: 2px;
+    color: var(--forest-500);
+  }
+</style>

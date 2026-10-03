@@ -1,0 +1,56 @@
+{
+  "brand": {
+    "name": "Hyderabad Campers Club",
+    "short": "HCC",
+    "tagline": "Group trips, weekend getaways, treks & escapes from Hyderabad."
+  },
+  "announcement": {
+    "enabled": true,
+    "text": "Weekly group departures from Hyderabad",
+    "linkText": "Explore trips",
+    "url": "/trips/",
+    "startsAt": "",
+    "endsAt": ""
+  },
+  "contact": {
+    "whatsapp": "",
+    "phone": "",
+    "email": "",
+    "hours": "",
+    "address": {
+      "street": "",
+      "locality": "",
+      "city": "Hyderabad",
+      "region": "Telangana",
+      "postalCode": "",
+      "country": "IN",
+      "mapUrl": ""
+    }
+  },
+  "social": {
+    "instagram": "",
+    "facebook": "",
+    "youtube": "",
+    "googleBusiness": ""
+  },
+  "trust": [
+    { "icon": "star", "value": "", "label": "Google rating", "detail": "", "sourceUrl": "", "enabled": true },
+    { "icon": "users", "value": "", "label": "travellers", "detail": "", "sourceUrl": "", "enabled": true },
+    { "icon": "calendar", "value": "Weekly", "label": "departures", "detail": "", "sourceUrl": "", "enabled": false },
+    { "icon": "pin", "value": "Hyderabad", "label": "based team", "detail": "", "sourceUrl": "", "enabled": true },
+    { "icon": "whatsapp", "value": "WhatsApp", "label": "trip support", "detail": "", "sourceUrl": "", "enabled": true }
+  ],
+  "payments": {
+    "enabled": false,
+    "provider": "razorpay",
+    "defaultBookingMode": "enquiry"
+  },
+  "urgency": {
+    "seatThreshold": 8
+  },
+  "tracking": {
+    "gtmId": "",
+    "ga4Id": "",
+    "metaPixelId": ""
+  }
+}

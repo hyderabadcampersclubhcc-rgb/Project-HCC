@@ -1,0 +1,8 @@
+# SAMPLE CONTENT: style guide only.
+trip: gokarna-dandeli
+origin: hyderabad
+startDate: 2026-10-10
+endDate: 2026-10-13
+status: open
+seatsLeft: 6
+sample: true

@@ -1,0 +1,140 @@
+---
+/** Editorial card for best-sellers: story first, price second. Uses trip.featuredStory. */
+import Photo from '@/components/ui/Photo.astro';
+import Stub from '@/components/ui/Stub.astro';
+import Price from '@/components/ui/Price.astro';
+import Button from '@/components/ui/Button.astro';
+import WhatsAppCTA from '@/components/cta/WhatsAppCTA.astro';
+import { toneFor, type TripView } from '@/lib/catalog';
+import { itemParams, toAttr } from '@/lib/tracking';
+
+interface Props {
+  trip: TripView;
+  overline?: string;
+  index?: number;
+  headingLevel?: 'h2' | 'h3';
+  showPhotoLabel?: boolean;
+}
+
+const { trip, overline, index, headingLevel = 'h3', showPhotoLabel = false } = Astro.props;
+const d = trip.data;
+const o = trip.primary;
+const H = headingLevel;
+---
+
+<article class="fcard">
+  <Photo
+    src={d.heroImage}
+    alt={d.heroAlt ?? `${d.title} trip from ${o.label}`}
+    tone={toneFor(d)}
+    sizes="(min-width: 1024px) 50vw, 100vw"
+    widths={[480, 720, 960, 1280]}
+    label={showPhotoLabel ? d.title : undefined}
+  />
+  <div class="fcard__in">
+    <p class="overline fcard__over">{overline ?? `Featured · From ${o.label}`}</p>
+    <H class="fcard__title">{d.title}</H>
+    <p class="fcard__story">{d.featuredStory ?? d.tagline}</p>
+    {
+      d.highlights.length > 0 && (
+        <ul class="fcard__tags">
+          {d.highlights.slice(0, 4).map((h) => (
+            <li>{h}</li>
+          ))}
+        </ul>
+      )
+    }
+    <div class="fcard__foot">
+      <Stub nights={d.durationNights} days={d.durationDays} />
+      {o.fromPrice != null && <Price amount={o.fromPrice} was={o.fromOriginalPrice} fromLabel="From" per="/person" onDark />}
+    </div>
+    <div class="fcard__cta">
+      <Button href={o.url} data-track="select_item" data-track-params={toAttr(itemParams(trip, o, { listName: 'featured', index }))}>
+        See the Itinerary
+      </Button>
+      <WhatsAppCTA
+        location="featured_card"
+        variant="ghost"
+        tripId={trip.id}
+        context={{ tripTitle: d.title, originLabel: o.label }}
+        label="Ask on WhatsApp"
+      />
+    </div>
+  </div>
+</article>
+
+<style>
+  .fcard {
+    position: relative;
+    isolation: isolate;
+    display: grid;
+    align-items: end;
+    min-height: 520px;
+    border-radius: var(--r-xl);
+    overflow: hidden;
+    color: var(--white);
+    background: var(--brand-deep);
+  }
+  .fcard > :global(.photo) {
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+  }
+  .fcard::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: linear-gradient(180deg, rgb(10 20 16 / 0.1) 0%, rgb(10 20 16 / 0.15) 35%, rgb(10 20 16 / 0.86) 100%);
+  }
+  .fcard__in {
+    display: grid;
+    gap: var(--s-3);
+    max-width: 580px;
+    padding: var(--s-6);
+  }
+  .fcard__over {
+    color: var(--cta);
+  }
+  .fcard__title {
+    font-size: clamp(1.875rem, 1.4rem + 1.6vw, 2.75rem);
+    line-height: 1.02;
+    letter-spacing: var(--tracking-display);
+  }
+  .fcard__story {
+    font-size: 0.97rem;
+    line-height: 1.55;
+    color: rgb(255 255 255 / 0.9);
+  }
+  .fcard__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .fcard__tags li {
+    padding: 6px 10px;
+    border-radius: var(--r-pill);
+    background: rgb(255 255 255 / 0.14);
+    backdrop-filter: blur(6px);
+    font-size: 0.78rem;
+  }
+  .fcard__foot {
+    display: flex;
+    align-items: flex-end;
+    gap: var(--s-4);
+    margin-top: var(--s-1);
+  }
+  .fcard__cta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-2);
+  }
+  @media (min-width: 768px) {
+    .fcard__in {
+      padding: var(--s-10);
+    }
+  }
+</style>

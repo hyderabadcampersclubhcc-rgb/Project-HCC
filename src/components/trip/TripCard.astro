@@ -1,0 +1,285 @@
+---
+/**
+ * TripCard: the workhorse. Answers what / from where / how long / when / how much /
+ * what's included without a click. Whole card links to the trip page; date chips
+ * deep-link to that departure (?d=YYYY-MM-DD).
+ *
+ * Data rules (all from the catalog, nothing typed by hand):
+ *  - "From ₹" = cheapest future bookable departure for this origin
+ *  - strike-through only when a genuine higher previous price exists
+ *  - at most one urgency badge, only from team-entered seats / "filling fast"
+ *  - no departures → recurrence text ("Every Friday") or "Dates on request"
+ */
+import Photo from '@/components/ui/Photo.astro';
+import Stub from '@/components/ui/Stub.astro';
+import RouteLine from '@/components/ui/RouteLine.astro';
+import Badge from '@/components/ui/Badge.astro';
+import Price from '@/components/ui/Price.astro';
+import Icon from '@/components/ui/Icon.astro';
+import { toneFor, type TripView } from '@/lib/catalog';
+import { dateShort } from '@/lib/format';
+import { itemParams, toAttr } from '@/lib/tracking';
+
+const TYPE_LABEL: Record<string, string> = {
+  weekend: 'Weekend',
+  trek: 'Trek',
+  camping: 'Camping',
+  backpacking: 'Backpacking',
+  long: 'Long trip',
+  couple: 'Couples',
+  family: 'Family',
+  corporate: 'Corporate',
+};
+
+interface Props {
+  trip: TripView;
+  origin?: string;
+  listName?: string;
+  index?: number;
+  eager?: boolean;
+  headingLevel?: 'h2' | 'h3' | 'h4';
+  showPhotoLabel?: boolean;
+}
+
+const { trip, origin: originCity, listName = 'trip_grid', index, eager = false, headingLevel = 'h3', showPhotoLabel = false } = Astro.props;
+const o = trip.origins.find((x) => x.city === originCity) ?? trip.primary;
+const d = trip.data;
+const H = headingLevel;
+
+const shown = o.departures.slice(0, 3);
+const more = o.departures.length - shown.length;
+const next = o.next;
+const soldOut = o.departures.length > 0 && o.bookable.length === 0;
+const cardInclusions = d.inclusions.filter((i) => i.showOnCard).slice(0, 4);
+const track = toAttr(itemParams(trip, o, { listName, index }));
+---
+
+<article class:list={['tcard', soldOut && 'tcard--soldout']}>
+  <div class="tcard__media">
+    <Photo src={d.heroImage} alt={d.heroAlt ?? `${d.title} group trip from ${o.label}`} tone={toneFor(d)} eager={eager} label={showPhotoLabel ? d.title : undefined} />
+    <div class="tcard__top">
+      <Stub nights={d.durationNights} days={d.durationDays} />
+      {
+        soldOut ? (
+          <Badge tone="muted">Sold out</Badge>
+        ) : next?.urgency === 'seats' ? (
+          <Badge tone="solid-white">{next.seatsLeft} seats left</Badge>
+        ) : next?.urgency === 'filling' ? (
+          <Badge tone="solid-white">Filling fast</Badge>
+        ) : (
+          <Badge tone="glass">{TYPE_LABEL[d.tripTypes[0]]}</Badge>
+        )
+      }
+    </div>
+  </div>
+
+  <div class="tcard__body">
+    <RouteLine stops={[o.label, d.destinations.length > 2 ? `${trip.destinationNames[0]} +${trip.destinationNames.length - 1}` : trip.destinationNames.join(' · ')]} />
+    <H class="tcard__title">
+      <a href={o.url} data-track="select_item" data-track-params={track}>{d.title}</a>
+    </H>
+    <p class="tcard__hook">{d.tagline}</p>
+
+    {
+      cardInclusions.length > 0 && (
+        <ul class="tcard__incl" aria-label="Included">
+          {cardInclusions.map((i) => (
+            <li>
+              <Icon name={i.icon} />
+              {i.text}
+            </li>
+          ))}
+        </ul>
+      )
+    }
+
+    <div class="tcard__dates">
+      {
+        shown.length > 0 ? (
+          <>
+            <span class="tcard__dates-label">Dates</span>
+            {shown.map((dep) => (
+              <a
+                href={`${o.url}?d=${dep.start}`}
+                class:list={['tcard__date', !dep.bookable && 'is-full', dep.urgency === 'seats' && 'is-alert']}
+                aria-label={`${dateShort(dep.start)}${dep.bookable ? '' : ', sold out'}`}
+              >
+                {dateShort(dep.start)}
+              </a>
+            ))}
+            {more > 0 && (
+              <a href={`${o.url}#dates`} class="tcard__date" aria-label={`${more} more dates`}>
+                +{more}
+              </a>
+            )}
+          </>
+        ) : (
+          <span class="tcard__dates-label">
+            <Icon name="calendar" /> {d.recurrence ?? 'Dates on request'}
+          </span>
+        )
+      }
+    </div>
+
+    <div class="tcard__foot">
+      {
+        o.fromPrice != null ? (
+          <Price amount={o.fromPrice} was={o.fromOriginalPrice} per="/person" />
+        ) : (
+          <p class="tcard__ask">Price on request</p>
+        )
+      }
+      <span class="btn btn--primary btn--sm tcard__cta" aria-hidden="true">{shown.length ? 'View Dates' : 'View Trip'}</span>
+    </div>
+  </div>
+</article>
+
+<style>
+  .tcard {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--r-lg);
+    overflow: hidden;
+    box-shadow: var(--sh-1);
+    transition:
+      box-shadow var(--t) var(--ease),
+      transform var(--t) var(--ease);
+  }
+  @media (hover: hover) {
+    .tcard:hover {
+      box-shadow: var(--sh-2);
+      transform: translateY(-2px);
+    }
+    .tcard:hover .tcard__cta {
+      background: var(--cta-hover);
+    }
+  }
+  .tcard:focus-within {
+    box-shadow: var(--focus-ring);
+  }
+  .tcard__media {
+    position: relative;
+    aspect-ratio: 4 / 3;
+    background: var(--surface-2);
+  }
+  .tcard--soldout .tcard__media {
+    filter: saturate(0.4);
+  }
+  .tcard__top {
+    position: absolute;
+    inset: 12px 12px auto;
+    z-index: 2;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 6px;
+  }
+  .tcard__body {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    flex: 1;
+    padding: var(--s-4);
+  }
+  .tcard__title {
+    font-size: 1.25rem;
+    line-height: 1.2;
+  }
+  .tcard__title a {
+    text-decoration: none;
+  }
+  /* Whole card is clickable via the title link; inner links sit above it. */
+  .tcard__title a::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+  }
+  .tcard__title a:focus-visible {
+    box-shadow: none;
+  }
+  .tcard__hook {
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: var(--text-2);
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .tcard__incl {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 14px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-size: 0.8125rem;
+    color: var(--ink-700);
+  }
+  .tcard__incl li {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+  }
+  .tcard__incl :global(.icon) {
+    color: var(--forest-500);
+  }
+  .tcard__dates {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.78rem;
+  }
+  .tcard__dates-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    margin-right: 2px;
+    color: var(--text-3);
+    font-weight: 500;
+  }
+  .tcard__date {
+    position: relative;
+    z-index: 2;
+    display: inline-flex;
+    align-items: center;
+    min-height: 30px;
+    padding: 0 9px;
+    border-radius: 7px;
+    background: var(--surface-2);
+    color: var(--ink-700);
+    font-weight: 600;
+    text-decoration: none;
+  }
+  .tcard__date:hover {
+    background: var(--sand-200);
+  }
+  .tcard__date.is-alert {
+    background: var(--alert-bg);
+    color: var(--alert);
+  }
+  .tcard__date.is-full {
+    text-decoration: line-through;
+    opacity: 0.55;
+  }
+  .tcard__foot {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: var(--s-3);
+    margin-top: auto;
+    padding-top: var(--s-3);
+    border-top: 1px dashed var(--line);
+  }
+  .tcard__ask {
+    font-weight: 600;
+    color: var(--text-2);
+  }
+</style>

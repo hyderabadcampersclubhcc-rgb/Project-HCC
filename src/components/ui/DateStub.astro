@@ -1,0 +1,42 @@
+---
+/**
+ * Signature boarding-pass date. Renders a link (deep-link to ?d=), a radio-style
+ * button (booking card), or static span.
+ */
+import { dayShort, dayNum, monShort, dateLong } from '@/lib/format';
+
+interface Props {
+  date: string; // YYYY-MM-DD
+  flag?: string | null; // "5 left", "Full", "Waitlist"
+  flagTone?: 'alert' | 'muted';
+  href?: string;
+  as?: 'a' | 'button' | 'span';
+  selected?: boolean;
+  disabled?: boolean;
+  class?: string;
+  [key: `data-${string}`]: unknown;
+}
+
+const { date, flag, flagTone = 'muted', href, as = href ? 'a' : 'span', selected = false, disabled = false, class: className, ...rest } =
+  Astro.props;
+
+const Tag = as;
+const label = `${dateLong(date)}${flag ? `, ${flag}` : ''}`;
+---
+
+<Tag
+  class:list={['dstub', className]}
+  href={as === 'a' && !disabled ? href : undefined}
+  type={as === 'button' ? 'button' : undefined}
+  role={as === 'button' ? 'radio' : undefined}
+  aria-checked={as === 'button' ? (selected ? 'true' : 'false') : undefined}
+  aria-current={as === 'a' && selected ? 'true' : undefined}
+  aria-disabled={disabled ? 'true' : undefined}
+  aria-label={label}
+  {...rest}
+>
+  <span class="dstub__dow" aria-hidden="true">{dayShort(date)}</span>
+  <span class="dstub__day" aria-hidden="true">{dayNum(date)}</span>
+  <span class="dstub__mon" aria-hidden="true">{monShort(date)}</span>
+  {flag && <span class:list={['dstub__flag', flagTone === 'alert' && 'dstub__flag--alert']} aria-hidden="true">{flag}</span>}
+</Tag>

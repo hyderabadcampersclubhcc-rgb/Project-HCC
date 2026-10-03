@@ -1,0 +1,71 @@
+---
+/**
+ * Labelled form field. Label is always visible (never placeholder-only).
+ * kind: text | tel (with +91 addon) | email | select | textarea
+ */
+import type { HTMLAttributes } from 'astro/types';
+
+type Props = HTMLAttributes<'input'> & {
+  label: string;
+  name: string;
+  kind?: 'text' | 'tel' | 'email' | 'select' | 'textarea' | 'date' | 'number';
+  options?: (string | { value: string; label: string })[];
+  help?: string;
+  error?: string;
+  optional?: boolean;
+  id?: string;
+  class?: string;
+};
+
+const { label, name, kind = 'text', options = [], help, error, optional = false, id, class: className, ...rest } = Astro.props;
+
+const fieldId = id ?? `f-${name}`;
+const helpId = help ? `${fieldId}-help` : undefined;
+const errId = `${fieldId}-err`;
+const describedBy = [helpId, error ? errId : undefined].filter(Boolean).join(' ') || undefined;
+const common = {
+  id: fieldId,
+  name,
+  class: 'input',
+  required: !optional || undefined,
+  'aria-invalid': error ? ('true' as const) : undefined,
+  'aria-describedby': describedBy,
+};
+---
+
+<div class:list={['field', className]}>
+  <label class="field__label" for={fieldId}>
+    {label}
+    {optional && <span class="field__optional"> (optional)</span>}
+  </label>
+  {
+    kind === 'select' ? (
+      <select {...common} {...(rest as HTMLAttributes<'select'>)}>
+        {options.map((o) =>
+          typeof o === 'string' ? <option value={o}>{o}</option> : <option value={o.value}>{o.label}</option>,
+        )}
+      </select>
+    ) : kind === 'textarea' ? (
+      <textarea {...common} {...(rest as HTMLAttributes<'textarea'>)} />
+    ) : kind === 'tel' ? (
+      <div class="input-group">
+        <span class="input-group__addon" aria-hidden="true">
+          +91
+        </span>
+        <input
+          {...common}
+          type="tel"
+          inputmode="numeric"
+          autocomplete="tel-national"
+          pattern="[6-9][0-9]{9}"
+          maxlength={10}
+          {...rest}
+        />
+      </div>
+    ) : (
+      <input {...common} type={kind} {...rest} />
+    )
+  }
+  {help && <span class="field__help" id={helpId}>{help}</span>}
+  <span class="field__error" id={errId} hidden={!error} aria-live="polite">{error}</span>
+</div>

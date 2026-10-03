@@ -1,0 +1,9 @@
+# SAMPLE CONTENT: style guide only.
+trip: ooty-coonoor
+origin: hyderabad
+startDate: 2026-10-23
+endDate: 2026-10-26
+status: open
+availableOptions:
+  stay: [quad, triple]
+sample: true

@@ -1,0 +1,37 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Button from '@/components/ui/Button.astro';
+import TripFinder from '@/components/search/TripFinder.astro';
+import WhatsAppCTA from '@/components/cta/WhatsAppCTA.astro';
+---
+
+<BaseLayout title="Page not found" description="This page doesn't exist. Find your next trip from Hyderabad." noindex>
+  <section class="section">
+    <div class="container nf">
+      <p class="overline">404 · Off the trail</p>
+      <h1>This page wandered off.</h1>
+      <p class="lede">The link may be old or mistyped. Let's get you back to the good stuff.</p>
+      <TripFinder id="nf-finder" />
+      <div class="nf__cta">
+        <Button href="/trips/" variant="secondary">Browse all trips</Button>
+        <WhatsAppCTA location="404" />
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .nf {
+    display: grid;
+    gap: var(--s-4);
+    max-width: 640px;
+  }
+  h1 {
+    font-size: var(--fs-h1);
+  }
+  .nf__cta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-2);
+  }
+</style>

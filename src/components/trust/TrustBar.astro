@@ -1,0 +1,126 @@
+---
+/**
+ * Trust strip. Items come from Settings → trust. An item without a value, or disabled,
+ * is not rendered; the whole bar hides when fewer than 2 items remain.
+ * Items with a sourceUrl link to where the claim can be verified (e.g. Google profile).
+ */
+import Icon, { type IconName } from '@/components/ui/Icon.astro';
+import { visibleTrustItems, type TrustItem } from '@/lib/settings';
+
+interface Props {
+  items?: TrustItem[];
+  variant?: 'bar' | 'inline';
+  class?: string;
+}
+
+const { items = visibleTrustItems(), variant = 'bar', class: className } = Astro.props;
+const ICON: Record<TrustItem['icon'], IconName> = {
+  star: 'star',
+  users: 'users',
+  calendar: 'calendar',
+  pin: 'pin',
+  whatsapp: 'whatsapp',
+  shield: 'shield',
+  mountain: 'mountain',
+  tent: 'tent',
+};
+---
+
+{
+  items.length >= 2 && (
+    <ul class:list={['trust', `trust--${variant}`, className]} aria-label="Why travellers trust HCC">
+      {items.map((t) => {
+        const Tag = t.sourceUrl ? 'a' : 'div';
+        return (
+          <li>
+            <Tag class="trust__item" href={t.sourceUrl || undefined} target={t.sourceUrl ? '_blank' : undefined} rel={t.sourceUrl ? 'noopener' : undefined}>
+              <span class="trust__ico" aria-hidden="true">
+                <Icon name={ICON[t.icon]} filled={t.icon === 'star'} />
+              </span>
+              <span>
+                <b>{t.value}</b>
+                <small>{[t.label, t.detail].filter(Boolean).join(' · ')}</small>
+              </span>
+            </Tag>
+          </li>
+        );
+      })}
+    </ul>
+  )
+}
+
+<style>
+  .trust {
+    display: flex;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    overflow-x: auto;
+    scrollbar-width: none;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--r-lg);
+  }
+  .trust::-webkit-scrollbar {
+    display: none;
+  }
+  .trust li {
+    flex: 1 0 auto;
+    border-right: 1px solid var(--line);
+  }
+  .trust li:last-child {
+    border-right: 0;
+  }
+  .trust__item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    height: 100%;
+    padding: 12px 16px;
+    white-space: nowrap;
+    text-decoration: none;
+  }
+  a.trust__item:hover b {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .trust__item b {
+    display: block;
+    font: 800 1rem / 1.15 var(--font-display);
+  }
+  .trust__item small {
+    display: block;
+    font-size: 0.75rem;
+    color: var(--text-2);
+  }
+  .trust__ico {
+    display: grid;
+    place-items: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 10px;
+    background: var(--forest-50);
+    color: var(--forest-700);
+    flex: none;
+  }
+  .trust__ico :global(.icon[style]) {
+    color: var(--marigold-500);
+  }
+  .trust--inline {
+    background: transparent;
+    border: 0;
+    gap: var(--s-4);
+  }
+  .trust--inline li {
+    border: 0;
+    flex: none;
+  }
+  .trust--inline .trust__item {
+    padding: 0;
+  }
+  @media (min-width: 1024px) {
+    .trust__item {
+      padding: 16px 20px;
+    }
+  }
+</style>

@@ -1,0 +1,61 @@
+---
+/**
+ * Document shell for every page: SEO head, fonts, global CSS, site chrome
+ * (announcement, header, footer, mobile bar) and the site-wide client script.
+ */
+import { Font } from 'astro:assets';
+import SeoHead, { type SeoProps } from '@/components/seo/SeoHead.astro';
+import AnnouncementBar from '@/components/layout/AnnouncementBar.astro';
+import Header from '@/components/layout/Header.astro';
+import Footer from '@/components/layout/Footer.astro';
+import MobileNav from '@/components/layout/MobileNav.astro';
+import '@/styles/tokens.css';
+import '@/styles/base.css';
+import '@/styles/primitives.css';
+
+type Props = SeoProps & {
+  /** Header floats transparently over a hero photo. */
+  headerOverlay?: boolean;
+  /** 'nav' = global bottom nav; 'none' = the page renders its own sticky bar (trip page). */
+  mobileBar?: 'nav' | 'none';
+  chrome?: boolean;
+  bodyClass?: string;
+};
+
+const { headerOverlay = false, mobileBar = 'nav', chrome = true, bodyClass, ...seo } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en-IN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#0A241C" />
+    <meta name="format-detection" content="telephone=no" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <Font cssVariable="--font-display" preload />
+    <Font cssVariable="--font-body" preload />
+    <SeoHead {...seo} />
+    <slot name="head" />
+  </head>
+  <body class:list={[chrome && 'has-mobile-bar', bodyClass]}>
+    <a class="skip-link" href="#main">Skip to content</a>
+    {
+      chrome && (
+        <>
+          <AnnouncementBar />
+          <Header overlay={headerOverlay} />
+        </>
+      )
+    }
+    <main id="main">
+      <slot />
+    </main>
+    {chrome && <Footer />}
+    {chrome && mobileBar === 'nav' && <MobileNav />}
+    <slot name="end" />
+    <script>
+      import '@/scripts/site';
+    </script>
+  </body>
+</html>

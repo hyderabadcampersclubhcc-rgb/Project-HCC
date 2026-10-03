@@ -1,0 +1,69 @@
+---
+/** Interim HCC wordmark + tent/peak monogram. Replace the SVG when the real logo arrives. */
+import { settings } from '@/lib/settings';
+
+interface Props {
+  tone?: 'dark' | 'light';
+  showName?: boolean;
+  href?: string | null;
+  class?: string;
+}
+
+const { tone = 'dark', showName = true, href = '/', class: className } = Astro.props;
+const Tag = href ? 'a' : 'span';
+---
+
+<Tag href={href ?? undefined} class:list={['logo', `logo--${tone}`, className]} aria-label={href ? `${settings.brand.name}, home` : undefined}>
+  <span class="logo__mark" aria-hidden="true">
+    <svg viewBox="0 0 24 24" width="22" height="22">
+      <path d="M2.5 20.5 12 4l9.5 16.5" fill="none" stroke="#F2A61D" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"></path>
+      <path d="M12 20.5 8.6 14.6M12 20.5l3.4-5.9" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round"></path>
+      <path d="M1.5 20.5h21" stroke="#fff" stroke-width="2.2" stroke-linecap="round"></path>
+    </svg>
+  </span>
+  <span class="logo__text">
+    <b>{settings.brand.short}</b>
+    {showName && <small>{settings.brand.name}</small>}
+  </span>
+</Tag>
+
+<style>
+  .logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    color: var(--ink-900);
+    min-height: 44px;
+  }
+  .logo--light {
+    color: var(--white);
+  }
+  .logo__mark {
+    display: grid;
+    place-items: center;
+    width: 38px;
+    height: 38px;
+    border-radius: 11px;
+    background: var(--brand);
+    flex: none;
+  }
+  .logo--light .logo__mark {
+    background: rgb(10 36 28 / 0.6);
+    box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.2);
+  }
+  .logo__text b {
+    display: block;
+    font: 800 1.2rem / 1 var(--font-display);
+    letter-spacing: -0.01em;
+  }
+  .logo__text small {
+    display: block;
+    margin-top: 3px;
+    font: 600 0.5625rem / 1 var(--font-body);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    opacity: 0.72;
+  }
+</style>

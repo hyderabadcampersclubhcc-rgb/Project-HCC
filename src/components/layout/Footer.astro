@@ -1,0 +1,220 @@
+---
+/**
+ * Footer = internal-link engine + NAP for local SEO. Contact rows and socials
+ * render only when filled in settings; nothing shows as a placeholder.
+ */
+import { getCollection } from 'astro:content';
+import Logo from '@/components/ui/Logo.astro';
+import Icon from '@/components/ui/Icon.astro';
+import WhatsAppCTA from '@/components/cta/WhatsAppCTA.astro';
+import { TRIP_TYPE_LINKS, FOOTER_COMPANY, FOOTER_LEGAL } from '@/data/navigation';
+import { destinationUrl } from '@/lib/catalog';
+import { settings } from '@/lib/settings';
+
+const showSamples = import.meta.env.PUBLIC_SHOW_SAMPLES === 'true';
+const destinations = (await getCollection('destinations'))
+  .filter((d) => showSamples || !d.data.sample)
+  .sort((a, b) => a.data.name.localeCompare(b.data.name))
+  .slice(0, 14);
+
+const c = settings.contact;
+const a = c.address;
+const addressLine = [a.street, a.locality, a.city, a.postalCode].filter(Boolean).join(', ');
+const hasFullAddress = !!(a.street && a.postalCode);
+const phone = c.phone.replace(/[^\d+]/g, '');
+const socials = [
+  { url: settings.social.instagram, label: 'Instagram', icon: 'instagram' as const },
+  { url: settings.social.youtube, label: 'YouTube', icon: 'youtube' as const },
+  { url: settings.social.facebook, label: 'Facebook', icon: 'facebook' as const },
+].filter((s) => s.url);
+const year = new Date().getFullYear();
+---
+
+<footer class="ftr">
+  <div class="container">
+    <div class="ftr__top">
+      <div class="ftr__brand">
+        <Logo tone="light" />
+        <p>{settings.brand.tagline}</p>
+        <div class="ftr__cta">
+          <WhatsAppCTA location="footer" variant="whatsapp-deep" />
+        </div>
+        {
+          socials.length > 0 && (
+            <ul class="ftr__social">
+              {socials.map((s) => (
+                <li>
+                  <a href={s.url} target="_blank" rel="noopener" aria-label={`HCC on ${s.label}`}>
+                    <Icon name={s.icon} />
+                  </a>
+                </li>
+              ))}
+            </ul>
+          )
+        }
+      </div>
+
+      <nav class="ftr__col" aria-labelledby="ftr-trips">
+        <p class="ftr__h" id="ftr-trips">Trips</p>
+        <ul>{TRIP_TYPE_LINKS.map((t) => <li><a href={t.href}>{t.label}</a></li>)}</ul>
+      </nav>
+
+      {
+        destinations.length > 0 && (
+          <nav class="ftr__col" aria-labelledby="ftr-dest">
+            <p class="ftr__h" id="ftr-dest">Destinations</p>
+            <ul class="ftr__two">
+              {destinations.map((d) => (
+                <li>
+                  <a href={destinationUrl(d.id)}>{d.data.name}</a>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        )
+      }
+
+      <nav class="ftr__col" aria-labelledby="ftr-co">
+        <p class="ftr__h" id="ftr-co">HCC</p>
+        <ul>{FOOTER_COMPANY.map((l) => <li><a href={l.href}>{l.label}</a></li>)}</ul>
+      </nav>
+
+      <div class="ftr__col">
+        <p class="ftr__h">Contact</p>
+        <ul class="ftr__contact">
+          {phone && <li><Icon name="phone" /><a href={`tel:${phone}`} data-cta-location="footer">{c.phone}</a></li>}
+          {c.email && <li><Icon name="mail" /><a href={`mailto:${c.email}`}>{c.email}</a></li>}
+          {c.hours && <li><Icon name="clock" /><span>{c.hours}</span></li>}
+          {
+            hasFullAddress ? (
+              <li>
+                <Icon name="pin" />
+                {a.mapUrl ? (
+                  <a href={a.mapUrl} target="_blank" rel="noopener">
+                    {addressLine}
+                  </a>
+                ) : (
+                  <span>{addressLine}</span>
+                )}
+              </li>
+            ) : (
+              <li><Icon name="pin" /><span>Based in {a.city || 'Hyderabad'}, {a.region || 'Telangana'}</span></li>
+            )
+          }
+        </ul>
+      </div>
+    </div>
+
+    <div class="ftr__bottom">
+      <p>© {year} {settings.brand.name}</p>
+      <ul>{FOOTER_LEGAL.map((l) => <li><a href={l.href}>{l.label}</a></li>)}</ul>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .ftr {
+    padding-block: var(--s-16) var(--s-8);
+    background: var(--brand-deep) var(--topo) center / 560px;
+    color: rgb(255 255 255 / 0.78);
+    font-size: 0.9rem;
+  }
+  .ftr a {
+    text-decoration: none;
+  }
+  .ftr a:hover {
+    color: var(--white);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .ftr__top {
+    display: grid;
+    gap: var(--s-10) var(--s-8);
+    grid-template-columns: 1fr 1fr;
+  }
+  .ftr__brand {
+    grid-column: 1 / -1;
+    display: grid;
+    gap: var(--s-4);
+    align-content: start;
+    max-width: 340px;
+  }
+  .ftr__cta {
+    display: flex;
+    gap: var(--s-2);
+  }
+  .ftr__social {
+    display: flex;
+    gap: var(--s-2);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .ftr__social a {
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    border: 1px solid rgb(255 255 255 / 0.18);
+    color: var(--white);
+  }
+  .ftr__h {
+    margin-bottom: var(--s-3);
+    font: 600 var(--fs-xs) / 1 var(--font-body);
+    letter-spacing: var(--tracking-overline);
+    text-transform: uppercase;
+    color: var(--cta);
+  }
+  .ftr__col ul {
+    display: grid;
+    gap: 2px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .ftr__col li a,
+  .ftr__col li span {
+    display: inline-block;
+    padding-block: 6px;
+  }
+  .ftr__two {
+    grid-template-columns: 1fr 1fr;
+    column-gap: var(--s-4);
+  }
+  .ftr__contact li {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+  }
+  .ftr__contact :global(.icon) {
+    margin-top: 9px;
+    color: var(--cta);
+  }
+  .ftr__bottom {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: var(--s-3);
+    margin-top: var(--s-12);
+    padding-top: var(--s-5);
+    border-top: 1px solid rgb(255 255 255 / 0.12);
+    font-size: 0.8125rem;
+  }
+  .ftr__bottom ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-4);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  @media (min-width: 1024px) {
+    .ftr__top {
+      grid-template-columns: 1.4fr 1fr 1.4fr 1fr 1.2fr;
+    }
+    .ftr__brand {
+      grid-column: auto;
+    }
+  }
+</style>

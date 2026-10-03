@@ -1,0 +1,16 @@
+---
+import Icon, { type IconName } from './Icon.astro';
+
+interface Props {
+  tone?: 'alert' | 'ok' | 'info' | 'muted' | 'dark' | 'outline' | 'glass' | 'solid-white' | 'cta';
+  icon?: IconName;
+  class?: string;
+}
+
+const { tone = 'muted', icon, class: className } = Astro.props;
+---
+
+<span class:list={['badge', `badge--${tone}`, className]}>
+  {icon && <Icon name={icon} />}
+  <slot />
+</span>

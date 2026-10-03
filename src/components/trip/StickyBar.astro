@@ -1,0 +1,125 @@
+---
+/**
+ * Trip-page mobile sticky bar: "₹6,999 · Fri 9 Oct · from HYD  [WA] [Book Seat]".
+ * Appears once the inline BookingCard scrolls out of view; hidden while it is visible
+ * and while the keyboard is open. Mirrors the BookingCard selection via `hcc:selection`.
+ */
+import WhatsAppCTA from '@/components/cta/WhatsAppCTA.astro';
+import { type TripView } from '@/lib/catalog';
+import { inr, dateLong } from '@/lib/format';
+
+interface Props {
+  trip: TripView;
+  origin?: string;
+}
+
+const { trip, origin: originCity } = Astro.props;
+const o = trip.origins.find((x) => x.city === originCity) ?? trip.primary;
+const next = o.next;
+const price = next?.price ?? o.fromPrice;
+---
+
+<div class="sbar" data-sticky-bar data-mobile-bar hidden>
+  <p class="sbar__info">
+    {price != null && <strong class="num" data-sbar-price>{inr(price)}</strong>}
+    <small data-sbar-meta>{next ? `${dateLong(next.start)} · from ${o.label}` : `From ${o.label}`}</small>
+  </p>
+  <WhatsAppCTA
+    location="sticky_bar"
+    tripId={trip.id}
+    context={{ tripTitle: trip.data.title, originLabel: o.label, date: next?.start }}
+    iconOnly
+    label="WhatsApp HCC"
+    data-sbar-wa
+  />
+  <button type="button" class="btn btn--primary" data-sbar-book>{next ? 'Book Seat' : 'Request Dates'}</button>
+</div>
+
+<script>
+  const bar = document.querySelector<HTMLElement>('[data-sticky-bar]');
+  const card = document.querySelector<HTMLElement>('[data-booking-card]');
+  if (bar && card) {
+    bar.hidden = false;
+    // Visible once the booking card has scrolled above the viewport. A rAF-throttled scroll
+    // check (not IntersectionObserver) also handles jumps such as anchor links and restored scroll.
+    let ticking = false;
+    const update = () => {
+      ticking = false;
+      bar.toggleAttribute('data-visible', card.getBoundingClientRect().bottom < 0);
+    };
+    const onScroll = () => {
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(update);
+      }
+    };
+    addEventListener('scroll', onScroll, { passive: true });
+    addEventListener('resize', onScroll, { passive: true });
+    update();
+
+    bar.querySelector('[data-sbar-book]')?.addEventListener('click', () => card.querySelector<HTMLButtonElement>('[data-book]')?.click());
+
+    window.addEventListener('hcc:selection', (e) => {
+      const s = e.detail;
+      const fmt = new Intl.DateTimeFormat('en-IN', { timeZone: 'UTC', weekday: 'short', day: 'numeric', month: 'short' });
+      const priceEl = bar.querySelector('[data-sbar-price]');
+      if (priceEl && s.pricePerPerson != null) priceEl.textContent = `₹${new Intl.NumberFormat('en-IN').format(s.pricePerPerson)}`;
+      const meta = bar.querySelector('[data-sbar-meta]');
+      if (meta && s.date) meta.textContent = `${fmt.format(new Date(`${s.date}T00:00:00Z`)).replace(',', '')} · from ${s.originLabel}`;
+      // Reuse the booking card's date-specific WhatsApp link.
+      const src = card.querySelector<HTMLAnchorElement>('[data-booking-wa]');
+      const wa = bar.querySelector<HTMLAnchorElement>('[data-sbar-wa]');
+      if (src && wa) {
+        wa.href = src.href;
+        wa.dataset.waRef = src.dataset.waRef;
+        wa.dataset.departureDate = src.dataset.departureDate;
+      }
+    });
+  }
+</script>
+
+<style>
+  .sbar {
+    position: fixed;
+    inset: auto 0 0;
+    z-index: 30;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px var(--gutter) calc(10px + env(safe-area-inset-bottom));
+    background: var(--surface);
+    border-top: 1px solid var(--line);
+    box-shadow: 0 -8px 24px -12px rgb(18 24 22 / 0.18);
+    transform: translateY(110%);
+    transition: transform var(--t) var(--ease);
+  }
+  .sbar[data-visible]:not([data-hidden]) {
+    transform: none;
+  }
+  .sbar__info {
+    flex: 1;
+    min-width: 0;
+    line-height: 1.15;
+  }
+  .sbar__info strong {
+    display: block;
+    font: 800 1.125rem / 1 var(--font-display);
+  }
+  .sbar__info small {
+    display: block;
+    margin-top: 3px;
+    font-size: 0.75rem;
+    color: var(--text-2);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .sbar :global(.btn) {
+    --h: 46px;
+  }
+  @media (min-width: 1024px) {
+    .sbar {
+      display: none;
+    }
+  }
+</style>

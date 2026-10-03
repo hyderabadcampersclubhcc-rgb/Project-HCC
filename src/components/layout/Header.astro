@@ -1,0 +1,553 @@
+---
+/**
+ * Sticky header. Desktop (≥1100px): 7 links + Trips/Destinations mega-menus + WhatsApp + Explore Trips.
+ * Mobile: logo + WhatsApp icon + menu button → full-screen <dialog> with big tap targets.
+ * `overlay`: transparent over a hero photo until the page scrolls.
+ */
+import { getCollection } from 'astro:content';
+import Logo from '@/components/ui/Logo.astro';
+import Icon from '@/components/ui/Icon.astro';
+import Button from '@/components/ui/Button.astro';
+import WhatsAppCTA from '@/components/cta/WhatsAppCTA.astro';
+import { MAIN_NAV, TRIP_TYPE_LINKS, REGION_LABELS } from '@/data/navigation';
+import { getUpcoming, destinationUrl } from '@/lib/catalog';
+import { dateShort, inr } from '@/lib/format';
+import { settings } from '@/lib/settings';
+
+interface Props {
+  overlay?: boolean;
+}
+
+const { overlay = false } = Astro.props;
+const path = Astro.url.pathname;
+const showSamples = import.meta.env.PUBLIC_SHOW_SAMPLES === 'true';
+
+const upcoming = await getUpcoming({ limit: 3 });
+const destinations = (await getCollection('destinations')).filter((d) => showSamples || !d.data.sample);
+const byRegion = Object.entries(
+  destinations.reduce<Record<string, typeof destinations>>((acc, d) => {
+    (acc[d.data.region] ??= []).push(d);
+    return acc;
+  }, {}),
+).map(([region, items]) => ({ region, label: REGION_LABELS[region] ?? region, items: items.sort((a, b) => a.data.name.localeCompare(b.data.name)) }));
+
+const isCurrent = (href: string) => (path === href || (href !== '/' && path.startsWith(href)) ? 'page' : undefined);
+const phone = settings.contact.phone.replace(/[^\d+]/g, '');
+---
+
+<header class="hdr" data-overlay={overlay ? '' : undefined} data-header>
+  <div class="hdr__in container">
+    <Logo tone={overlay ? 'light' : 'dark'} class="hdr__logo" />
+
+    <nav class="hdr__nav" aria-label="Main">
+      <ul class="hdr__links">
+        {
+          MAIN_NAV.map((item) => (
+            <li class="hdr__item">
+              {item.menu ? (
+                <>
+                  <button class="hdr__link" type="button" aria-expanded="false" aria-controls={`menu-${item.menu}`} data-menu-toggle>
+                    {item.label}
+                    <Icon name="chevron" class="hdr__chev" />
+                  </button>
+                  <div class="mega" id={`menu-${item.menu}`} hidden data-menu-panel>
+                    {item.menu === 'trips' ? (
+                      <div class="mega__grid mega__grid--trips">
+                        <div>
+                          <p class="overline mega__title">Travel your way</p>
+                          <ul class="mega__types">
+                            {TRIP_TYPE_LINKS.map((t) => (
+                              <li>
+                                <a href={t.href} class="mega__type">
+                                  <span class="mega__ico">
+                                    <Icon name={t.icon} />
+                                  </span>
+                                  <span>
+                                    <b>{t.label}</b>
+                                    <small>{t.blurb}</small>
+                                  </span>
+                                </a>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                        <div>
+                          <p class="overline mega__title">Coming up</p>
+                          {upcoming.length ? (
+                            <ul class="mega__up">
+                              {upcoming.map(({ trip, origin, departure }) => (
+                                <li>
+                                  <a href={`${origin.url}?d=${departure.start}`}>
+                                    <b>{trip.data.title}</b>
+                                    <small>
+                                      {dateShort(departure.start)} · from {inr(departure.price)}
+                                    </small>
+                                  </a>
+                                </li>
+                              ))}
+                            </ul>
+                          ) : (
+                            <p class="muted mega__empty">New dates are being added.</p>
+                          )}
+                          <a class="btn btn--text mega__all" href="/upcoming-trips/">
+                            All upcoming dates <Icon name="arrow" />
+                          </a>
+                          <a class="mega__custom" href="/customised-trips/">
+                            <b>Can't find your trip?</b>
+                            <span>Tell us where and when. We'll plan it around your group.</span>
+                          </a>
+                        </div>
+                      </div>
+                    ) : (
+                      <div class="mega__grid mega__grid--dest">
+                        {byRegion.length ? (
+                          byRegion.map((r) => (
+                            <div>
+                              <p class="overline mega__title">{r.label}</p>
+                              <ul class="mega__list">
+                                {r.items.map((d) => (
+                                  <li>
+                                    <a href={destinationUrl(d.id)}>{d.data.name}</a>
+                                  </li>
+                                ))}
+                              </ul>
+                            </div>
+                          ))
+                        ) : (
+                          <p class="muted">Destinations coming soon.</p>
+                        )}
+                        <a class="btn btn--text mega__all" href="/destinations/">
+                          All destinations <Icon name="arrow" />
+                        </a>
+                      </div>
+                    )}
+                  </div>
+                </>
+              ) : (
+                <a class="hdr__link" href={item.href} aria-current={isCurrent(item.href)}>
+                  {item.label}
+                </a>
+              )}
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+
+    <div class="hdr__actions">
+      <WhatsAppCTA location="header" variant={overlay ? 'ghost' : 'whatsapp'} size="sm" label="WhatsApp" class="hdr__wa" />
+      <Button href="/trips/" size="sm" class="hdr__explore">Explore Trips</Button>
+      <WhatsAppCTA location="header_mobile" variant={overlay ? 'ghost' : 'whatsapp'} size="sm" iconOnly class="hdr__wa-icon" />
+      <button class="hdr__menu btn btn--sm btn--icon" type="button" aria-label="Open menu" aria-haspopup="dialog" aria-controls="site-menu" data-menu-open>
+        <Icon name="menu" />
+      </button>
+    </div>
+  </div>
+</header>
+
+<dialog class="sheet" id="site-menu" aria-label="Menu">
+  <div class="sheet__top">
+    <Logo />
+    <button class="btn btn--sm btn--icon btn--whatsapp" type="button" aria-label="Close menu" data-menu-close autofocus>
+      <Icon name="x" />
+    </button>
+  </div>
+  <div class="sheet__body">
+    <a class="sheet__search" href="/trips/">
+      <Icon name="search" />
+      <span>Search trips, destinations, dates</span>
+    </a>
+    <p class="overline">Travel your way</p>
+    <ul class="sheet__types">
+      {
+        TRIP_TYPE_LINKS.map((t) => (
+          <li>
+            <a href={t.href}>
+              <Icon name={t.icon} />
+              <span>{t.label}</span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+    <ul class="sheet__links">
+      <li><a href="/upcoming-trips/">Upcoming dates <Icon name="chevron-right" /></a></li>
+      <li><a href="/destinations/">Destinations <Icon name="chevron-right" /></a></li>
+      <li><a href="/travel-guides/">Travel guides <Icon name="chevron-right" /></a></li>
+      <li><a href="/about/">About HCC <Icon name="chevron-right" /></a></li>
+      <li><a href="/contact/">Contact <Icon name="chevron-right" /></a></li>
+    </ul>
+  </div>
+  <div class="sheet__foot">
+    <WhatsAppCTA location="mobile_menu" block />
+    {phone && <Button href={`tel:${phone}`} variant="secondary" icon="phone" block data-cta-location="mobile_menu">Call HCC</Button>}
+  </div>
+</dialog>
+
+<script>
+  const header = document.querySelector<HTMLElement>('[data-header]');
+
+  // Solid background once scrolled (overlay headers start transparent).
+  if (header) {
+    const sentinel = document.createElement('div');
+    sentinel.style.cssText = 'position:absolute;top:0;height:1px;width:1px;';
+    document.body.prepend(sentinel);
+    new IntersectionObserver(([e]) => header.toggleAttribute('data-scrolled', !e.isIntersecting), {
+      rootMargin: '40px 0px 0px 0px',
+    }).observe(sentinel);
+  }
+
+  // Desktop mega-menus: click/keyboard disclosure, close on Escape or outside click.
+  const toggles = [...document.querySelectorAll<HTMLButtonElement>('[data-menu-toggle]')];
+  const closeAll = (except?: HTMLButtonElement) =>
+    toggles.forEach((t) => {
+      if (t === except) return;
+      t.setAttribute('aria-expanded', 'false');
+      document.getElementById(t.getAttribute('aria-controls')!)!.hidden = true;
+    });
+  toggles.forEach((t) =>
+    t.addEventListener('click', () => {
+      const open = t.getAttribute('aria-expanded') === 'true';
+      closeAll(t);
+      t.setAttribute('aria-expanded', String(!open));
+      document.getElementById(t.getAttribute('aria-controls')!)!.hidden = open;
+    }),
+  );
+  document.addEventListener('keydown', (e) => e.key === 'Escape' && closeAll());
+  document.addEventListener('click', (e) => {
+    if (!(e.target as Element).closest('.hdr__item')) closeAll();
+  });
+
+  // Mobile menu dialog
+  const dialog = document.getElementById('site-menu') as HTMLDialogElement | null;
+  document.querySelector('[data-menu-open]')?.addEventListener('click', () => dialog?.showModal());
+  dialog?.querySelector('[data-menu-close]')?.addEventListener('click', () => dialog.close());
+  dialog?.addEventListener('click', (e) => {
+    if (e.target === dialog) dialog.close();
+  });
+</script>
+
+<style>
+  .hdr {
+    position: sticky;
+    top: 0;
+    z-index: 40;
+    background: var(--surface);
+    border-bottom: 1px solid var(--line);
+    transition:
+      background-color var(--t) var(--ease),
+      border-color var(--t) var(--ease);
+  }
+  .hdr[data-overlay]:not([data-scrolled]) {
+    background: transparent;
+    border-color: transparent;
+    color: var(--white);
+  }
+  .hdr[data-overlay][data-scrolled] :global(.logo) {
+    color: var(--ink-900);
+  }
+  .hdr[data-overlay][data-scrolled] :global(.btn--ghost) {
+    background: var(--surface);
+    border-color: var(--line-strong);
+    color: var(--ink-900);
+  }
+  .hdr__in {
+    display: flex;
+    align-items: center;
+    gap: var(--s-4);
+    height: var(--header-h);
+  }
+  .hdr__nav {
+    display: none;
+    margin-inline: auto;
+  }
+  .hdr__links {
+    display: flex;
+    gap: 2px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .hdr__item {
+    position: relative;
+  }
+  .hdr__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    min-height: 40px;
+    padding: 0 10px;
+    border: 0;
+    border-radius: var(--r-sm);
+    background: none;
+    font: 500 0.90625rem / 1 var(--font-body);
+    text-decoration: none;
+    white-space: nowrap;
+    color: inherit;
+  }
+  .hdr__link:hover,
+  .hdr__link[aria-expanded='true'] {
+    background: rgb(127 127 127 / 0.12);
+  }
+  .hdr__link[aria-current='page'] {
+    box-shadow: inset 0 -2px 0 var(--cta);
+    border-radius: 0;
+  }
+  .hdr__chev {
+    font-size: 0.9em;
+    transition: transform var(--t) var(--ease);
+  }
+  [aria-expanded='true'] > .hdr__chev {
+    transform: rotate(180deg);
+  }
+  .hdr__actions {
+    display: flex;
+    align-items: center;
+    gap: var(--s-2);
+    margin-left: auto;
+  }
+  .hdr__wa,
+  .hdr__explore {
+    display: none;
+  }
+  .hdr__menu {
+    background: var(--surface);
+    border-color: var(--line-strong);
+    color: var(--ink-900);
+  }
+  .hdr[data-overlay]:not([data-scrolled]) .hdr__menu {
+    background: rgb(255 255 255 / 0.14);
+    border-color: rgb(255 255 255 / 0.4);
+    color: var(--white);
+  }
+
+  @media (min-width: 1100px) {
+    .hdr__nav,
+    .hdr__wa,
+    .hdr__explore {
+      display: flex;
+    }
+    .hdr__actions {
+      margin-left: 0;
+    }
+    .hdr__menu,
+    .hdr__wa-icon {
+      display: none;
+    }
+  }
+
+  /* Mega menus */
+  .mega {
+    position: absolute;
+    top: calc(100% + 10px);
+    left: 50%;
+    translate: -50% 0;
+    width: min(760px, 90vw);
+    padding: var(--s-6);
+    background: var(--surface);
+    color: var(--ink-900);
+    border: 1px solid var(--line);
+    border-radius: var(--r-xl);
+    box-shadow: var(--sh-3);
+  }
+  .mega__grid {
+    display: grid;
+    gap: var(--s-6);
+  }
+  .mega__grid--trips {
+    grid-template-columns: 1.5fr 1fr;
+  }
+  .mega__grid--dest {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .mega__title {
+    margin-bottom: var(--s-3);
+  }
+  .mega__types {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .mega__type {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    padding: 8px;
+    border-radius: var(--r-md);
+    text-decoration: none;
+  }
+  .mega__type:hover {
+    background: var(--surface-2);
+  }
+  .mega__type b {
+    display: block;
+    font-size: 0.875rem;
+  }
+  .mega__type small {
+    display: block;
+    font-size: 0.75rem;
+    color: var(--text-2);
+  }
+  .mega__ico {
+    display: grid;
+    place-items: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 10px;
+    background: var(--forest-50);
+    color: var(--forest-700);
+    flex: none;
+  }
+  .mega__up,
+  .mega__list {
+    display: grid;
+    gap: 4px;
+    margin: 0 0 var(--s-3);
+    padding: 0;
+    list-style: none;
+  }
+  .mega__up a,
+  .mega__list a {
+    display: block;
+    padding: 6px 8px;
+    margin-inline: -8px;
+    border-radius: var(--r-sm);
+    text-decoration: none;
+    font-size: 0.875rem;
+  }
+  .mega__up a:hover,
+  .mega__list a:hover {
+    background: var(--surface-2);
+  }
+  .mega__up b {
+    display: block;
+  }
+  .mega__up small {
+    color: var(--text-2);
+  }
+  .mega__empty {
+    font-size: 0.875rem;
+    margin-bottom: var(--s-3);
+  }
+  .mega__all {
+    font-size: 0.875rem;
+  }
+  .mega__custom {
+    display: grid;
+    gap: 4px;
+    margin-top: var(--s-4);
+    padding: var(--s-4);
+    border-radius: var(--r-lg);
+    background: var(--brand) var(--topo) center / 300px;
+    color: var(--white);
+    text-decoration: none;
+    font-size: 0.8125rem;
+  }
+  .mega__custom b {
+    font: 700 1rem / 1.2 var(--font-display);
+  }
+  .mega__custom span {
+    opacity: 0.82;
+  }
+
+  /* Mobile sheet */
+  .sheet {
+    width: 100%;
+    max-width: 480px;
+    height: 100dvh;
+    max-height: 100dvh;
+    margin: 0 0 0 auto;
+    padding: 0;
+    border: 0;
+    background: var(--bg);
+    color: var(--ink-900);
+    flex-direction: column;
+  }
+  .sheet[open] {
+    display: flex;
+  }
+  .sheet::backdrop {
+    background: rgb(10 20 16 / 0.5);
+  }
+  .sheet__top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px var(--gutter);
+    border-bottom: 1px solid var(--line);
+  }
+  .sheet__body {
+    flex: 1;
+    overflow-y: auto;
+    padding: var(--s-5) var(--gutter);
+    display: grid;
+    align-content: start;
+    gap: var(--s-4);
+  }
+  .sheet__search {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-height: 52px;
+    padding: 0 16px;
+    border: 1.5px solid var(--line-strong);
+    border-radius: var(--r-md);
+    background: var(--surface);
+    color: var(--text-2);
+    text-decoration: none;
+  }
+  .sheet__types {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--s-2);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .sheet__types a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-height: 56px;
+    padding: 10px 12px;
+    border: 1px solid var(--line);
+    border-radius: var(--r-md);
+    background: var(--surface);
+    font-weight: 600;
+    font-size: 0.875rem;
+    line-height: 1.2;
+    text-decoration: none;
+  }
+  .sheet__types :global(.icon) {
+    color: var(--forest-500);
+    font-size: 1.25rem;
+  }
+  .sheet__links {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    border-top: 1px solid var(--line);
+  }
+  .sheet__links a {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 52px;
+    border-bottom: 1px solid var(--line);
+    font-weight: 600;
+    text-decoration: none;
+  }
+  .sheet__links :global(.icon) {
+    color: var(--text-3);
+  }
+  .sheet__foot {
+    display: grid;
+    gap: var(--s-2);
+    padding: var(--s-3) var(--gutter) calc(var(--s-3) + env(safe-area-inset-bottom));
+    border-top: 1px solid var(--line);
+    background: var(--surface);
+  }
+</style>

@@ -1,0 +1,111 @@
+---
+/**
+ * Filter chips for listings (/trips/, collections, /upcoming-trips/). Facets are passed in
+ * from data, so an empty filter can never be offered. Chips toggle `aria-pressed` and
+ * emit `hcc:filter` with the active values; the listing island applies them (Phase 4).
+ * Each chip is also a real link (?month=… etc.), so filtering works without JS.
+ */
+import Icon from '@/components/ui/Icon.astro';
+
+export interface Facet {
+  key: string; // URL param: month, style, budget, transport, origin
+  value: string;
+  label: string;
+}
+
+interface Props {
+  facets: Facet[];
+  active?: Record<string, string>;
+  resultLabel?: string;
+  sticky?: boolean;
+  showFiltersButton?: boolean;
+  basePath?: string;
+  class?: string;
+}
+
+const { facets, active = {}, resultLabel, sticky = false, showFiltersButton = false, basePath = Astro.url.pathname, class: className } = Astro.props;
+const activeCount = Object.values(active).filter(Boolean).length;
+const hrefFor = (f: Facet) => {
+  const p = new URLSearchParams(active);
+  if (active[f.key] === f.value) p.delete(f.key);
+  else p.set(f.key, f.value);
+  const qs = p.toString();
+  return `${basePath}${qs ? `?${qs}` : ''}`;
+};
+---
+
+<div class:list={['fbar', sticky && 'fbar--sticky', className]} data-filterbar>
+  <div class="chips" role="toolbar" aria-label="Filter trips">
+    {
+      showFiltersButton && (
+        <button type="button" class="chip" data-filter-sheet aria-haspopup="dialog">
+          <Icon name="sliders" /> Filters
+          {activeCount > 0 && <span class="chip__count">{activeCount}</span>}
+        </button>
+      )
+    }
+    {
+      facets.map((f) => (
+        <a
+          class="chip"
+          href={hrefFor(f)}
+          role="button"
+          aria-pressed={active[f.key] === f.value ? 'true' : 'false'}
+          data-filter-key={f.key}
+          data-filter-value={f.value}
+          rel="nofollow"
+        >
+          {f.label}
+        </a>
+      ))
+    }
+  </div>
+  {resultLabel && <p class="fbar__result" aria-live="polite" data-filter-result>{resultLabel}</p>}
+</div>
+
+<script>
+  // Progressive enhancement: toggle in place, single value per key, emit hcc:filter.
+  document.querySelectorAll<HTMLElement>('[data-filterbar]').forEach((bar) => {
+    if (!bar.closest('[data-filter-scope]')) return; // only enhance when a listing island is present
+    bar.addEventListener('click', (e) => {
+      const chip = (e.target as Element).closest<HTMLAnchorElement>('[data-filter-key]');
+      if (!chip) return;
+      e.preventDefault();
+      const key = chip.dataset.filterKey!;
+      const on = chip.getAttribute('aria-pressed') !== 'true';
+      bar.querySelectorAll<HTMLElement>(`[data-filter-key="${key}"]`).forEach((c) => c.setAttribute('aria-pressed', 'false'));
+      chip.setAttribute('aria-pressed', String(on));
+      const active: Record<string, string> = {};
+      bar.querySelectorAll<HTMLElement>('[data-filter-key][aria-pressed="true"]').forEach((c) => (active[c.dataset.filterKey!] = c.dataset.filterValue!));
+      bar.dispatchEvent(new CustomEvent('hcc:filter', { detail: active, bubbles: true }));
+      const url = new URL(location.href);
+      url.search = new URLSearchParams(active).toString();
+      history.replaceState(null, '', url);
+    });
+  });
+</script>
+
+<style>
+  .fbar {
+    display: grid;
+    gap: var(--s-2);
+  }
+  .fbar--sticky {
+    position: sticky;
+    top: var(--header-h);
+    z-index: 20;
+    margin-inline: calc(-1 * var(--gutter));
+    padding: 10px var(--gutter);
+    background: color-mix(in srgb, var(--bg) 94%, transparent);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--line);
+  }
+  .fbar .chips {
+    margin-inline: calc(-1 * var(--gutter));
+    padding-inline: var(--gutter);
+  }
+  .fbar__result {
+    font-size: 0.8125rem;
+    color: var(--text-2);
+  }
+</style>

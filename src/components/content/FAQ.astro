@@ -1,0 +1,72 @@
+---
+/**
+ * FAQ accordion with native <details> (crawlable, works without JS).
+ * FAQPage schema is intentionally NOT emitted: Google restricts FAQ rich results to
+ * government/health sites, so the markup adds weight without benefit.
+ */
+interface Props {
+  items: { q: string; a: string }[];
+  openFirst?: boolean;
+  class?: string;
+}
+
+const { items, openFirst = false, class: className } = Astro.props;
+---
+
+{
+  items.length > 0 && (
+    <div class:list={['faq', className]}>
+      {items.map((f, i) => (
+        <details open={openFirst && i === 0}>
+          <summary>{f.q}</summary>
+          <div class="faq__a">
+            {f.a.split(/\n{2,}/).map((p) => (
+              <p>{p}</p>
+            ))}
+          </div>
+        </details>
+      ))}
+    </div>
+  )
+}
+
+<style>
+  .faq {
+    border-top: 1px solid var(--line);
+  }
+  details {
+    border-bottom: 1px solid var(--line);
+  }
+  summary {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--s-4);
+    min-height: 56px;
+    padding: 14px 2px;
+    font: 600 1rem / 1.35 var(--font-body);
+    list-style: none;
+    cursor: pointer;
+  }
+  summary::-webkit-details-marker {
+    display: none;
+  }
+  summary::after {
+    content: '+';
+    flex: none;
+    font: 400 1.5rem / 1 var(--font-body);
+    color: var(--text-2);
+    transition: transform var(--t) var(--ease);
+  }
+  details[open] summary::after {
+    transform: rotate(45deg);
+  }
+  .faq__a {
+    display: grid;
+    gap: var(--s-3);
+    padding: 0 2px var(--s-5);
+    max-width: 68ch;
+    color: var(--ink-700);
+    font-size: 0.97rem;
+  }
+</style>

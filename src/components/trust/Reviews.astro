@@ -1,0 +1,82 @@
+---
+/**
+ * Review section. Pulls genuine reviews from the `reviews` collection (consent required
+ * by schema). With fewer than `min` reviews the section collapses to a single
+ * "Read our reviews on Google" link, or renders nothing if no profile URL exists.
+ * No AggregateRating schema is emitted for Google-sourced ratings (Google policy).
+ */
+import { getCollection } from 'astro:content';
+import ReviewCard, { type ReviewView } from './ReviewCard.astro';
+import SectionHeader from '@/components/ui/SectionHeader.astro';
+import Icon from '@/components/ui/Icon.astro';
+import { getTrips } from '@/lib/catalog';
+import { isoDate } from '@/lib/format';
+import { settings, visibleTrustItems } from '@/lib/settings';
+
+interface Props {
+  title?: string;
+  tripId?: string;
+  destinationId?: string;
+  limit?: number;
+  min?: number;
+  /** Supply reviews directly (style guide demo). */
+  reviews?: ReviewView[];
+  headingLevel?: 'h2' | 'h3';
+}
+
+const { title = 'Real traveller reviews', tripId, destinationId, limit = 6, min = 3, reviews: given, headingLevel = 'h2' } = Astro.props;
+
+let reviews: ReviewView[] = given ?? [];
+if (!given) {
+  const trips = await getTrips();
+  const all = await getCollection('reviews');
+  reviews = all
+    .filter((r) => (!tripId || r.data.trip?.id === tripId) && (!destinationId || r.data.destination?.id === destinationId))
+    .sort((a, b) => Number(b.data.featured) - Number(a.data.featured) || +b.data.date - +a.data.date)
+    .slice(0, limit)
+    .map((r) => {
+      const trip = r.data.trip ? trips.find((t) => t.id === r.data.trip!.id) : undefined;
+      return {
+        name: r.data.name,
+        rating: r.data.rating,
+        text: r.data.text,
+        date: isoDate(r.data.date),
+        source: r.data.source,
+        sourceUrl: r.data.sourceUrl,
+        photo: r.data.photo,
+        tripTitle: trip?.data.title,
+        tripUrl: trip?.url,
+      };
+    });
+}
+
+const google = settings.social.googleBusiness;
+const rating = visibleTrustItems().find((t) => t.icon === 'star');
+---
+
+{
+  reviews.length >= min ? (
+    <section class="reviews" aria-labelledby="reviews-title">
+      <SectionHeader id="reviews-title" title={title} level={headingLevel} subtitle={rating ? `${rating.value} on Google${rating.detail ? ` · ${rating.detail}` : ''}` : undefined}>
+        {google && (
+          <a class="btn btn--text" href={google} target="_blank" rel="noopener">
+            Read more reviews <Icon name="arrow" />
+          </a>
+        )}
+      </SectionHeader>
+      <div class="rail rail--grid" style="--rail-cols:3">
+        {reviews.map((r) => (
+          <ReviewCard review={r} />
+        ))}
+      </div>
+    </section>
+  ) : (
+    google && (
+      <p class="reviews__link">
+        <a class="btn btn--secondary" href={google} target="_blank" rel="noopener">
+          <Icon name="star" /> Read our reviews on Google
+        </a>
+      </p>
+    )
+  )
+}

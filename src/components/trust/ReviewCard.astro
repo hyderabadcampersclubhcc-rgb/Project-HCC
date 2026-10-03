@@ -1,0 +1,156 @@
+---
+/** A genuine traveller review: source, date and (optional) trip are always shown. */
+import type { ImageMetadata } from 'astro';
+import { Image } from 'astro:assets';
+import Icon from '@/components/ui/Icon.astro';
+
+export interface ReviewView {
+  name: string;
+  rating: number;
+  text: string;
+  date: string; // YYYY-MM-DD
+  source: 'google' | 'instagram' | 'direct';
+  sourceUrl?: string;
+  photo?: ImageMetadata;
+  tripTitle?: string;
+  tripUrl?: string;
+}
+
+interface Props {
+  review: ReviewView;
+  clampAt?: number;
+}
+
+const { review: r, clampAt = 280 } = Astro.props;
+const SOURCE = { google: 'Google', instagram: 'Instagram', direct: 'Verified traveller' };
+const month = new Intl.DateTimeFormat('en-IN', { month: 'short', year: 'numeric', timeZone: 'UTC' }).format(new Date(`${r.date}T00:00:00Z`));
+const long = r.text.length > clampAt;
+---
+
+<article class="rcard">
+  <header class="rcard__head">
+    {
+      r.photo ? (
+        <Image src={r.photo} alt="" width={80} height={80} class="rcard__avatar" />
+      ) : (
+        <span class="rcard__avatar rcard__avatar--initial" aria-hidden="true">
+          {r.name.trim()[0]?.toUpperCase()}
+        </span>
+      )
+    }
+    <div>
+      <p class="rcard__name">{r.name}</p>
+      <p class="rcard__when">Travelled {month}</p>
+    </div>
+    <p class="rcard__src">
+      <span class="rcard__stars" role="img" aria-label={`${r.rating} out of 5 stars`}>
+        {Array.from({ length: 5 }, (_, i) => <Icon name="star" filled={i < r.rating} class={i < r.rating ? 'on' : 'off'} />)}
+      </span>
+      {r.sourceUrl ? <a href={r.sourceUrl} target="_blank" rel="noopener">{SOURCE[r.source]}</a> : <span>{SOURCE[r.source]}</span>}
+    </p>
+  </header>
+  {
+    long ? (
+      <details class="rcard__more">
+        <summary>
+          <blockquote class="rcard__text">{r.text.slice(0, clampAt).trimEnd()}…</blockquote>
+          <span class="rcard__toggle">Read more</span>
+        </summary>
+        <blockquote class="rcard__text">{r.text}</blockquote>
+      </details>
+    ) : (
+      <blockquote class="rcard__text">{r.text}</blockquote>
+    )
+  }
+  {r.tripTitle && r.tripUrl && <a class="rcard__trip" href={r.tripUrl}>Trip: {r.tripTitle} →</a>}
+</article>
+
+<style>
+  .rcard {
+    display: grid;
+    gap: var(--s-3);
+    align-content: start;
+    padding: var(--s-5);
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--r-lg);
+  }
+  .rcard__head {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .rcard__avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex: none;
+  }
+  .rcard__avatar--initial {
+    display: grid;
+    place-items: center;
+    background: var(--forest-100);
+    color: var(--forest-700);
+    font: 700 0.9375rem / 1 var(--font-display);
+  }
+  .rcard__name {
+    font-weight: 600;
+    font-size: 0.9rem;
+  }
+  .rcard__when {
+    font-size: 0.75rem;
+    color: var(--text-2);
+  }
+  .rcard__src {
+    margin-left: auto;
+    display: grid;
+    justify-items: end;
+    gap: 2px;
+    font-size: 0.6875rem;
+    font-weight: 600;
+    color: var(--text-2);
+  }
+  .rcard__stars {
+    display: inline-flex;
+    gap: 1px;
+  }
+  .rcard__stars :global(.icon) {
+    width: 14px;
+    height: 14px;
+  }
+  .rcard__stars :global(.on) {
+    color: var(--marigold-500);
+  }
+  .rcard__stars :global(.off) {
+    color: var(--line-strong);
+  }
+  .rcard__text {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: var(--ink-700);
+  }
+  .rcard__more summary {
+    list-style: none;
+    cursor: pointer;
+  }
+  .rcard__more summary::-webkit-details-marker {
+    display: none;
+  }
+  .rcard__more[open] summary {
+    display: none;
+  }
+  .rcard__toggle {
+    display: inline-block;
+    margin-top: 4px;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--link);
+  }
+  .rcard__trip {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--link);
+    text-decoration: none;
+  }
+</style>

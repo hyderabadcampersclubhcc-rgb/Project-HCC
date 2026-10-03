@@ -1,0 +1,49 @@
+---
+/**
+ * Per-page SEO head: title, description, canonical (always the clean path, so
+ * campaign parameters never create duplicates), robots, Open Graph, X/Twitter, JSON-LD.
+ */
+import { settings } from '@/lib/settings';
+
+export interface SeoProps {
+  title: string;
+  description: string;
+  /** Use `title` verbatim instead of appending " | HCC". */
+  rawTitle?: boolean;
+  /** Path override for canonical, e.g. when a page is reachable at several URLs. */
+  canonicalPath?: string;
+  noindex?: boolean;
+  ogImage?: string; // absolute or root-relative URL
+  ogImageAlt?: string;
+  ogType?: 'website' | 'article';
+  jsonLd?: Record<string, unknown> | Record<string, unknown>[];
+}
+
+const { title, description, rawTitle = false, canonicalPath, noindex = false, ogImage, ogImageAlt, ogType = 'website', jsonLd } =
+  Astro.props as SeoProps;
+
+const fullTitle = rawTitle ? title : `${title} | ${settings.brand.short}`;
+const canonical = new URL(canonicalPath ?? Astro.url.pathname, Astro.site).href;
+const image = ogImage ? new URL(ogImage, Astro.site).href : undefined;
+const ld = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
+---
+
+<title>{fullTitle}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonical} />
+{noindex && <meta name="robots" content="noindex, follow" />}
+
+<meta property="og:site_name" content={settings.brand.name} />
+<meta property="og:locale" content="en_IN" />
+<meta property="og:type" content={ogType} />
+<meta property="og:title" content={fullTitle} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonical} />
+{image && <meta property="og:image" content={image} />}
+{image && ogImageAlt && <meta property="og:image:alt" content={ogImageAlt} />}
+<meta name="twitter:card" content={image ? 'summary_large_image' : 'summary'} />
+<meta name="twitter:title" content={fullTitle} />
+<meta name="twitter:description" content={description} />
+{image && <meta name="twitter:image" content={image} />}
+
+{ld.map((obj) => <script type="application/ld+json" set:html={JSON.stringify(obj)} />)}

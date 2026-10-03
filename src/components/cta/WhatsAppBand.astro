@@ -1,0 +1,89 @@
+---
+/** Deep-forest conversion band: "Not sure which trip fits you?" + Plan My Trip + WhatsApp. */
+import Button from '@/components/ui/Button.astro';
+import WhatsAppCTA from './WhatsAppCTA.astro';
+import type { WaContext } from '@/lib/whatsapp';
+import { settings, whatsappNumber } from '@/lib/settings';
+
+interface Props {
+  title?: string;
+  text?: string;
+  primaryLabel?: string;
+  primaryHref?: string;
+  context?: WaContext;
+  location: string;
+  headingLevel?: 'h2' | 'h3';
+}
+
+const {
+  title = 'Not sure which trip fits you?',
+  text = 'Tell us your dates and budget. A real person from the HCC team will suggest the right trip.',
+  primaryLabel = 'Plan My Trip',
+  primaryHref = '/customised-trips/',
+  context,
+  location,
+  headingLevel = 'h2',
+} = Astro.props;
+const H = headingLevel;
+const hours = settings.contact.hours;
+---
+
+<aside class="waband">
+  {
+    whatsappNumber && hours && (
+      <p class="waband__meta">
+        <span class="waband__dot" aria-hidden="true" />
+        WhatsApp support · {hours}
+      </p>
+    )
+  }
+  <H class="waband__title">{title}</H>
+  <p class="waband__text">{text}</p>
+  <div class="waband__cta">
+    <Button href={primaryHref} data-cta-location={location}>{primaryLabel}</Button>
+    <WhatsAppCTA location={location} variant="whatsapp-deep" context={context} />
+  </div>
+</aside>
+
+<style>
+  .waband {
+    display: grid;
+    gap: var(--s-3);
+    padding: var(--s-8) var(--s-6);
+    border-radius: var(--r-xl);
+    background: var(--brand) var(--topo) center / 520px;
+    color: var(--white);
+  }
+  .waband__meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.8125rem;
+    opacity: 0.78;
+  }
+  .waband__dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #25d366;
+    box-shadow: 0 0 0 3px rgb(37 211 102 / 0.25);
+  }
+  .waband__title {
+    font-size: clamp(1.5rem, 1.25rem + 1vw, 2.125rem);
+  }
+  .waband__text {
+    max-width: 54ch;
+    color: rgb(255 255 255 / 0.84);
+  }
+  .waband__cta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-2);
+    margin-top: var(--s-2);
+  }
+  @media (min-width: 768px) {
+    .waband {
+      padding: var(--s-12);
+    }
+  }
+</style>

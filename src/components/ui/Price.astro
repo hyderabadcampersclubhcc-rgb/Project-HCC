@@ -1,0 +1,36 @@
+---
+/** Price block. `was` renders only when it is a genuine, higher previous price. */
+import { inr } from '@/lib/format';
+
+interface Props {
+  amount: number;
+  was?: number | null;
+  fromLabel?: string | null; // "From", "3N/4D from"; null hides it
+  per?: string | null; // "/person"
+  size?: 'md' | 'lg';
+  onDark?: boolean;
+  class?: string;
+}
+
+const { amount, was, fromLabel = 'From', per = null, size = 'md', onDark = false, class: className } = Astro.props;
+const showWas = was != null && was > amount;
+---
+
+<p class:list={['price', size === 'lg' && 'price--lg', onDark && 'price--on-dark', className]}>
+  {fromLabel && <span class="price__from">{fromLabel}</span>}
+  <span class="price__row">
+    {
+      showWas && (
+        <s class="price__was num">
+          <span class="sr-only">Was </span>
+          {inr(was!)}
+        </s>
+      )
+    }
+    <strong class="price__now">
+      {showWas && <span class="sr-only">Now </span>}
+      {inr(amount)}
+    </strong>
+    {per && <span class="price__per">{per}</span>}
+  </span>
+</p>

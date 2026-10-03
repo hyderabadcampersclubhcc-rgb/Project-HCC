@@ -1,0 +1,163 @@
+---
+/** One card = one dated departure. Used in "Upcoming Trips" rails and /upcoming-trips/. */
+import Photo from '@/components/ui/Photo.astro';
+import Badge from '@/components/ui/Badge.astro';
+import Icon from '@/components/ui/Icon.astro';
+import { toneFor, type UpcomingItem } from '@/lib/catalog';
+import { dayShort, dayNum, monShort, durationLabel, inr, dateRange } from '@/lib/format';
+import { itemParams, toAttr } from '@/lib/tracking';
+
+interface Props {
+  item: UpcomingItem;
+  listName?: string;
+  index?: number;
+  headingLevel?: 'h3' | 'h4';
+}
+
+const { item, listName = 'upcoming', index, headingLevel = 'h3' } = Astro.props;
+const { trip, origin, departure: dep } = item;
+const d = trip.data;
+const H = headingLevel;
+const href = `${origin.url}?d=${dep.start}`;
+const track = toAttr(itemParams(trip, origin, { listName, index, departure: dep }));
+---
+
+<article class="dcard" data-start={dep.start} data-month={dep.start.slice(0, 7)} data-origin={origin.city}>
+  <div class="dcard__media">
+    <Photo src={d.heroImage} alt={d.heroAlt ?? `${d.title} trip`} tone={toneFor(d)} widths={[200, 300]} sizes="120px" />
+    <p class="dcard__date" aria-hidden="true">
+      <small>{dayShort(dep.start)}</small><b>{dayNum(dep.start)}</b><small>{monShort(dep.start)}</small>
+    </p>
+  </div>
+  <div class="dcard__body">
+    <H class="dcard__title">
+      <a href={href} data-track="select_item" data-track-params={track}>
+        {d.title}
+        <span class="sr-only">, {dateRange(dep.start, dep.end)}</span>
+      </a>
+    </H>
+    <p class="dcard__meta">
+      <span><Icon name="clock" />{durationLabel(d.durationNights, d.durationDays)}</span>
+      <span><Icon name="pin" />From {origin.label}</span>
+    </p>
+    <div class="dcard__row">
+      <strong class="dcard__price num">{inr(dep.price)}</strong>
+      {
+        dep.urgency === 'seats' ? (
+          <Badge tone="alert">{dep.seatsLeft} seats left</Badge>
+        ) : dep.urgency === 'filling' ? (
+          <Badge tone="alert">Filling fast</Badge>
+        ) : dep.status === 'waitlist' ? (
+          <Badge tone="info">Waitlist</Badge>
+        ) : dep.note ? (
+          <Badge tone="ok">{dep.note}</Badge>
+        ) : (
+          <span class="dcard__go" aria-hidden="true">Book <Icon name="arrow" /></span>
+        )
+      }
+    </div>
+  </div>
+</article>
+
+<style>
+  .dcard {
+    position: relative;
+    display: grid;
+    grid-template-columns: 104px 1fr;
+    min-width: 0;
+    min-height: 124px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--r-lg);
+    overflow: hidden;
+    box-shadow: var(--sh-1);
+    transition: box-shadow var(--t) var(--ease);
+  }
+  @media (hover: hover) {
+    .dcard:hover {
+      box-shadow: var(--sh-2);
+    }
+  }
+  .dcard:focus-within {
+    box-shadow: var(--focus-ring);
+  }
+  .dcard__media {
+    position: relative;
+  }
+  .dcard__date {
+    position: absolute;
+    left: 8px;
+    top: 8px;
+    z-index: 2;
+    display: grid;
+    justify-items: center;
+    gap: 2px;
+    padding: 6px 8px;
+    border-radius: 10px;
+    background: var(--surface);
+    line-height: 1;
+    box-shadow: var(--sh-1);
+  }
+  .dcard__date small {
+    font: 700 0.594rem / 1 var(--font-body);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-2);
+  }
+  .dcard__date b {
+    font: 800 1.25rem / 1 var(--font-display);
+  }
+  .dcard__body {
+    display: grid;
+    align-content: center;
+    gap: 6px;
+    min-width: 0;
+    padding: 12px 14px;
+  }
+  .dcard__title {
+    font-size: 1rem;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+  }
+  .dcard__title a {
+    text-decoration: none;
+  }
+  .dcard__title a::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+  }
+  .dcard__title a:focus-visible {
+    box-shadow: none;
+  }
+  .dcard__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 12px;
+    font-size: 0.78rem;
+    color: var(--text-2);
+  }
+  .dcard__meta span {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .dcard__row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+  }
+  .dcard__price {
+    font: 800 1.0625rem / 1 var(--font-display);
+  }
+  .dcard__go {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--link);
+  }
+</style>

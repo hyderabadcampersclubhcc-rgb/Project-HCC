@@ -1,0 +1,62 @@
+---
+/** Consistent section heading: overline + H2 + subtitle, optional right-side action. */
+interface Props {
+  overline?: string;
+  title: string;
+  subtitle?: string;
+  level?: 'h1' | 'h2' | 'h3';
+  id?: string;
+  align?: 'start' | 'center';
+  onDark?: boolean;
+  class?: string;
+}
+
+const { overline, title, subtitle, level = 'h2', id, align = 'start', onDark = false, class: className } = Astro.props;
+const Heading = level;
+---
+
+<header class:list={['shead', align === 'center' && 'shead--center', onDark && 'shead--dark', className]}>
+  <div class="shead__text">
+    {overline && <p class="overline shead__over">{overline}</p>}
+    <Heading id={id} class="shead__title">{title}</Heading>
+    {subtitle && <p class="shead__sub">{subtitle}</p>}
+  </div>
+  {Astro.slots.has('default') && <div class="shead__action"><slot /></div>}
+</header>
+
+<style>
+  .shead {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: var(--s-3) var(--s-6);
+    margin-bottom: var(--s-6);
+  }
+  .shead--center {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  .shead__over {
+    margin-bottom: var(--s-2);
+  }
+  .shead__title {
+    font-size: var(--fs-h2);
+    line-height: 1.12;
+  }
+  .shead__sub {
+    margin-top: var(--s-2);
+    color: var(--text-2);
+    max-width: 60ch;
+  }
+  .shead--dark .shead__over {
+    color: var(--cta);
+  }
+  .shead--dark .shead__sub {
+    color: rgb(255 255 255 / 0.78);
+  }
+  .shead__action {
+    flex: none;
+  }
+</style>

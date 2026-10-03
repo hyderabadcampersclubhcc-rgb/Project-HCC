@@ -1,0 +1,8 @@
+# SAMPLE CONTENT: style guide only.
+trip: coorg-chikmagalur
+origin: hyderabad
+startDate: 2026-11-06
+endDate: 2026-11-10
+status: open
+fillingFast: true
+sample: true

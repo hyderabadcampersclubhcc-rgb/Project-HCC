@@ -1,0 +1,70 @@
+---
+/**
+ * Button / link-button. Renders <a> when `href` is given, otherwise <button>.
+ * CTA labels must say what happens next ("View Dates", "Book Your Seat"); never "Click here".
+ * Any extra attributes (data-track, data-wa, aria-*) are passed through.
+ */
+import type { HTMLAttributes } from 'astro/types';
+import Icon, { type IconName } from './Icon.astro';
+
+type Variant = 'primary' | 'secondary' | 'dark' | 'whatsapp' | 'whatsapp-deep' | 'ghost' | 'text';
+
+type Props = Omit<HTMLAttributes<'a'> & HTMLAttributes<'button'>, 'type'> & {
+  variant?: Variant;
+  size?: 'sm' | 'md' | 'lg';
+  block?: boolean;
+  href?: string;
+  icon?: IconName;
+  iconRight?: IconName;
+  iconOnly?: boolean;
+  type?: 'button' | 'submit' | 'reset';
+  disabled?: boolean;
+};
+
+const {
+  variant = 'primary',
+  size = 'md',
+  block = false,
+  href,
+  icon,
+  iconRight,
+  iconOnly = false,
+  type = 'button',
+  disabled = false,
+  class: className,
+  ...rest
+} = Astro.props;
+
+const classes = [
+  'btn',
+  `btn--${variant}`,
+  size !== 'md' && `btn--${size}`,
+  block && 'btn--block',
+  iconOnly && 'btn--icon',
+  className,
+];
+const external = href && /^https?:\/\//.test(href);
+---
+
+{
+  href ? (
+    <a
+      href={disabled ? undefined : href}
+      class:list={classes}
+      aria-disabled={disabled ? 'true' : undefined}
+      target={external ? '_blank' : undefined}
+      rel={external ? 'noopener' : undefined}
+      {...rest}
+    >
+      {icon && <Icon name={icon} />}
+      <slot />
+      {iconRight && <Icon name={iconRight} />}
+    </a>
+  ) : (
+    <button type={type} class:list={classes} disabled={disabled} {...rest}>
+      {icon && <Icon name={icon} />}
+      <slot />
+      {iconRight && <Icon name={iconRight} />}
+    </button>
+  )
+}

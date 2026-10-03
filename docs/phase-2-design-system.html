@@ -1,0 +1,1535 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HCC Design System</title>
+<meta name="description" content="Phase 2 review: HCC design tokens, component system, page layouts, data model and campaign/booking architecture.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* =========================================================
+   1. TOKENS  (these become src/styles/tokens.css in production)
+   ========================================================= */
+:root{
+  /* Brand palette */
+  --forest-950:#0A241C; --forest-900:#0E3B2E; --forest-700:#17543F; --forest-500:#2E7A5C; --forest-100:#DCEAE2; --forest-50:#EEF5F0;
+  --marigold-600:#DB8F0A; --marigold-500:#F2A61D; --marigold-100:#FDF0D5;
+  --ember-600:#C2401A; --ember-100:#FBE4DA;
+  --sky-600:#2B6A8C; --sky-100:#DFEEF5;
+  --sand-50:#FAF6EF; --sand-100:#F3ECE0; --sand-200:#E6DCCB; --sand-300:#D3C6B0;
+  --ink-900:#121816; --ink-700:#2D3633; --ink-500:#5B6560; --ink-400:#7E8782;
+  --white:#FFFFFF; --wa:#25D366;
+
+  /* Semantic roles (components only use these) */
+  --bg:var(--sand-50); --surface:var(--white); --surface-2:var(--sand-100);
+  --text:var(--ink-900); --text-2:var(--ink-500); --text-3:var(--ink-400);
+  --line:var(--sand-200); --line-strong:var(--sand-300);
+  --brand:var(--forest-900); --brand-2:var(--forest-700); --link:var(--forest-500);
+  --cta:var(--marigold-500); --cta-hover:var(--marigold-600); --cta-ink:var(--ink-900);
+  --alert:var(--ember-600); --alert-bg:var(--ember-100);
+  --info:var(--sky-600); --info-bg:var(--sky-100);
+  --ok:var(--forest-500); --ok-bg:var(--forest-50);
+  --focus:0 0 0 3px var(--white),0 0 0 5px var(--forest-500);
+
+  /* Type */
+  --font-display:"Bricolage Grotesque",ui-sans-serif,system-ui,sans-serif;
+  --font-body:"Inter",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+  --fs-display:clamp(2.5rem,1.7rem + 3.6vw,4.5rem);
+  --fs-h1:clamp(2rem,1.55rem + 2vw,3.25rem);
+  --fs-h2:clamp(1.625rem,1.35rem + 1.2vw,2.5rem);
+  --fs-h3:clamp(1.25rem,1.15rem + .45vw,1.5rem);
+  --fs-h4:1.125rem; --fs-lg:1.125rem; --fs-body:1rem; --fs-sm:.875rem; --fs-xs:.75rem;
+  --lh-tight:1.05; --lh-snug:1.25; --lh-body:1.6;
+
+  /* Space (4px base) */
+  --s-1:4px; --s-2:8px; --s-3:12px; --s-4:16px; --s-5:20px; --s-6:24px; --s-8:32px; --s-10:40px; --s-12:48px; --s-16:64px; --s-20:80px; --s-24:96px;
+  --gutter:16px; --container:1240px;
+
+  /* Shape */
+  --r-xs:6px; --r-sm:8px; --r-md:12px; --r-lg:16px; --r-xl:24px; --r-pill:999px;
+  --sh-1:0 1px 2px rgba(18,24,22,.06),0 1px 1px rgba(18,24,22,.04);
+  --sh-2:0 10px 24px -10px rgba(18,24,22,.22);
+  --sh-3:0 28px 56px -20px rgba(10,36,28,.38);
+
+  /* Motion */
+  --ease:cubic-bezier(.2,.7,.2,1); --t-fast:120ms; --t:200ms; --t-slow:320ms;
+
+  /* Photo placeholders (doc only; production uses real photography) */
+  --ridge:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 200' preserveAspectRatio='none'%3E%3Cpath d='M0 120 L50 84 L95 108 L160 52 L220 104 L280 66 L340 112 L400 86 V200 H0Z' fill='rgba(8,28,22,.28)'/%3E%3Cpath d='M0 160 L70 122 L140 150 L220 112 L300 148 L360 128 L400 140 V200 H0Z' fill='rgba(8,28,22,.42)'/%3E%3C/svg%3E");
+  --waves:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 200' preserveAspectRatio='none'%3E%3Cpath d='M0 110 Q50 100 100 110 T200 110 T300 110 T400 110 V200 H0Z' fill='rgba(12,60,80,.35)'/%3E%3Cpath d='M0 150 Q60 140 120 150 T240 150 T360 150 T480 150 V200 H0Z' fill='rgba(240,214,170,.85)'/%3E%3C/svg%3E");
+  --topo:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='480' height='480' viewBox='0 0 480 480'%3E%3Cg fill='none' stroke='rgba(255,255,255,.055)' stroke-width='1.2'%3E%3Cpath d='M40 240c0-90 80-170 200-170s200 60 200 170-90 170-200 170S40 330 40 240z'/%3E%3Cpath d='M90 240c0-62 60-120 150-120s150 44 150 120-66 122-150 122S90 302 90 240z'/%3E%3Cpath d='M140 242c0-36 40-72 100-72s100 28 100 72-42 74-100 74-100-38-100-74z'/%3E%3Cpath d='M190 244c0-14 20-28 50-28s50 12 50 28-20 30-50 30-50-16-50-30z'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+/* =========================================================
+   2. BASE
+   ========================================================= */
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font:400 var(--fs-body)/var(--lh-body) var(--font-body);-webkit-font-smoothing:antialiased;font-feature-settings:"cv11","ss01"}
+img,svg{display:block;max-width:100%}
+a{color:inherit}
+h1,h2,h3,h4{font-family:var(--font-display);font-weight:700;letter-spacing:-.02em;line-height:var(--lh-snug);margin:0}
+p{margin:0}
+button{font:inherit;cursor:pointer}
+:focus-visible{outline:none;box-shadow:var(--focus);border-radius:var(--r-sm)}
+.num{font-variant-numeric:tabular-nums}
+.ico{width:18px;height:18px;flex:none;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.ico--sm{width:15px;height:15px}
+.ico--lg{width:24px;height:24px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
+
+/* =========================================================
+   3. PRIMITIVES
+   ========================================================= */
+.overline{font:600 var(--fs-xs)/1 var(--font-body);letter-spacing:.14em;text-transform:uppercase;color:var(--text-2)}
+.btn{--h:48px;display:inline-flex;align-items:center;justify-content:center;gap:8px;height:var(--h);padding:0 20px;border-radius:var(--r-md);border:1.5px solid transparent;font:600 15px/1 var(--font-body);text-decoration:none;white-space:nowrap;transition:background var(--t) var(--ease),border-color var(--t) var(--ease),transform var(--t-fast) var(--ease),box-shadow var(--t) var(--ease)}
+.btn:active{transform:translateY(1px)}
+.btn--primary{background:var(--cta);color:var(--cta-ink)}
+.btn--primary:hover{background:var(--cta-hover)}
+.btn--secondary{background:transparent;border-color:var(--brand);color:var(--brand)}
+.btn--secondary:hover{background:var(--forest-50)}
+.btn--dark{background:var(--brand);color:var(--white)}
+.btn--dark:hover{background:var(--brand-2)}
+.btn--wa{background:var(--surface);border-color:var(--line-strong);color:var(--ink-900)}
+.btn--wa .ico{color:#1DA851}
+.btn--wa:hover{border-color:var(--ink-900)}
+.btn--wa-solid{background:var(--forest-950);color:var(--white)}
+.btn--wa-solid .ico{color:var(--wa)}
+.btn--ghost{background:rgba(255,255,255,.14);border-color:rgba(255,255,255,.4);color:var(--white);backdrop-filter:blur(6px)}
+.btn--text{height:auto;padding:0;border:0;background:none;color:var(--link);font-weight:600}
+.btn--text:hover{text-decoration:underline;text-underline-offset:3px}
+.btn--sm{--h:40px;padding:0 14px;font-size:14px;border-radius:10px}
+.btn--lg{--h:56px;padding:0 26px;font-size:16px}
+.btn--block{width:100%}
+.btn[disabled],.btn.is-disabled{opacity:.45;pointer-events:none}
+.btn.is-loading{color:transparent;position:relative}
+.btn.is-loading::after{content:"";position:absolute;width:18px;height:18px;border-radius:50%;border:2px solid var(--cta-ink);border-right-color:transparent;animation:spin .7s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+.badge{display:inline-flex;align-items:center;gap:5px;height:24px;padding:0 9px;border-radius:var(--r-pill);font:600 12px/1 var(--font-body);white-space:nowrap}
+.badge--alert{background:var(--alert-bg);color:var(--alert)}
+.badge--alert::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor}
+.badge--ok{background:var(--ok-bg);color:var(--forest-700)}
+.badge--info{background:var(--info-bg);color:var(--info)}
+.badge--muted{background:var(--surface-2);color:var(--text-2)}
+.badge--dark{background:var(--forest-950);color:var(--white)}
+.badge--outline{background:transparent;border:1px solid var(--line-strong);color:var(--ink-700)}
+.badge--glass{background:rgba(10,36,28,.55);color:var(--white);backdrop-filter:blur(6px)}
+.badge--cta{background:var(--cta);color:var(--cta-ink)}
+
+/* Signature 1: ticket-stub duration chip */
+.stub{position:relative;display:inline-flex;align-items:center;gap:6px;height:28px;padding:0 12px;background:var(--surface);color:var(--ink-900);border-radius:6px;font:700 12px/1 var(--font-body);letter-spacing:.04em;
+  -webkit-mask:radial-gradient(circle 5px at 0 50%,#0000 98%,#000) left/51% 100% no-repeat,radial-gradient(circle 5px at 100% 50%,#0000 98%,#000) right/51% 100% no-repeat;
+          mask:radial-gradient(circle 5px at 0 50%,#0000 98%,#000) left/51% 100% no-repeat,radial-gradient(circle 5px at 100% 50%,#0000 98%,#000) right/51% 100% no-repeat}
+.stub b{font-weight:800}
+.stub i{width:1px;height:12px;background:var(--line-strong)}
+
+/* Signature 2: route line (origin ••• destination) */
+.route{display:flex;align-items:center;gap:8px;font:600 12px/1 var(--font-body);letter-spacing:.06em;text-transform:uppercase;color:var(--text-2);min-width:0}
+.route span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.route i{flex:1;min-width:24px;max-width:72px;height:2px;background:radial-gradient(circle,var(--line-strong) 1px,transparent 1.5px) 0 50%/6px 2px repeat-x;position:relative}
+.route i::before,.route i::after{content:"";position:absolute;top:50%;width:6px;height:6px;border-radius:50%;transform:translateY(-50%)}
+.route i::before{left:-2px;border:1.5px solid var(--forest-500);background:var(--surface)}
+.route i::after{right:-2px;background:var(--cta)}
+.route--light{color:rgba(255,255,255,.85)}
+.route--light i{background-image:radial-gradient(circle,rgba(255,255,255,.6) 1px,transparent 1.5px)}
+
+/* Signature 3: boarding-pass date stub */
+.dstub{display:inline-grid;justify-items:center;align-content:center;min-width:58px;padding:8px 6px;border:1.5px solid var(--line);border-radius:var(--r-md);background:var(--surface);color:var(--ink-900);line-height:1;gap:3px;text-decoration:none;transition:border-color var(--t) var(--ease)}
+.dstub small{font:600 10px/1 var(--font-body);letter-spacing:.1em;text-transform:uppercase;color:var(--text-2)}
+.dstub b{font:800 20px/1 var(--font-display);letter-spacing:-.02em}
+.dstub em{font:600 9.5px/1 var(--font-body);font-style:normal;letter-spacing:.04em;text-transform:uppercase}
+.dstub em.alert{color:var(--alert)}
+.dstub em.mute{color:var(--text-3)}
+.dstub.is-selected{border-color:var(--brand);box-shadow:inset 0 0 0 1px var(--brand);background:var(--forest-50)}
+.dstub.is-soldout{opacity:.5}
+.dstub.is-soldout b{text-decoration:line-through}
+
+.chip{display:inline-flex;align-items:center;gap:6px;height:38px;padding:0 15px;border-radius:var(--r-pill);border:1.5px solid var(--line);background:var(--surface);color:var(--ink-700);font:500 14px/1 var(--font-body);white-space:nowrap;transition:all var(--t) var(--ease)}
+.chip:hover{border-color:var(--ink-400)}
+.chip.is-on{background:var(--ink-900);border-color:var(--ink-900);color:var(--white)}
+.chip--dark{background:transparent;border-color:rgba(255,255,255,.3);color:var(--white)}
+.chip--dark.is-on{background:var(--white);color:var(--ink-900);border-color:var(--white)}
+.chips{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px}
+.chips::-webkit-scrollbar{display:none}
+
+.field{display:grid;gap:6px}
+.field label{font:600 13px/1.2 var(--font-body);color:var(--ink-700)}
+.field .optional{font-weight:400;color:var(--text-3)}
+.input{height:50px;width:100%;padding:0 14px;border:1.5px solid var(--line-strong);border-radius:var(--r-md);background:var(--surface);font:400 16px/1 var(--font-body);color:var(--ink-900);transition:border-color var(--t) var(--ease)}
+.input::placeholder{color:var(--text-3)}
+.input:focus{outline:none;border-color:var(--forest-500);box-shadow:0 0 0 3px rgba(46,122,92,.18)}
+.input.is-error{border-color:var(--alert)}
+.help{font-size:12.5px;color:var(--text-2)}
+.help.err{color:var(--alert);font-weight:500}
+.phone-in{display:flex}
+.phone-in span{display:grid;place-items:center;padding:0 12px;border:1.5px solid var(--line-strong);border-right:0;border-radius:var(--r-md) 0 0 var(--r-md);background:var(--surface-2);font-weight:600;font-size:15px}
+.phone-in .input{border-radius:0 var(--r-md) var(--r-md) 0}
+.select{appearance:none;background:var(--surface) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%235B6560' stroke-width='2'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E") right 12px center/18px no-repeat;padding-right:40px}
+.seg{display:inline-flex;padding:4px;background:var(--surface-2);border-radius:var(--r-md);gap:4px}
+.seg button{height:38px;padding:0 14px;border:0;border-radius:9px;background:none;font:600 14px/1 var(--font-body);color:var(--ink-500)}
+.seg button.is-on{background:var(--surface);color:var(--ink-900);box-shadow:var(--sh-1)}
+.stepper{justify-self:start;display:inline-flex;align-items:center;border:1.5px solid var(--line-strong);border-radius:var(--r-md);height:46px}
+.stepper button{width:44px;height:100%;border:0;background:none;font-size:20px;color:var(--ink-700)}
+.stepper output{min-width:28px;text-align:center;font-weight:700}
+.check{display:flex;gap:10px;align-items:flex-start;font-size:13px;color:var(--text-2)}
+.check input{width:18px;height:18px;margin-top:1px;accent-color:var(--forest-700)}
+
+/* Photo placeholders */
+.ph{position:relative;overflow:hidden;background-color:#3c5d4d;background-repeat:no-repeat;background-position:bottom,center;background-size:100% 58%,cover;color:var(--white)}
+.ph[data-label]::after{content:"PHOTO · " attr(data-label);position:absolute;right:10px;bottom:8px;font:600 9px/1 var(--font-body);letter-spacing:.12em;opacity:.65;text-transform:uppercase;pointer-events:none}
+.ph--hills{background-image:var(--ridge),linear-gradient(180deg,#d7e4da 0%,#9dbfa9 38%,#4d7d63 100%)}
+.ph--beach{background-image:var(--waves),linear-gradient(180deg,#f6dcb5 0%,#a8d5d9 48%,#3a8aa0 100%)}
+.ph--dusk{background-image:var(--ridge),linear-gradient(180deg,#f5c27d 0%,#d27b52 38%,#5b3346 82%,#2c1d2a 100%)}
+.ph--snow{background-image:var(--ridge),linear-gradient(180deg,#eef4f8 0%,#b6cddd 46%,#62849d 100%)}
+.ph--forest{background-image:var(--ridge),linear-gradient(180deg,#a7c6a6 0%,#3a6a50 55%,#173d2c 100%)}
+.ph--camp{background-image:radial-gradient(circle at 50% 88%,rgba(255,166,64,.75),rgba(255,120,40,.18) 22%,transparent 42%),var(--ridge),linear-gradient(180deg,#0f1c34 0%,#1e2c44 55%,#0b1b15 100%);background-size:cover,100% 58%,cover;background-position:center,bottom,center}
+.ph--coffee{background-image:var(--ridge),linear-gradient(180deg,#e9e1c8 0%,#9db487 40%,#46663f 100%)}
+.ph--falls{background-image:linear-gradient(90deg,transparent 46%,rgba(255,255,255,.55) 49%,rgba(255,255,255,.75) 50%,rgba(255,255,255,.5) 52%,transparent 55%),var(--ridge),linear-gradient(180deg,#bcd3c3 0%,#5d8c6f 50%,#22452f 100%);background-size:100% 70%,100% 58%,cover;background-position:top,bottom,center}
+.scrim::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,20,16,.25) 0%,rgba(10,20,16,0) 30%,rgba(10,20,16,.15) 55%,rgba(10,20,16,.78) 100%);pointer-events:none;z-index:0}
+.scrim > *{position:relative;z-index:1}
+
+/* =========================================================
+   4. COMPONENTS
+   ========================================================= */
+/* TripCard */
+.tcard{display:flex;flex-direction:column;background:var(--surface);border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--sh-1);border:1px solid var(--line);transition:box-shadow var(--t) var(--ease),transform var(--t) var(--ease);min-width:0}
+.tcard:hover{box-shadow:var(--sh-2);transform:translateY(-2px)}
+.tcard__media{display:block;aspect-ratio:4/3;position:relative}
+.tcard__top{position:absolute;left:12px;right:12px;top:12px;display:flex;justify-content:space-between;gap:6px;z-index:2}
+.tcard__body{display:flex;flex-direction:column;gap:10px;padding:16px;flex:1}
+.tcard__title{font-size:1.25rem;line-height:1.2}
+.tcard__title a{text-decoration:none}
+.tcard__title a::after{content:"";position:absolute;inset:0}
+.tcard{position:relative}
+.tcard .btn,.tcard .dates a{position:relative;z-index:2}
+.tcard__hook{font-size:14px;color:var(--text-2);line-height:1.5;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.incl{display:flex;flex-wrap:wrap;gap:4px 14px;margin:0;padding:0;list-style:none;font-size:13px;color:var(--ink-700)}
+.incl li{display:flex;align-items:center;gap:5px}
+.incl .ico{color:var(--forest-500)}
+.dates{display:flex;align-items:center;gap:6px;flex-wrap:wrap;font-size:12.5px}
+.dates > span:first-child{color:var(--text-3);font-weight:500;margin-right:2px}
+.dates a{display:inline-flex;align-items:center;height:26px;padding:0 9px;border-radius:7px;background:var(--surface-2);text-decoration:none;font-weight:600;color:var(--ink-700)}
+.dates a.alert{background:var(--alert-bg);color:var(--alert)}
+.tcard__foot{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;margin-top:auto;padding-top:12px;border-top:1px dashed var(--line)}
+.price{display:grid;line-height:1.1}
+.price small{font-size:12px;color:var(--text-2)}
+.price s{font-size:13px;color:var(--text-3);margin-right:4px}
+.price strong{font:800 1.375rem/1.1 var(--font-display);letter-spacing:-.02em}
+.price .per{font-size:12px;color:var(--text-2);font-weight:500}
+.tcard.is-soldout .tcard__media{filter:saturate(.4)}
+
+/* DepartureCard (compact, used in Upcoming rail) */
+.dcard{display:grid;grid-template-columns:96px 1fr;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);overflow:hidden;min-width:0;position:relative;box-shadow:var(--sh-1)}
+.dcard__media{position:relative}
+.dcard__date{position:absolute;left:8px;top:8px;display:grid;justify-items:center;background:var(--surface);color:var(--ink-900);border-radius:10px;padding:6px 8px;line-height:1;gap:2px;box-shadow:var(--sh-1)}
+.dcard__date small{font:700 9.5px/1 var(--font-body);letter-spacing:.1em;text-transform:uppercase;color:var(--text-2)}
+.dcard__date b{font:800 20px/1 var(--font-display)}
+.dcard__body{padding:12px 14px;display:grid;gap:6px;min-width:0}
+.dcard__title{font:700 16px/1.2 var(--font-display);letter-spacing:-.01em}
+.dcard__title a{text-decoration:none}
+.dcard__title a::after{content:"";position:absolute;inset:0}
+.dcard__meta{display:flex;gap:10px;font-size:12.5px;color:var(--text-2);flex-wrap:wrap}
+.dcard__meta span{display:inline-flex;gap:4px;align-items:center}
+.dcard__row{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.dcard__row strong{font:800 17px/1 var(--font-display)}
+
+/* DestinationCard */
+.xcard{position:relative;display:flex;flex-direction:column;justify-content:flex-end;aspect-ratio:3/4;border-radius:var(--r-lg);overflow:hidden;padding:14px;text-decoration:none;color:var(--white);isolation:isolate}
+.xcard h3{font-size:1.25rem;line-height:1.1}
+.xcard p{font-size:12.5px;opacity:.9;margin-top:4px}
+.xcard .badge{position:absolute;top:12px;left:12px}
+.xcard__go{position:absolute;right:12px;bottom:14px;width:34px;height:34px;border-radius:50%;background:var(--white);color:var(--ink-900);display:grid;place-items:center;transition:transform var(--t) var(--ease)}
+.xcard:hover .xcard__go{transform:translateX(3px)}
+.xcard > div{padding-right:40px}
+
+/* FeaturedTrip (editorial) */
+.fcard{position:relative;display:grid;border-radius:var(--r-xl);overflow:hidden;min-height:440px;color:var(--white);isolation:isolate}
+.fcard__in{align-self:end;padding:24px;display:grid;gap:12px;max-width:560px}
+.fcard h3{font-size:clamp(1.75rem,1.4rem + 1.4vw,2.5rem);line-height:1.05}
+.fcard__story{font-size:15px;opacity:.92;line-height:1.55}
+.fcard ul{margin:0;padding:0;list-style:none;display:flex;flex-wrap:wrap;gap:6px}
+.fcard li{font-size:12.5px;padding:6px 10px;border-radius:var(--r-pill);background:rgba(255,255,255,.14);backdrop-filter:blur(6px)}
+.fcard__foot{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:6px}
+.fcard__foot .price small,.fcard__foot .price .per{color:rgba(255,255,255,.8)}
+
+/* Trust bar */
+.trust{display:flex;gap:0;overflow-x:auto;scrollbar-width:none;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg)}
+.trust::-webkit-scrollbar{display:none}
+.trust__item{display:flex;align-items:center;gap:10px;padding:14px 18px;white-space:nowrap;border-right:1px solid var(--line);flex:1 0 auto}
+.trust__item:last-child{border-right:0}
+.trust__item b{display:block;font:800 17px/1.1 var(--font-display)}
+.trust__item small{display:block;font-size:12px;color:var(--text-2)}
+.trust__ico{width:36px;height:36px;border-radius:10px;background:var(--forest-50);color:var(--forest-700);display:grid;place-items:center;flex:none}
+.stars{display:inline-flex;gap:1px;color:var(--marigold-500)}
+.stars .ico{fill:currentColor;stroke:none;width:14px;height:14px}
+
+/* Review card */
+.rcard{display:grid;gap:12px;padding:20px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);align-content:start}
+.rcard__head{display:flex;align-items:center;gap:10px}
+.avatar{width:40px;height:40px;border-radius:50%;background:var(--forest-100);color:var(--forest-700);display:grid;place-items:center;font:700 15px/1 var(--font-display);flex:none}
+.rcard__head b{display:block;font-size:14.5px}
+.rcard__head small{display:block;font-size:12px;color:var(--text-2)}
+.rcard__src{margin-left:auto;font-size:11px;font-weight:600;color:var(--text-2);display:flex;align-items:center;gap:4px}
+.rcard blockquote{margin:0;font-size:14.5px;line-height:1.6;color:var(--ink-700)}
+.rcard__trip{font-size:12.5px;font-weight:600;color:var(--link);text-decoration:none}
+
+/* Blog card */
+.bcard{display:grid;gap:12px;text-decoration:none;position:relative}
+.bcard__media{aspect-ratio:16/10;border-radius:var(--r-lg)}
+.bcard h3{font-size:1.125rem;line-height:1.3}
+.bcard p{font-size:14px;color:var(--text-2)}
+.bcard__meta{display:flex;gap:8px;align-items:center;font-size:12px;color:var(--text-3)}
+
+/* FAQ */
+.faq{border-top:1px solid var(--line)}
+.faq details{border-bottom:1px solid var(--line)}
+.faq summary{list-style:none;display:flex;justify-content:space-between;gap:16px;align-items:center;padding:18px 2px;font:600 16px/1.35 var(--font-body);cursor:pointer}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";font:400 24px/1 var(--font-body);color:var(--text-2);transition:transform var(--t) var(--ease)}
+.faq details[open] summary::after{transform:rotate(45deg)}
+.faq details p{padding:0 2px 18px;color:var(--ink-700);font-size:15px;max-width:68ch}
+
+/* Breadcrumbs */
+.crumbs{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:13px;color:var(--text-2);margin:0;padding:0;list-style:none}
+.crumbs a{text-decoration:none}
+.crumbs a:hover{color:var(--ink-900);text-decoration:underline}
+.crumbs li+li::before{content:"/";margin-right:6px;color:var(--line-strong)}
+.crumbs [aria-current]{color:var(--ink-900);font-weight:500}
+
+/* Trip finder */
+.finder{background:var(--surface);border-radius:var(--r-xl);box-shadow:var(--sh-3);padding:8px;display:grid;gap:4px;color:var(--ink-900)}
+.finder__f{display:flex;align-items:center;gap:12px;padding:10px 14px;border-radius:var(--r-lg);text-align:left;border:0;background:none;width:100%}
+.finder__f:hover{background:var(--surface-2)}
+.finder__f .ico{color:var(--forest-500)}
+.finder__f small{display:block;font:600 11px/1 var(--font-body);letter-spacing:.08em;text-transform:uppercase;color:var(--text-2);margin-bottom:4px}
+.finder__f b{display:block;font-weight:600;font-size:15px}
+.finder__f b.ph-t{color:var(--text-3);font-weight:500}
+.finder hr{border:0;border-top:1px solid var(--line);margin:0 14px}
+.finder .btn{margin:4px}
+@media (min-width:900px){
+  .finder--row{grid-template-columns:1.3fr auto 1fr auto 1fr auto;align-items:center;border-radius:var(--r-pill);padding:8px 8px 8px 12px}
+  .finder--row hr{border-top:0;border-left:1px solid var(--line);height:36px;margin:0}
+  .finder--row .finder__f{border-radius:var(--r-pill)}
+  .finder--row .btn{border-radius:var(--r-pill);margin:0}
+}
+
+/* Booking card */
+.book{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-xl);box-shadow:var(--sh-2);padding:20px;display:grid;gap:16px}
+.book__price{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.book__price strong{font:800 2rem/1 var(--font-display);letter-spacing:-.02em}
+.book__label{font:600 12px/1 var(--font-body);letter-spacing:.08em;text-transform:uppercase;color:var(--text-2);margin-bottom:8px;display:flex;justify-content:space-between}
+.book__dates{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;padding:2px}
+.book__opts{display:grid;gap:8px}
+.opt{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 14px;border:1.5px solid var(--line);border-radius:var(--r-md);font-size:14px}
+.opt.is-on{border-color:var(--brand);background:var(--forest-50)}
+.opt b{font-weight:700}
+.opt span{display:flex;align-items:center;gap:8px}
+.radio{width:18px;height:18px;border-radius:50%;border:2px solid var(--line-strong);flex:none}
+.opt.is-on .radio{border:5px solid var(--brand)}
+.book__sum{display:grid;gap:6px;padding:14px;border-radius:var(--r-md);background:var(--surface-2);font-size:14px}
+.book__sum div{display:flex;justify-content:space-between}
+.book__sum .tot{font-weight:700;padding-top:6px;border-top:1px dashed var(--line-strong)}
+.book__cta{display:grid;gap:8px}
+.book__note{display:flex;gap:8px;font-size:12.5px;color:var(--text-2);align-items:flex-start}
+.book__note .ico{color:var(--forest-500);margin-top:1px}
+
+/* Sticky mobile bar */
+.mbar{display:flex;align-items:center;gap:10px;padding:10px 12px calc(10px + env(safe-area-inset-bottom));background:var(--surface);border-top:1px solid var(--line);box-shadow:0 -8px 24px -12px rgba(18,24,22,.18)}
+.mbar__p{flex:1;line-height:1.15;min-width:0}
+.mbar__p strong{font:800 18px/1 var(--font-display);display:block}
+.mbar__p small{font-size:12px;color:var(--text-2);white-space:nowrap}
+.mbar .btn{--h:46px;padding:0 14px}
+.mbar .btn--wa{width:46px;padding:0}
+.mnav{display:grid;grid-template-columns:repeat(4,1fr);background:var(--surface);border-top:1px solid var(--line);padding:6px 4px calc(6px + env(safe-area-inset-bottom))}
+.mnav a{display:grid;justify-items:center;gap:3px;padding:6px 0;font:600 11px/1 var(--font-body);color:var(--text-2);text-decoration:none;border-radius:10px}
+.mnav a.is-on{color:var(--ink-900)}
+.mnav a.wa{color:var(--forest-700)}
+.mnav a.wa .ico{color:#1DA851}
+
+/* Announcement + nav */
+.ann{display:flex;justify-content:center;align-items:center;gap:8px;padding:9px 16px;background:var(--forest-950);color:var(--white);font:500 13px/1.3 var(--font-body);text-align:center;text-decoration:none}
+.ann b{color:var(--marigold-500);font-weight:600}
+.nav{display:flex;align-items:center;gap:16px;height:64px;padding:0 var(--gutter);background:var(--surface);border-bottom:1px solid var(--line)}
+.nav--over{background:transparent;border-color:transparent;color:var(--white)}
+.nav__links{display:none;gap:4px;margin:0 auto;padding:0;list-style:none}
+.nav__links a{display:flex;align-items:center;gap:4px;padding:8px 10px;border-radius:8px;text-decoration:none;font:500 14.5px/1 var(--font-body)}
+.nav__links a:hover{background:rgba(127,127,127,.12)}
+.nav__right{display:flex;gap:8px;margin-left:auto;align-items:center}
+.iconbtn{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;border:1.5px solid var(--line);background:var(--surface);color:var(--ink-900)}
+.nav--over .iconbtn{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.35);color:var(--white)}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:inherit}
+.logo__mark{width:36px;height:36px;border-radius:10px;background:var(--forest-900);display:grid;place-items:center}
+.logo__mark svg{width:22px;height:22px}
+.logo__txt b{display:block;font:800 19px/1 var(--font-display);letter-spacing:-.01em}
+.logo__txt small{display:block;white-space:nowrap;font:600 9px/1.2 var(--font-body);letter-spacing:.14em;text-transform:uppercase;opacity:.7;margin-top:2px}
+@media (min-width:1100px){.nav__links{display:flex}}
+
+/* WhatsApp CTA band */
+.waband{position:relative;display:grid;gap:16px;padding:28px 24px;border-radius:var(--r-xl);background:var(--forest-900) var(--topo) center/520px;color:var(--white);overflow:hidden}
+.waband h3{font-size:clamp(1.4rem,1.2rem + 1vw,2rem)}
+.waband p{opacity:.85;max-width:52ch}
+.waband__cta{display:flex;flex-wrap:wrap;gap:10px}
+.waband__meta{font-size:12.5px;opacity:.75;display:flex;align-items:center;gap:6px}
+.dot-live{width:8px;height:8px;border-radius:50%;background:var(--wa);box-shadow:0 0 0 3px rgba(37,211,102,.25)}
+
+/* Compare tray */
+.ctray{display:flex;flex-wrap:wrap;align-items:center;gap:12px;padding:10px 12px;background:var(--ink-900);color:var(--white);border-radius:var(--r-lg);box-shadow:var(--sh-3)}
+.ctray__slots{display:flex;gap:6px}
+.ctray__slot{width:44px;height:44px;border-radius:10px;border:1.5px dashed rgba(255,255,255,.3)}
+.ctray__slot.ph{border:0}
+.ctray small{font-size:12px;opacity:.7;display:block}
+
+/* Section header */
+.shead{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:20px}
+.shead h2{font-size:var(--fs-h2)}
+.shead p{color:var(--text-2);margin-top:6px}
+
+/* Steps */
+.steps{display:grid;gap:12px;counter-reset:s}
+.step{display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:start;padding:18px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg)}
+.step__n{font:800 28px/1 var(--font-display);color:var(--marigold-500);-webkit-text-stroke:0}
+.step h3{font-size:1.0625rem;margin-bottom:4px}
+.step p{font-size:14px;color:var(--text-2)}
+
+/* Pillars */
+.pillar{display:grid;gap:8px;padding:20px;border-radius:var(--r-lg);background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1)}
+.pillar .trust__ico{background:rgba(242,166,29,.15);color:var(--marigold-500)}
+.pillar h3{font-size:1.0625rem}
+.pillar p{font-size:14px;opacity:.8}
+
+/* =========================================================
+   5. DOC CHROME (review page only — not part of the product)
+   ========================================================= */
+.doc-top{position:sticky;top:0;z-index:50;background:rgba(250,246,239,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.doc-top__in{max-width:var(--container);margin:0 auto;padding:10px var(--gutter);display:flex;gap:14px;align-items:center}
+.doc-top nav{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none}
+.doc-top nav::-webkit-scrollbar{display:none}
+.doc-top nav a{padding:7px 11px;border-radius:8px;font-size:13px;font-weight:500;color:var(--ink-700);text-decoration:none;white-space:nowrap}
+.doc-top nav a:hover{background:var(--surface-2)}
+.wrap{max-width:var(--container);margin:0 auto;padding:0 var(--gutter)}
+.dsec{padding:64px 0;border-bottom:1px solid var(--line)}
+.dsec > .wrap > h2{font-size:var(--fs-h1);margin:6px 0 10px}
+.lede{font-size:var(--fs-lg);color:var(--ink-700);max-width:72ch}
+.sub{font:700 1.25rem/1.3 var(--font-display);margin:44px 0 6px;letter-spacing:-.01em}
+.subp{color:var(--text-2);max-width:75ch;margin-bottom:18px;font-size:15px}
+.demo{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-xl);padding:24px;display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.demo > *{min-width:0;max-width:100%}
+.demo .seg{overflow-x:auto;max-width:100%}
+.pillrow .badge{white-space:normal;height:auto;padding:6px 10px;line-height:1.3}
+.demo--bg{background:var(--bg)}
+.demo--dark{background:var(--forest-950);border-color:var(--forest-950)}
+.rules{margin:14px 0 0;padding:14px 16px 14px 34px;background:var(--marigold-100);border-radius:var(--r-md);font-size:13.5px;color:var(--ink-700);line-height:1.55}
+.rules li+li{margin-top:4px}
+.rules b{color:var(--ink-900)}
+.rules--title{list-style:none;padding-left:16px}
+.note{display:flex;gap:10px;padding:14px 16px;border-radius:var(--r-md);background:var(--info-bg);color:var(--ink-700);font-size:14px;align-items:flex-start}
+.note .ico{color:var(--info);margin-top:2px}
+.note--warn{background:var(--ember-100)}
+.note--warn .ico{color:var(--alert)}
+.grid{display:grid;gap:16px}
+.g2{grid-template-columns:repeat(auto-fill,minmax(min(100%,420px),1fr))}
+.g3{grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr))}
+.g4{grid-template-columns:repeat(auto-fill,minmax(min(100%,220px),1fr))}
+.g6{grid-template-columns:repeat(auto-fill,minmax(150px,1fr))}
+.state{font:600 11px/1.3 var(--font-body);letter-spacing:.06em;text-transform:uppercase;color:var(--text-2);margin-bottom:8px;display:block}
+.state code{text-transform:none;letter-spacing:0}
+code,.code{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:.86em}
+:not(pre)>code{background:var(--surface-2);padding:2px 6px;border-radius:5px}
+pre.code{margin:0;background:var(--forest-950);color:#dbe7e0;padding:18px 20px;border-radius:var(--r-lg);overflow:auto;font-size:12.5px;line-height:1.6}
+pre.code .c{color:#7fa092}
+pre.code .k{color:var(--marigold-500)}
+pre.code .s{color:#a7d8b9}
+table.t{width:100%;border-collapse:collapse;font-size:14px;background:var(--surface);border-radius:var(--r-lg);overflow:hidden;border:1px solid var(--line)}
+.tscroll{overflow-x:auto;border-radius:var(--r-lg)}
+table.t th,table.t td{text-align:left;padding:11px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+table.t th{background:var(--surface-2);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--text-2);font-weight:600;white-space:nowrap}
+table.t tr:last-child td{border-bottom:0}
+.sw{border-radius:var(--r-lg);overflow:hidden;border:1px solid var(--line);background:var(--surface)}
+.sw__c{height:84px;display:flex;align-items:flex-end;padding:8px 10px;font:600 11px/1 var(--font-body)}
+.sw__m{padding:10px 12px;font-size:12.5px;line-height:1.45}
+.sw__m b{display:block;font-size:13.5px}
+.sw__m code{background:none;padding:0;color:var(--text-2)}
+.typerow{display:grid;grid-template-columns:120px 1fr;gap:16px;align-items:baseline;padding:14px 0;border-bottom:1px solid var(--line)}
+.typerow small{font-size:12px;color:var(--text-2);line-height:1.4}
+.spacebar{display:flex;align-items:center;gap:12px;font-size:13px}
+.spacebar i{display:block;height:14px;background:var(--marigold-500);border-radius:3px}
+.hero-doc{padding:56px 0 48px;background:var(--forest-950) var(--topo) center/560px;color:var(--white)}
+.hero-doc h1{font-size:var(--fs-display);line-height:1;letter-spacing:-.03em;max-width:15ch}
+.hero-doc p{opacity:.85;max-width:66ch;margin-top:16px;font-size:var(--fs-lg)}
+.pillrow{display:flex;flex-wrap:wrap;gap:8px;margin-top:24px}
+
+/* Device frames */
+.frames{display:flex;gap:28px;overflow-x:auto;padding:8px 2px 20px;scroll-snap-type:x mandatory}
+.frame{flex:none;scroll-snap-align:start}
+.frame__cap{font:600 12px/1.4 var(--font-body);color:var(--text-2);margin-bottom:10px;max-width:390px}
+.frame__cap b{color:var(--ink-900);display:block;font-size:14px}
+.phone{
+  --fs-display:2.375rem; --fs-h1:2rem; --fs-h2:1.625rem; --fs-h3:1.25rem; --gutter:16px;
+  width:390px;height:800px;border-radius:44px;border:10px solid #111;background:var(--bg);overflow:hidden;position:relative;box-shadow:var(--sh-3);display:flex;flex-direction:column}
+.phone__scroll{flex:1;overflow-y:auto;overflow-x:hidden;scrollbar-width:thin}
+.phone__fixed{flex:none}
+.phone .sx{padding:28px 16px}
+.rail{display:flex;gap:12px;overflow-x:auto;scrollbar-width:none;scroll-snap-type:x mandatory;margin:0 -16px;padding:0 16px 4px}
+.rail::-webkit-scrollbar{display:none}
+.rail > *{scroll-snap-align:start;flex:none}
+.desk{border:1px solid var(--line-strong);border-radius:var(--r-lg);overflow:hidden;background:var(--bg);box-shadow:var(--sh-2)}
+.desk__bar{height:32px;background:var(--sand-100);border-bottom:1px solid var(--line);display:flex;align-items:center;gap:6px;padding:0 12px}
+.desk__bar i{width:10px;height:10px;border-radius:50%;background:var(--sand-300)}
+.desk__bar span{margin-left:12px;font-size:11.5px;color:var(--text-2);background:var(--surface);padding:3px 10px;border-radius:6px;font-family:ui-monospace,Consolas,monospace}
+
+/* Wireframes */
+.wf{display:grid;gap:6px;padding:12px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);font-size:12px}
+.wf__b{border:1.5px dashed var(--line-strong);border-radius:8px;padding:9px 11px;color:var(--ink-700);background:var(--bg);line-height:1.4}
+.wf__b b{display:block;font-size:12.5px;color:var(--ink-900)}
+.wf__b small{color:var(--text-2)}
+.wf__b.k{background:var(--marigold-100);border-color:var(--marigold-500)}
+.wf__b.d{background:var(--forest-900);border-color:var(--forest-900);color:rgba(255,255,255,.8)}
+.wf__b.d b{color:var(--white)}
+.wf__b.img{background:repeating-linear-gradient(135deg,var(--sand-100) 0 8px,var(--bg) 8px 16px)}
+.wf__row{display:grid;gap:6px;grid-template-columns:1fr 1fr}
+.wf__row.r3{grid-template-columns:2fr 1fr}
+.wfcap{font:700 15px/1.3 var(--font-display);margin-bottom:4px}
+.wfmeta{font-size:12.5px;color:var(--text-2);margin-bottom:10px;line-height:1.5}
+
+/* Diagram boxes */
+.dg{display:grid;gap:14px}
+.dg__row{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));align-items:stretch}
+.dbox{padding:14px 16px;border-radius:var(--r-lg);background:var(--surface);border:1.5px solid var(--line-strong);font-size:13px;line-height:1.5}
+.dbox h4{font:700 15px/1.2 var(--font-display);margin-bottom:6px;display:flex;justify-content:space-between;gap:8px;align-items:center}
+.dbox ul{margin:0;padding-left:16px;color:var(--ink-700)}
+.dbox--key{border-color:var(--forest-700);background:var(--forest-50)}
+.dbox--hot{border-color:var(--marigold-500);background:var(--marigold-100)}
+.arrow{text-align:center;color:var(--text-2);font-size:13px;font-weight:600}
+.flow{display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:13px}
+.flow span{padding:8px 12px;border-radius:10px;background:var(--surface);border:1.5px solid var(--line-strong);font-weight:600}
+.flow span.k{background:var(--forest-900);color:var(--white);border-color:var(--forest-900)}
+.flow span.p{border-style:dashed;color:var(--text-2)}
+.flow em{font-style:normal;color:var(--text-3)}
+
+.approve{display:grid;gap:10px;margin:0;padding:0;list-style:none}
+.approve li{display:flex;gap:12px;padding:14px 16px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-md);font-size:14.5px;align-items:flex-start}
+.approve li b{display:block}
+.approve .box{width:20px;height:20px;border:2px solid var(--line-strong);border-radius:6px;flex:none;margin-top:1px}
+</style>
+</head>
+<body>
+
+<!-- Icon sprite (Lucide-style 24px line icons; production: tree-shaken per page) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></symbol>
+  <symbol id="i-cal" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></symbol>
+  <symbol id="i-train" viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="14" rx="3"/><path d="M5 11h14M9 21l-2-4M15 21l2-4M9 14h.01M15 14h.01"/></symbol>
+  <symbol id="i-bus" viewBox="0 0 24 24"><path d="M8 6v6M16 6v6M2 12h20M7 18h10"/><rect x="3" y="3" width="18" height="15" rx="3"/><path d="M6 18v3M18 18v3"/></symbol>
+  <symbol id="i-bed" viewBox="0 0 24 24"><path d="M2 4v16M2 8h18a2 2 0 0 1 2 2v10M2 17h20M6 8v9"/></symbol>
+  <symbol id="i-users" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></symbol>
+  <symbol id="i-star" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></symbol>
+  <symbol id="i-compass" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></symbol>
+  <symbol id="i-tent" viewBox="0 0 24 24"><path d="M3.5 21 14 3M20.5 21 10 3M15.5 21 12 15l-3.5 6M2 21h20"/></symbol>
+  <symbol id="i-mountain" viewBox="0 0 24 24"><path d="m8 3 4 8 5-5 5 15H2L8 3z"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></symbol>
+  <symbol id="i-chev" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
+  <symbol id="i-sliders" viewBox="0 0 24 24"><path d="M4 21v-7M4 10V3M12 21v-9M12 8V3M20 21v-5M20 12V3M1 14h6M9 8h6M17 16h6"/></symbol>
+  <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></symbol>
+  <symbol id="i-pack" viewBox="0 0 24 24"><path d="M4 10a4 4 0 0 1 4-4h8a4 4 0 0 1 4 4v10a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2z"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2M8 21v-5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v5"/></symbol>
+  <symbol id="i-heart" viewBox="0 0 24 24"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></symbol>
+  <symbol id="i-tree" viewBox="0 0 24 24"><path d="m17 14 3 3.3a1 1 0 0 1-.7 1.7H4.7a1 1 0 0 1-.7-1.7L7 14h-.3a1 1 0 0 1-.7-1.7L9 9h-.2A1 1 0 0 1 8 7.3L12 3l4 4.3a1 1 0 0 1-.8 1.7H15l3 3.3a1 1 0 0 1-.7 1.7H17Z"/><path d="M12 22v-3"/></symbol>
+  <symbol id="i-brief" viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></symbol>
+  <symbol id="i-spark" viewBox="0 0 24 24"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9z"/><path d="M19 3v4M17 5h4"/></symbol>
+  <symbol id="i-insta" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><path d="M17.5 6.5h.01"/></symbol>
+  <symbol id="i-play" viewBox="0 0 24 24"><polygon points="7 4 20 12 7 20 7 4"/></symbol>
+  <symbol id="i-cols" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M12 3v18"/></symbol>
+  <symbol id="i-route" viewBox="0 0 24 24"><circle cx="6" cy="19" r="3"/><path d="M9 19h8.5a3.5 3.5 0 0 0 0-7h-11a3.5 3.5 0 0 1 0-7H15"/><circle cx="18" cy="5" r="3"/></symbol>
+  <symbol id="i-wa" viewBox="0 0 24 24"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/><path d="M9.2 8.6c.2-.5.6-.5.9-.5h.5c.2 0 .4.1.5.4l.7 1.6c.1.2 0 .5-.1.6l-.5.6c-.1.2-.1.4 0 .5.6 1 1.4 1.8 2.4 2.4.2.1.4.1.5 0l.6-.6c.2-.2.4-.2.6-.1l1.6.7c.3.1.4.3.4.5v.5c0 .4-.1.7-.5.9-.6.3-1.6.5-3-.1a9.2 9.2 0 0 1-4.4-4.4c-.6-1.4-.4-2.4-.1-3Z" fill="currentColor" stroke="none"/></symbol>
+  <symbol id="i-share" viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.59 13.51 6.83 3.98M15.41 6.51l-6.82 3.98"/></symbol>
+  <symbol id="i-back" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></symbol>
+  <symbol id="i-food" viewBox="0 0 24 24"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2M7 2v20M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/></symbol>
+  <symbol id="i-file" viewBox="0 0 24 24"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4M9 15h6M9 11h2"/></symbol>
+  <symbol id="logo-mark" viewBox="0 0 24 24"><path d="M2.5 20.5 12 4l9.5 16.5" fill="none" stroke="#F2A61D" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/><path d="M12 20.5 8.6 14.6M12 20.5l3.4-5.9" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/><path d="M1.5 20.5h21" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/></symbol>
+</svg>
+
+<header class="doc-top">
+  <div class="doc-top__in">
+    <a class="logo" href="#top" aria-label="HCC design system home">
+      <span class="logo__mark"><svg><use href="#logo-mark"/></svg></span>
+      <span class="logo__txt"><b>HCC</b><small>Design System v0.1</small></span>
+    </a>
+    <nav aria-label="Document sections">
+      <a href="#brand">Brand</a><a href="#tokens">Tokens</a><a href="#primitives">Primitives</a><a href="#components">Components</a><a href="#layouts">Layouts</a><a href="#data">Data model</a><a href="#campaigns">Campaign links</a><a href="#booking">Booking</a><a href="#seo">SEO map</a><a href="#approve">Approve</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+<section class="hero-doc">
+  <div class="wrap">
+    <span class="overline" style="color:var(--marigold-500)">Phase 2 · For approval · Not production code</span>
+    <h1 style="margin-top:14px">Design system, components &amp; layouts</h1>
+    <p>This is everything that has to be agreed before production code starts. It covers the visual language, every reusable component and the data rules that control it, the key page layouts (mobile-first), the trip/departure data model, campaign deep links, the Razorpay-ready booking flow and the SEO intent map.</p>
+    <div class="pillrow">
+      <span class="badge badge--cta">Conversion → Trust → Mobile → SEO → Performance → Polish → Animation</span>
+    </div>
+    <div class="note note--warn" style="margin-top:22px;max-width:760px;background:rgba(251,228,218,.12);color:#fff">
+      <svg class="ico"><use href="#i-info"/></svg>
+      <span>All trip names, prices, dates, seat counts and reviews on this page are <b>sample content to show how components behave</b>. None of it will ship. Each component lists the data rule that decides whether it shows. Coloured blocks marked "PHOTO" stand in for real HCC photography.</span>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================= BRAND -->
+<section class="dsec" id="brand">
+  <div class="wrap">
+    <span class="overline">01 · Brand direction</span>
+    <h2>"Field-tested, not brochure"</h2>
+    <p class="lede">Generic travel agencies look the same: blue skies, gradient buttons, stock couples with suitcases, sixteen badges. HCC should feel closer to a <b>premium outdoor-gear brand that also runs trips</b>. It's confident, calm and specific. The premium feel comes from restraint, real photography and precise information design, not from effects.</p>
+
+    <h3 class="sub">Five signature elements that make it HCC (and nobody else)</h3>
+    <div class="grid g3" style="margin-top:14px">
+      <div class="demo" style="flex-direction:column;align-items:flex-start">
+        <span class="state">1 · Ticket-stub duration</span>
+        <div class="ph ph--hills" style="padding:14px;border-radius:12px;width:100%"><span class="stub"><b>2N</b><i></i><b>3D</b></span></div>
+        <p class="help">Duration reads like a trip ticket. It's used on every card and hero, so the duration is always the first thing you see.</p>
+      </div>
+      <div class="demo" style="flex-direction:column;align-items:flex-start">
+        <span class="state">2 · Route line</span>
+        <div class="route" style="width:100%"><span>Hyderabad</span><i></i><span>Ooty · Coonoor</span></div>
+        <p class="help">Every trip shows <i>from where → to where</i>. This makes "From Hyderabad" a visual identity, not just a keyword.</p>
+      </div>
+      <div class="demo" style="flex-direction:column;align-items:flex-start">
+        <span class="state">3 · Boarding-pass dates</span>
+        <div style="display:flex;gap:8px"><span class="dstub"><small>Fri</small><b>09</b><small>Oct</small></span><span class="dstub is-selected"><small>Fri</small><b>16</b><small>Oct</small></span><span class="dstub"><small>Fri</small><b>23</b><small>Oct</small></span></div>
+        <p class="help">Dates are the hero of conversion, so they get their own tactile component.</p>
+      </div>
+      <div class="demo demo--dark" style="flex-direction:column;align-items:flex-start;background:var(--forest-900) var(--topo) center/420px">
+        <span class="state" style="color:rgba(255,255,255,.6)">4 · Contour texture</span>
+        <p style="color:#fff;font:700 20px/1.2 var(--font-display)">Deep forest sections carry a faint topographic map line.</p>
+        <p class="help" style="color:rgba(255,255,255,.7)">A 1 KB SVG pattern. It gives depth with no images and no gradients.</p>
+      </div>
+      <div class="demo" style="flex-direction:column;align-items:flex-start">
+        <span class="state">5 · Marigold = action</span>
+        <a class="btn btn--primary" href="#">Book Your Seat <svg class="ico"><use href="#i-arrow"/></svg></a>
+        <p class="help">Marigold is reserved for the single primary action on screen, so the eye always knows where to go.</p>
+      </div>
+      <div class="demo" style="flex-direction:column;align-items:flex-start">
+        <span class="state">Interim wordmark</span>
+        <a class="logo" href="#"><span class="logo__mark"><svg><use href="#logo-mark"/></svg></span><span class="logo__txt"><b>HCC</b><small>Hyderabad Campers Club</small></span></a>
+        <p class="help">The tent/peak monogram is a placeholder until HCC's real logo arrives. Swapping it is one component.</p>
+      </div>
+    </div>
+
+    <h3 class="sub">Voice &amp; imagery</h3>
+    <div class="tscroll"><table class="t">
+      <tr><th>We are</th><th>We are not</th><th>Example</th></tr>
+      <tr><td>Specific</td><td>Vague superlatives</td><td>"Sleeper train both ways, 2 nights in a homestay, 6 sightseeing stops" instead of "an amazing all-inclusive experience"</td></tr>
+      <tr><td>Warm, peer-to-peer</td><td>Corporate or salesy</td><td>"Come alone. Leave with a crew."</td></tr>
+      <tr><td>Honest about trade-offs</td><td>Fine print</td><td>"Toy train subject to availability. If unavailable, we drive you up the ghat by cab."</td></tr>
+      <tr><td>People-in-landscape photos</td><td>Empty stock landscapes, posed couples</td><td>A real HCC group at a viewpoint, campfire circles, a trek line on a ridge</td></tr>
+    </table></div>
+  </div>
+</section>
+
+<!-- ======================================================= TOKENS -->
+<section class="dsec" id="tokens">
+  <div class="wrap">
+    <span class="overline">02 · Design tokens</span>
+    <h2>Tokens</h2>
+    <p class="lede">Every value lives as a CSS custom property in one file. Components reference <b>semantic</b> tokens (<code>--cta</code>, <code>--surface</code>), not raw colours. A re-brand or a seasonal tweak is then one file change.</p>
+
+    <h3 class="sub">Colour</h3>
+    <p class="subp">The proposed forest/marigold/sand palette, pushed darker and earthier so it reads premium outdoors rather than "tourism board". Contrast ratios are against the background each colour is used on.</p>
+    <div class="grid g6">
+      <div class="sw"><div class="sw__c" style="background:var(--forest-950);color:#fff">950</div><div class="sw__m"><b>Forest 950</b><code>#0A241C</code><br>Dark sections, footer, announcement</div></div>
+      <div class="sw"><div class="sw__c" style="background:var(--forest-900);color:#fff">900 · brand</div><div class="sw__m"><b>Forest 900</b><code>#0E3B2E</code><br>Brand, secondary buttons. 12.6:1 on sand</div></div>
+      <div class="sw"><div class="sw__c" style="background:var(--forest-700);color:#fff">700</div><div class="sw__m"><b>Forest 700</b><code>#17543F</code><br>Hover, selected states</div></div>
+      <div class="sw"><div class="sw__c" style="background:var(--forest-500);color:#fff">500</div><div class="sw__m"><b>Forest 500</b><code>#2E7A5C</code><br>Links, icons. 5.0:1 on white</div></div>
+      <div class="sw"><div class="sw__c" style="background:var(--forest-50)">50</div><div class="sw__m"><b>Forest 50</b><code>#EEF5F0</code><br>Selected fills, success bg</div></div>
+      <div class="sw"><div class="sw__c" style="background:var(--marigold-500)">500 · CTA</div><div class="sw__m"><b>Marigold 500</b><code>#F2A61D</code><br>Primary CTA only. Ink on it: 9.6:1</div></div>
+      <div class="sw"><div class="sw__c" style="background:var(--marigold-600)">600</div><div class="sw__m"><b>Marigold 600</b><code>#DB8F0A</code><br>CTA hover/pressed</div></div>
+      <div class="sw"><div class="sw__c" style="background:var(--marigold-100)">100</div><div class="sw__m"><b>Marigold 100</b><code>#FDF0D5</code><br>Highlights, offer notes</div></div>
+      <div class="sw"><div class="sw__c" style="background:var(--ember-600);color:#fff">600</div><div class="sw__m"><b>Ember 600</b><code>#C2401A</code><br>Seat status, errors. Used sparingly</div></div>
+      <div class="sw"><div class="sw__c" style="background:var(--sand-50)">50 · bg</div><div class="sw__m"><b>Sand 50</b><code>#FAF6EF</code><br>Page background</div></div>
+      <div class="sw"><div class="sw__c" style="background:var(--sand-100)">100</div><div class="sw__m"><b>Sand 100</b><code>#F3ECE0</code><br>Bands, chips, inputs</div></div>
+      <div class="sw"><div class="sw__c" style="background:var(--sand-200)">200</div><div class="sw__m"><b>Sand 200</b><code>#E6DCCB</code><br>Borders, dividers</div></div>
+      <div class="sw"><div class="sw__c" style="background:var(--ink-900);color:#fff">900</div><div class="sw__m"><b>Ink 900</b><code>#121816</code><br>Text. 16.9:1 on sand</div></div>
+      <div class="sw"><div class="sw__c" style="background:var(--ink-500);color:#fff">500</div><div class="sw__m"><b>Ink 500</b><code>#5B6560</code><br>Secondary text. 5.6:1</div></div>
+      <div class="sw"><div class="sw__c" style="background:var(--sky-600);color:#fff">600</div><div class="sw__m"><b>Sky 600</b><code>#2B6A8C</code><br>Info notes only</div></div>
+      <div class="sw"><div class="sw__c" style="background:var(--wa);color:#fff">icon only</div><div class="sw__m"><b>WhatsApp</b><code>#25D366</code><br>Glyph colour only. Never a button fill</div></div>
+    </div>
+    <ul class="rules">
+      <li><b>One marigold element per viewport.</b> If two things are marigold, neither is primary.</li>
+      <li><b>No gradients on UI</b>, only on photo scrims for text legibility.</li>
+      <li><b>Why the WhatsApp button isn't green:</b> a bright green bubble competes with "Book" and looks like a generic widget. The forest/white button with a green glyph is recognisable and still on-brand.</li>
+    </ul>
+
+    <h3 class="sub">Typography</h3>
+    <p class="subp"><b>Bricolage Grotesque</b> (display) gives character, slight optical quirks and confidence without the adventure clichés of stencil or brush fonts. <b>Inter</b> (UI/body) is extremely legible at 12–16px with tabular numbers for prices and dates. Both are self-hosted and Latin-subset, about 55 KB total, with <code>font-display: swap</code> and a size-adjusted fallback to avoid layout shift.</p>
+    <div style="background:var(--surface);border:1px solid var(--line);border-radius:var(--r-xl);padding:8px 24px">
+      <div class="typerow"><small>Display<br>72→38 · 800 · -3%</small><div style="font:800 var(--fs-display)/1 var(--font-display);letter-spacing:-.03em">Your people.</div></div>
+      <div class="typerow"><small>H1<br>52→32 · 700</small><div style="font:700 var(--fs-h1)/1.1 var(--font-display);letter-spacing:-.02em">Ooty &amp; Coonoor Group Trip from Hyderabad</div></div>
+      <div class="typerow"><small>H2<br>40→26 · 700</small><div style="font:700 var(--fs-h2)/1.15 var(--font-display);letter-spacing:-.02em">Upcoming trips</div></div>
+      <div class="typerow"><small>H3<br>24→20 · 700</small><div style="font:700 var(--fs-h3)/1.25 var(--font-display)">Day 2 · Tea estates &amp; Coonoor viewpoints</div></div>
+      <div class="typerow"><small>Body L<br>18 · 400 · 1.6</small><div style="font-size:var(--fs-lg)">Escape the city on Friday night, wake up in the Nilgiris, and be back at your desk on Monday.</div></div>
+      <div class="typerow"><small>Body<br>16 · 400 · 1.6</small><div>Clear inclusions, honest timings and a coordinator who travels with the group, from pickup to drop.</div></div>
+      <div class="typerow"><small>Small<br>14 / 12</small><div style="font-size:14px;color:var(--text-2)">Sleeper class train · Twin/triple sharing · Breakfast &amp; dinner included</div></div>
+      <div class="typerow"><small>Overline<br>12 · 600 · +14%</small><div class="overline">Weekend trips from Hyderabad</div></div>
+      <div class="typerow" style="border:0"><small>Price<br>Display 800 · tabular</small><div class="price"><small>From</small><span><s>₹7,999</s> <strong class="num">₹6,999</strong> <span class="per">/person</span></span></div></div>
+    </div>
+
+    <h3 class="sub">Space, shape, elevation, motion</h3>
+    <div class="grid g2">
+      <div class="demo" style="flex-direction:column;align-items:stretch;gap:8px">
+        <span class="state">Spacing: 4px base</span>
+        <div class="spacebar"><i style="width:4px"></i>4 · s-1 icon gaps</div>
+        <div class="spacebar"><i style="width:8px"></i>8 · s-2 chip gaps</div>
+        <div class="spacebar"><i style="width:12px"></i>12 · s-3 inside cards</div>
+        <div class="spacebar"><i style="width:16px"></i>16 · s-4 mobile gutter, card padding</div>
+        <div class="spacebar"><i style="width:24px"></i>24 · s-6 desktop card padding</div>
+        <div class="spacebar"><i style="width:48px"></i>48 · s-12 mobile section gap</div>
+        <div class="spacebar"><i style="width:96px"></i>96 · s-24 desktop section gap</div>
+      </div>
+      <div class="demo" style="flex-direction:column;align-items:stretch;gap:14px">
+        <span class="state">Radius · Shadow · Motion</span>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:end">
+          <div style="width:56px;height:40px;border:1.5px solid var(--line-strong);border-radius:8px;display:grid;place-items:center;font-size:11px">8</div>
+          <div style="width:56px;height:40px;border:1.5px solid var(--line-strong);border-radius:12px;display:grid;place-items:center;font-size:11px">12 btn</div>
+          <div style="width:64px;height:48px;border:1.5px solid var(--line-strong);border-radius:16px;display:grid;place-items:center;font-size:11px">16 card</div>
+          <div style="width:72px;height:56px;border:1.5px solid var(--line-strong);border-radius:24px;display:grid;place-items:center;font-size:11px">24 panel</div>
+          <div style="width:72px;height:36px;border:1.5px solid var(--line-strong);border-radius:999px;display:grid;place-items:center;font-size:11px">pill</div>
+        </div>
+        <div style="display:flex;gap:14px;flex-wrap:wrap">
+          <div style="width:90px;height:54px;background:#fff;border-radius:12px;box-shadow:var(--sh-1);display:grid;place-items:center;font-size:11px">sh-1 rest</div>
+          <div style="width:90px;height:54px;background:#fff;border-radius:12px;box-shadow:var(--sh-2);display:grid;place-items:center;font-size:11px">sh-2 hover</div>
+          <div style="width:90px;height:54px;background:#fff;border-radius:12px;box-shadow:var(--sh-3);display:grid;place-items:center;font-size:11px">sh-3 float</div>
+        </div>
+        <p class="help"><b>Motion:</b> 120ms press · 200ms hover · 320ms reveal, ease <code>cubic-bezier(.2,.7,.2,1)</code>. Only <code>transform</code>/<code>opacity</code> are animated. No parallax, no autoplay carousels, no scroll-jacking. Everything is off under <code>prefers-reduced-motion</code>.</p>
+      </div>
+    </div>
+
+    <h3 class="sub">Breakpoints &amp; grid</h3>
+    <div class="tscroll"><table class="t">
+      <tr><th>Name</th><th>Min width</th><th>Tested at</th><th>Grid</th><th>Behaviour</th></tr>
+      <tr><td><b>base</b> (design here first)</td><td>0</td><td>375 · 390 · 414</td><td>1 col, 16px gutter</td><td>Card rails swipe, bottom action bar, finder stacked</td></tr>
+      <tr><td>sm</td><td>600px</td><td>—</td><td>2 col</td><td>Card grids go 2-up</td></tr>
+      <tr><td>md</td><td>768px</td><td>768</td><td>2–3 col, 24px gutter</td><td>Bottom bar stays; trip page still single column</td></tr>
+      <tr><td>lg</td><td>1024px</td><td>1024</td><td>12 col</td><td>Sticky booking card appears beside content; bottom bar hidden</td></tr>
+      <tr><td>xl</td><td>1280px</td><td>1440+</td><td>12 col, 1240 container</td><td>Full nav + mega-menus; finder becomes a single pill row</td></tr>
+    </table></div>
+  </div>
+</section>
+
+<!-- ======================================================= PRIMITIVES -->
+<section class="dsec" id="primitives">
+  <div class="wrap">
+    <span class="overline">03 · Primitives</span>
+    <h2>Buttons, badges, chips, forms</h2>
+
+    <h3 class="sub">Buttons</h3>
+    <p class="subp">Labels always say what happens next ("View Dates", "Book Your Seat", "Get Full Itinerary", "WhatsApp HCC", "Plan My Trip"). No "Click here", "Submit" or "Learn more". Minimum height is 48px (40px for compact buttons inside cards).</p>
+    <div class="demo">
+      <a class="btn btn--primary" href="#">Book Your Seat</a>
+      <a class="btn btn--secondary" href="#">Get Full Itinerary</a>
+      <a class="btn btn--wa" href="#"><svg class="ico"><use href="#i-wa"/></svg>WhatsApp HCC</a>
+      <a class="btn btn--dark" href="#">Plan My Trip</a>
+      <a class="btn btn--text" href="#">See all dates <svg class="ico ico--sm"><use href="#i-arrow"/></svg></a>
+    </div>
+    <div class="demo" style="margin-top:12px">
+      <a class="btn btn--primary btn--lg" href="#">Find My Trip</a>
+      <a class="btn btn--primary btn--sm" href="#">View Dates</a>
+      <button class="btn btn--primary is-loading" type="button">Sending</button>
+      <button class="btn btn--primary" disabled type="button">Sold out</button>
+    </div>
+    <div class="demo demo--dark" style="margin-top:12px">
+      <a class="btn btn--primary" href="#">Explore Trips</a>
+      <a class="btn btn--ghost" href="#">Plan a Custom Trip</a>
+      <a class="btn btn--wa-solid" href="#" style="border-color:rgba(255,255,255,.25)"><svg class="ico"><use href="#i-wa"/></svg>WhatsApp HCC</a>
+    </div>
+
+    <h3 class="sub">Badges: status is always data-driven</h3>
+    <div class="demo">
+      <span class="badge badge--alert">6 seats left</span>
+      <span class="badge badge--alert">Filling fast</span>
+      <span class="badge badge--muted">Sold out</span>
+      <span class="badge badge--info">Waitlist open</span>
+      <span class="badge badge--ok">New dates added</span>
+      <span class="badge badge--dark">Long weekend</span>
+      <span class="badge badge--outline">Easy trek</span>
+      <span class="badge badge--glass">Weekend</span>
+    </div>
+    <ul class="rules">
+      <li><b>"N seats left"</b> renders only when the team has entered <code>seatsLeft</code> on that departure <i>and</i> it is ≤ the threshold in Settings (default 8).</li>
+      <li><b>"Filling fast"</b> renders only when the team ticks <code>fillingFast</code>. It is never computed or random.</li>
+      <li>If both are present, only the seat count shows. There is at most one urgency badge per card.</li>
+      <li>No countdown timers, "X people viewing" or auto-popups.</li>
+    </ul>
+
+    <h3 class="sub">Filter chips &amp; segmented controls</h3>
+    <div class="demo" style="flex-direction:column;align-items:stretch">
+      <div class="chips"><button class="chip is-on">All dates</button><button class="chip">This weekend</button><button class="chip">Next weekend</button><button class="chip">October</button><button class="chip">November</button><button class="chip">December</button><button class="chip"><svg class="ico ico--sm"><use href="#i-sliders"/></svg>Filters</button></div>
+      <div style="display:flex;gap:12px;flex-wrap:wrap"><div class="seg"><button class="is-on">Weekend</button><button>Long trips</button><button>Adventure</button><button>Camping</button></div></div>
+    </div>
+    <ul class="rules"><li>Month chips are generated from months that have open departures. An empty month never appears.</li><li>The city chip (Hyderabad / Bangalore) only renders when departures exist from more than one city.</li></ul>
+
+    <h3 class="sub">Form fields</h3>
+    <p class="subp">Labels sit above fields (never placeholder-only), inputs are 16px to stop iOS zoom, and fields use the right keyboard type (<code>tel</code>, <code>numeric</code>). Errors are inline and specific. Required fields are kept to 2 (name and phone).</p>
+    <div class="demo" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;align-items:start">
+      <div class="field"><label for="f1">Your name</label><input id="f1" class="input" placeholder="e.g. Priya" autocomplete="name"></div>
+      <div class="field"><label for="f2">WhatsApp number</label><div class="phone-in"><span>+91</span><input id="f2" class="input" inputmode="numeric" placeholder="98765 43210" autocomplete="tel-national"></div><span class="help">We'll send the itinerary here. No spam.</span></div>
+      <div class="field"><label for="f3">Phone</label><div class="phone-in"><span>+91</span><input id="f3" class="input is-error" value="98765"></div><span class="help err">Enter a 10-digit mobile number</span></div>
+      <div class="field"><label for="f4">Travel type <span class="optional">(optional)</span></label><select id="f4" class="input select"><option>Weekend getaway</option><option>Trek / adventure</option><option>Couple</option><option>Family</option><option>Corporate</option></select></div>
+      <div class="field"><label>Travellers</label><div class="stepper"><button type="button" aria-label="Fewer">−</button><output>2</output><button type="button" aria-label="More">+</button></div></div>
+      <label class="check"><input type="checkbox" checked> Send me trip updates on WhatsApp (you can opt out anytime)</label>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================= COMPONENTS -->
+<section class="dsec" id="components">
+  <div class="wrap">
+    <span class="overline">04 · Component system</span>
+    <h2>Components</h2>
+    <p class="lede">Every component takes <b>typed data</b> (a Trip, a Departure, a Review…) and decides for itself what to render. Pages never hard-code prices, dates or seats. This is what lets 100+ trips share one design.</p>
+
+    <div class="tscroll" style="margin-top:20px"><table class="t">
+      <tr><th>Component</th><th>Takes</th><th>Used on</th></tr>
+      <tr><td><b>TripCard</b></td><td>Trip + resolved departures</td><td>Home, /trips/, collections, destinations, guides</td></tr>
+      <tr><td><b>DepartureCard</b></td><td>Departure (+ its Trip)</td><td>Upcoming rails, /upcoming-trips/</td></tr>
+      <tr><td><b>DestinationCard</b></td><td>Destination + trip count/min price</td><td>Home, /destinations/, nearby blocks</td></tr>
+      <tr><td><b>FeaturedTripCard</b></td><td>Trip (featured)</td><td>Home, collections</td></tr>
+      <tr><td><b>TripFinder</b> (island)</td><td>Search index JSON</td><td>Home hero, /trips/, 404</td></tr>
+      <tr><td><b>FilterBar</b> (island)</td><td>Facets from data</td><td>/trips/, collections, upcoming</td></tr>
+      <tr><td><b>BookingCard</b> (island)</td><td>Trip + departures + options + Settings.payments</td><td>Trip page</td></tr>
+      <tr><td><b>EnquiryForm</b> (island)</td><td>Context (trip/departure/form name) + attribution</td><td>Trip, custom-trip, contact, itinerary modal</td></tr>
+      <tr><td><b>WhatsAppCTA</b></td><td>Context → pre-filled message + ref code</td><td>Everywhere (one per viewport)</td></tr>
+      <tr><td><b>TrustBar / TrustBadge</b></td><td>Settings.stats</td><td>Home, trip, about</td></tr>
+      <tr><td><b>ReviewCard / ReviewRail</b></td><td>Review[]</td><td>Home, trip, destination, /reviews/</td></tr>
+      <tr><td><b>BlogCard, TripCallout, TOC</b></td><td>Guide / Trip</td><td>Guides, destinations</td></tr>
+      <tr><td><b>FAQ, Breadcrumbs, SEO head</b></td><td>FAQ[] · path · page meta</td><td>All pages (emit JSON-LD)</td></tr>
+      <tr><td><b>StickyBar, MobileNav, AnnouncementBar, Nav, CompareTray</b></td><td>Context / Settings</td><td>Global</td></tr>
+    </table></div>
+
+    <!-- TripCard -->
+    <h3 class="sub">TripCard: three data states</h3>
+    <p class="subp">This is the workhorse. It answers what, from where, how long, when, how much and what's included without a click. The whole card is one link (to the trip page). Date chips deep-link to that departure (<code>?d=</code>).</p>
+    <div class="grid g3">
+      <div>
+        <span class="state">Default · <code>status: open</code></span>
+        <article class="tcard">
+          <div class="tcard__media ph ph--hills" data-label="Ooty tea estates"><div class="tcard__top"><span class="stub"><b>2N</b><i></i><b>3D</b></span><span class="badge badge--glass">Weekend</span></div></div>
+          <div class="tcard__body">
+            <div class="route"><span>Hyderabad</span><i></i><span>Ooty · Coonoor</span></div>
+            <h3 class="tcard__title"><a href="#">Ooty &amp; Coonoor</a></h3>
+            <p class="tcard__hook">Tea-estate walks, Nilgiri viewpoints and a slow Sunday in Coonoor.</p>
+            <ul class="incl"><li><svg class="ico ico--sm"><use href="#i-train"/></svg>Train</li><li><svg class="ico ico--sm"><use href="#i-bed"/></svg>Stays</li><li><svg class="ico ico--sm"><use href="#i-food"/></svg>Meals</li><li><svg class="ico ico--sm"><use href="#i-compass"/></svg>Sightseeing</li></ul>
+            <div class="dates"><span>Dates</span><a href="#">9 Oct</a><a href="#">16 Oct</a><a href="#">23 Oct</a><a href="#">+5</a></div>
+            <div class="tcard__foot"><div class="price"><small>From</small><span><s>₹7,999</s> <strong class="num">₹6,999</strong></span></div><a class="btn btn--primary btn--sm" href="#">View Dates</a></div>
+          </div>
+        </article>
+      </div>
+      <div>
+        <span class="state">Urgency only from data · <code>seatsLeft: 6</code></span>
+        <article class="tcard">
+          <div class="tcard__media ph ph--beach" data-label="Gokarna beach"><div class="tcard__top"><span class="stub"><b>2N</b><i></i><b>3D</b></span><span class="badge badge--alert" style="background:#fff">6 seats left</span></div></div>
+          <div class="tcard__body">
+            <div class="route"><span>Hyderabad</span><i></i><span>Gokarna · Dandeli</span></div>
+            <h3 class="tcard__title"><a href="#">Gokarna &amp; Dandeli</a></h3>
+            <p class="tcard__hook">Cliff-top beach trail, river rafting and a night by the Kali.</p>
+            <ul class="incl"><li><svg class="ico ico--sm"><use href="#i-bus"/></svg>AC sleeper bus</li><li><svg class="ico ico--sm"><use href="#i-bed"/></svg>Stays</li><li><svg class="ico ico--sm"><use href="#i-mountain"/></svg>Rafting</li></ul>
+            <div class="dates"><span>Dates</span><a class="alert" href="#">10 Oct</a><a href="#">24 Oct</a><a href="#">7 Nov</a></div>
+            <div class="tcard__foot"><div class="price"><small>From</small><strong class="num">₹7,499</strong></div><a class="btn btn--primary btn--sm" href="#">View Dates</a></div>
+          </div>
+        </article>
+      </div>
+      <div>
+        <span class="state">Nearest date sold out · next date shown</span>
+        <article class="tcard">
+          <div class="tcard__media ph ph--coffee" data-label="Coorg coffee estate"><div class="tcard__top"><span class="stub"><b>3N</b><i></i><b>4D</b></span><span class="badge badge--dark">Long weekend</span></div></div>
+          <div class="tcard__body">
+            <div class="route"><span>Hyderabad</span><i></i><span>Coorg · Chikmagalur</span></div>
+            <h3 class="tcard__title"><a href="#">Coorg &amp; Chikmagalur</a></h3>
+            <p class="tcard__hook">Coffee country end to end: estates, Mullayanagiri sunrise, Abbey Falls.</p>
+            <ul class="incl"><li><svg class="ico ico--sm"><use href="#i-bus"/></svg>Tempo traveller</li><li><svg class="ico ico--sm"><use href="#i-bed"/></svg>Estate stay</li><li><svg class="ico ico--sm"><use href="#i-food"/></svg>Meals</li></ul>
+            <div class="dates"><span>Dates</span><a href="#" style="text-decoration:line-through;opacity:.55">2 Oct</a><a href="#">6 Nov</a><a href="#">25 Dec</a></div>
+            <div class="tcard__foot"><div class="price"><small>From</small><strong class="num">₹10,999</strong></div><a class="btn btn--primary btn--sm" href="#">View Dates</a></div>
+          </div>
+        </article>
+      </div>
+    </div>
+    <ul class="rules">
+      <li><b>From price</b> is the lowest price across <i>open, future</i> departures (and options) for this card's origin city. It's never typed by hand on the card.</li>
+      <li><b>Strike-through price</b> shows only if <code>originalPrice</code> is set and greater than the price.</li>
+      <li><b>Dates</b> show the next 3 open departures plus a "+N" link. When none are scheduled, the card shows a recurring pattern ("Every Friday") if one is set, otherwise "Dates on request" with a WhatsApp CTA.</li>
+      <li><b>Inclusion icons</b> come from the Trip's top 3–4 inclusions flagged <code>showOnCard</code>.</li>
+    </ul>
+
+    <!-- Departure + Destination -->
+    <h3 class="sub">DepartureCard &amp; DestinationCard</h3>
+    <div class="grid g2">
+      <div style="display:grid;gap:10px">
+        <span class="state">DepartureCard (Upcoming rail · one card = one date)</span>
+        <article class="dcard">
+          <div class="dcard__media ph ph--forest"><div class="dcard__date"><small>Fri</small><b>09</b><small>Oct</small></div></div>
+          <div class="dcard__body">
+            <h3 class="dcard__title"><a href="#">Wayanad Weekend Escape</a></h3>
+            <div class="dcard__meta"><span><svg class="ico ico--sm"><use href="#i-clock"/></svg>2N/3D</span><span><svg class="ico ico--sm"><use href="#i-pin"/></svg>From Hyderabad</span></div>
+            <div class="dcard__row"><strong class="num">₹7,299</strong><span class="badge badge--alert">4 seats left</span></div>
+          </div>
+        </article>
+        <article class="dcard">
+          <div class="dcard__media ph ph--camp"><div class="dcard__date"><small>Sat</small><b>17</b><small>Oct</small></div></div>
+          <div class="dcard__body">
+            <h3 class="dcard__title"><a href="#">Lakeside Camping Night</a></h3>
+            <div class="dcard__meta"><span><svg class="ico ico--sm"><use href="#i-clock"/></svg>1N/2D</span><span><svg class="ico ico--sm"><use href="#i-pin"/></svg>From Hyderabad</span></div>
+            <div class="dcard__row"><strong class="num">₹2,499</strong><span class="badge badge--ok">New</span></div>
+          </div>
+        </article>
+      </div>
+      <div>
+        <span class="state">DestinationCard</span>
+        <div class="grid" style="grid-template-columns:1fr 1fr">
+          <a class="xcard ph ph--hills scrim" href="#"><span class="badge badge--glass">3 trips</span><div><h3>Ooty</h3><p>From ₹6,999 · Best Oct–Jun</p></div><span class="xcard__go"><svg class="ico ico--sm"><use href="#i-arrow"/></svg></span></a>
+          <a class="xcard ph ph--snow scrim" href="#"><span class="badge badge--glass">1 trip</span><div><h3>Manali</h3><p>From ₹15,999 · Best Mar–Jun</p></div><span class="xcard__go"><svg class="ico ico--sm"><use href="#i-arrow"/></svg></span></a>
+        </div>
+        <ul class="rules"><li>Trip count and "From ₹" are computed from live trips.</li><li>"Best" months come from <code>destination.bestMonths</code>.</li><li>A destination with no live trips still links to its guide content, labelled "Guide" instead of "N trips".</li></ul>
+      </div>
+    </div>
+
+    <!-- Featured -->
+    <h3 class="sub">FeaturedTripCard: story first, price second</h3>
+    <div class="fcard ph ph--coffee scrim" data-label="Mullayanagiri sunrise">
+      <div class="fcard__in">
+        <span class="overline" style="color:var(--marigold-500)">Featured · Coffee country</span>
+        <h3>Coorg &amp; Chikmagalur</h3>
+        <p class="fcard__story">Wake up inside a coffee estate, chase the sunrise up Karnataka's highest peak, and end the night with a bonfire and twenty new friends. Four days that feel like a week off.</p>
+        <ul><li>Estate homestay</li><li>Mullayanagiri sunrise</li><li>Abbey Falls</li><li>Bonfire night</li></ul>
+        <div class="fcard__foot"><div class="price"><small>3N/4D from</small><strong class="num" style="color:#fff">₹10,999</strong></div><a class="btn btn--primary" href="#">See the Itinerary</a><a class="btn btn--ghost" href="#"><svg class="ico"><use href="#i-wa"/></svg>Ask on WhatsApp</a></div>
+      </div>
+    </div>
+
+    <!-- Trust + reviews -->
+    <h3 class="sub">TrustBar &amp; ReviewCard: hidden when there's no real data</h3>
+    <div class="grid g2">
+      <div style="display:grid;gap:12px;align-content:start">
+        <span class="state">Settings has rating + reviews + weekly departures</span>
+        <div class="trust">
+          <div class="trust__item"><span class="trust__ico"><svg class="ico"><use href="#i-star"/></svg></span><div><b class="num">4.x ★</b><small>Google · N reviews</small></div></div>
+          <div class="trust__item"><span class="trust__ico"><svg class="ico"><use href="#i-cal"/></svg></span><div><b>Weekly</b><small>departures</small></div></div>
+          <div class="trust__item"><span class="trust__ico"><svg class="ico"><use href="#i-pin"/></svg></span><div><b>Hyderabad</b><small>based team</small></div></div>
+        </div>
+        <span class="state" style="margin-top:8px">Settings has NO numbers → only factual items render</span>
+        <div class="trust">
+          <div class="trust__item"><span class="trust__ico"><svg class="ico"><use href="#i-pin"/></svg></span><div><b>Hyderabad</b><small>based team</small></div></div>
+          <div class="trust__item"><span class="trust__ico"><svg class="ico"><use href="#i-users"/></svg></span><div><b>Trip coordinator</b><small>on every trip</small></div></div>
+          <div class="trust__item"><span class="trust__ico"><svg class="ico"><use href="#i-wa"/></svg></span><div><b>WhatsApp</b><small>support</small></div></div>
+        </div>
+        <ul class="rules">
+          <li>Each item is <code>{icon, value, label, source?}</code> in Settings. An item with an empty value is <b>not rendered</b>. The bar hides entirely if fewer than 2 items remain.</li>
+          <li>The rating item links to the Google Business Profile (<code>source</code>) so it can be verified.</li>
+          <li>Claims such as "Trip coordinator on every trip" are entered by HCC and only kept if true.</li>
+        </ul>
+      </div>
+      <div style="display:grid;gap:12px;align-content:start">
+        <span class="state">ReviewCard (layout demo; text is lorem-style, not a review)</span>
+        <article class="rcard">
+          <div class="rcard__head"><span class="avatar">A</span><div><b>Reviewer name</b><small>Travelled Sept 2026</small></div><span class="rcard__src"><span class="stars"><svg class="ico"><use href="#i-star"/></svg><svg class="ico"><use href="#i-star"/></svg><svg class="ico"><use href="#i-star"/></svg><svg class="ico"><use href="#i-star"/></svg><svg class="ico"><use href="#i-star"/></svg></span> Google</span></div>
+          <blockquote>Real review text from Google appears here, exactly as written by the traveller, trimmed with a "Read more" link if over 280 characters.</blockquote>
+          <a class="rcard__trip" href="#">Trip: Ooty &amp; Coonoor →</a>
+        </article>
+        <ul class="rules">
+          <li>Reviews need <code>source</code>, <code>date</code> and <code>consent</code>. Missing any one means the review won't publish.</li>
+          <li>Under 3 reviews, the section hides and is replaced by a "Read our reviews on Google" link (if a profile URL exists).</li>
+          <li><b>AggregateRating schema is not emitted</b> for Google-sourced ratings. Google treats self-serving third-party ratings as ineligible. It's only added later if HCC collects first-party reviews on-site.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Finder + filter -->
+    <h3 class="sub">TripFinder &amp; FilterBar</h3>
+    <p class="subp">The finder opens bottom sheets on mobile (native-feeling, large targets) and becomes a pill row on desktop. Results go to <code>/trips/?dest=…&amp;month=…&amp;style=…</code>. That page is canonical to <code>/trips/</code>, so filtered URLs never get indexed as duplicates.</p>
+    <div class="grid g2">
+      <div class="demo demo--bg" style="display:block">
+        <div class="finder">
+          <button class="finder__f"><svg class="ico"><use href="#i-search"/></svg><span><small>Where to?</small><b class="ph-t">Destination, city or trip type</b></span></button><hr>
+          <button class="finder__f"><svg class="ico"><use href="#i-cal"/></svg><span><small>When?</small><b>Any weekend in Oct</b></span></button><hr>
+          <button class="finder__f"><svg class="ico"><use href="#i-compass"/></svg><span><small>Travel style</small><b class="ph-t">Weekend, Adventure, Camping…</b></span></button>
+          <a class="btn btn--primary btn--lg" href="#">Find My Trip</a>
+        </div>
+      </div>
+      <div class="demo demo--bg" style="flex-direction:column;align-items:stretch">
+        <span class="state">FilterBar (mobile: chips + sheet)</span>
+        <div class="chips"><button class="chip"><svg class="ico ico--sm"><use href="#i-sliders"/></svg>Filters · 2</button><button class="chip is-on">October</button><button class="chip is-on">Weekend</button><button class="chip">Under ₹8k</button><button class="chip">Train</button></div>
+        <div style="display:flex;justify-content:space-between;font-size:13px;color:var(--text-2)"><span><b style="color:var(--ink-900)">7 trips</b> · 15 departures</span><span>Sort: Soonest ▾</span></div>
+        <div class="ctray"><div class="ctray__slots"><span class="ctray__slot ph ph--hills"></span><span class="ctray__slot ph ph--beach"></span><span class="ctray__slot"></span></div><div style="flex:1"><b style="font-size:14px">Compare 2 trips</b><small>Add one more or compare now</small></div><a class="btn btn--primary btn--sm" href="#">Compare</a></div>
+        <p class="help">Facets (months, styles, budget bands, transport) are generated from the data, so an empty filter is impossible.</p>
+      </div>
+    </div>
+
+    <!-- Booking card -->
+    <h3 class="sub">BookingCard: one component, enquiry today, payment later</h3>
+    <div class="grid g2">
+      <div class="book" style="max-width:420px">
+        <div>
+          <div class="book__price"><small style="color:var(--text-2)">From</small><s style="color:var(--text-3)">₹7,999</s><strong class="num">₹6,999</strong><span class="per" style="color:var(--text-2);font-size:13px">/person · quad sharing</span></div>
+        </div>
+        <div>
+          <div class="book__label"><span>1 · Pick a date</span><span style="text-transform:none;letter-spacing:0;color:var(--link)">All dates</span></div>
+          <div class="book__dates">
+            <a class="dstub is-selected" href="#"><small>Fri</small><b>09</b><small>Oct</small></a>
+            <a class="dstub" href="#"><small>Fri</small><b>16</b><small>Oct</small><em class="alert">5 left</em></a>
+            <a class="dstub" href="#"><small>Fri</small><b>23</b><small>Oct</small></a>
+            <a class="dstub is-soldout" href="#"><small>Fri</small><b>30</b><small>Oct</small><em class="mute">Full</em></a>
+          </div>
+        </div>
+        <div class="book__opts">
+          <div class="book__label" style="margin:0"><span>2 · Room sharing</span></div>
+          <div class="opt is-on"><span><i class="radio"></i>Quad sharing</span><b class="num">₹6,999</b></div>
+          <div class="opt"><span><i class="radio"></i>Triple sharing</span><b class="num">₹7,499</b></div>
+          <div class="opt"><span><i class="radio"></i>Twin sharing</span><b class="num">₹8,299</b></div>
+        </div>
+        <div class="book__sum">
+          <div><span>2 travellers × ₹6,999</span><span class="num">₹13,998</span></div>
+          <div><span>GST (5%)</span><span class="num">₹700</span></div>
+          <div class="tot"><span>Reserve now with</span><span class="num">₹4,000 advance</span></div>
+        </div>
+        <div class="book__cta">
+          <a class="btn btn--primary btn--lg btn--block" href="#">Book Your Seat</a>
+          <a class="btn btn--wa btn--block" href="#"><svg class="ico"><use href="#i-wa"/></svg>WhatsApp HCC about 9 Oct</a>
+          <a class="btn btn--text" href="#" style="justify-self:center"><svg class="ico ico--sm"><use href="#i-file"/></svg>Get Full Itinerary</a>
+        </div>
+        <div class="book__note"><svg class="ico ico--sm"><use href="#i-shield"/></svg><span>No payment taken online yet. A trip coordinator confirms your seat on WhatsApp within working hours.</span></div>
+      </div>
+      <div>
+        <ul class="rules rules--title" style="margin-top:0">
+          <li><b>Date stubs</b> come from the departures for this trip and origin. Sold-out dates stay visible (proof of demand), but they're disabled.</li>
+          <li><b>Options</b> (room sharing, transport class) render only if the trip has more than one. With a single option, a static line replaces the selector.</li>
+          <li><b>Price summary</b>: tax and advance lines appear only when <code>gstPercent</code> / <code>advanceAmount</code> are set.</li>
+          <li><b>"Book Your Seat"</b> opens a 3-field sheet (name, phone, travellers; the date and option are pre-filled). It creates a <i>BookingIntent</i> (see §8). At launch the response is "Thanks, we'll confirm on WhatsApp", with a one-tap WhatsApp continuation.</li>
+          <li><b>When Razorpay is switched on</b> (<code>settings.payments.enabled</code>), the same button and the same intent return <code>next: "pay"</code>, and Razorpay Checkout opens for the advance. No component changes.</li>
+          <li>The <b>WhatsApp label includes the selected date</b>, so the team knows the context instantly.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Sticky + WA -->
+    <h3 class="sub">Mobile StickyBar, MobileNav, WhatsApp band, Breadcrumbs, FAQ</h3>
+    <div class="grid g2">
+      <div style="display:grid;gap:14px;align-content:start">
+        <span class="state">Trip page StickyBar (after the inline booking card scrolls away)</span>
+        <div class="mbar" style="border:1px solid var(--line);border-radius:16px"><div class="mbar__p"><strong class="num">₹6,999</strong><small>Fri 9 Oct · Quad</small></div><a class="btn btn--wa" href="#" aria-label="WhatsApp HCC"><svg class="ico"><use href="#i-wa"/></svg></a><a class="btn btn--primary" href="#">Book Seat</a></div>
+        <span class="state">Global MobileNav (all other pages)</span>
+        <nav class="mnav" style="border:1px solid var(--line);border-radius:16px"><a class="is-on" href="#"><svg class="ico"><use href="#i-compass"/></svg>Trips</a><a href="#"><svg class="ico"><use href="#i-cal"/></svg>Dates</a><a href="#"><svg class="ico"><use href="#i-search"/></svg>Search</a><a class="wa" href="#"><svg class="ico"><use href="#i-wa"/></svg>WhatsApp</a></nav>
+        <ul class="rules"><li>The bar hides while a form field is focused (the keyboard is open) and while the inline booking card is on screen. It never stacks with a floating bubble.</li><li>It respects the iPhone safe area and is 64px tall, so content gets matching bottom padding.</li></ul>
+        <span class="state">Breadcrumbs</span>
+        <ol class="crumbs"><li><a href="#">Home</a></li><li><a href="#">Weekend Trips from Hyderabad</a></li><li><span aria-current="page">Ooty &amp; Coonoor</span></li></ol>
+      </div>
+      <div style="display:grid;gap:14px;align-content:start">
+        <div class="waband">
+          <span class="waband__meta"><span class="dot-live"></span>Usually replies within working hours</span>
+          <h3>Not sure which trip fits you?</h3>
+          <p>Tell us your dates and budget. A real person from the HCC team will suggest the right trip, no bots.</p>
+          <div class="waband__cta"><a class="btn btn--primary" href="#">Plan My Trip</a><a class="btn btn--wa-solid" href="#" style="border-color:rgba(255,255,255,.25)"><svg class="ico"><use href="#i-wa"/></svg>WhatsApp HCC</a></div>
+        </div>
+        <div class="faq">
+          <details open><summary>Can I join if I'm travelling alone?</summary><p>Answers are written per trip by HCC. This slot shows the style: short, direct and specific. It's rendered as real HTML so it's crawlable.</p></details>
+          <details><summary>How much do I pay to reserve a seat?</summary><p>…</p></details>
+          <details><summary>Where is the pickup point in Hyderabad?</summary><p>…</p></details>
+        </div>
+      </div>
+    </div>
+
+    <h3 class="sub">Announcement bar &amp; navigation</h3>
+    <div style="border:1px solid var(--line);border-radius:var(--r-lg);overflow:hidden">
+      <a class="ann" href="#"><span>Gandhi Jayanti long-weekend trips are live</span><b>Explore trips →</b></a>
+      <div class="nav">
+        <a class="logo" href="#"><span class="logo__mark"><svg><use href="#logo-mark"/></svg></span><span class="logo__txt"><b>HCC</b><small>Hyderabad Campers Club</small></span></a>
+        <ul class="nav__links"><li><a href="#">Trips <svg class="ico ico--sm"><use href="#i-chev"/></svg></a></li><li><a href="#">Weekend Getaways</a></li><li><a href="#">Treks</a></li><li><a href="#">Camping</a></li><li><a href="#">Long Trips</a></li><li><a href="#">Destinations <svg class="ico ico--sm"><use href="#i-chev"/></svg></a></li><li><a href="#">Guides</a></li></ul>
+        <div class="nav__right"><a class="btn btn--wa btn--sm" href="#"><svg class="ico"><use href="#i-wa"/></svg><span>WhatsApp</span></a><a class="btn btn--primary btn--sm" href="#">Explore Trips</a></div>
+      </div>
+    </div>
+    <ul class="rules"><li>The announcement is <code>{text, linkText, url, startsAt, endsAt, enabled}</code> in Settings. It auto-hides after <code>endsAt</code>, so stale offers never linger.</li><li>The 7 nav items show at ≥1100px. Below that, a full-screen sheet opens with search at the top and trip types as large tiles.</li></ul>
+  </div>
+</section>
+
+<!-- ======================================================= LAYOUTS -->
+<section class="dsec" id="layouts">
+  <div class="wrap">
+    <span class="overline">05 · Key layouts</span>
+    <h2>Page layouts</h2>
+    <p class="lede">The two pages that carry most of the conversions (home and trip) are shown at high fidelity on a 390px phone. <b>The phones scroll inside the frame.</b> Desktop and the remaining templates are shown as structural wireframes.</p>
+
+    <div class="frames">
+      <!-- ============ PHONE: HOME ============ -->
+      <div class="frame">
+        <div class="frame__cap"><b>Homepage · mobile (390px)</b>Organic, WhatsApp and direct visitors. The hero, trip finder and first trust signal all fit in the first screen.</div>
+        <div class="phone">
+          <div class="phone__scroll">
+            <a class="ann" href="#" style="font-size:12px"><span>Long-weekend trips are live</span><b>Explore →</b></a>
+            <div class="ph ph--dusk scrim" data-label="Group at sunset viewpoint" style="padding-bottom:20px">
+              <div class="nav nav--over" style="background:transparent">
+                <a class="logo" href="#" style="color:#fff"><span class="logo__mark"><svg><use href="#logo-mark"/></svg></span><span class="logo__txt"><b>HCC</b><small>Hyderabad Campers Club</small></span></a>
+                <div class="nav__right"><a class="iconbtn" href="#" aria-label="Menu"><svg class="ico"><use href="#i-menu"/></svg></a></div>
+              </div>
+              <div style="padding:28px 16px 0">
+                <span class="overline" style="color:rgba(255,255,255,.85)">Group trips from Hyderabad</span>
+                <h1 style="font-size:var(--fs-display);line-height:.98;letter-spacing:-.03em;margin:12px 0 12px;color:#fff">Your weekend. Your adventure. Your people.</h1>
+                <p style="color:rgba(255,255,255,.88);font-size:15px;margin-bottom:20px">Group trips, weekend getaways, treks &amp; escapes, organised end to end by a Hyderabad team.</p>
+                <div class="finder">
+                  <button class="finder__f"><svg class="ico"><use href="#i-search"/></svg><span><small>Where to?</small><b class="ph-t">Ooty, treks, camping…</b></span></button><hr>
+                  <div style="display:grid;grid-template-columns:1fr 1fr">
+                    <button class="finder__f"><svg class="ico"><use href="#i-cal"/></svg><span><small>When?</small><b>Any time</b></span></button>
+                    <button class="finder__f"><svg class="ico"><use href="#i-compass"/></svg><span><small>Style</small><b>Any</b></span></button>
+                  </div>
+                  <a class="btn btn--primary btn--lg" href="#">Find My Trip</a>
+                </div>
+                <a class="btn btn--text" href="#" style="color:#fff;margin-top:14px;display:inline-flex">Or plan a custom trip <svg class="ico ico--sm"><use href="#i-arrow"/></svg></a>
+              </div>
+            </div>
+            <div style="padding:14px 16px 0"><div class="trust" style="border-radius:14px">
+              <div class="trust__item" style="padding:10px 14px"><span class="trust__ico" style="width:30px;height:30px"><svg class="ico ico--sm"><use href="#i-pin"/></svg></span><div><b style="font-size:14px">Hyderabad</b><small>based team</small></div></div>
+              <div class="trust__item" style="padding:10px 14px"><span class="trust__ico" style="width:30px;height:30px"><svg class="ico ico--sm"><use href="#i-users"/></svg></span><div><b style="font-size:14px">Coordinator</b><small>on every trip</small></div></div>
+              <div class="trust__item" style="padding:10px 14px"><span class="trust__ico" style="width:30px;height:30px"><svg class="ico ico--sm"><use href="#i-cal"/></svg></span><div><b style="font-size:14px">Weekly</b><small>departures</small></div></div>
+            </div></div>
+
+            <div class="sx">
+              <span class="overline">Upcoming trips</span>
+              <h2 style="font-size:var(--fs-h2);margin:6px 0 4px">Pick a date. Pack your bags.</h2>
+              <p style="color:var(--text-2);font-size:14px;margin-bottom:14px">We'll handle the rest.</p>
+              <div class="chips" style="margin:0 -16px 14px;padding:0 16px"><button class="chip is-on">This weekend</button><button class="chip">Next weekend</button><button class="chip">Oct</button><button class="chip">Nov</button><button class="chip">Dec</button></div>
+              <div class="rail">
+                <article class="dcard" style="width:300px"><div class="dcard__media ph ph--hills"><div class="dcard__date"><small>Fri</small><b>09</b><small>Oct</small></div></div><div class="dcard__body"><h3 class="dcard__title"><a href="#">Ooty &amp; Coonoor</a></h3><div class="dcard__meta"><span>2N/3D</span><span>Train</span></div><div class="dcard__row"><strong class="num">₹6,999</strong><span class="btn btn--text" style="font-size:13px">Book →</span></div></div></article>
+                <article class="dcard" style="width:300px"><div class="dcard__media ph ph--beach"><div class="dcard__date"><small>Fri</small><b>09</b><small>Oct</small></div></div><div class="dcard__body"><h3 class="dcard__title"><a href="#">Gokarna &amp; Dandeli</a></h3><div class="dcard__meta"><span>2N/3D</span><span>Bus</span></div><div class="dcard__row"><strong class="num">₹7,499</strong><span class="badge badge--alert">6 left</span></div></div></article>
+              </div>
+              <a class="btn btn--secondary btn--block" href="#" style="margin-top:16px">See All Dates</a>
+            </div>
+
+            <div class="sx" style="padding-top:8px">
+              <h2 style="font-size:var(--fs-h2);margin-bottom:12px">Where are you going next?</h2>
+              <div class="chips" style="margin:0 -16px 14px;padding:0 16px"><button class="chip is-on">Weekend</button><button class="chip">Long trips</button><button class="chip">Adventure</button><button class="chip">Camping</button></div>
+              <div class="grid" style="grid-template-columns:1fr 1fr;gap:10px">
+                <a class="xcard ph ph--hills scrim" href="#"><div><h3 style="font-size:17px">Ooty</h3><p>2N/3D · from ₹6,999</p></div></a>
+                <a class="xcard ph ph--coffee scrim" href="#"><div><h3 style="font-size:17px">Coorg</h3><p>3N/4D · from ₹10,999</p></div></a>
+                <a class="xcard ph ph--beach scrim" href="#"><div><h3 style="font-size:17px">Gokarna</h3><p>2N/3D · from ₹7,499</p></div></a>
+                <a class="xcard ph ph--forest scrim" href="#"><div><h3 style="font-size:17px">Wayanad</h3><p>2N/3D · from ₹7,299</p></div></a>
+              </div>
+            </div>
+
+            <div class="sx" style="background:var(--forest-950) var(--topo) center/420px;color:#fff">
+              <span class="overline" style="color:var(--marigold-500)">Why HCC</span>
+              <h2 style="font-size:var(--fs-h2);margin:6px 0 16px">Come alone. Leave with a crew.</h2>
+              <div class="grid" style="gap:10px">
+                <div class="pillar"><span class="trust__ico"><svg class="ico"><use href="#i-users"/></svg></span><h3>Real people, real trips</h3><p>A named HCC coordinator travels with every group.</p></div>
+                <div class="pillar"><span class="trust__ico"><svg class="ico"><use href="#i-file"/></svg></span><h3>No confusing packages</h3><p>Inclusions, exclusions, transport and stays listed before you pay.</p></div>
+              </div>
+            </div>
+            <div class="sx"><span class="help" style="display:block;text-align:center">↓ Trip types · Weekend trips from Hyderabad (SEO block) · Featured · How it works · Reviews (if ≥3) · Instagram · Custom trip form · Guides · FAQ · Footer</span></div>
+          </div>
+          <nav class="mnav phone__fixed"><a class="is-on" href="#"><svg class="ico"><use href="#i-compass"/></svg>Trips</a><a href="#"><svg class="ico"><use href="#i-cal"/></svg>Dates</a><a href="#"><svg class="ico"><use href="#i-search"/></svg>Search</a><a class="wa" href="#"><svg class="ico"><use href="#i-wa"/></svg>WhatsApp</a></nav>
+        </div>
+      </div>
+
+      <!-- ============ PHONE: TRIP (campaign landing) ============ -->
+      <div class="frame">
+        <div class="frame__cap"><b>Trip page · mobile · arriving from an Instagram ad</b><code>/trips/ooty-coonoor-from-hyderabad/?d=2026-10-09&amp;utm_source=instagram…</code>. The advertised date is pre-selected, so the ad's promise is visible on the first screen.</div>
+        <div class="phone">
+          <div class="phone__scroll">
+            <div class="ph ph--hills" data-label="Ooty · 1 of 12" style="height:300px">
+              <div style="display:flex;justify-content:space-between;padding:12px">
+                <a class="iconbtn" href="#" aria-label="Back" style="border:0;box-shadow:var(--sh-1)"><svg class="ico"><use href="#i-back"/></svg></a>
+                <a class="iconbtn" href="#" aria-label="Share" style="border:0;box-shadow:var(--sh-1)"><svg class="ico"><use href="#i-share"/></svg></a>
+              </div>
+              <span class="badge badge--glass" style="position:absolute;left:12px;bottom:12px">1 / 12</span>
+            </div>
+            <div style="padding:16px 16px 0;display:grid;gap:12px">
+              <ol class="crumbs" style="font-size:12px"><li><a href="#">Home</a></li><li><a href="#">Weekend Trips</a></li><li><span aria-current="page">Ooty &amp; Coonoor</span></li></ol>
+              <h1 style="font-size:1.75rem;line-height:1.1;letter-spacing:-.02em">Ooty &amp; Coonoor Group Trip from Hyderabad</h1>
+              <div style="display:flex;gap:8px;flex-wrap:wrap"><span class="stub" style="border:1px solid var(--line)"><b>2N</b><i></i><b>3D</b></span><span class="badge badge--outline"><svg class="ico ico--sm"><use href="#i-train"/></svg>Sleeper train</span><span class="badge badge--outline"><svg class="ico ico--sm"><use href="#i-bed"/></svg>Homestay</span><span class="badge badge--outline">Easy</span></div>
+              <div class="route"><span>Hyderabad</span><i></i><span>Ooty</span><i></i><span>Coonoor</span></div>
+            </div>
+            <div style="padding:16px">
+              <div class="book" style="box-shadow:none">
+                <div class="note" style="padding:10px 12px;font-size:13px;background:var(--marigold-100)"><svg class="ico ico--sm" style="color:var(--marigold-600)"><use href="#i-cal"/></svg><span>Showing the <b>Fri 9 Oct</b> departure from your link</span></div>
+                <div class="book__price"><small style="color:var(--text-2)">From</small><strong class="num" style="font-size:1.75rem">₹6,999</strong><span style="color:var(--text-2);font-size:13px">/person</span></div>
+                <div class="book__dates"><a class="dstub is-selected" href="#"><small>Fri</small><b>09</b><small>Oct</small></a><a class="dstub" href="#"><small>Fri</small><b>16</b><small>Oct</small><em class="alert">5 left</em></a><a class="dstub" href="#"><small>Fri</small><b>23</b><small>Oct</small></a><a class="dstub" href="#"><small>Fri</small><b>30</b><small>Oct</small></a></div>
+                <div class="book__cta"><a class="btn btn--primary btn--lg btn--block" href="#">Book Your Seat</a><a class="btn btn--wa btn--block" href="#"><svg class="ico"><use href="#i-wa"/></svg>WhatsApp HCC about 9 Oct</a></div>
+                <div class="book__note"><svg class="ico ico--sm"><use href="#i-shield"/></svg><span>Reserve with ₹X advance · balance before departure</span></div>
+              </div>
+            </div>
+            <div style="position:sticky;top:0;z-index:3;background:var(--bg);border-bottom:1px solid var(--line)"><div class="chips" style="padding:10px 16px"><button class="chip is-on" style="height:34px">Overview</button><button class="chip" style="height:34px">Itinerary</button><button class="chip" style="height:34px">Stays</button><button class="chip" style="height:34px">Inclusions</button><button class="chip" style="height:34px">Pickup</button><button class="chip" style="height:34px">FAQs</button></div></div>
+            <div class="sx" style="display:grid;gap:14px">
+              <h2 style="font-size:1.375rem">Trip highlights</h2>
+              <ul style="margin:0;padding:0;list-style:none;display:grid;gap:10px;font-size:14.5px">
+                <li style="display:flex;gap:10px"><svg class="ico" style="color:var(--forest-500)"><use href="#i-check"/></svg>Tea-estate walk with a factory visit</li>
+                <li style="display:flex;gap:10px"><svg class="ico" style="color:var(--forest-500)"><use href="#i-check"/></svg>Doddabetta &amp; Lamb's Rock viewpoints</li>
+                <li style="display:flex;gap:10px"><svg class="ico" style="color:var(--forest-500)"><use href="#i-check"/></svg>Nilgiri toy train <span class="badge badge--info" style="height:20px;font-size:11px">subject to availability</span></li>
+              </ul>
+              <h2 style="font-size:1.375rem;margin-top:8px">Day-wise itinerary</h2>
+              <div class="faq">
+                <details open><summary style="font-size:15px">Day 0 · Fri · Depart Hyderabad</summary><p style="font-size:14px">Report at the pickup point 30 min before the train. Your coordinator meets the group on the platform.</p></details>
+                <details><summary style="font-size:15px">Day 1 · Sat · Coonoor tea country</summary><p>…</p></details>
+                <details><summary style="font-size:15px">Day 2 · Sun · Ooty &amp; return</summary><p>…</p></details>
+              </div>
+              <span class="help" style="text-align:center">↓ Stays · Inclusions/Exclusions · Transport · Pickup · Dates table · Policies · FAQs · Reviews · Related trips &amp; guides</span>
+            </div>
+          </div>
+          <div class="mbar phone__fixed"><div class="mbar__p"><strong class="num">₹6,999</strong><small>Fri 9 Oct · from HYD</small></div><a class="btn btn--wa" href="#" aria-label="WhatsApp"><svg class="ico"><use href="#i-wa"/></svg></a><a class="btn btn--primary" href="#">Book Seat</a></div>
+        </div>
+      </div>
+
+      <!-- ============ PHONE: LISTING ============ -->
+      <div class="frame">
+        <div class="frame__cap"><b>Collection page · mobile</b><code>/weekend-trips-from-hyderabad/</code>. Google traffic for "weekend trips from Hyderabad". Trips come first, then the guidance that earns the ranking.</div>
+        <div class="phone">
+          <div class="phone__scroll">
+            <div class="nav"><a class="logo" href="#"><span class="logo__mark"><svg><use href="#logo-mark"/></svg></span><span class="logo__txt"><b>HCC</b></span></a><div class="nav__right"><a class="iconbtn" href="#" aria-label="Search"><svg class="ico"><use href="#i-search"/></svg></a><a class="iconbtn" href="#" aria-label="Menu"><svg class="ico"><use href="#i-menu"/></svg></a></div></div>
+            <div style="padding:16px;display:grid;gap:10px">
+              <ol class="crumbs" style="font-size:12px"><li><a href="#">Home</a></li><li><span aria-current="page">Weekend Trips from Hyderabad</span></li></ol>
+              <h1 style="font-size:1.875rem;line-height:1.08">Weekend Trips from Hyderabad</h1>
+              <p style="font-size:14.5px;color:var(--ink-700)">Leave Friday night, back Monday morning. Group getaways to the Nilgiris, coffee country and the Karnataka coast, with transport, stays and a coordinator included.</p>
+            </div>
+            <div style="position:sticky;top:0;z-index:3;background:var(--bg);padding:8px 0 10px;border-bottom:1px solid var(--line)"><div class="chips" style="padding:0 16px"><button class="chip"><svg class="ico ico--sm"><use href="#i-sliders"/></svg>Filters</button><button class="chip is-on">Oct</button><button class="chip">Nov</button><button class="chip">Under ₹8k</button><button class="chip">Train</button></div></div>
+            <div style="padding:16px;display:grid;gap:14px">
+              <article class="tcard">
+                <div class="tcard__media ph ph--hills" style="aspect-ratio:16/10"><div class="tcard__top"><span class="stub"><b>2N</b><i></i><b>3D</b></span></div></div>
+                <div class="tcard__body"><div class="route"><span>Hyderabad</span><i></i><span>Ooty · Coonoor</span></div><h3 class="tcard__title"><a href="#">Ooty &amp; Coonoor</a></h3><div class="dates"><span>Dates</span><a href="#">9 Oct</a><a href="#">16 Oct</a><a href="#">+5</a></div><div class="tcard__foot"><div class="price"><small>From</small><strong class="num">₹6,999</strong></div><a class="btn btn--primary btn--sm" href="#">View Dates</a></div></div>
+              </article>
+              <article class="tcard">
+                <div class="tcard__media ph ph--beach" style="aspect-ratio:16/10"><div class="tcard__top"><span class="stub"><b>2N</b><i></i><b>3D</b></span></div></div>
+                <div class="tcard__body"><div class="route"><span>Hyderabad</span><i></i><span>Gokarna · Dandeli</span></div><h3 class="tcard__title"><a href="#">Gokarna &amp; Dandeli</a></h3><div class="dates"><span>Dates</span><a href="#">10 Oct</a><a href="#">24 Oct</a></div><div class="tcard__foot"><div class="price"><small>From</small><strong class="num">₹7,499</strong></div><a class="btn btn--primary btn--sm" href="#">View Dates</a></div></div>
+              </article>
+              <h2 style="font-size:1.375rem;margin-top:10px">Weekend getaway planner</h2>
+              <div class="tscroll"><table class="t" style="font-size:12.5px"><tr><th>Trip</th><th>Travel</th><th>Best</th><th>From</th></tr><tr><td>Ooty</td><td>Overnight train</td><td>Oct–Jun</td><td>₹6,999</td></tr><tr><td>Gokarna</td><td>Sleeper bus</td><td>Oct–Mar</td><td>₹7,499</td></tr><tr><td>Wayanad</td><td>Sleeper bus</td><td>Sep–May</td><td>₹7,299</td></tr></table></div>
+              <span class="help" style="text-align:center">↓ "Which trip suits you?" · editorial guide (300–600 words) · FAQs · related guides</span>
+            </div>
+          </div>
+          <nav class="mnav phone__fixed"><a class="is-on" href="#"><svg class="ico"><use href="#i-compass"/></svg>Trips</a><a href="#"><svg class="ico"><use href="#i-cal"/></svg>Dates</a><a href="#"><svg class="ico"><use href="#i-search"/></svg>Search</a><a class="wa" href="#"><svg class="ico"><use href="#i-wa"/></svg>WhatsApp</a></nav>
+        </div>
+      </div>
+    </div>
+
+    <!-- Desktop hero -->
+    <h3 class="sub">Homepage · desktop (≥1280px), first screen</h3>
+    <div class="desk">
+      <div class="desk__bar"><i></i><i></i><i></i><span>hcc-domain.in/</span></div>
+      <a class="ann" href="#"><span>Gandhi Jayanti long-weekend trips are live</span><b>Explore trips →</b></a>
+      <div class="ph ph--dusk scrim" data-label="Hero: real HCC group photo (poster) · optional muted loop after load" style="min-height:560px;display:flex;flex-direction:column">
+        <div class="nav nav--over" style="padding:0 32px">
+          <a class="logo" href="#" style="color:#fff"><span class="logo__mark"><svg><use href="#logo-mark"/></svg></span><span class="logo__txt"><b>HCC</b><small>Hyderabad Campers Club</small></span></a>
+          <ul class="nav__links" style="color:#fff"><li><a href="#">Trips <svg class="ico ico--sm"><use href="#i-chev"/></svg></a></li><li><a href="#">Weekend Getaways</a></li><li><a href="#">Treks</a></li><li><a href="#">Camping</a></li><li><a href="#">Long Trips</a></li><li><a href="#">Destinations <svg class="ico ico--sm"><use href="#i-chev"/></svg></a></li><li><a href="#">Guides</a></li></ul>
+          <div class="nav__right"><a class="btn btn--ghost btn--sm" href="#"><svg class="ico"><use href="#i-wa"/></svg>WhatsApp</a><a class="btn btn--primary btn--sm" href="#">Explore Trips</a></div>
+        </div>
+        <div style="padding:48px 48px 40px;margin-top:auto;max-width:1100px">
+          <span class="overline" style="color:rgba(255,255,255,.85)">Group trips from Hyderabad</span>
+          <h1 style="font-size:clamp(2.5rem,1.5rem + 3.4vw,4.5rem);line-height:.98;letter-spacing:-.03em;color:#fff;margin:14px 0 14px;max-width:13ch">Your weekend. Your adventure. Your people.</h1>
+          <p style="color:rgba(255,255,255,.9);font-size:18px;max-width:52ch;margin-bottom:28px">Group trips, weekend getaways, treks &amp; unforgettable escapes from Hyderabad.</p>
+          <div class="finder finder--row" style="max-width:920px">
+            <button class="finder__f"><svg class="ico"><use href="#i-search"/></svg><span><small>Where to?</small><b class="ph-t">Destination, city or trip type</b></span></button><hr>
+            <button class="finder__f"><svg class="ico"><use href="#i-cal"/></svg><span><small>When?</small><b>Any month</b></span></button><hr>
+            <button class="finder__f"><svg class="ico"><use href="#i-compass"/></svg><span><small>Style</small><b>Any style</b></span></button>
+            <a class="btn btn--primary btn--lg" href="#">Find My Trip</a>
+          </div>
+          <div style="display:flex;gap:18px;margin-top:18px;align-items:center"><a class="btn btn--text" href="#" style="color:#fff">Plan a custom trip <svg class="ico ico--sm"><use href="#i-arrow"/></svg></a></div>
+        </div>
+      </div>
+      <div style="padding:20px 32px 28px"><div class="trust"><div class="trust__item"><span class="trust__ico"><svg class="ico"><use href="#i-star"/></svg></span><div><b>[rating]</b><small>Google · [n] reviews</small></div></div><div class="trust__item"><span class="trust__ico"><svg class="ico"><use href="#i-users"/></svg></span><div><b>[n]+ travellers</b><small>since [year]</small></div></div><div class="trust__item"><span class="trust__ico"><svg class="ico"><use href="#i-cal"/></svg></span><div><b>Weekly</b><small>departures</small></div></div><div class="trust__item"><span class="trust__ico"><svg class="ico"><use href="#i-pin"/></svg></span><div><b>Hyderabad</b><small>based team</small></div></div><div class="trust__item"><span class="trust__ico"><svg class="ico"><use href="#i-wa"/></svg></span><div><b>WhatsApp</b><small>[hours]</small></div></div></div></div>
+    </div>
+    <ul class="rules"><li><b>Hero performance:</b> the LCP element is a preloaded AVIF poster (≈100 KB at 1440w, ≈45 KB at 390w). An optional video only loads on desktop, after <code>load</code>, when <code>saveData</code> is off and the connection is 4G. It is never the LCP and never on mobile.</li><li>The <code>[bracketed]</code> trust values are bound to Settings. Any left blank are dropped, as shown above.</li></ul>
+
+    <!-- Wireframes -->
+    <h3 class="sub">Template wireframes (structure + intent)</h3>
+    <p class="subp">Marigold blocks are conversion points. Dark blocks are trust. Hatched blocks are imagery.</p>
+    <div class="grid g2">
+      <div>
+        <div class="wfcap">Trip page · desktop</div>
+        <div class="wfmeta">Intent: transactional ("ooty coonoor trip from hyderabad"). Schema: TouristTrip + Offer per departure + BreadcrumbList.</div>
+        <div class="wf">
+          <div class="wf__b"><b>Breadcrumbs</b></div>
+          <div class="wf__row r3"><div class="wf__b img" style="min-height:130px"><b>Gallery</b><small>1 large + 4 thumbs · lightbox</small></div><div class="wf__b k" style="grid-row:span 3"><b>BookingCard (sticky)</b><small>Price · date stubs · options · summary · Book Your Seat · WhatsApp · Get Itinerary</small></div></div>
+          <div class="wf__row r3"><div class="wf__b"><b>H1 + facts</b><small>stub · transport · stay · difficulty · route line · rating (if real)</small></div></div>
+          <div class="wf__row r3"><div class="wf__b"><b>Sticky section tabs</b></div></div>
+          <div class="wf__row r3"><div class="wf__b"><b>Overview + highlights</b></div><div></div></div>
+          <div class="wf__row r3"><div class="wf__b"><b>Dates &amp; prices table</b><small>every departure · status · Book</small></div><div></div></div>
+          <div class="wf__row r3"><div class="wf__b"><b>Day-wise itinerary</b><small>accordion · meals · stay per night</small></div><div></div></div>
+          <div class="wf__row r3"><div class="wf__b"><b>Stays · Transport · Pickup points</b><small>structured fields, map links</small></div><div></div></div>
+          <div class="wf__row r3"><div class="wf__b"><b>Inclusions ✓ / Exclusions ✗</b><small>conditional items tagged + fallback</small></div><div></div></div>
+          <div class="wf__row r3"><div class="wf__b"><b>Carry list · Important info · Who it's for</b></div><div></div></div>
+          <div class="wf__b d"><b>Policies (summary) · FAQs · Reviews from this trip</b></div>
+          <div class="wf__b"><b>Related: same destination · same duration · guides</b></div>
+        </div>
+      </div>
+      <div>
+        <div class="wfcap">Destination page</div>
+        <div class="wfmeta">Intent: commercial/destination ("ooty tour packages from hyderabad"). Indexable only if ≥1 live trip OR ≥400 words of content.</div>
+        <div class="wf">
+          <div class="wf__b img" style="min-height:90px"><b>Hero + H1 "Ooty Trips from Hyderabad"</b><small>one-line positioning · View Ooty Trips · WhatsApp</small></div>
+          <div class="wf__b k"><b>Trips to Ooty</b><small>TripCards (all trips with this destination) + next dates</small></div>
+          <div class="wf__row"><div class="wf__b"><b>At a glance</b><small>distance · how to reach · ideal duration · budget</small></div><div class="wf__b"><b>Best months strip</b><small>12-month bar from data</small></div></div>
+          <div class="wf__b img"><b>Top experiences (6–8)</b><small>unique copy per destination</small></div>
+          <div class="wf__b"><b>Ooty vs nearby</b><small>mini comparison → comparison guide</small></div>
+          <div class="wf__b"><b>Guides about Ooty</b><small>auto-linked by destination tag</small></div>
+          <div class="wf__b"><b>FAQs</b><small>destination-level only (no trip FAQs repeated)</small></div>
+          <div class="wf__b d"><b>Custom-trip band + nearby destinations</b></div>
+        </div>
+        <div class="wfcap" style="margin-top:22px">Travel guide</div>
+        <div class="wfmeta">Intent: informational ("hyderabad to coorg travel guide"). Schema: Article + BreadcrumbList. No date in the URL.</div>
+        <div class="wf">
+          <div class="wf__b"><b>Breadcrumbs · H1 · author · updated date · read time</b></div>
+          <div class="wf__b img"><b>Hero image</b></div>
+          <div class="wf__b"><b>Quick answer box</b><small>2–3 sentences: snippet / AI-overview target</small></div>
+          <div class="wf__row r3"><div class="wf__b" style="min-height:90px"><b>Body (MDX)</b><small>with inline &lt;TripCallout/&gt; from trip data</small></div><div class="wf__b"><b>TOC</b><small>sticky (desktop)</small></div></div>
+          <div class="wf__b k"><b>Trips mentioned in this guide</b></div>
+          <div class="wf__b"><b>FAQs · Author box · Related guides</b></div>
+          <div class="wf__b d"><b>"Want us to plan this?" WhatsApp band</b></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================= DATA -->
+<section class="dsec" id="data">
+  <div class="wrap">
+    <span class="overline">06 · Data architecture</span>
+    <h2>One trip, many departures</h2>
+    <p class="lede">A <b>Trip</b> holds everything that is true for every date: story, itinerary, inclusions, stays and options. A <b>Departure</b> is one dated instance and holds only what changes: date, origin, price overrides, seats and status. The marketing team edits departures 20× more often than trips, so they get their own simple list in the CMS.</p>
+
+    <div class="dg" style="margin-top:24px">
+      <div class="dg__row">
+        <div class="dbox"><h4>Destination <span class="badge badge--muted">~30</span></h4><ul><li>slug, name, region, state</li><li>distanceFromHyd, howToReach[]</li><li>bestMonths[], idealDuration</li><li>experiences[], faqs[], nearby[]</li><li>seo, indexable</li></ul></div>
+        <div class="dbox dbox--key"><h4>Trip <span class="badge badge--ok">50–100+</span></h4><ul><li>slug (<code>ooty-coonoor</code>), title, tripTypes[]</li><li>destinations[] → Destination</li><li><b>origins[]</b>: city, pickupPoints[], arrival/return legs, <code>indexable</code></li><li><b>transportOptions[]</b>: id, mode, class, priceDelta</li><li><b>stayOptions[]</b>: id, sharing, property, washroom, priceDelta</li><li><b>basePrice</b>, originalPrice?, advanceAmount, gstPercent</li><li>itinerary[], inclusions[], exclusions[], faqs[]</li><li>recurrence? ("Every Friday"), status, seo</li></ul></div>
+        <div class="dbox dbox--hot"><h4>Departure <span class="badge badge--cta">edited weekly</span></h4><ul><li>id (<code>ooty-coonoor-hyd-2026-10-09</code>)</li><li>trip → Trip, <b>origin</b> (must exist on the trip)</li><li>startDate, endDate</li><li>price? / originalPrice? <i>(override)</i></li><li>optionPrices? <i>(per transport/stay override)</i></li><li>availableOptions? <i>(e.g. no twin this date)</i></li><li>seatsTotal?, seatsLeft?, fillingFast?</li><li><b>status</b>: open · waitlist · soldout · closed · cancelled</li><li>bookingMode?: enquiry · payment <i>(defaults from Settings)</i></li><li>note? ("Diwali special")</li></ul></div>
+      </div>
+      <div class="dg__row">
+        <div class="dbox"><h4>Review</h4><ul><li>name, rating, text, date</li><li>source (google · instagram · direct), sourceUrl</li><li>trip?, destination?, photo?</li><li><b>consent: true</b> (required)</li></ul></div>
+        <div class="dbox"><h4>Guide · Author</h4><ul><li>category, tags[], author, publishedAt, updatedAt</li><li>relatedTrips[], relatedDestinations[]</li><li>quickAnswer, faqs[], body (MDX)</li></ul></div>
+        <div class="dbox"><h4>Collection</h4><ul><li>slug, title, intro, body, faqs</li><li><b>rule</b>: tripTypes / destinations / months / maxNights</li><li>activeFrom?, activeUntil? (seasonal)</li></ul></div>
+        <div class="dbox"><h4>Settings (singleton)</h4><ul><li>announcement, contact, NAP, hours</li><li>stats[] (hide if empty), trust claims[]</li><li>payments {enabled, provider, advanceDefault}</li><li>urgency {seatThreshold}</li><li>tracking IDs</li></ul></div>
+      </div>
+    </div>
+
+    <h3 class="sub">Price &amp; availability resolution (one function, used everywhere)</h3>
+    <div class="grid g2">
+      <pre class="code"><span class="c">// resolvePrice(trip, departure, {transport, stay})</span>
+price = departure.optionPrices?.[transport+stay]
+     ?? (departure.price ?? trip.basePrice)
+        + trip.transportOptions[transport].priceDelta
+        + trip.stayOptions[stay].priceDelta
+
+<span class="c">// "From ₹" on any card / page / schema</span>
+fromPrice(trip, origin) = min(resolvePrice(...))
+  over departures where origin matches
+  and status ∈ {open, waitlist}
+  and startDate &gt; today
+  across that departure's availableOptions
+
+<span class="c">// seats badge</span>
+showSeats = d.seatsLeft != null
+         &amp;&amp; d.seatsLeft &lt;= settings.urgency.seatThreshold
+         &amp;&amp; d.status == "open"</pre>
+      <div>
+        <div class="tscroll"><table class="t">
+          <tr><th>Surface</th><th>Query (same data)</th></tr>
+          <tr><td>Home trip cards</td><td>Trips <code>featured</code> + fromPrice + next 3 departures</td></tr>
+          <tr><td>Upcoming departures</td><td>All future open departures, sorted by date, filter chips by month/weekend</td></tr>
+          <tr><td>Trip finder</td><td>Build-time <code>search-index.json</code> (~15 KB gz) of trips × departures, fetched lazily</td></tr>
+          <tr><td>Trip page</td><td>Trip + its departures for the page's origin</td></tr>
+          <tr><td>Destination page</td><td>Trips where <code>destinations</code> contains slug</td></tr>
+          <tr><td>Collection page</td><td>Trips matching the collection <code>rule</code></td></tr>
+          <tr><td>Guides</td><td><code>relatedTrips</code> + inline <code>&lt;TripCallout trip="…"/&gt;</code> showing the live price/dates</td></tr>
+          <tr><td>Ads / Instagram</td><td>The trip page itself, with <code>?d=</code> pre-selecting the departure (§7)</td></tr>
+          <tr><td>Schema / sitemap / OG</td><td>Generated from the same records at build time</td></tr>
+        </table></div>
+      </div>
+    </div>
+
+    <h3 class="sub">What the team actually edits (Decap CMS files)</h3>
+    <div class="grid g2">
+      <pre class="code"><span class="c"># content/departures/ooty-coonoor-hyd-2026-10-09.yml</span>
+<span class="k">trip:</span> <span class="s">ooty-coonoor</span>
+<span class="k">origin:</span> <span class="s">hyderabad</span>
+<span class="k">startDate:</span> 2026-10-09
+<span class="k">endDate:</span> 2026-10-12
+<span class="k">status:</span> <span class="s">open</span>
+<span class="k">price:</span>            <span class="c"># blank = use trip basePrice</span>
+<span class="k">seatsLeft:</span> 5      <span class="c"># blank = no seat badge</span>
+<span class="k">fillingFast:</span> false
+<span class="k">availableOptions:</span>
+  <span class="k">stay:</span> [quad, triple]   <span class="c"># twin sold out this date</span>
+<span class="k">note:</span> <span class="s">""</span></pre>
+      <pre class="code"><span class="c"># content/trips/ooty-coonoor.md (frontmatter, abridged)</span>
+<span class="k">title:</span> <span class="s">Ooty &amp; Coonoor</span>
+<span class="k">tripTypes:</span> [weekend]
+<span class="k">destinations:</span> [ooty, coonoor]
+<span class="k">durationNights:</span> 2
+<span class="k">basePrice:</span> 6999
+<span class="k">advanceAmount:</span> 2000
+<span class="k">origins:</span>
+  - <span class="k">city:</span> <span class="s">hyderabad</span>
+    <span class="k">indexable:</span> true
+    <span class="k">pickupPoints:</span> [{name: <span class="s">Kacheguda Rly Stn</span>, time: <span class="s">"18:30"</span>}]
+<span class="k">transportOptions:</span>
+  - {id: sl, mode: train, class: Sleeper, priceDelta: 0}
+  - {id: 3a, mode: train, class: 3AC, priceDelta: 1200}
+<span class="k">stayOptions:</span>
+  - {id: quad, sharing: 4, priceDelta: 0}
+  - {id: triple, sharing: 3, priceDelta: 500}
+  - {id: twin, sharing: 2, priceDelta: 1300}
+<span class="k">inclusions:</span>
+  - {text: <span class="s">Nilgiri toy train</span>, conditional: true,
+     fallback: <span class="s">Cab transfer up the ghat</span>}</pre>
+    </div>
+    <ul class="rules">
+      <li><b>Multiple departure cities</b> come from the same trip record. Each origin with <code>indexable: true</code> produces its own URL (<code>…-from-hyderabad/</code>, <code>…-from-bangalore/</code>). Those pages differ in pickup points, travel legs, dates and prices, so they're genuinely distinct pages, not copies. A non-indexable origin appears only as a selector on the main origin's page.</li>
+      <li><b>Schema validation at build:</b> a departure pointing to a missing trip or origin, an end date before its start date, or a negative price <b>fails the build</b>, so a typo can't reach the live site.</li>
+      <li><b>Freshness:</b> each CMS save triggers a rebuild (~1 min). A scheduled daily rebuild at 00:05 IST drops past departures. Seat counts are only as fresh as the last edit. If live inventory is needed later, <code>/api/availability</code> can overlay seats client-side without changing the model.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ======================================================= CAMPAIGNS -->
+<section class="dsec" id="campaigns">
+  <div class="wrap">
+    <span class="overline">07 · Campaign deep links</span>
+    <h2>Ads link to real pages, not copies</h2>
+    <p class="lede">No separate landing pages per campaign. Every ad points at the canonical trip (or collection) URL plus parameters. The page adapts to the parameters, attribution is stored, and the canonical tag stays clean, so there's no duplicate content.</p>
+
+    <h3 class="sub">URL anatomy</h3>
+    <pre class="code">https://&lt;domain&gt;/trips/ooty-coonoor-from-hyderabad/<span class="k">?d=2026-10-09</span><span class="s">&amp;opt=quad</span><span class="k">&amp;view=dates</span>&amp;utm_source=instagram&amp;utm_medium=paid_social&amp;utm_campaign=ooty_oct_lw&amp;utm_content=reel_tea_estate</pre>
+    <div class="tscroll" style="margin-top:14px"><table class="t">
+      <tr><th>Param</th><th>Effect on the page</th><th>If invalid</th></tr>
+      <tr><td><code>d</code> (departure date)</td><td>Pre-selects that date in BookingCard and StickyBar. Shows the "Showing the Fri 9 Oct departure from your link" note.</td><td>Date past or sold out → note becomes "That date is full. Next available: 16 Oct", with the next date selected</td></tr>
+      <tr><td><code>opt</code></td><td>Pre-selects transport/stay option</td><td>Ignored silently</td></tr>
+      <tr><td><code>view</code></td><td><code>dates</code> · <code>itinerary</code> · <code>book</code> (opens the booking sheet). Scrolls to the section.</td><td>Ignored</td></tr>
+      <tr><td><code>utm_*</code>, <code>gclid</code>, <code>gbraid</code>, <code>wbraid</code>, <code>fbclid</code></td><td>Stored first-touch + last-touch (first-party, 90 days). Attached to every lead, booking intent and WhatsApp ref code.</td><td>—</td></tr>
+      <tr><td>On <code>/trips/</code>: <code>dest</code>, <code>month</code>, <code>style</code>, <code>budget</code></td><td>Pre-applies filters, so "all November camping" ads can land on a filtered catalogue</td><td>Shows all trips</td></tr>
+    </table></div>
+
+    <div class="grid g2" style="margin-top:20px">
+      <div>
+        <h3 class="sub" style="margin-top:0">Rules</h3>
+        <ul class="rules rules--title" style="margin-top:0">
+          <li><b>Canonical</b> is always the clean path (no params). Parameterised URLs are never in the sitemap.</li>
+          <li><b>Message match:</b> the ad's date/price is visible above the fold on mobile without scrolling (verified at 375px).</li>
+          <li><b>Optional short links</b> for Instagram bio/stories: <code>/go/ooty</code> → 302 to the full URL with UTMs. These are entries in one redirects file, not pages.</li>
+          <li><b>WhatsApp ref code:</b> <code>[ref: OOTY-1009 · ig]</code> is appended to the pre-filled message, so chats are attributable without asking the customer.</li>
+          <li>UTMs are <b>not</b> added to internal links (that would break GA4 sessions). The stored values carry attribution instead.</li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="sub" style="margin-top:0">Examples</h3>
+        <div class="tscroll"><table class="t" style="font-size:13px">
+          <tr><th>Channel</th><th>Lands on</th></tr>
+          <tr><td>Google Ads · "hyderabad to ooty trip"</td><td><code>/trips/ooty-coonoor-from-hyderabad/?utm_…</code></td></tr>
+          <tr><td>Google Ads · "weekend trips from hyderabad"</td><td><code>/weekend-trips-from-hyderabad/?utm_…</code></td></tr>
+          <tr><td>Instagram ad · Ooty 9 Oct reel</td><td><code>/trips/ooty-coonoor-from-hyderabad/?d=2026-10-09&amp;utm_…</code></td></tr>
+          <tr><td>Instagram bio</td><td><code>/go/upcoming</code> → <code>/upcoming-trips/?utm_source=instagram&amp;utm_medium=bio</code></td></tr>
+          <tr><td>WhatsApp broadcast</td><td><code>/trips/…/?d=…&amp;view=book&amp;utm_source=whatsapp&amp;utm_medium=broadcast</code></td></tr>
+          <tr><td>Meta ad · Nov camping</td><td><code>/trips/?style=camping&amp;month=2026-11&amp;utm_…</code></td></tr>
+        </table></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================= BOOKING -->
+<section class="dsec" id="booking">
+  <div class="wrap">
+    <span class="overline">08 · Booking architecture</span>
+    <h2>Enquiry now, Razorpay later, same pipe</h2>
+    <p class="lede">Every conversion action (Book, Get Itinerary, Plan My Trip, Contact) creates one kind of record, a <b>BookingIntent</b> (lead), through one endpoint. Payment is a later step on that same record, so adding Razorpay is an adapter plus a webhook, not a rebuild.</p>
+
+    <h3 class="sub">Flow</h3>
+    <div class="flow" style="margin-top:12px">
+      <span>BookingCard / EnquiryForm</span><em>→ POST</em><span class="k">/api/intents</span><em>→</em><span>validate + attach attribution</span><em>→</em><span>store (Sheet / DB)</span><em>→</em><span>notify team (WhatsApp/email)</span><em>→</em><span>Meta CAPI + GA4 MP</span>
+    </div>
+    <div class="flow" style="margin-top:12px">
+      <em>response</em><span>next: "confirm"</span><em>→ thank-you + "Continue on WhatsApp"</em><span class="p">next: "pay" (later)</span><em>→ Razorpay Checkout → webhook → status: paid</em>
+    </div>
+
+    <div class="grid g2" style="margin-top:20px">
+      <pre class="code"><span class="c">// BookingIntent (stored for every lead)</span>
+{
+  id: <span class="s">"bi_7Kx2…"</span>,
+  kind: <span class="s">"book" | "itinerary" | "custom" | "contact"</span>,
+  trip: <span class="s">"ooty-coonoor"</span>, departure: <span class="s">"ooty-coonoor-hyd-2026-10-09"</span>,
+  origin: <span class="s">"hyderabad"</span>, options: { transport: <span class="s">"sl"</span>, stay: <span class="s">"quad"</span> },
+  travellers: 2, quotedTotal: 14698, advance: 4000,
+  contact: { name, phone, email? },
+  custom?: { destination, dates, budget, travelType },
+  attribution: { first: {utm…, gclid…, landing, ts},
+                 last:  {utm…, ts}, refCode: <span class="s">"OOTY-1009"</span> },
+  status: <span class="s">"new"</span>,         <span class="c">// new → contacted → confirmed | lost</span>
+  payment: null          <span class="c">// later: {provider:"razorpay", orderId, status}</span>
+}</pre>
+      <div>
+        <div class="tscroll"><table class="t">
+          <tr><th>Concern</th><th>Launch</th><th>Razorpay later</th></tr>
+          <tr><td>Endpoint</td><td><code>/api/intents</code></td><td>Same</td></tr>
+          <tr><td>Front-end</td><td>BookingCard → sheet → thank-you</td><td>Same, plus a <code>next:"pay"</code> branch (already coded, flag off)</td></tr>
+          <tr><td>Storage</td><td>Google Sheet (append)</td><td>Move to DB (Supabase/D1) when payments start. Same shape.</td></tr>
+          <tr><td>Price authority</td><td>Server recomputes the price from content data (never trusts the client)</td><td>Same function creates the Razorpay order amount</td></tr>
+          <tr><td>Confirmation</td><td>Team confirms on WhatsApp</td><td>Webhook marks paid → auto confirmation + <code>purchase</code> event</td></tr>
+          <tr><td>Events</td><td><code>click_book</code>, <code>generate_lead</code></td><td>+ <code>begin_checkout</code>, <code>purchase</code></td></tr>
+        </table></div>
+        <ul class="rules"><li>Lead endpoint has spam protection: honeypot + Cloudflare Turnstile (invisible) + rate limit. No visible CAPTCHA.</li><li>Phone numbers are stored server-side only. They never go in URLs or GA4.</li></ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================= SEO -->
+<section class="dsec" id="seo">
+  <div class="wrap">
+    <span class="overline">09 · SEO intent map</span>
+    <h2>One intent, one page</h2>
+    <p class="lede">Each page type owns a distinct search intent. Internal links point <i>to</i> the owner with intent-matching anchor text. Rules for indexing are enforced in code, so thin or duplicate pages can't be published by accident.</p>
+    <div class="tscroll" style="margin-top:20px"><table class="t">
+      <tr><th>Page type</th><th>Owns intent</th><th>Example query</th><th>Must not target</th><th>Index rule</th><th>Schema</th></tr>
+      <tr><td><b>Trip</b><br><code>/trips/{trip}-from-{origin}/</code></td><td>Book this specific trip</td><td>ooty coonoor trip from hyderabad · hyderabad to ooty group trip</td><td>"ooty tour packages", "places in ooty"</td><td>status live + ≥1 future departure <i>or</i> recurrence. Otherwise kept live but marked "Dates coming soon".</td><td>TouristTrip, Offer×n, BreadcrumbList</td></tr>
+      <tr><td><b>Destination</b><br><code>/destinations/{slug}/</code></td><td>Choose a trip to this place</td><td>ooty tour packages from hyderabad · ooty trip</td><td>"how to reach ooty" (guide)</td><td>≥1 live trip OR ≥400 words of content</td><td>TouristDestination, ItemList, BreadcrumbList</td></tr>
+      <tr><td><b>Collection</b><br><code>/weekend-trips-from-hyderabad/</code>, <code>/camping/</code>…</td><td>Browse a category from HYD</td><td>weekend trips from hyderabad · camping near hyderabad</td><td>Single-destination queries</td><td>≥3 matching trips + ≥300 words of unique copy</td><td>ItemList, BreadcrumbList</td></tr>
+      <tr><td><b>Seasonal collection</b><br><code>/collections/{slug}/</code></td><td>Time-bound browsing</td><td>long weekend trips october</td><td>Evergreen category queries</td><td>noindex outside <code>activeFrom/Until</code>. The evergreen guide holds rankings year-round.</td><td>ItemList</td></tr>
+      <tr><td><b>Guide</b><br><code>/travel-guides/{slug}/</code></td><td>Learn / decide</td><td>hyderabad to coorg travel guide · ooty vs coorg</td><td>"coorg trip package"</td><td>Always (editorial review required)</td><td>Article, BreadcrumbList</td></tr>
+      <tr><td><b>/trips/</b> + filters</td><td>Catalogue</td><td>group trips from hyderabad</td><td>—</td><td>Base indexable. Any <code>?param</code> URL is canonical to <code>/trips/</code>.</td><td>ItemList</td></tr>
+      <tr><td><b>Home</b></td><td>Brand + "travel group Hyderabad"</td><td>hyderabad campers club · travel groups in hyderabad</td><td>Specific destinations</td><td>Always</td><td>Organization, TravelAgency (LocalBusiness), WebSite</td></tr>
+      <tr><td><b>Upcoming</b>, <b>Reviews</b>, <b>About</b>, <b>Contact</b></td><td>Navigational / trust</td><td>hcc upcoming trips · hcc reviews</td><td>—</td><td>Always</td><td>BreadcrumbList · LocalBusiness on Contact</td></tr>
+      <tr><td>Tag pages, departure URLs, <code>/go/*</code>, thank-you</td><td>—</td><td>—</td><td>—</td><td><b>Never indexed / don't exist as pages</b></td><td>—</td></tr>
+    </table></div>
+    <ul class="rules">
+      <li><b>Title templates</b> are generated from data. Trip: <code>{title} Trip from {Origin} · {N}N/{D}D from ₹{fromPrice} | HCC</code>. Destination: <code>{Name} Trips from Hyderabad: Packages, Best Time &amp; Guide | HCC</code>. Hand overrides are allowed in the CMS.</li>
+      <li><b>Cannibalisation check at build:</b> two indexable pages with the same <code>primaryKeyword</code> trigger a build warning.</li>
+      <li><b>Internal links:</b> trip → destination ("More Ooty trips") · destination → guide ("Hyderabad to Ooty travel guide") · guide → trip (TripCallout) · collection → all. Breadcrumbs everywhere.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ======================================================= APPROVE -->
+<section class="dsec" id="approve" style="border-bottom:0">
+  <div class="wrap">
+    <span class="overline">10 · Sign-off</span>
+    <h2>What I need you to approve</h2>
+    <p class="lede">Reply with approve/change for each item. After approval I'll build Phase 2 in production code: tokens, primitives and components in Astro with a live <code>/styleguide</code> page, plus the content schemas and CMS config.</p>
+    <ol class="approve" style="margin-top:20px">
+      <li><span class="box"></span><div><b>Visual language</b>Forest/marigold/sand palette, Bricolage Grotesque + Inter, the 5 signature elements (ticket stub, route line, boarding-pass dates, contour texture, marigold = action).</div></li>
+      <li><span class="box"></span><div><b>WhatsApp styling</b>A forest/white button with a green glyph and a bottom-bar slot, not a floating green bubble.</div></li>
+      <li><span class="box"></span><div><b>Component data rules</b>Seats, urgency, stats, reviews and strike-through prices only render from real data, and hide otherwise.</div></li>
+      <li><span class="box"></span><div><b>Layouts</b>Mobile home (Upcoming above Destinations), trip page with the booking card above itinerary, collection page with the planner table, destination and guide templates.</div></li>
+      <li><span class="box"></span><div><b>Trip ↔ Departure model</b>Including per-origin trip URLs (e.g. <code>…-from-bangalore/</code>) generated from one trip record.</div></li>
+      <li><span class="box"></span><div><b>Campaign links</b><code>?d=</code> / <code>?opt=</code> / <code>?view=</code> on canonical pages, plus optional <code>/go/*</code> short links.</div></li>
+      <li><span class="box"></span><div><b>BookingIntent pipeline</b>Google Sheet storage at launch, Razorpay behind a flag later.</div></li>
+      <li><span class="box"></span><div><b>Interim logo</b>OK to use the placeholder mark until HCC's real logo is supplied?</div></li>
+    </ol>
+  </div>
+</section>
+</main>
+</body>
+</html>

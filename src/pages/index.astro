@@ -1,0 +1,20 @@
+---
+/**
+ * TEMPORARY: replaced by the real homepage in Phase 3.
+ * noindex so nothing half-built is ever indexed.
+ */
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Button from '@/components/ui/Button.astro';
+import { settings } from '@/lib/settings';
+---
+
+<BaseLayout title={settings.brand.name} rawTitle description={settings.brand.tagline} noindex>
+  <section class="section">
+    <div class="container stack" style="--stack:16px;max-width:720px">
+      <p class="overline">Phase 2 · Design system</p>
+      <h1 style="font-size:var(--fs-h1)">The new HCC website is being built.</h1>
+      <p class="lede">The homepage arrives in Phase 3. The design system and every component are live in the style guide.</p>
+      <p><Button href="/styleguide/" iconRight="arrow">Open the style guide</Button></p>
+    </div>
+  </section>
+</BaseLayout>

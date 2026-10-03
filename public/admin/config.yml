@@ -1,0 +1,529 @@
+# Decap CMS configuration. Mirrors src/content.config.ts and src/lib/settings.ts.
+# The build re-validates everything with Zod, so an invalid edit fails the deploy
+# instead of breaking the live site.
+#
+# Backend: set `repo` once the GitHub repository exists. For local editing run
+#   npx decap-server   (then open http://localhost:4321/admin/)
+backend:
+  name: github
+  repo: OWNER/hcc-website # TODO: set the real repository
+  branch: main
+  commit_messages:
+    create: 'content: create {{collection}} "{{slug}}"'
+    update: 'content: update {{collection}} "{{slug}}"'
+    delete: 'content: delete {{collection}} "{{slug}}"'
+    uploadMedia: 'content: upload "{{path}}"'
+    deleteMedia: 'content: delete "{{path}}"'
+
+local_backend: true
+publish_mode: simple
+site_url: https://www.example.com
+logo_url: /favicon.svg
+
+media_folder: src/assets/uploads
+public_folder: /src/assets/uploads
+
+collections:
+  # ---------------------------------------------------------------- DEPARTURES
+  - name: departures
+    label: Departures (dates, prices, seats)
+    label_singular: Departure
+    description: One entry per dated departure. Edit seats, status and price overrides here. Trip details live in Trips.
+    folder: src/content/departures
+    extension: yml
+    format: yaml
+    create: true
+    slug: '{{trip}}-{{origin}}-{{startDate}}'
+    identifier_field: startDate
+    summary: '{{trip}} · {{startDate}} · {{status}}'
+    sortable_fields: [startDate, trip, status]
+    view_filters:
+      - { label: Open, field: status, pattern: open }
+      - { label: Sold out, field: status, pattern: soldout }
+      - { label: Waitlist, field: status, pattern: waitlist }
+    view_groups:
+      - { label: Trip, field: trip }
+    fields:
+      - { label: Trip, name: trip, widget: relation, collection: trips, value_field: '{{slug}}', search_fields: [title], display_fields: [title] }
+      - { label: Departure city (must exist on the trip), name: origin, widget: string, default: hyderabad, hint: 'City id from the trip, e.g. hyderabad' }
+      - { label: Start date, name: startDate, widget: datetime, time_format: false, format: YYYY-MM-DD, date_format: DD MMM YYYY }
+      - { label: End date, name: endDate, widget: datetime, time_format: false, format: YYYY-MM-DD, date_format: DD MMM YYYY }
+      - label: Status
+        name: status
+        widget: select
+        default: open
+        options:
+          - { label: Open, value: open }
+          - { label: Waitlist, value: waitlist }
+          - { label: Sold out, value: soldout }
+          - { label: Closed (hidden), value: closed }
+          - { label: Cancelled (hidden), value: cancelled }
+      - { label: Seats left, name: seatsLeft, widget: number, value_type: int, min: 0, required: false, hint: 'Leave empty to hide the seat count. Shown only when at or below the threshold in Site settings.' }
+      - { label: Total seats, name: seatsTotal, widget: number, value_type: int, min: 1, required: false }
+      - { label: Filling fast, name: fillingFast, widget: boolean, default: false, required: false, hint: 'Only tick when it is genuinely true.' }
+      - { label: Price override (per person), name: price, widget: number, value_type: int, required: false, hint: "Leave empty to use the trip's base price." }
+      - { label: Previous price (strike-through), name: originalPrice, widget: number, value_type: int, required: false, hint: 'Only if this departure was genuinely sold at a higher price.' }
+      - label: Exact option prices
+        name: optionPrices
+        widget: list
+        required: false
+        collapsed: true
+        summary: '{{transport}} / {{stay}}: ₹{{price}}'
+        hint: Optional. Final per-person price for specific transport/stay combinations on this date.
+        fields:
+          - { label: Transport option id, name: transport, widget: string, required: false }
+          - { label: Stay option id, name: stay, widget: string, required: false }
+          - { label: Price, name: price, widget: number, value_type: int }
+      - label: Limit options on this date
+        name: availableOptions
+        widget: object
+        required: false
+        collapsed: true
+        fields:
+          - { label: Transport option ids, name: transport, widget: list, required: false, hint: 'Comma-separated, e.g. sl, 3a' }
+          - { label: Stay option ids, name: stay, widget: list, required: false, hint: 'e.g. quad, triple' }
+      - { label: Short note (badge), name: note, widget: string, required: false, hint: 'e.g. Diwali special. Max 80 characters.' }
+      - { label: Sample content, name: sample, widget: hidden, default: false }
+
+  # ---------------------------------------------------------------- TRIPS
+  - name: trips
+    label: Trips
+    label_singular: Trip
+    folder: src/content/trips
+    extension: md
+    format: frontmatter
+    create: true
+    slug: '{{fields.slug}}'
+    identifier_field: title
+    summary: '{{title}} · {{status}}'
+    sortable_fields: [title, sortOrder]
+    media_folder: ../../assets/uploads/trips
+    public_folder: ../../assets/uploads/trips
+    view_filters:
+      - { label: Live, field: status, pattern: live }
+      - { label: Draft, field: status, pattern: draft }
+    fields:
+      - { label: URL id, name: slug, widget: string, hint: 'lowercase-with-dashes, e.g. ooty-coonoor. Page URL becomes /trips/ooty-coonoor-from-hyderabad/. Do not change after launch.', pattern: ['^[a-z0-9]+(?:-[a-z0-9]+)*$', 'Use lowercase words separated by dashes'] }
+      - { label: Status, name: status, widget: select, options: [draft, live, archived], default: draft }
+      - { label: Title, name: title, widget: string, hint: 'e.g. Ooty & Coonoor' }
+      - { label: Card tagline, name: tagline, widget: string, hint: 'One line, max 110 characters' }
+      - { label: Trip types, name: tripTypes, widget: select, multiple: true, options: [weekend, trek, camping, backpacking, long, couple, family, corporate] }
+      - { label: Destinations, name: destinations, widget: relation, collection: destinations, value_field: '{{slug}}', search_fields: [name], display_fields: [name], multiple: true }
+      - { label: Nights, name: durationNights, widget: number, value_type: int, min: 0 }
+      - { label: Days, name: durationDays, widget: number, value_type: int, min: 1 }
+      - { label: Difficulty, name: difficulty, widget: select, options: [easy, moderate, challenging], default: easy }
+      - label: Group size
+        name: groupSize
+        widget: object
+        required: false
+        collapsed: true
+        fields:
+          - { label: Min, name: min, widget: number, value_type: int }
+          - { label: Max, name: max, widget: number, value_type: int }
+      - { label: Age range, name: ageRange, widget: string, required: false }
+      - label: Departure cities
+        name: origins
+        widget: list
+        summary: '{{label}}'
+        fields:
+          - { label: City id, name: city, widget: string, default: hyderabad }
+          - { label: City name, name: label, widget: string, default: Hyderabad }
+          - { label: Own search page, name: indexable, widget: boolean, default: true }
+          - { label: Outbound journey, name: outbound, widget: string, required: false }
+          - { label: Return journey, name: return, widget: string, required: false }
+          - label: Pickup points
+            name: pickupPoints
+            widget: list
+            required: false
+            summary: '{{name}} {{time}}'
+            fields:
+              - { label: Name, name: name, widget: string }
+              - { label: Reporting time, name: time, widget: string, required: false }
+              - { label: Map link, name: mapUrl, widget: string, required: false }
+              - { label: Note, name: note, widget: string, required: false }
+      - label: Transport options
+        name: transportOptions
+        widget: list
+        summary: '{{label}} (+₹{{priceDelta}})'
+        fields:
+          - { label: Option id, name: id, widget: string, hint: 'e.g. sl, 3a, ac-bus' }
+          - { label: Label, name: label, widget: string }
+          - { label: Mode, name: mode, widget: select, options: [train, bus, tempo, cab, flight, self] }
+          - { label: Class, name: class, widget: string, required: false }
+          - { label: Price difference vs base, name: priceDelta, widget: number, value_type: int, default: 0 }
+      - label: Room sharing options
+        name: stayOptions
+        widget: list
+        summary: '{{label}} (+₹{{priceDelta}})'
+        fields:
+          - { label: Option id, name: id, widget: string, hint: 'e.g. quad, triple, twin' }
+          - { label: Label, name: label, widget: string }
+          - { label: People per room, name: sharing, widget: number, value_type: int }
+          - { label: Price difference vs base, name: priceDelta, widget: number, value_type: int, default: 0 }
+      - { label: Base price (per person, cheapest options), name: basePrice, widget: number, value_type: int }
+      - { label: Previous price (strike-through), name: originalPrice, widget: number, value_type: int, required: false }
+      - { label: Advance per person, name: advanceAmount, widget: number, value_type: int, required: false }
+      - { label: GST %, name: gstPercent, widget: number, value_type: float, required: false }
+      - { label: Recurrence text, name: recurrence, widget: string, required: false, hint: 'e.g. Every Friday. Shown when no dated departure exists.' }
+      - { label: Highlights, name: highlights, widget: list, required: false }
+      - label: Inclusions
+        name: inclusions
+        widget: list
+        required: false
+        summary: '{{text}}'
+        fields:
+          - { label: Text, name: text, widget: string }
+          - { label: Icon, name: icon, widget: select, options: [check, train, bus, bed, food, compass, mountain, users, tent, shield], default: check }
+          - { label: Show on trip card, name: showOnCard, widget: boolean, default: false }
+          - { label: Subject to availability, name: conditional, widget: boolean, default: false }
+          - { label: Fallback if unavailable, name: fallback, widget: string, required: false }
+      - { label: Exclusions, name: exclusions, widget: list, required: false }
+      - label: Day-wise itinerary
+        name: itinerary
+        widget: list
+        required: false
+        summary: 'Day {{day}}: {{title}}'
+        fields:
+          - { label: Day, name: day, widget: number, value_type: int }
+          - { label: Title, name: title, widget: string }
+          - { label: Description, name: description, widget: text }
+          - { label: Meals, name: meals, widget: select, multiple: true, required: false, options: [breakfast, lunch, dinner, snacks] }
+          - { label: Overnight stay, name: stay, widget: string, required: false }
+      - label: Stays
+        name: stays
+        widget: list
+        required: false
+        summary: '{{type}} · {{location}}'
+        fields:
+          - { label: Property name (optional), name: name, widget: string, required: false }
+          - { label: Type, name: type, widget: string }
+          - { label: Location, name: location, widget: string, required: false }
+          - { label: Washroom, name: washroom, widget: select, options: [attached, shared, common], required: false }
+          - { label: Description, name: description, widget: text, required: false }
+          - { label: '"Or similar"', name: orSimilar, widget: boolean, default: true }
+      - { label: Things to carry, name: thingsToCarry, widget: list, required: false }
+      - { label: Important information, name: importantInfo, widget: list, required: false }
+      - { label: Great for, name: suitableFor, widget: list, required: false }
+      - { label: Not ideal for, name: notSuitableFor, widget: list, required: false }
+      - { label: Cancellation policy (summary), name: cancellationPolicy, widget: text, required: false }
+      - label: FAQs
+        name: faqs
+        widget: list
+        required: false
+        summary: '{{q}}'
+        fields:
+          - { label: Question, name: q, widget: string }
+          - { label: Answer, name: a, widget: text }
+      - { label: Hero image, name: heroImage, widget: image, required: false }
+      - { label: Hero image alt text, name: heroAlt, widget: string, required: false, hint: 'Describe the photo, e.g. "HCC group at Doddabetta peak, Ooty"' }
+      - label: Gallery
+        name: gallery
+        widget: list
+        required: false
+        summary: '{{alt}}'
+        fields:
+          - { label: Image, name: src, widget: image }
+          - { label: Alt text, name: alt, widget: string }
+      - { label: Featured on homepage, name: featured, widget: boolean, default: false }
+      - { label: Featured story, name: featuredStory, widget: text, required: false }
+      - { label: Sort order, name: sortOrder, widget: number, value_type: int, default: 100 }
+      - { label: Primary keyword, name: primaryKeyword, widget: string, required: false, hint: 'e.g. ooty trip from hyderabad. Build warns on duplicates.' }
+      - label: SEO overrides
+        name: seo
+        widget: object
+        required: false
+        collapsed: true
+        fields:
+          - { label: Title, name: title, widget: string, required: false }
+          - { label: Description, name: description, widget: text, required: false }
+      - { label: Overview (story), name: body, widget: markdown }
+
+  # ---------------------------------------------------------------- DESTINATIONS
+  - name: destinations
+    label: Destinations
+    label_singular: Destination
+    folder: src/content/destinations
+    extension: md
+    format: frontmatter
+    create: true
+    slug: '{{fields.slug}}'
+    identifier_field: name
+    summary: '{{name}} · {{state}}'
+    media_folder: ../../assets/uploads/destinations
+    public_folder: ../../assets/uploads/destinations
+    fields:
+      - { label: URL id, name: slug, widget: string, hint: 'e.g. ooty → /destinations/ooty/' }
+      - { label: Name, name: name, widget: string }
+      - { label: Region, name: region, widget: select, options: [karnataka, kerala, tamil-nadu, goa, andhra-telangana, himalaya, north-east, rajasthan, other] }
+      - { label: State, name: state, widget: string }
+      - { label: Summary, name: summary, widget: text }
+      - { label: Hero image, name: heroImage, widget: image, required: false }
+      - { label: Hero alt text, name: heroAlt, widget: string, required: false }
+      - { label: Distance from Hyderabad (km), name: distanceFromHydKm, widget: number, value_type: int, required: false }
+      - label: How to reach
+        name: howToReach
+        widget: list
+        required: false
+        summary: '{{mode}} · {{duration}}'
+        fields:
+          - { label: Mode, name: mode, widget: select, options: [train, bus, tempo, cab, flight, self] }
+          - { label: Duration, name: duration, widget: string }
+          - { label: Note, name: note, widget: string, required: false }
+      - { label: Best months (1–12), name: bestMonths, widget: select, multiple: true, options: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'], required: false }
+      - { label: Ideal duration, name: idealDuration, widget: string, required: false }
+      - label: Top experiences
+        name: experiences
+        widget: list
+        required: false
+        summary: '{{title}}'
+        fields:
+          - { label: Title, name: title, widget: string }
+          - { label: Text, name: text, widget: text }
+          - { label: Image, name: image, widget: image, required: false }
+          - { label: Image alt, name: imageAlt, widget: string, required: false }
+      - label: FAQs
+        name: faqs
+        widget: list
+        required: false
+        summary: '{{q}}'
+        fields:
+          - { label: Question, name: q, widget: string }
+          - { label: Answer, name: a, widget: text }
+      - { label: Nearby destinations, name: nearby, widget: relation, collection: destinations, value_field: '{{slug}}', search_fields: [name], display_fields: [name], multiple: true, required: false }
+      - { label: Primary keyword, name: primaryKeyword, widget: string, required: false }
+      - label: SEO overrides
+        name: seo
+        widget: object
+        required: false
+        collapsed: true
+        fields:
+          - { label: Title, name: title, widget: string, required: false }
+          - { label: Description, name: description, widget: text, required: false }
+      - { label: Guide content, name: body, widget: markdown, required: false }
+
+  # ---------------------------------------------------------------- REVIEWS
+  - name: reviews
+    label: Reviews (genuine only)
+    label_singular: Review
+    description: Only add real reviews, with the traveller's consent. Copy text exactly as written.
+    folder: src/content/reviews
+    extension: yml
+    format: yaml
+    create: true
+    slug: '{{year}}{{month}}{{day}}-{{name}}'
+    summary: '{{name}} · {{rating}}★ · {{source}}'
+    media_folder: ../../assets/uploads/reviews
+    public_folder: ../../assets/uploads/reviews
+    fields:
+      - { label: Name (as shown publicly), name: name, widget: string }
+      - { label: Rating, name: rating, widget: number, value_type: int, min: 1, max: 5 }
+      - { label: Review text (verbatim), name: text, widget: text }
+      - { label: Date travelled or reviewed, name: date, widget: datetime, time_format: false, format: YYYY-MM-DD }
+      - { label: Source, name: source, widget: select, options: [google, instagram, direct] }
+      - { label: Link to original review, name: sourceUrl, widget: string, required: false }
+      - { label: Trip, name: trip, widget: relation, collection: trips, value_field: '{{slug}}', search_fields: [title], display_fields: [title], required: false }
+      - { label: Destination, name: destination, widget: relation, collection: destinations, value_field: '{{slug}}', search_fields: [name], display_fields: [name], required: false }
+      - { label: Photo (with consent), name: photo, widget: image, required: false }
+      - { label: Traveller consented to publishing, name: consent, widget: boolean, default: false, hint: 'Required. The site build rejects reviews without consent.' }
+      - { label: Featured, name: featured, widget: boolean, default: false }
+
+  # ---------------------------------------------------------------- GUIDES
+  - name: guides
+    label: Travel guides
+    label_singular: Guide
+    folder: src/content/guides
+    extension: md
+    format: frontmatter
+    create: true
+    slug: '{{fields.slug}}'
+    summary: '{{title}}{{draft | ternary(" (draft)", "")}}'
+    media_folder: ../../assets/uploads/guides
+    public_folder: ../../assets/uploads/guides
+    fields:
+      - { label: URL id, name: slug, widget: string, hint: 'e.g. hyderabad-to-ooty-travel-guide. No dates in URLs.' }
+      - { label: Draft, name: draft, widget: boolean, default: true }
+      - { label: Title (H1), name: title, widget: string }
+      - { label: Meta description, name: description, widget: text, hint: 'Max 170 characters' }
+      - { label: Card excerpt, name: excerpt, widget: text }
+      - { label: Category, name: category, widget: select, options: [weekend-getaways, destination-guides, treks, camping, seasonal, comparisons, stories] }
+      - { label: Tags, name: tags, widget: list, required: false }
+      - { label: Author, name: author, widget: relation, collection: authors, value_field: '{{slug}}', search_fields: [name], display_fields: [name] }
+      - { label: Published, name: publishedAt, widget: datetime, time_format: false, format: YYYY-MM-DD }
+      - { label: Updated, name: updatedAt, widget: datetime, time_format: false, format: YYYY-MM-DD, required: false }
+      - { label: Hero image, name: heroImage, widget: image, required: false }
+      - { label: Hero alt text, name: heroAlt, widget: string, required: false }
+      - { label: Quick answer (2–3 sentences), name: quickAnswer, widget: text, required: false }
+      - { label: Related trips, name: relatedTrips, widget: relation, collection: trips, value_field: '{{slug}}', search_fields: [title], display_fields: [title], multiple: true, required: false }
+      - { label: Related destinations, name: relatedDestinations, widget: relation, collection: destinations, value_field: '{{slug}}', search_fields: [name], display_fields: [name], multiple: true, required: false }
+      - label: FAQs
+        name: faqs
+        widget: list
+        required: false
+        summary: '{{q}}'
+        fields:
+          - { label: Question, name: q, widget: string }
+          - { label: Answer, name: a, widget: text }
+      - { label: Primary keyword, name: primaryKeyword, widget: string, required: false }
+      - label: SEO overrides
+        name: seo
+        widget: object
+        required: false
+        collapsed: true
+        fields:
+          - { label: Title, name: title, widget: string, required: false }
+          - { label: Description, name: description, widget: text, required: false }
+      - { label: Body, name: body, widget: markdown }
+
+  - name: authors
+    label: Authors
+    label_singular: Author
+    folder: src/content/authors
+    extension: yml
+    format: yaml
+    create: true
+    slug: '{{name}}'
+    media_folder: ../../assets/uploads/authors
+    public_folder: ../../assets/uploads/authors
+    fields:
+      - { label: Name, name: name, widget: string }
+      - { label: Role, name: role, widget: string }
+      - { label: Bio, name: bio, widget: text }
+      - { label: Photo, name: photo, widget: image, required: false }
+      - label: Links
+        name: socials
+        widget: list
+        required: false
+        fields:
+          - { label: Label, name: label, widget: string }
+          - { label: URL, name: url, widget: string }
+
+  # ---------------------------------------------------------------- LANDING PAGES
+  - name: landings
+    label: Landing pages
+    label_singular: Landing page
+    description: Category pages such as /weekend-trips-from-hyderabad/. Trips are pulled in automatically by the rule.
+    folder: src/content/landings
+    extension: md
+    format: frontmatter
+    create: true
+    slug: '{{fields.slug}}'
+    summary: '{{path}}'
+    fields:
+      - { label: File id, name: slug, widget: string }
+      - { label: Page path, name: path, widget: string, hint: 'Starts and ends with /, e.g. /camping/' }
+      - { label: H1, name: title, widget: string }
+      - { label: Intro, name: intro, widget: text }
+      - label: Trip rule
+        name: rule
+        widget: object
+        fields:
+          - { label: Trip types, name: tripTypes, widget: select, multiple: true, required: false, options: [weekend, trek, camping, backpacking, long, couple, family, corporate] }
+          - { label: Destinations, name: destinations, widget: relation, collection: destinations, value_field: '{{slug}}', search_fields: [name], display_fields: [name], multiple: true, required: false }
+          - { label: Max nights, name: maxNights, widget: number, value_type: int, required: false }
+          - { label: Departure city id, name: origin, widget: string, required: false }
+      - label: FAQs
+        name: faqs
+        widget: list
+        required: false
+        summary: '{{q}}'
+        fields:
+          - { label: Question, name: q, widget: string }
+          - { label: Answer, name: a, widget: text }
+      - { label: Active from, name: activeFrom, widget: datetime, time_format: false, format: YYYY-MM-DD, required: false }
+      - { label: Active until, name: activeUntil, widget: datetime, time_format: false, format: YYYY-MM-DD, required: false }
+      - { label: Primary keyword, name: primaryKeyword, widget: string, required: false }
+      - label: SEO overrides
+        name: seo
+        widget: object
+        required: false
+        collapsed: true
+        fields:
+          - { label: Title, name: title, widget: string, required: false }
+          - { label: Description, name: description, widget: text, required: false }
+      - { label: Editorial content, name: body, widget: markdown, required: false }
+
+  # ---------------------------------------------------------------- SETTINGS
+  - name: settings
+    label: Site settings
+    editor: { preview: false }
+    files:
+      - name: site
+        label: Site settings
+        file: src/data/site.json
+        format: json
+        fields:
+          - label: Brand
+            name: brand
+            widget: object
+            fields:
+              - { label: Name, name: name, widget: string }
+              - { label: Short name, name: short, widget: string }
+              - { label: Tagline, name: tagline, widget: string }
+          - label: Announcement bar
+            name: announcement
+            widget: object
+            fields:
+              - { label: Show, name: enabled, widget: boolean }
+              - { label: Text, name: text, widget: string, required: false }
+              - { label: Link text, name: linkText, widget: string, required: false }
+              - { label: Link URL, name: url, widget: string, required: false }
+              - { label: Starts (YYYY-MM-DD), name: startsAt, widget: string, required: false }
+              - { label: Ends (YYYY-MM-DD), name: endsAt, widget: string, required: false, hint: 'Bar hides automatically after this date.' }
+          - label: Contact
+            name: contact
+            widget: object
+            fields:
+              - { label: WhatsApp number, name: whatsapp, widget: string, required: false, hint: '10-digit Indian mobile. All WhatsApp buttons stay hidden until this is set.' }
+              - { label: Phone, name: phone, widget: string, required: false }
+              - { label: Email, name: email, widget: string, required: false }
+              - { label: Support hours, name: hours, widget: string, required: false, hint: 'e.g. 9am–9pm, every day' }
+              - label: Address (must match Google Business Profile exactly)
+                name: address
+                widget: object
+                fields:
+                  - { label: Street, name: street, widget: string, required: false }
+                  - { label: Locality, name: locality, widget: string, required: false }
+                  - { label: City, name: city, widget: string, required: false }
+                  - { label: State, name: region, widget: string, required: false }
+                  - { label: PIN code, name: postalCode, widget: string, required: false }
+                  - { label: Country code, name: country, widget: string, required: false }
+                  - { label: Google Maps link, name: mapUrl, widget: string, required: false }
+          - label: Social
+            name: social
+            widget: object
+            fields:
+              - { label: Instagram URL, name: instagram, widget: string, required: false }
+              - { label: Facebook URL, name: facebook, widget: string, required: false }
+              - { label: YouTube URL, name: youtube, widget: string, required: false }
+              - { label: Google Business Profile URL, name: googleBusiness, widget: string, required: false }
+          - label: Trust strip
+            name: trust
+            widget: list
+            hint: Leave a value empty to hide that item. Only use numbers HCC can verify.
+            summary: '{{value}} {{label}}'
+            fields:
+              - { label: Icon, name: icon, widget: select, options: [star, users, calendar, pin, whatsapp, shield, mountain, tent] }
+              - { label: Value, name: value, widget: string, required: false, hint: 'e.g. 4.8 ★' }
+              - { label: Label, name: label, widget: string }
+              - { label: Detail, name: detail, widget: string, required: false, hint: 'e.g. 312 reviews' }
+              - { label: Source URL (proof), name: sourceUrl, widget: string, required: false }
+              - { label: Show, name: enabled, widget: boolean, default: true }
+          - label: Payments
+            name: payments
+            widget: object
+            fields:
+              - { label: Online payments enabled, name: enabled, widget: boolean, hint: 'Keep off until Razorpay is integrated.' }
+              - { label: Provider, name: provider, widget: select, options: [razorpay] }
+              - { label: Default booking mode, name: defaultBookingMode, widget: select, options: [enquiry, payment] }
+          - label: Urgency
+            name: urgency
+            widget: object
+            fields:
+              - { label: Show seat count at or below, name: seatThreshold, widget: number, value_type: int, min: 1, max: 30 }
+          - label: Tracking
+            name: tracking
+            widget: object
+            fields:
+              - { label: Google Tag Manager ID, name: gtmId, widget: string, required: false }
+              - { label: GA4 measurement ID, name: ga4Id, widget: string, required: false }
+              - { label: Meta Pixel ID, name: metaPixelId, widget: string, required: false }

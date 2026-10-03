@@ -1,0 +1,131 @@
+---
+/**
+ * Destination tile. Trip count and "from ₹" are computed from live trips;
+ * a destination without live trips is labelled "Guide" (still useful, never fake).
+ */
+import type { ImageMetadata } from 'astro';
+import Photo, { type Tone } from '@/components/ui/Photo.astro';
+import Icon from '@/components/ui/Icon.astro';
+import { destinationUrl } from '@/lib/catalog';
+import { inr, durationLabel } from '@/lib/format';
+
+const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+interface Props {
+  id: string;
+  name: string;
+  image?: ImageMetadata;
+  imageAlt?: string;
+  tone?: Tone;
+  tripCount: number;
+  fromPrice?: number | null;
+  /** Shortest trip duration, e.g. [2, 3] → "2N/3D". */
+  duration?: [number, number] | null;
+  bestMonths?: number[];
+  href?: string;
+  headingLevel?: 'h3' | 'h4';
+  size?: 'md' | 'sm';
+}
+
+const { id, name, image, imageAlt, tone = 'hills', tripCount, fromPrice, duration, bestMonths = [], href, headingLevel = 'h3', size = 'md' } =
+  Astro.props;
+const H = headingLevel;
+
+// Compress consecutive months into a range label, e.g. [10,11,12,1,2,3] → "Oct–Mar".
+function bestLabel(months: number[]) {
+  if (!months.length || months.length === 12) return months.length === 12 ? 'Year-round' : '';
+  const set = new Set(months);
+  const start = months.find((m) => !set.has(((m + 10) % 12) + 1)) ?? months[0];
+  let end = start;
+  while (set.has((end % 12) + 1) && (end % 12) + 1 !== start) end = (end % 12) + 1;
+  return start === end ? MONTHS[start - 1] : `${MONTHS[start - 1]}–${MONTHS[end - 1]}`;
+}
+
+const meta = [duration ? durationLabel(...duration) : null, fromPrice ? `from ${inr(fromPrice)}` : null].filter(Boolean).join(' · ');
+const best = bestLabel(bestMonths);
+---
+
+<a class:list={['xcard', `xcard--${size}`]} href={href ?? destinationUrl(id)} data-track="select_content" data-track-params={JSON.stringify({ content_type: 'destination', item_id: id })}>
+  <Photo src={image} alt={imageAlt ?? `${name} trips from Hyderabad`} tone={tone} sizes="(min-width: 1024px) 25vw, 45vw" widths={[300, 450, 600]} />
+  <span class="xcard__badge badge badge--glass">{tripCount > 0 ? `${tripCount} trip${tripCount > 1 ? 's' : ''}` : 'Guide'}</span>
+  <span class="xcard__text">
+    <H class="xcard__name">{name}</H>
+    {meta && <span class="xcard__meta">{meta}</span>}
+    {best && size === 'md' && <span class="xcard__meta">Best {best}</span>}
+  </span>
+  <span class="xcard__go" aria-hidden="true"><Icon name="arrow" /></span>
+</a>
+
+<style>
+  .xcard {
+    position: relative;
+    isolation: isolate;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    aspect-ratio: 3 / 4;
+    padding: 14px;
+    border-radius: var(--r-lg);
+    overflow: hidden;
+    color: var(--white);
+    text-decoration: none;
+    background: var(--surface-2);
+  }
+  .xcard > :global(.photo),
+  .xcard > :global(picture),
+  .xcard > :global(img) {
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+    transition: transform var(--t-slow) var(--ease);
+  }
+  .xcard::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: linear-gradient(180deg, rgb(10 20 16 / 0.15) 0%, rgb(10 20 16 / 0) 35%, rgb(10 20 16 / 0.78) 100%);
+  }
+  @media (hover: hover) {
+    .xcard:hover > :global(.photo) {
+      transform: scale(1.04);
+    }
+    .xcard:hover .xcard__go {
+      transform: translateX(3px);
+    }
+  }
+  .xcard__badge {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+  }
+  .xcard__text {
+    display: grid;
+    gap: 3px;
+    padding-right: 40px;
+  }
+  .xcard__name {
+    font-size: 1.25rem;
+    line-height: 1.1;
+  }
+  .xcard--sm .xcard__name {
+    font-size: 1.0625rem;
+  }
+  .xcard__meta {
+    font-size: 0.78rem;
+    opacity: 0.92;
+  }
+  .xcard__go {
+    position: absolute;
+    right: 12px;
+    bottom: 14px;
+    display: grid;
+    place-items: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: var(--white);
+    color: var(--ink-900);
+    transition: transform var(--t) var(--ease);
+  }
+</style>
