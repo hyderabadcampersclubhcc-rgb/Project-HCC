@@ -32,8 +32,8 @@ Visitor submits a form  →  /api/intents (PHP)  →  Google Sheet (+ email aler
 | Secret | `FTP_USERNAME` | FTP user |
 | Secret | `FTP_PASSWORD` | FTP password |
 | Variable | `STAGING_URL` | `https://staging.hyderabadcampersclubhcc.in` |
-| Variable | `STAGING_DIR` | the subdomain folder relative to the FTP root, ending with `/` |
-| Variable | `PRODUCTION_DIR` | `/public_html/` (relative to the FTP root) |
+| Variable | `STAGING_DIR` | `staging/` (Hostinger FTP logins start inside `public_html`) |
+| Variable | `PRODUCTION_DIR` | `./` (the FTP root **is** `public_html`) |
 | Variable | `CMS_REPO` | `hyderabadcampersclubhcc-rgb/Project-HCC` (optional, this is the default) |
 | Variable | `PRODUCTION_LIVE` | leave **unset** until go-live |
 | Variable | `STAGING_SHOW_SAMPLES` | `true` only if you want sample trips on staging for review |

@@ -7,8 +7,8 @@
 # Repository settings → Secrets and variables → Actions:
 #   secrets: FTP_SERVER, FTP_USERNAME, FTP_PASSWORD
 #   vars:    STAGING_URL (e.g. https://staging.hyderabadcampersclubhcc.in)
-#            STAGING_DIR (e.g. /public_html/staging/ or the subdomain's folder)
-#            PRODUCTION_DIR (e.g. /public_html/)
+#            STAGING_DIR (Hostinger: "staging/"; FTP logins start inside public_html)
+#            PRODUCTION_DIR (Hostinger: "./" = public_html itself)
 #            PRODUCTION_LIVE ("true" only after the go-live cutover)
 #            CMS_REPO (owner/repo of this repository)
 #            FTP_PROTOCOL (optional: ftps by default; set to ftp if the server refuses TLS)
