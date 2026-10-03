@@ -1,0 +1,184 @@
+---
+/**
+ * /travel-guides/{id}/: owns informational searches ("hyderabad to ooty travel guide",
+ * "ooty vs coorg") and hands readers to the trips that own the transactional ones.
+ * MDX bodies can embed live trips: <TripCallout trip="ooty-coonoor" />
+ */
+import { getCollection, getEntry, render, type CollectionEntry } from 'astro:content';
+import Photo from '@/components/ui/Photo.astro';
+import GuideHeader from '@/components/guide/GuideHeader.astro';
+import QuickAnswer from '@/components/guide/QuickAnswer.astro';
+import TableOfContents from '@/components/guide/TableOfContents.astro';
+import TripCallout from '@/components/guide/TripCallout.astro';
+import TripCalloutSample from '@/components/guide/TripCalloutSample.astro';
+import AuthorBox from '@/components/guide/AuthorBox.astro';
+import TripCard from '@/components/trip/TripCard.astro';
+import BlogCard from '@/components/content/BlogCard.astro';
+import FAQ from '@/components/content/FAQ.astro';
+import WhatsAppBand from '@/components/cta/WhatsAppBand.astro';
+import SectionNote from '@/components/home/SectionNote.astro';
+import { getTrips, guideUrl } from '@/lib/catalog';
+import { isoDate } from '@/lib/format';
+
+interface Props {
+  guide: CollectionEntry<'guides'>;
+  catalog?: { samples?: boolean; today?: string };
+  preview?: boolean;
+}
+
+export const GUIDE_CATEGORY_LABEL: Record<string, string> = {
+  'weekend-getaways': 'Weekend getaways',
+  'destination-guides': 'Destination guides',
+  treks: 'Treks',
+  camping: 'Camping',
+  seasonal: 'Seasonal',
+  comparisons: 'Comparisons',
+  stories: 'Traveller stories',
+};
+
+const { guide, catalog = {}, preview = false } = Astro.props;
+const g = guide.data;
+const author = await getEntry(g.author);
+const { Content, headings } = await render(guide);
+const words = guide.body?.split(/\s+/).length ?? 0;
+const readMinutes = Math.max(3, Math.round(words / 220));
+
+const allTrips = await getTrips(catalog);
+const relatedTrips = g.relatedTrips.map((r) => allTrips.find((t) => t.id === r.id)).filter((t): t is NonNullable<typeof t> => !!t);
+
+const showSamples = catalog.samples ?? import.meta.env.PUBLIC_SHOW_SAMPLES === 'true';
+const destIds = new Set(g.relatedDestinations.map((d) => d.id));
+const moreGuides = (await getCollection('guides', (x) => !x.data.draft && x.id !== guide.id && (showSamples || !x.data.sample)))
+  .map((x) => ({ x, score: (x.data.category === g.category ? 1 : 0) + x.data.relatedDestinations.filter((d) => destIds.has(d.id)).length * 2 }))
+  .filter((s) => s.score > 0)
+  .sort((a, b) => b.score - a.score)
+  .slice(0, 3)
+  .map((s) => s.x);
+---
+
+<div class="container guide">
+  <div class="guide__main">
+    {preview && <SectionNote n={1} title="Title block" purpose="Who wrote it and when it was last updated: credibility signals Google and readers both look for. No dates in the URL, so guides can be refreshed every season without losing rankings." data="Guide title, category, author profile, published/updated dates (CMS); read time computed." />}
+    <GuideHeader
+      title={g.title}
+      category={GUIDE_CATEGORY_LABEL[g.category]}
+      authorName={author?.data.name ?? 'HCC Team'}
+      authorPhoto={author?.data.photo}
+      published={isoDate(g.publishedAt)}
+      updated={g.updatedAt ? isoDate(g.updatedAt) : undefined}
+      readMinutes={readMinutes}
+    />
+    <figure class="guide__hero">
+      <Photo src={g.heroImage} alt={g.heroAlt ?? g.title} tone="hills" eager sizes="(min-width: 1024px) 760px, 100vw" widths={[480, 760, 1140, 1520]} label={preview && !g.heroImage ? 'Guide hero photo' : undefined} />
+    </figure>
+
+    {preview && <SectionNote n={2} title="Quick answer + contents" purpose="Answers the question in 2–3 sentences up top (snippet / AI-overview target), then a contents list for skimmers. Contents is a collapsible box on phones and a sticky sidebar on desktop." data="Quick answer (CMS); contents generated from the article's headings." />}
+    {g.quickAnswer && <QuickAnswer text={g.quickAnswer} />}
+    <div class="guide__toc-mobile"><TableOfContents headings={headings} /></div>
+
+    {preview && <SectionNote n={3} title="Article body with live trip cards" purpose="The article itself. Writers drop a live trip card anywhere with <TripCallout trip=…/>; it always shows the current price and next date, so guides never go stale and readers are one tap from booking." data="Guide body (MDX, CMS)." status="needs-data" />}
+    <article class="prose guide__body">
+      <Content components={{ TripCallout: preview ? TripCalloutSample : TripCallout }} />
+    </article>
+
+    {
+      g.faqs.length > 0 && (
+        <section aria-labelledby="guide-faq" class="guide__block">
+          <h2 id="guide-faq" class="guide__h2">
+            FAQs
+          </h2>
+          <FAQ items={g.faqs} />
+        </section>
+      )
+    }
+
+    {
+      relatedTrips.length > 0 && (
+        <>
+          {preview && <SectionNote n={4} title="Trips in this guide" purpose="Turns readers into enquiries: the trips the guide talks about, with live dates and prices." data="Guide → related trips (CMS)." />}
+          <section aria-labelledby="guide-trips" class="guide__block">
+            <h2 id="guide-trips" class="guide__h2">
+              Trips mentioned in this guide
+            </h2>
+            <div class="rail rail--grid" style="--rail-cols:2">
+              {relatedTrips.map((t, i) => (
+                <TripCard trip={t} index={i} listName={`guide_${guide.id}`} />
+              ))}
+            </div>
+          </section>
+        </>
+      )
+    }
+
+    {author && <AuthorBox name={author.data.name} role={author.data.role} bio={author.data.bio} photo={author.data.photo} socials={author.data.socials} />}
+  </div>
+
+  <aside class="guide__aside" aria-label="Contents">
+    <TableOfContents headings={headings} />
+  </aside>
+</div>
+
+<div class="container guide__end">
+  {
+    moreGuides.length > 0 && (
+      <section aria-labelledby="guide-more">
+        <h2 id="guide-more" class="guide__h2">
+          More guides
+        </h2>
+        <div class="rail rail--grid" style="--rail-cols:3">
+          {moreGuides.map((x) => (
+            <BlogCard title={x.data.title} href={guideUrl(x.id)} excerpt={x.data.excerpt} category={GUIDE_CATEGORY_LABEL[x.data.category]} date={isoDate(x.data.updatedAt ?? x.data.publishedAt)} image={x.data.heroImage} imageAlt={x.data.heroAlt} />
+          ))}
+        </div>
+      </section>
+    )
+  }
+  <WhatsAppBand location={`guide_${guide.id}`} title="Want us to plan this for you?" text="Skip the planning: tell us your dates and we'll suggest a trip, or build one around your group." headingLevel="h2" />
+</div>
+
+<style>
+  .guide {
+    display: grid;
+    gap: var(--s-6);
+    padding-block: var(--s-6) var(--s-8);
+  }
+  .guide__main {
+    display: grid;
+    gap: var(--s-6);
+    min-width: 0;
+  }
+  .guide__hero {
+    margin: 0;
+    aspect-ratio: 16 / 9;
+    border-radius: var(--r-xl);
+    overflow: hidden;
+  }
+  .guide__aside {
+    display: none;
+  }
+  .guide__h2 {
+    margin-bottom: var(--s-4);
+    font-size: var(--fs-h2);
+  }
+  .guide__block {
+    margin-top: var(--s-4);
+  }
+  .guide__end {
+    display: grid;
+    gap: var(--s-12);
+    padding-block: var(--s-8) var(--s-12);
+  }
+  @media (min-width: 1024px) {
+    .guide {
+      grid-template-columns: minmax(0, 760px) 280px;
+      justify-content: space-between;
+      gap: var(--s-12);
+    }
+    .guide__aside {
+      display: block;
+    }
+    .guide__toc-mobile {
+      display: none;
+    }
+  }
+</style>

@@ -1,0 +1,14 @@
+---
+/** Approval preview: travel guide template (sample "Hyderabad to Ooty Travel Guide"). noindex. */
+import { getEntry } from 'astro:content';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import GuidePage from '@/components/pages/GuidePage.astro';
+import PreviewBar from '@/components/preview/PreviewBar.astro';
+
+const guide = (await getEntry('guides', 'hyderabad-to-ooty-travel-guide'))!;
+---
+
+<BaseLayout title={`PREVIEW · ${guide.data.title} | HCC`} rawTitle description={guide.data.description} noindex>
+  <GuidePage guide={guide} catalog={{ samples: true, today: '2026-10-03' }} preview />
+  <PreviewBar slot="end" label="Guide preview" />
+</BaseLayout>

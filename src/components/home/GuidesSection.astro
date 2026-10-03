@@ -24,7 +24,8 @@ const CATEGORY: Record<string, string> = {
   stories: 'Traveller stories',
 };
 
-const guides = (await getCollection('guides', (g) => !g.data.draft))
+const showSamples = import.meta.env.PUBLIC_SHOW_SAMPLES === 'true';
+const guides = (await getCollection('guides', (g) => !g.data.draft && (showSamples || !g.data.sample)))
   .sort((a, b) => +(b.data.updatedAt ?? b.data.publishedAt) - +(a.data.updatedAt ?? a.data.publishedAt))
   .slice(0, max)
   .map((g) => ({

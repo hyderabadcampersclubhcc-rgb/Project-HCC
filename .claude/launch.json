@@ -4,7 +4,12 @@
     {
       "name": "hcc-dev",
       "runtimeExecutable": "npm",
-      "runtimeArgs": ["run", "dev"],
+      "runtimeArgs": [
+        "run",
+        "dev",
+        "--",
+        "--force"
+      ],
       "port": 4321
     }
   ]

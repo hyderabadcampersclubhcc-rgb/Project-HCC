@@ -1,0 +1,11 @@
+---
+/** Approval preview: /trips/ catalogue with sample data and notes. noindex. */
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import TripsIndexPage from '@/components/pages/TripsIndexPage.astro';
+import PreviewBar from '@/components/preview/PreviewBar.astro';
+---
+
+<BaseLayout title="PREVIEW · Group Trips from Hyderabad | HCC" rawTitle description="Preview of the trips catalogue page." noindex>
+  <TripsIndexPage catalog={{ samples: true, today: '2026-10-03' }} preview />
+  <PreviewBar slot="end" label="All trips preview" />
+</BaseLayout>

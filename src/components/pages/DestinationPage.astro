@@ -1,0 +1,105 @@
+---
+/**
+ * /destinations/{id}/: owns "{place} trips/packages from Hyderabad".
+ * Trips first (commercial intent), then the facts and unique destination guide.
+ * Indexable only with ≥1 live trip or ≥400 words of destination copy (set by the route).
+ */
+import { getCollection, render, type CollectionEntry } from 'astro:content';
+import DestinationHero from '@/components/destination/DestinationHero.astro';
+import AtAGlance from '@/components/destination/AtAGlance.astro';
+import Experiences from '@/components/destination/Experiences.astro';
+import DestinationTrips from '@/components/destination/DestinationTrips.astro';
+import NearbyDestinations from '@/components/destination/NearbyDestinations.astro';
+import FAQ from '@/components/content/FAQ.astro';
+import BlogCard from '@/components/content/BlogCard.astro';
+import WhatsAppBand from '@/components/cta/WhatsAppBand.astro';
+import SectionNote from '@/components/home/SectionNote.astro';
+import { getTripsForDestination, guideUrl, toneFor } from '@/lib/catalog';
+import { isoDate } from '@/lib/format';
+
+interface Props {
+  destination: CollectionEntry<'destinations'>;
+  catalog?: { samples?: boolean; today?: string };
+  preview?: boolean;
+}
+
+const { destination, catalog = {}, preview = false } = Astro.props;
+const d = destination.data;
+const trips = await getTripsForDestination(destination.id, catalog);
+const prices = trips.map((t) => t.primary.fromPrice).filter((p): p is number => p != null);
+const tone = trips[0] ? toneFor(trips[0].data) : 'hills';
+const { Content } = await render(destination);
+const hasBody = !!destination.body?.trim();
+
+const showSamples = catalog.samples ?? import.meta.env.PUBLIC_SHOW_SAMPLES === 'true';
+const guides = (await getCollection('guides', (g) => !g.data.draft && (showSamples || !g.data.sample)))
+  .filter((g) => g.data.relatedDestinations.some((r) => r.id === destination.id))
+  .slice(0, 3);
+---
+
+{preview && <SectionNote n={1} title="Hero" purpose="H1 '{Place} Trips from Hyderabad' owns the destination search ('ooty tour packages from hyderabad'); the trip page owns the trip-specific one. Trip count and from-price in the first screen." data="Destination record: name, summary, hero photo. Count and price computed from live trips." status="needs-data" />}
+<DestinationHero name={d.name} summary={d.summary} image={d.heroImage} imageAlt={d.heroAlt} tone={tone} tripCount={trips.length} fromPrice={prices.length ? Math.min(...prices) : null} preview={preview} />
+
+<div class="container dest">
+  {preview && <SectionNote n={2} title="Trips to this place" purpose="Commercial intent → product first. With no live trips it becomes a 'plan a custom trip' prompt instead of an empty grid." data="Every live trip that includes this destination." />}
+  <DestinationTrips id={destination.id} name={d.name} catalog={catalog} />
+
+  {preview && <SectionNote n={3} title="At a glance" purpose="The facts people search before booking: distance, how to get there from Hyderabad, ideal length, best months (12-month strip)." data="Destination record (CMS). Each block hides without data." />}
+  <AtAGlance name={d.name} distanceFromHydKm={d.distanceFromHydKm} idealDuration={d.idealDuration} howToReach={d.howToReach} bestMonths={d.bestMonths} />
+
+  {preview && <SectionNote n={4} title="Things to do" purpose="Unique, specific experiences per destination (with photos): content that can't be copied from a template." data="Destination experiences (CMS)." status="needs-data" />}
+  <Experiences name={d.name} items={d.experiences} tone={tone} />
+
+  {
+    hasBody && (
+      <>
+        {preview && <SectionNote n={5} title="Destination guide copy" purpose="Longer, unique destination write-up for rankings and genuinely helpful planning." data="Destination body (markdown, CMS)." status="needs-data" />}
+        <section class="prose" aria-label={`About ${d.name}`}>
+          <Content />
+        </section>
+      </>
+    )
+  }
+
+  {
+    guides.length > 0 && (
+      <section aria-labelledby="dest-guides">
+        <h2 id="dest-guides" class="dest__h2">
+          {d.name} travel guides
+        </h2>
+        <div class="rail rail--grid" style="--rail-cols:3">
+          {guides.map((g) => (
+            <BlogCard title={g.data.title} href={guideUrl(g.id)} excerpt={g.data.excerpt} date={isoDate(g.data.updatedAt ?? g.data.publishedAt)} image={g.data.heroImage} imageAlt={g.data.heroAlt} />
+          ))}
+        </div>
+      </section>
+    )
+  }
+
+  {
+    d.faqs.length > 0 && (
+      <section aria-labelledby="dest-faq">
+        <h2 id="dest-faq" class="dest__h2">
+          {d.name}: questions travellers ask
+        </h2>
+        <FAQ items={d.faqs} />
+      </section>
+    )
+  }
+
+  {preview && <SectionNote n={6} title="Nearby + help" purpose="Links to nearby destinations (keeps people exploring, spreads internal links) and a human-help prompt." data="Destination → nearby destinations (CMS), with live trip counts." />}
+  <NearbyDestinations ids={d.nearby.map((n) => n.id)} title={`Near ${d.name}`} catalog={catalog} />
+  <WhatsAppBand location={`destination_${destination.id}`} title={`Planning ${d.name}?`} text={`Ask us anything about ${d.name}: best time, how to get there, or a custom trip for your group.`} context={{ destination: d.name }} headingLevel="h2" />
+</div>
+
+<style>
+  .dest {
+    display: grid;
+    gap: var(--s-12);
+    padding-block: var(--s-10) var(--s-12);
+  }
+  .dest__h2 {
+    margin-bottom: var(--s-4);
+    font-size: var(--fs-h2);
+  }
+</style>

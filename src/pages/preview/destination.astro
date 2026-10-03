@@ -1,0 +1,14 @@
+---
+/** Approval preview: destination page template (sample "Ooty"). noindex. */
+import { getEntry } from 'astro:content';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import DestinationPage from '@/components/pages/DestinationPage.astro';
+import PreviewBar from '@/components/preview/PreviewBar.astro';
+
+const destination = (await getEntry('destinations', 'ooty'))!;
+---
+
+<BaseLayout title={`PREVIEW · ${destination.data.name} Trips from Hyderabad | HCC`} rawTitle description={destination.data.summary} noindex headerOverlay>
+  <DestinationPage destination={destination} catalog={{ samples: true, today: '2026-10-03' }} preview />
+  <PreviewBar slot="end" label="Destination preview" />
+</BaseLayout>

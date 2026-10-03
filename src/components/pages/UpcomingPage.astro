@@ -1,0 +1,35 @@
+---
+/** /upcoming-trips/: every bookable departure, grouped by month, filterable. */
+import PageIntro from '@/components/listing/PageIntro.astro';
+import DepartureListing from '@/components/listing/DepartureListing.astro';
+import WhatsAppBand from '@/components/cta/WhatsAppBand.astro';
+import SectionNote from '@/components/home/SectionNote.astro';
+import { getUpcoming } from '@/lib/catalog';
+
+interface Props {
+  catalog?: { samples?: boolean; today?: string };
+  preview?: boolean;
+}
+
+const { catalog = {}, preview = false } = Astro.props;
+const items = await getUpcoming(catalog);
+---
+
+<div class="container">
+  {preview && <SectionNote n={1} title="Upcoming dates" purpose="For people who know WHEN they're free: one card per departure, grouped by month. The page Instagram bio links and WhatsApp broadcasts point to." data="Every future bookable departure (sold-out and cancelled dates excluded). Weekend chips appear only when a departure falls that weekend." cta="Each card opens the trip with that date preselected (?d=)." />}
+  <PageIntro
+    title="Upcoming Trips from Hyderabad"
+    intro="Pick a date. Pack your bags. We'll handle the rest. Every departure from Hyderabad, soonest first."
+    crumbs={[{ label: 'Trips', href: '/trips/' }, { label: 'Upcoming dates' }]}
+  />
+  <DepartureListing items={items} today={catalog.today} />
+  <div class="up__band">
+    <WhatsAppBand location="upcoming_page" title="Your dates aren't listed?" text="Tell us when you're free. We'll tell you what's leaving then, or plan a trip around your dates." headingLevel="h2" />
+  </div>
+</div>
+
+<style>
+  .up__band {
+    padding-block: var(--s-12);
+  }
+</style>

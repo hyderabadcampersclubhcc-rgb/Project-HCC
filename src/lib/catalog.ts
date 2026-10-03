@@ -261,3 +261,22 @@ export function toneFor(trip: TripEntry['data']): 'hills' | 'beach' | 'dusk' | '
   if (/wayanad|dandeli|araku|maredumilli|munnar/.test(dest)) return 'forest';
   return 'hills';
 }
+
+export interface TripRule {
+  tripTypes?: string[];
+  destinations?: { id: string }[];
+  maxNights?: number;
+  origin?: string;
+}
+
+/** Trips matching a category page's rule (all conditions must hold; empty rule = all trips). */
+export async function getTripsForRule(rule: TripRule, opts: Options = {}) {
+  const dests = new Set((rule.destinations ?? []).map((d) => d.id));
+  return (await getTrips(opts)).filter(
+    (t) =>
+      (!rule.tripTypes?.length || t.data.tripTypes.some((x) => rule.tripTypes!.includes(x))) &&
+      (!dests.size || t.data.destinations.some((d) => dests.has(d.id))) &&
+      (rule.maxNights == null || t.data.durationNights <= rule.maxNights) &&
+      (!rule.origin || t.origins.some((o) => o.city === rule.origin)),
+  );
+}

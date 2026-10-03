@@ -1,0 +1,152 @@
+---
+/**
+ * Category landing page (e.g. /weekend-trips-from-hyderabad/, /camping/, /treks/).
+ * One template for every trip type; each page owns one search intent and is
+ * differentiated by its trips, planner table, editorial copy and FAQs.
+ * Indexable only with ≥3 trips AND real editorial copy (thin-content guard), set by the route.
+ */
+import { getCollection, render, type CollectionEntry } from 'astro:content';
+import PageIntro from '@/components/listing/PageIntro.astro';
+import TripListing from '@/components/listing/TripListing.astro';
+import PlannerTable from '@/components/listing/PlannerTable.astro';
+import FAQ from '@/components/content/FAQ.astro';
+import BlogCard from '@/components/content/BlogCard.astro';
+import WhatsAppBand from '@/components/cta/WhatsAppBand.astro';
+import SectionNote from '@/components/home/SectionNote.astro';
+import Icon from '@/components/ui/Icon.astro';
+import { getTripsForRule, guideUrl } from '@/lib/catalog';
+import { inr, isoDate, dateLong } from '@/lib/format';
+import { TRIP_TYPE_LINKS } from '@/data/navigation';
+
+interface Props {
+  landing: CollectionEntry<'landings'>;
+  catalog?: { samples?: boolean; today?: string };
+  preview?: boolean;
+}
+
+const { landing, catalog = {}, preview = false } = Astro.props;
+const l = landing.data;
+const trips = await getTripsForRule(l.rule, catalog);
+const { Content } = await render(landing);
+const hasBody = !!landing.body?.trim();
+
+const prices = trips.map((t) => t.primary.fromPrice).filter((p): p is number => p != null);
+const next = trips.map((t) => t.primary.next?.start).filter((d): d is string => !!d).sort()[0];
+const facts = [trips.length ? `${trips.length} trip${trips.length > 1 ? 's' : ''}` : '', prices.length ? `From ${inr(Math.min(...prices))}` : '', next ? `Next: ${dateLong(next)}` : ''].filter(Boolean);
+
+// Guides that mention these trips or their destinations.
+const showSamples = catalog.samples ?? import.meta.env.PUBLIC_SHOW_SAMPLES === 'true';
+const tripIds = new Set(trips.map((t) => t.id));
+const destIds = new Set(trips.flatMap((t) => t.data.destinations.map((d) => d.id)));
+const guides = (await getCollection('guides', (g) => !g.data.draft && (showSamples || !g.data.sample)))
+  .filter((g) => g.data.relatedTrips.some((r) => tripIds.has(r.id)) || g.data.relatedDestinations.some((d) => destIds.has(d.id)))
+  .slice(0, 3);
+
+const related = l.related.map((path) => TRIP_TYPE_LINKS.find((t) => t.href === path)).filter((t): t is NonNullable<typeof t> => !!t);
+---
+
+<div class="container">
+  {preview && <SectionNote n={1} title="Title + intro" purpose="One template for all 8 trip types. H1 = the exact search people type ('Weekend Trips from Hyderabad'). A short, specific intro, then trips immediately: no wall of text before the product." data="Category page in the CMS (path, H1, intro, rule that picks the trips). Facts line computed from the trips." />}
+  <PageIntro title={l.title} intro={l.intro} crumbs={[{ label: 'Trips', href: '/trips/' }, { label: l.title }]} facts={facts} />
+
+  {preview && <SectionNote n={2} title="Trips in this category" purpose="The product first. Same filters and compare as /trips/, scoped to this category." data="Trips matching the page's rule (trip types / destinations / max nights / departure city). Add a trip in the CMS and it appears here automatically." />}
+  <TripListing trips={trips} listName={`category_${landing.id}`} today={catalog.today} chipKeys={['month', 'style']} />
+
+  <div class="cat__sections">
+    {preview && <SectionNote n={3} title="Planner table" purpose="Genuinely useful comparison (travel, length, best time, price) that also earns rankings, generated from data so it never goes stale." data="Trips + destination best months. Shown when there are ≥2 trips." />}
+    <PlannerTable trips={trips} title={`${l.title}: at a glance`} />
+
+    {
+      hasBody && (
+        <>
+          {preview && <SectionNote n={4} title="Editorial guide" purpose="300–600 words of unique, helpful copy per category (who each trip suits, seasons, what to expect). This is what makes the page deserve to rank, and what stops it being a thin listing." data="Markdown body of the category page in the CMS." status="needs-data" />}
+          <section class="cat__body prose" aria-label={`About ${l.title}`}>
+            <Content />
+          </section>
+        </>
+      )
+    }
+
+    {
+      l.faqs.length > 0 && (
+        <>
+          {preview && <SectionNote n={5} title="FAQs" purpose="Category-level questions only (trip-specific ones live on trip pages), so there's no duplicate content." data="Category page FAQs (CMS)." status="needs-data" />}
+          <section aria-labelledby="cat-faq">
+            <h2 id="cat-faq" class="cat__h2">
+              Questions about {l.title.toLowerCase()}
+            </h2>
+            <FAQ items={l.faqs} />
+          </section>
+        </>
+      )
+    }
+
+    {
+      guides.length > 0 && (
+        <section aria-labelledby="cat-guides">
+          <h2 id="cat-guides" class="cat__h2">
+            Guides to help you choose
+          </h2>
+          <div class="rail rail--grid" style="--rail-cols:3">
+            {guides.map((g) => (
+              <BlogCard title={g.data.title} href={guideUrl(g.id)} excerpt={g.data.excerpt} date={isoDate(g.data.updatedAt ?? g.data.publishedAt)} image={g.data.heroImage} imageAlt={g.data.heroAlt} />
+            ))}
+          </div>
+        </section>
+      )
+    }
+
+    {
+      related.length > 0 && (
+        <>
+          {preview && <SectionNote n={6} title="Related categories + help" purpose="Internal links between sibling categories (spreads authority, keeps browsers moving) and a human-help fallback." data="Category page → related categories (CMS)." />}
+          <nav class="cat__related" aria-label="Related trip types">
+            <p class="overline">Also explore</p>
+            <div class="cat__related-links">
+              {related.map((t) => (
+                <a href={t.href}>
+                  <Icon name={t.icon} /> {t.label}
+                </a>
+              ))}
+            </div>
+          </nav>
+        </>
+      )
+    }
+
+    <WhatsAppBand location={`category_${landing.id}`} title="Not sure which one to pick?" text="Tell us your dates and what you enjoy. A real person from HCC will suggest the right trip." headingLevel="h2" />
+  </div>
+</div>
+
+<style>
+  .cat__sections {
+    display: grid;
+    gap: var(--s-12);
+    padding-block: var(--s-12);
+  }
+  .cat__h2 {
+    margin-bottom: var(--s-4);
+    font-size: var(--fs-h2);
+  }
+  .cat__related-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-2);
+    margin-top: var(--s-2);
+  }
+  .cat__related-links a {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    min-height: 44px;
+    padding: 0 16px;
+    border-radius: var(--r-md);
+    background: var(--surface);
+    border: 1px solid var(--line);
+    font-weight: 600;
+    text-decoration: none;
+  }
+  .cat__related-links :global(.icon) {
+    color: var(--forest-500);
+  }
+</style>

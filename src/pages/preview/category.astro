@@ -1,0 +1,14 @@
+---
+/** Approval preview: category page template (sample "Weekend Trips from Hyderabad"). noindex. */
+import { getEntry } from 'astro:content';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import CategoryPage from '@/components/pages/CategoryPage.astro';
+import PreviewBar from '@/components/preview/PreviewBar.astro';
+
+const landing = (await getEntry('landings', 'weekend-trips-from-hyderabad'))!;
+---
+
+<BaseLayout title={`PREVIEW · ${landing.data.title} | HCC`} rawTitle description={landing.data.intro} noindex>
+  <CategoryPage landing={landing} catalog={{ samples: true, today: '2026-10-03' }} preview />
+  <PreviewBar slot="end" label="Category page preview" />
+</BaseLayout>

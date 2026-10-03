@@ -1,0 +1,11 @@
+---
+/** Approval preview: /upcoming-trips/ with sample data and notes. noindex. */
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import UpcomingPage from '@/components/pages/UpcomingPage.astro';
+import PreviewBar from '@/components/preview/PreviewBar.astro';
+---
+
+<BaseLayout title="PREVIEW · Upcoming Trips from Hyderabad | HCC" rawTitle description="Preview of the upcoming departures page." noindex>
+  <UpcomingPage catalog={{ samples: true, today: '2026-10-03' }} preview />
+  <PreviewBar slot="end" label="Upcoming preview" />
+</BaseLayout>

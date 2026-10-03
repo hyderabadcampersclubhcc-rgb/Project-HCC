@@ -48,7 +48,9 @@ const { name, summary, image, imageAlt, tone = 'hills', tripCount, fromPrice, pr
     display: flex;
     align-items: flex-end;
     min-height: min(78svh, 600px);
-    padding-block: var(--s-16) var(--s-8);
+    /* Sits under the transparent overlay header (page uses headerOverlay) */
+    margin-top: calc(-1 * var(--header-h));
+    padding-block: calc(var(--header-h) + var(--s-12)) var(--s-8);
     color: var(--white);
     background: var(--brand-deep);
   }

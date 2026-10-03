@@ -16,5 +16,12 @@ experiences:
   - { title: Doddabetta Peak, text: "Sample: the Nilgiris' highest point, best at sunrise." }
   - { title: Nilgiri toy train, text: 'Sample: the UNESCO heritage mountain railway between Coonoor and Ooty.' }
 nearby: [coonoor, coorg, wayanad]
+faqs:
+  - { q: "Sample: is Ooty good in October?", a: "Sample answer. HCC to supply." }
+  - { q: "Sample: Ooty or Coonoor, where should I stay?", a: "Sample answer. HCC to supply." }
 sample: true
 ---
+
+## About Ooty
+
+**Sample destination copy.** A longer, unique write-up about Ooty goes here, written once in the CMS: what the town is like, how a group weekend usually flows, and tips for travellers from Hyderabad.

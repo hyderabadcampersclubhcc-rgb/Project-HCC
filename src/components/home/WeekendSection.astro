@@ -9,8 +9,8 @@ import { getCollection } from 'astro:content';
 import SectionHeader from '@/components/ui/SectionHeader.astro';
 import TripCard from '@/components/trip/TripCard.astro';
 import Button from '@/components/ui/Button.astro';
+import PlannerTable from '@/components/listing/PlannerTable.astro';
 import { getTrips, destinationUrl } from '@/lib/catalog';
-import { inr, durationLabel, bestMonthsLabel } from '@/lib/format';
 import { home } from '@/lib/home';
 
 interface Props {
@@ -26,16 +26,6 @@ const destinations = new Map((await getCollection('destinations')).map((d) => [d
 const destIds = [...new Set(trips.flatMap((t) => t.data.destinations.map((d) => d.id)))];
 const linked = destIds.slice(0, 7).map((id) => ({ id, name: destinations.get(id)?.name ?? id }));
 
-const rows = trips.map((t) => {
-  const firstDest = destinations.get(t.data.destinations[0].id);
-  return {
-    trip: t,
-    travel: t.data.transportOptions[0].label,
-    duration: durationLabel(t.data.durationNights, t.data.durationDays),
-    best: bestMonthsLabel(firstDest?.bestMonths ?? []),
-    from: t.primary.fromPrice,
-  };
-});
 ---
 
 {
@@ -71,33 +61,7 @@ const rows = trips.map((t) => {
         </div>
 
         <div class="wkd__planner">
-          <h3 class="wkd__h3">Weekend getaway planner</h3>
-          <div class="wkd__table-wrap">
-            <table class="wkd__table">
-              <thead>
-                <tr>
-                  <th scope="col">Trip</th>
-                  <th scope="col">Getting there</th>
-                  <th scope="col">Length</th>
-                  <th scope="col">Best time</th>
-                  <th scope="col">From</th>
-                </tr>
-              </thead>
-              <tbody>
-                {rows.map((r) => (
-                  <tr>
-                    <th scope="row">
-                      <a href={r.trip.url}>{r.trip.data.title}</a>
-                    </th>
-                    <td>{r.travel}</td>
-                    <td>{r.duration}</td>
-                    <td>{r.best || '—'}</td>
-                    <td class="num">{r.from != null ? inr(r.from) : 'On request'}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+          <PlannerTable trips={trips} title="Weekend getaway planner" headingLevel="h3" />
         </div>
 
         <div class="wkd__cta">
@@ -124,48 +88,6 @@ const rows = trips.map((t) => {
   }
   .wkd__planner {
     margin-top: var(--s-10);
-  }
-  .wkd__h3 {
-    margin-bottom: var(--s-3);
-    font-size: var(--fs-h3);
-  }
-  .wkd__table-wrap {
-    overflow-x: auto;
-    border: 1px solid var(--line);
-    border-radius: var(--r-lg);
-    background: var(--surface);
-  }
-  .wkd__table {
-    width: 100%;
-    min-width: 560px;
-    border-collapse: collapse;
-    font-size: 0.875rem;
-  }
-  .wkd__table th,
-  .wkd__table td {
-    padding: 12px 14px;
-    border-bottom: 1px solid var(--line);
-    text-align: left;
-    white-space: nowrap;
-  }
-  .wkd__table thead th {
-    background: var(--surface-2);
-    font-size: 0.6875rem;
-    font-weight: 600;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--text-2);
-  }
-  .wkd__table tbody tr:last-child > * {
-    border-bottom: 0;
-  }
-  .wkd__table tbody th a {
-    font-weight: 600;
-    text-decoration: none;
-  }
-  .wkd__table tbody th a:hover {
-    text-decoration: underline;
-    text-underline-offset: 3px;
   }
   .wkd__cta {
     margin-top: var(--s-6);

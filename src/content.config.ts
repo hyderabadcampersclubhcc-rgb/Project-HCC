@@ -300,6 +300,7 @@ const guides = defineCollection({
       faqs: z.array(faq).default([]),
       primaryKeyword: z.string().optional(),
       draft: z.boolean().default(true),
+      sample: z.boolean().default(false),
       seo,
     }),
 });
@@ -324,7 +325,10 @@ const landings = defineCollection({
     activeFrom: z.coerce.date().optional(),
     activeUntil: z.coerce.date().optional(),
     primaryKeyword: z.string().optional(),
+    /** Other category pages to cross-link (by path), e.g. ['/camping/', '/treks/']. */
+    related: z.array(z.string()).default([]),
     seo,
+    sample: z.boolean().default(false),
   }),
 });
 

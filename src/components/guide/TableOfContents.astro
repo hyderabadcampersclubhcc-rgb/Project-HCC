@@ -30,8 +30,8 @@ const items = Astro.props.headings.filter((h) => h.depth === 2 || h.depth === 3)
 }
 
 <script>
-  const toc = document.querySelector<HTMLElement>('[data-toc]');
-  if (toc) {
+  // A page may render the TOC twice (collapsible on phones, sticky sidebar on desktop).
+  document.querySelectorAll<HTMLElement>('[data-toc]').forEach((toc) => {
     if (window.matchMedia('(max-width: 1023.98px)').matches) toc.querySelector('details')?.removeAttribute('open');
     const links = [...toc.querySelectorAll<HTMLAnchorElement>('[data-toc-link]')];
     const io = new IntersectionObserver(
@@ -46,7 +46,7 @@ const items = Astro.props.headings.filter((h) => h.depth === 2 || h.depth === 3)
       const el = document.getElementById(l.dataset.tocLink!);
       if (el) io.observe(el);
     });
-  }
+  });
 </script>
 
 <style>

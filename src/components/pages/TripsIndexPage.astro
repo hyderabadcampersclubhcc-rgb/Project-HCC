@@ -1,0 +1,101 @@
+---
+/**
+ * /trips/: the full catalogue. Owns the broad "group trips from Hyderabad" search; every
+ * trip type links down to its own category page (which owns the narrower searches).
+ */
+import PageIntro from '@/components/listing/PageIntro.astro';
+import TripListing from '@/components/listing/TripListing.astro';
+import WhatsAppBand from '@/components/cta/WhatsAppBand.astro';
+import SectionNote from '@/components/home/SectionNote.astro';
+import Icon from '@/components/ui/Icon.astro';
+import { getTrips, getUpcoming } from '@/lib/catalog';
+import { inr } from '@/lib/format';
+import { TRIP_TYPE_LINKS } from '@/data/navigation';
+
+interface Props {
+  catalog?: { samples?: boolean; today?: string };
+  preview?: boolean;
+}
+
+const { catalog = {}, preview = false } = Astro.props;
+const trips = await getTrips(catalog);
+const departures = await getUpcoming(catalog);
+const prices = trips.map((t) => t.primary.fromPrice).filter((p): p is number => p != null);
+const facts = [
+  trips.length ? `${trips.length} trips` : '',
+  departures.length ? `${departures.length} upcoming departures` : '',
+  prices.length ? `From ${inr(Math.min(...prices))}` : '',
+].filter(Boolean);
+const types = TRIP_TYPE_LINKS.filter((t) => t.type === 'custom' || trips.some((x) => (x.data.tripTypes as string[]).includes(t.type)));
+---
+
+<div class="container">
+  {preview && <SectionNote n={1} title="Title + browse by type" purpose="Owns the broad search 'group trips from Hyderabad'. Type links send people (and Google) to the category pages that own narrower searches." data="Counts and from-price computed from live trips. Type links only for types that have trips." />}
+  <PageIntro
+    title="Group Trips from Hyderabad"
+    intro="Weekend getaways, treks, camping and longer trips, all leaving from Hyderabad. Every trip lists its dates, price, travel and stays upfront."
+    crumbs={[{ label: 'Trips' }]}
+    facts={facts}
+  >
+    <nav class="ti__types" aria-label="Browse by trip type">
+      {
+        types.map((t) => (
+          <a class="ti__type" href={t.href}>
+            <Icon name={t.icon} /> {t.label}
+          </a>
+        ))
+      }
+    </nav>
+  </PageIntro>
+
+  {preview && <SectionNote n={2} title="Filters, sort and results" purpose="Find the right trip fast on a phone: the two filters people use most (When, Style) as chips; everything else in one 'Filters' sheet. Results update instantly and the URL updates too, so a filtered view can be shared or used in an ad." data="Filter options are generated from the trips: a filter that would return nothing is never shown. The homepage trip finder lands here pre-filtered (?q=&month=&style=)." cta="Each card → trip page. 'Compare' on any card adds it to the compare tray (up to 3)." />}
+  <TripListing trips={trips} listName="all_trips" today={catalog.today} />
+
+  <div class="ti__band">
+    <WhatsAppBand location="trips_index" title="Didn't find the right trip?" text="Tell us your dates, group size and budget. We'll suggest a trip or build a custom one." headingLevel="h2" />
+  </div>
+</div>
+
+<style>
+  .ti__types {
+    display: flex;
+    gap: var(--s-2);
+    margin: var(--s-2) calc(-1 * var(--gutter)) 0;
+    padding: 0 var(--gutter) 4px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .ti__types::-webkit-scrollbar {
+    display: none;
+  }
+  .ti__type {
+    display: inline-flex;
+    flex: none;
+    align-items: center;
+    gap: 6px;
+    min-height: 40px;
+    padding: 0 14px;
+    border-radius: var(--r-md);
+    background: var(--surface);
+    border: 1px solid var(--line);
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-decoration: none;
+  }
+  .ti__type:hover {
+    border-color: var(--ink-400);
+  }
+  .ti__type :global(.icon) {
+    color: var(--forest-500);
+  }
+  .ti__band {
+    padding-block: var(--s-12);
+  }
+  @media (min-width: 1024px) {
+    .ti__types {
+      flex-wrap: wrap;
+      margin-inline: 0;
+      padding-inline: 0;
+    }
+  }
+</style>

@@ -40,6 +40,15 @@ const { n, title, purpose, data, empty, cta, status = 'ready' } = Astro.props;
   :global(body[data-notes='off']) .pnote {
     display: none;
   }
+  /* Inside a page's content column: a contained card instead of a full-width band */
+  :global(.container) .pnote {
+    margin-block: var(--s-3);
+    border: 1.5px dashed var(--marigold-500);
+    border-radius: var(--r-md);
+  }
+  :global(.container) .pnote .container {
+    padding-inline: var(--s-3);
+  }
   .pnote__head {
     display: flex;
     flex-wrap: wrap;

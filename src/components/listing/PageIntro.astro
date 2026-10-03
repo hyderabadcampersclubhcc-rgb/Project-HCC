@@ -1,0 +1,65 @@
+---
+/** Title block for listing/category pages: breadcrumbs, the page's H1, intro and a facts line. */
+import Breadcrumbs from '@/components/content/Breadcrumbs.astro';
+
+interface Props {
+  title: string;
+  intro?: string;
+  crumbs: { label: string; href?: string }[];
+  facts?: string[];
+  overline?: string;
+}
+
+const { title, intro, crumbs, facts = [], overline } = Astro.props;
+---
+
+<header class="pintro">
+  <Breadcrumbs items={crumbs} />
+  {overline && <p class="overline">{overline}</p>}
+  <h1 class="pintro__title">{title}</h1>
+  {intro && <p class="pintro__intro">{intro}</p>}
+  {
+    facts.length > 0 && (
+      <ul class="pintro__facts">
+        {facts.map((f) => (
+          <li>{f}</li>
+        ))}
+      </ul>
+    )
+  }
+  <slot />
+</header>
+
+<style>
+  .pintro {
+    display: grid;
+    gap: var(--s-3);
+    padding-block: var(--s-6) var(--s-5);
+  }
+  .pintro__title {
+    font-size: var(--fs-h1);
+    line-height: 1.08;
+    max-width: 20ch;
+  }
+  .pintro__intro {
+    max-width: 62ch;
+    font-size: var(--fs-lg);
+    color: var(--ink-700);
+  }
+  .pintro__facts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .pintro__facts li {
+    padding: 6px 12px;
+    border-radius: var(--r-pill);
+    background: var(--surface);
+    border: 1px solid var(--line);
+    font-size: 0.8125rem;
+    font-weight: 600;
+  }
+</style>

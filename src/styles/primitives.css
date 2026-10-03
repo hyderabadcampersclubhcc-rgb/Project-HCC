@@ -702,3 +702,86 @@ select.input {
 .note--alert .icon {
   color: var(--alert);
 }
+
+/* ---------- Prose (CMS-authored markdown: guides, category & destination copy) ---------- */
+.prose {
+  max-width: 70ch;
+  color: var(--ink-700);
+  font-size: 1.0625rem;
+  line-height: 1.7;
+}
+.prose > * + * {
+  margin-top: 1em;
+}
+.prose h2 {
+  margin-top: 2em;
+  font-size: var(--fs-h2);
+  line-height: 1.15;
+  color: var(--ink-900);
+  scroll-margin-top: calc(var(--header-h) + 24px);
+}
+.prose h3 {
+  margin-top: 1.6em;
+  font-size: var(--fs-h3);
+  color: var(--ink-900);
+  scroll-margin-top: calc(var(--header-h) + 24px);
+}
+.prose h2 + *,
+.prose h3 + * {
+  margin-top: 0.6em;
+}
+.prose a {
+  color: var(--link);
+  font-weight: 600;
+  text-underline-offset: 3px;
+}
+.prose strong {
+  color: var(--ink-900);
+}
+.prose ul,
+.prose ol {
+  padding-left: 1.3em;
+}
+.prose li + li {
+  margin-top: 0.35em;
+}
+.prose li::marker {
+  color: var(--forest-500);
+}
+.prose blockquote {
+  margin-inline: 0;
+  padding: var(--s-3) var(--s-5);
+  border-left: 4px solid var(--forest-500);
+  background: var(--surface);
+  border-radius: 0 var(--r-md) var(--r-md) 0;
+  font-style: italic;
+}
+.prose img {
+  border-radius: var(--r-lg);
+}
+.prose table {
+  display: block;
+  width: 100%;
+  overflow-x: auto;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+.prose th,
+.prose td {
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--line);
+  text-align: left;
+  white-space: nowrap;
+}
+.prose th {
+  background: var(--surface-2);
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-2);
+}
+.prose hr {
+  border: 0;
+  border-top: 1px dashed var(--line-strong);
+  margin-block: 2em;
+}

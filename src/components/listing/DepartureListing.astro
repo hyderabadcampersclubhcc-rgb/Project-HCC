@@ -1,0 +1,172 @@
+---
+/**
+ * All upcoming departures grouped by month (/upcoming-trips/). Shares the listing script
+ * with TripListing: When / Style / City chips filter in place; empty months collapse.
+ */
+import DepartureCard from '@/components/trip/DepartureCard.astro';
+import WhatsAppBand from '@/components/cta/WhatsAppBand.astro';
+import type { UpcomingItem } from '@/lib/catalog';
+import { monthLong } from '@/lib/format';
+
+interface Props {
+  items: UpcomingItem[];
+  today?: string;
+}
+
+const { items, today } = Astro.props;
+const STYLE_LABEL: Record<string, string> = { weekend: 'Weekend', trek: 'Treks', camping: 'Camping', backpacking: 'Backpacking', long: 'Long trips', couple: 'Couples', family: 'Family', corporate: 'Corporate' };
+
+const months = [...new Set(items.map((i) => i.departure.start.slice(0, 7)))];
+const byMonth = months.map((m) => ({ month: m, items: items.filter((i) => i.departure.start.startsWith(m)) }));
+const styles = [...new Set(items.flatMap((i) => i.trip.data.tripTypes))].filter((s) => STYLE_LABEL[s]);
+const origins = [...new Map(items.map((i) => [i.origin.city, i.origin.label])).entries()];
+
+const attrs = (i: UpcomingItem) => ({
+  'data-item': i.departure.id,
+  'data-dates': i.departure.start,
+  'data-months': i.departure.start.slice(0, 7),
+  'data-start': i.departure.start,
+  'data-style': i.trip.data.tripTypes.join(' '),
+  'data-origin': i.origin.city,
+  'data-price': String(i.departure.price),
+  'data-text': [i.trip.data.title, ...i.trip.destinationNames].join(' ').toLowerCase(),
+});
+---
+
+<div class="dl" data-listing="upcoming" data-today={today} data-noun="departure">
+  {
+    items.length > 0 ? (
+      <>
+        <div class="dl__bar">
+          <div class="chips" role="toolbar" aria-label="Filter departures">
+            <button type="button" class="chip" aria-pressed="false" data-f-key="month" data-f-value="this-weekend" hidden>
+              This weekend
+            </button>
+            <button type="button" class="chip" aria-pressed="false" data-f-key="month" data-f-value="next-weekend" hidden>
+              Next weekend
+            </button>
+            {months.map((m) => (
+              <button type="button" class="chip" aria-pressed="false" data-f-key="month" data-f-value={m}>
+                {monthLong(m).split(' ')[0]}
+              </button>
+            ))}
+            {styles.length > 1 &&
+              styles.map((s) => (
+                <button type="button" class="chip" aria-pressed="false" data-f-key="style" data-f-value={s}>
+                  {STYLE_LABEL[s]}
+                </button>
+              ))}
+            {origins.length > 1 &&
+              origins.map(([city, label]) => (
+                <button type="button" class="chip" aria-pressed="false" data-f-key="origin" data-f-value={city}>
+                  From {label}
+                </button>
+              ))}
+          </div>
+          <p class="dl__result" aria-live="polite" data-result>
+            {items.length} departures
+          </p>
+        </div>
+
+        <div data-items>
+          {byMonth.map((g) => (
+            <section class="dl__month" data-group aria-labelledby={`m-${g.month}`}>
+              <h2 id={`m-${g.month}`} class="dl__mh">
+                {monthLong(g.month)}
+              </h2>
+              <ul class="dl__grid">
+                {g.items.map((i, n) => (
+                  <li {...attrs(i)}>
+                    <DepartureCard item={i} index={n} listName="upcoming_page" />
+                  </li>
+                ))}
+              </ul>
+            </section>
+          ))}
+        </div>
+
+        <div class="dl__empty" data-empty hidden>
+          <p>No departures match. Try another month.</p>
+          <button type="button" class="btn btn--secondary" data-clear>
+            Show all dates
+          </button>
+        </div>
+      </>
+    ) : (
+      <WhatsAppBand
+        location="upcoming_empty"
+        title="New dates are being planned"
+        text="Message us and we'll tell you about the next departures first, or plan a custom trip."
+        headingLevel="h2"
+      />
+    )
+  }
+</div>
+
+<script>
+  import { initListings } from '@/scripts/listing';
+  initListings();
+</script>
+
+<style>
+  .dl__bar {
+    position: sticky;
+    top: var(--header-h);
+    z-index: 15;
+    display: grid;
+    gap: 6px;
+    margin: 0 calc(-1 * var(--gutter)) var(--s-4);
+    padding: 10px var(--gutter);
+    background: color-mix(in srgb, var(--bg) 94%, transparent);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--line);
+  }
+  .dl__bar .chips {
+    margin-inline: calc(-1 * var(--gutter));
+    padding-inline: var(--gutter);
+  }
+  .dl__result {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--text-2);
+  }
+  .dl__month + .dl__month {
+    margin-top: var(--s-8);
+  }
+  .dl__mh {
+    margin-bottom: var(--s-3);
+    font-size: var(--fs-h3);
+  }
+  .dl__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr));
+    gap: var(--s-3);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .dl__grid > li {
+    display: flex;
+  }
+  .dl__grid > li > :global(*) {
+    flex: 1;
+  }
+  .dl__empty {
+    display: grid;
+    justify-items: start;
+    gap: var(--s-3);
+    padding: var(--s-6);
+    border: 1.5px dashed var(--line-strong);
+    border-radius: var(--r-lg);
+  }
+  @media (min-width: 1024px) {
+    .dl__bar {
+      margin-inline: 0;
+      padding-inline: 0;
+    }
+    .dl__bar .chips {
+      margin-inline: 0;
+      padding-inline: 0;
+    }
+  }
+</style>

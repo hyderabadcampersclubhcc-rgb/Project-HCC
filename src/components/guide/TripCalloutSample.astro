@@ -1,0 +1,13 @@
+---
+/** Preview-only wrapper: renders TripCallout against sample data (used by /preview/guide/). */
+import TripCallout from './TripCallout.astro';
+
+interface Props {
+  trip: string;
+  note?: string;
+}
+
+const { trip, note } = Astro.props;
+---
+
+<TripCallout trip={trip} note={note} catalog={{ samples: true, today: '2026-10-03' }} />
