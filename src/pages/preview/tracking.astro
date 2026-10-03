@@ -1,0 +1,190 @@
+---
+/** Approval preview: Phase 6 consent banner, privacy dialog and tracking plan. noindex. */
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import ConsentBanner from '@/components/consent/ConsentBanner.astro';
+
+type Row = { action: string; ga4: string; ads: string; meta: string; status?: 'new' };
+
+const CONVERSIONS: Row[] = [
+  { action: 'Enquiry sent (confirmed by our server)', ga4: 'generate_lead ★', ads: 'Enquiry (primary)', meta: 'Lead · browser + server' },
+  { action: 'WhatsApp button tapped', ga4: 'click_whatsapp ★', ads: 'WhatsApp click (secondary)', meta: 'Contact' },
+  { action: 'Phone number tapped', ga4: 'click_call ★', ads: 'Call click (secondary)', meta: 'Contact' },
+];
+
+const FUNNEL: Row[] = [
+  { action: 'Trip page viewed', ga4: 'view_item', ads: 'Remarketing', meta: 'ViewContent', status: 'new' },
+  { action: 'Trip list / category viewed', ga4: 'view_item_list', ads: 'Remarketing', meta: '—', status: 'new' },
+  { action: 'Trip card tapped', ga4: 'select_item', ads: '—', meta: '—' },
+  { action: 'Date picked', ga4: 'select_departure', ads: '—', meta: '—' },
+  { action: '"Book" / "Enquire" tapped', ga4: 'begin_checkout', ads: 'Remarketing', meta: 'InitiateCheckout' },
+  { action: 'Enquiry form opened → started → error', ga4: 'view_enquiry_sheet, form_start, form_error', ads: '—', meta: '—' },
+  { action: 'Itinerary requested', ga4: 'get_itinerary_click', ads: '—', meta: '—' },
+  { action: 'Search, filters, compare', ga4: 'search, filter_trips, compare_trips', ads: '—', meta: '—' },
+];
+
+const AUDIENCES = [
+  ['Viewed a trip, didn’t enquire', '30 days', 'Show that trip’s next dates'],
+  ['Opened the enquiry form, didn’t send', '14 days', 'Reminder with WhatsApp option'],
+  ['Sent an enquiry', '180 days', 'Excluded from acquisition ads; later used for repeat-trip ads'],
+  ['All visitors', '90 days', 'Seasonal campaigns (monsoon treks, Himalaya)'],
+];
+---
+
+<BaseLayout title="PREVIEW · Cookie consent & tracking | HCC" rawTitle description="Phase 6 approval preview" noindex>
+  <div class="container pv">
+    <p class="overline">Phase 6 · for approval</p>
+    <h1>Cookie consent &amp; tracking</h1>
+    <p class="pv__lead">
+      The banner at the bottom is the real one: try every button. On the live site it appears once per visitor and comes back after 180 days.
+      Here it always stays visible so you can review it.
+    </p>
+    <p><button type="button" class="btn btn--secondary btn--sm" data-consent-open>Open “Privacy choices”</button></p>
+
+    <section>
+      <h2>1. How consent works</h2>
+      <ul class="pv__ul">
+        <li><b>Before a choice:</b> nothing is stored for analytics or ads. Google gets cookieless, anonymous pings only (Google Consent Mode v2), so reports stay roughly complete.</li>
+        <li><b>“Accept all”</b> and <b>“Only necessary”</b> are the same size: no tricks to push people to accept (in line with India’s DPDP Act and Google’s consent rules).</li>
+        <li><b>Meta Pixel</b> loads only after Advertising is allowed.</li>
+        <li><b>Enquiries and WhatsApp always work</b>, whatever is chosen. The lead always reaches your Google Sheet.</li>
+        <li>A <b>“Privacy choices”</b> link is added to the footer so anyone can change their mind.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>2. What counts as a conversion</h2>
+      <p class="pv__note">★ = marked as a key event in Google Analytics. These are what Google Ads and Meta optimise for.</p>
+      <div class="pv__table">
+        <table>
+          <thead><tr><th>Visitor does</th><th>Google Analytics</th><th>Google Ads</th><th>Meta</th></tr></thead>
+          <tbody>
+            {CONVERSIONS.map((r) => <tr><td>{r.action}</td><td><code>{r.ga4}</code></td><td>{r.ads}</td><td>{r.meta}</td></tr>)}
+          </tbody>
+        </table>
+      </div>
+      <p class="pv__note">
+        <b>Enquiry from an Instagram/Facebook ad:</b> our server also tells Meta directly (Conversions API), with a shared ID so it isn’t counted twice. This
+        catches leads that ad blockers and iPhone privacy would otherwise hide. Phone/email are only sent to Meta scrambled (hashed), and only if the visitor
+        allowed Advertising.
+      </p>
+    </section>
+
+    <section>
+      <h2>3. Funnel steps (for reports, not optimisation)</h2>
+      <div class="pv__table">
+        <table>
+          <thead><tr><th>Visitor does</th><th>Google Analytics</th><th>Google Ads</th><th>Meta</th></tr></thead>
+          <tbody>
+            {
+              FUNNEL.map((r) => (
+                <tr>
+                  <td>
+                    {r.action}
+                    {r.status === 'new' && <span class="pv__new">new</span>}
+                  </td>
+                  <td><code>{r.ga4}</code></td>
+                  <td>{r.ads}</td>
+                  <td>{r.meta}</td>
+                </tr>
+              ))
+            }
+          </tbody>
+        </table>
+      </div>
+      <p class="pv__note">Every event also carries the trip, date, price and the ad/UTM source the visitor first came from. Names and phone numbers are never sent to Google.</p>
+    </section>
+
+    <section>
+      <h2>4. Remarketing audiences</h2>
+      <div class="pv__table">
+        <table>
+          <thead><tr><th>Audience</th><th>Kept for</th><th>Used for</th></tr></thead>
+          <tbody>{AUDIENCES.map(([a, d, u]) => <tr><td>{a}</td><td>{d}</td><td>{u}</td></tr>)}</tbody>
+        </table>
+      </div>
+      <p class="pv__note">Only visitors who allowed Advertising join these lists.</p>
+    </section>
+
+    <section>
+      <h2>5. What HCC needs to provide (later is fine)</h2>
+      <ul class="pv__ul">
+        <li>Google Tag Manager container ID <code>GTM-…</code></li>
+        <li>Google Analytics measurement ID <code>G-…</code></li>
+        <li>Google Ads conversion ID + labels (only if you run Google Ads)</li>
+        <li>Meta Pixel ID + Conversions API token (token goes into the server file, never into the CMS)</li>
+      </ul>
+      <p class="pv__note">Until an ID is entered in CMS → Site settings, that tool simply stays off. Nothing breaks.</p>
+    </section>
+  </div>
+
+  <ConsentBanner forceOpen />
+</BaseLayout>
+
+<style>
+  .pv {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--s-6);
+    max-width: 860px;
+    padding-block: var(--s-6) 260px;
+  }
+  .pv h1 {
+    margin-top: -16px;
+  }
+  .pv h2 {
+    margin-bottom: var(--s-3);
+    font-size: 1.25rem;
+  }
+  .pv__lead {
+    color: var(--text-2);
+  }
+  .pv__ul {
+    display: grid;
+    gap: 8px;
+    padding-left: 1.2em;
+    font-size: 0.9375rem;
+  }
+  .pv__note {
+    margin-top: var(--s-2);
+    font-size: 0.8125rem;
+    color: var(--text-2);
+  }
+  .pv__table {
+    overflow-x: auto;
+    border: 1px solid var(--line);
+    border-radius: var(--r-md);
+  }
+  .pv table {
+    width: 100%;
+    min-width: 560px;
+    border-collapse: collapse;
+    font-size: 0.8125rem;
+  }
+  .pv th,
+  .pv td {
+    padding: 10px 12px;
+    text-align: left;
+    vertical-align: top;
+    border-bottom: 1px solid var(--line);
+  }
+  .pv th {
+    background: var(--surface-2);
+    font-weight: 600;
+  }
+  .pv tr:last-child td {
+    border-bottom: 0;
+  }
+  .pv code {
+    font-size: 0.75rem;
+    word-break: break-word;
+  }
+  .pv__new {
+    margin-left: 6px;
+    padding: 1px 6px;
+    border-radius: var(--r-pill);
+    background: var(--alert-bg);
+    color: var(--alert);
+    font-size: 0.6875rem;
+    font-weight: 600;
+  }
+</style>

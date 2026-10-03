@@ -1,0 +1,270 @@
+---
+/**
+ * Cookie consent: a compact bottom banner plus a "Privacy choices" dialog.
+ * Google Consent Mode v2: everything starts denied; choices update consent and are
+ * remembered for 180 days. Enquiries and WhatsApp work whatever the visitor picks.
+ * `forceOpen` is for the /preview/ page only.
+ */
+import Icon from '@/components/ui/Icon.astro';
+
+interface Props {
+  forceOpen?: boolean;
+}
+
+const { forceOpen = false } = Astro.props;
+---
+
+<section class="cb" aria-label="Cookie choices" data-consent-banner data-force={forceOpen ? '' : undefined} hidden>
+  <div class="cb__in">
+    <p class="cb__txt">
+      <b>Cookies, briefly.</b> We'd like to measure which trips people view and which ads bring enquiries. Booking, enquiries and WhatsApp work
+      either way. <a href="/privacy-policy/">Privacy policy</a>
+    </p>
+    <div class="cb__acts">
+      <button type="button" class="btn btn--secondary btn--sm" data-consent="necessary">Only necessary</button>
+      <button type="button" class="btn btn--primary btn--sm" data-consent="all">Accept all</button>
+      <button type="button" class="cb__more" data-consent-open>Choose</button>
+    </div>
+  </div>
+</section>
+
+<dialog class="cd" aria-labelledby="cd-title" data-consent-dialog>
+  <form method="dialog" class="cd__in">
+    <header class="cd__head">
+      <h2 id="cd-title">Privacy choices</h2>
+      <button type="submit" class="cd__x" value="close" aria-label="Close"><Icon name="x" /></button>
+    </header>
+    <p class="cd__lead">Pick what HCC may use on this device. You can change this any time from "Privacy choices" in the footer.</p>
+
+    <ul class="cd__list">
+      <li>
+        <div>
+          <b>Necessary</b>
+          <p>Keeps the site working: your compare list, form drafts and which ad or link brought you here (so we can answer your enquiry properly).</p>
+        </div>
+        <span class="cd__always">Always on</span>
+      </li>
+      <li>
+        <label for="cd-analytics">
+          <b>Analytics</b>
+          <p>Google Analytics: which pages and trips are viewed, so we can improve them. No names or phone numbers are ever sent.</p>
+        </label>
+        <input type="checkbox" class="cd__sw" id="cd-analytics" name="analytics" role="switch" />
+      </li>
+      <li>
+        <label for="cd-ads">
+          <b>Advertising</b>
+          <p>Google Ads and Meta (Instagram/Facebook): tells us which ads lead to enquiries and lets us show trips to past visitors.</p>
+        </label>
+        <input type="checkbox" class="cd__sw" id="cd-ads" name="ads" role="switch" />
+      </li>
+    </ul>
+
+    <footer class="cd__acts">
+      <button type="button" class="btn btn--secondary" data-consent="save">Save choices</button>
+      <button type="button" class="btn btn--primary" data-consent="all">Accept all</button>
+    </footer>
+  </form>
+</dialog>
+
+<script>
+  import { initConsent } from '@/scripts/consent';
+  initConsent();
+</script>
+
+<style>
+  .cb {
+    position: fixed;
+    inset-inline: var(--s-3);
+    bottom: calc(var(--mobile-bar-h) + env(safe-area-inset-bottom) + var(--s-3));
+    z-index: 45;
+    max-width: 720px;
+    margin-inline: auto;
+    padding: var(--s-4);
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--r-lg);
+    box-shadow: 0 12px 40px rgb(10 36 28 / 0.18);
+    animation: cb-in 0.25s var(--ease) both;
+  }
+  :global(body:not(.has-mobile-bar)) .cb {
+    bottom: calc(env(safe-area-inset-bottom) + var(--s-3));
+  }
+  @keyframes cb-in {
+    from {
+      transform: translateY(12px);
+      opacity: 0;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .cb {
+      animation: none;
+    }
+  }
+  .cb__in {
+    display: grid;
+    gap: var(--s-3);
+  }
+  .cb__txt {
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: var(--text-2);
+  }
+  .cb__txt b {
+    color: var(--text);
+  }
+  .cb__acts {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--s-2);
+  }
+  .cb__more {
+    grid-column: 1 / -1;
+    justify-self: center;
+    padding: 6px 10px;
+    background: none;
+    border: 0;
+    font: inherit;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--text-2);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    cursor: pointer;
+  }
+  @media (min-width: 768px) {
+    .cb {
+      bottom: var(--s-4);
+    }
+    .cb__in {
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: var(--s-4);
+    }
+    .cb__acts {
+      grid-template-columns: auto auto auto;
+      align-items: center;
+    }
+    .cb__more {
+      grid-column: auto;
+      order: -1;
+    }
+  }
+
+  .cd {
+    width: min(560px, calc(100% - 2 * var(--s-3)));
+    max-height: calc(100dvh - 2 * var(--s-4));
+    padding: 0;
+    border: 0;
+    border-radius: var(--r-lg);
+    background: var(--surface);
+    color: var(--text);
+    box-shadow: 0 24px 64px rgb(10 36 28 / 0.3);
+  }
+  .cd::backdrop {
+    background: rgb(10 36 28 / 0.55);
+  }
+  .cd__in {
+    display: grid;
+    gap: var(--s-4);
+    padding: var(--s-5);
+  }
+  .cd__head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .cd__head h2 {
+    font-size: 1.375rem;
+  }
+  .cd__x {
+    display: grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    margin-right: -8px;
+    border: 0;
+    border-radius: 50%;
+    background: none;
+    color: inherit;
+    cursor: pointer;
+  }
+  .cd__lead {
+    font-size: 0.875rem;
+    color: var(--text-2);
+  }
+  .cd__list {
+    display: grid;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    border: 1px solid var(--line);
+    border-radius: var(--r-md);
+  }
+  .cd__list li {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: var(--s-4);
+    padding: var(--s-4);
+  }
+  .cd__list li + li {
+    border-top: 1px solid var(--line);
+  }
+  .cd__list label {
+    cursor: pointer;
+  }
+  .cd__list b {
+    font-size: 0.9375rem;
+  }
+  .cd__list p {
+    margin-top: 2px;
+    font-size: 0.8125rem;
+    color: var(--text-2);
+  }
+  .cd__always {
+    flex: none;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--forest-700);
+  }
+  .cd__sw {
+    flex: none;
+    appearance: none;
+    position: relative;
+    width: 44px;
+    height: 26px;
+    margin: 0;
+    border-radius: 13px;
+    background: var(--ink-400);
+    cursor: pointer;
+    transition: background var(--t-fast);
+  }
+  .cd__sw::after {
+    content: '';
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #fff;
+    box-shadow: 0 1px 3px rgb(0 0 0 / 0.25);
+    transition: transform var(--t-fast);
+  }
+  .cd__sw:checked {
+    background: var(--forest-500);
+  }
+  .cd__sw:checked::after {
+    transform: translateX(18px);
+  }
+  .cd__sw:focus-visible {
+    outline: 2px solid var(--marigold-500);
+    outline-offset: 2px;
+  }
+  .cd__acts {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--s-2);
+  }
+</style>
