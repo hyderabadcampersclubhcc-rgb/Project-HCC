@@ -1,0 +1,71 @@
+---
+/**
+ * Simple CMS pages (about, faq, policies). Draft pages still render so links and old-URL
+ * redirects work, but show a short "being updated" notice instead of unapproved copy.
+ */
+import { render, type CollectionEntry } from 'astro:content';
+import PageIntro from '@/components/listing/PageIntro.astro';
+import FAQ from '@/components/content/FAQ.astro';
+import WhatsAppBand from '@/components/cta/WhatsAppBand.astro';
+import Icon from '@/components/ui/Icon.astro';
+import { isoDate } from '@/lib/format';
+
+interface Props {
+  page: CollectionEntry<'pages'>;
+}
+
+const { page } = Astro.props;
+const p = page.data;
+const { Content } = await render(page);
+const fmt = (d: Date) => new Intl.DateTimeFormat('en-IN', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' }).format(d);
+---
+
+<div class="container sp">
+  <PageIntro title={p.title} intro={p.intro} crumbs={[{ label: p.title }]} />
+  {
+    p.draft ? (
+      <p class="note sp__draft">
+        <Icon name="info" />
+        <span>
+          This page is being updated. For anything you need right now, <a href="/contact/">contact the HCC team</a>.
+        </span>
+      </p>
+    ) : (
+      <>
+        {p.updatedAt && (
+          <p class="sp__updated">
+            Last updated <time datetime={isoDate(p.updatedAt)}>{fmt(p.updatedAt)}</time>
+          </p>
+        )}
+        <article class="prose sp__body">
+          <Content />
+        </article>
+        {p.faqs.length > 0 && <FAQ items={p.faqs} />}
+      </>
+    )
+  }
+  <div class="sp__band">
+    <WhatsAppBand location={`page_${page.id}`} title="Questions? Talk to us." text="A real person from the HCC team will reply." headingLevel="h2" />
+  </div>
+</div>
+
+<style>
+  .sp {
+    display: grid;
+    gap: var(--s-6);
+  }
+  .sp__draft {
+    max-width: 640px;
+  }
+  .sp__draft a {
+    color: var(--link);
+    font-weight: 600;
+  }
+  .sp__updated {
+    font-size: 0.875rem;
+    color: var(--text-2);
+  }
+  .sp__band {
+    padding-block: var(--s-8) var(--s-12);
+  }
+</style>

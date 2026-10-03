@@ -1,0 +1,43 @@
+---
+/**
+ * Category pages from the "landings" collection (/weekend-trips-from-hyderabad/, /treks/, …).
+ * Indexed only with ≥3 trips and real guidance copy (src/lib/indexing.ts).
+ */
+import type { GetStaticPaths } from 'astro';
+import { getCollection, type CollectionEntry } from 'astro:content';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import CategoryPage from '@/components/pages/CategoryPage.astro';
+import { getTripsForRule } from '@/lib/catalog';
+import { categoryIndexable } from '@/lib/indexing';
+
+export const getStaticPaths = (async () => {
+  const showSamples = import.meta.env.PUBLIC_SHOW_SAMPLES === 'true';
+  const landings = await getCollection('landings', (l) => showSamples || !l.data.sample);
+  return landings.map((landing) => ({ params: { landing: landing.data.path.replace(/^\/|\/$/g, '') }, props: { landing } }));
+}) satisfies GetStaticPaths;
+
+interface Props {
+  landing: CollectionEntry<'landings'>;
+}
+
+const { landing } = Astro.props;
+const l = landing.data;
+const trips = await getTripsForRule(l.rule);
+const indexable = categoryIndexable({ tripCount: trips.length, body: landing.body, activeFrom: l.activeFrom, activeUntil: l.activeUntil });
+const itemList = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  name: l.title,
+  itemListElement: trips.map((t, i) => ({ '@type': 'ListItem', position: i + 1, url: new URL(t.url, Astro.site).href, name: t.data.title })),
+};
+---
+
+<BaseLayout
+  title={l.seo.title ?? `${l.title} | HCC`}
+  rawTitle
+  description={l.seo.description ?? l.intro.slice(0, 160)}
+  noindex={!indexable}
+  jsonLd={trips.length ? itemList : undefined}
+>
+  <CategoryPage landing={landing} />
+</BaseLayout>

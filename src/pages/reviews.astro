@@ -1,0 +1,28 @@
+---
+/** /reviews/: genuine traveller reviews only. Indexed once there are at least 3. */
+import { getCollection } from 'astro:content';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageIntro from '@/components/listing/PageIntro.astro';
+import Reviews from '@/components/trust/Reviews.astro';
+import WhatsAppBand from '@/components/cta/WhatsAppBand.astro';
+import { settings } from '@/lib/settings';
+
+const count = (await getCollection('reviews')).length;
+const google = settings.social.googleBusiness;
+---
+
+<BaseLayout title="HCC Reviews: What Our Travellers Say" description="Genuine reviews from travellers on HCC group trips from Hyderabad, with links to the original reviews." noindex={count < 3}>
+  <div class="container rv">
+    <PageIntro title="Traveller Reviews" intro="What travellers say about HCC trips, in their own words." crumbs={[{ label: 'Reviews' }]} />
+    {count > 0 ? <Reviews title="" limit={60} min={1} /> : google ? <Reviews title="" min={1} reviews={[]} /> : <p class="muted">Reviews are being collected from our travellers.</p>}
+    <div class="rv__band">
+      <WhatsAppBand location="reviews_page" title="Travelled with us?" text="We'd love to hear how it went. Share your experience with the team on WhatsApp." headingLevel="h2" />
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .rv__band {
+    padding-block: var(--s-12);
+  }
+</style>

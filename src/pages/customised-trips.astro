@@ -1,0 +1,81 @@
+---
+/** /customised-trips/: enquiry-led page for groups, families, couples and companies. */
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageIntro from '@/components/listing/PageIntro.astro';
+import CustomTripSection from '@/components/home/CustomTripSection.astro';
+import HowItWorks from '@/components/home/HowItWorks.astro';
+import Icon from '@/components/ui/Icon.astro';
+
+const FOR = [
+  { icon: 'users' as const, title: 'Friends', text: 'Your own group, your dates, a trip built around what you all enjoy.' },
+  { icon: 'family' as const, title: 'Families', text: 'An easy pace and stays that work for all ages.' },
+  { icon: 'heart' as const, title: 'Couples', text: 'Private rooms and a relaxed plan, without the planning.' },
+  { icon: 'briefcase' as const, title: 'Companies', text: 'Team outings and offsites planned around headcount and budget.' },
+];
+---
+
+<BaseLayout
+  title="Customised Trips from Hyderabad: Plan a Trip for Your Group"
+  description="Tell HCC where you want to go, when and with whom, and we'll plan the trip: friends, families, couples and company offsites from Hyderabad."
+>
+  <div class="container">
+    <PageIntro
+      title="Customised Trips from Hyderabad"
+      intro="Tell us where you want to go, who you're travelling with and what kind of trip you want. We'll plan it around you and send a clear quote with everything listed."
+      crumbs={[{ label: 'Trips', href: '/trips/' }, { label: 'Customised trips' }]}
+    />
+    <ul class="cu__for" aria-label="Who we plan for">
+      {
+        FOR.map((f) => (
+          <li>
+            <span class="cu__ico"><Icon name={f.icon} /></span>
+            <b>{f.title}</b>
+            <p>{f.text}</p>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+  <CustomTripSection />
+  <HowItWorks />
+</BaseLayout>
+
+<style>
+  .cu__for {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--s-3);
+    margin: 0 0 var(--s-8);
+    padding: 0;
+    list-style: none;
+  }
+  .cu__for li {
+    display: grid;
+    gap: 6px;
+    padding: var(--s-4);
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--r-lg);
+  }
+  .cu__for b {
+    font: 700 1rem / 1.2 var(--font-display);
+  }
+  .cu__for p {
+    font-size: 0.875rem;
+    color: var(--text-2);
+  }
+  .cu__ico {
+    display: grid;
+    place-items: center;
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    background: var(--forest-50);
+    color: var(--forest-700);
+  }
+  @media (min-width: 1024px) {
+    .cu__for {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+</style>

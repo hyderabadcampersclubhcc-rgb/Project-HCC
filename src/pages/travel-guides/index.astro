@@ -1,0 +1,93 @@
+---
+/** /travel-guides/: guides hub. Categories filter in place (no thin /category/ URLs). */
+import { getCollection } from 'astro:content';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageIntro from '@/components/listing/PageIntro.astro';
+import BlogCard from '@/components/content/BlogCard.astro';
+import WhatsAppBand from '@/components/cta/WhatsAppBand.astro';
+import { GUIDE_CATEGORY_LABEL } from '@/components/pages/GuidePage.astro';
+import { guideUrl } from '@/lib/catalog';
+import { isoDate } from '@/lib/format';
+
+const showSamples = import.meta.env.PUBLIC_SHOW_SAMPLES === 'true';
+const guides = (await getCollection('guides', (g) => !g.data.draft && (showSamples || !g.data.sample))).sort(
+  (a, b) => +(b.data.updatedAt ?? b.data.publishedAt) - +(a.data.updatedAt ?? a.data.publishedAt),
+);
+const categories = Object.entries(GUIDE_CATEGORY_LABEL).filter(([id]) => guides.some((g) => g.data.category === id));
+---
+
+<BaseLayout
+  title="Travel Guides: Trips, Treks & Weekend Getaways from Hyderabad"
+  description="Honest travel guides for getting out of Hyderabad: how to reach, best time to visit, itineraries and comparisons."
+  noindex={guides.length === 0}
+>
+  <div class="container">
+    <PageIntro title="Travel Guides" intro="Honest guides to getting out of Hyderabad: how to get there, when to go and what to do." crumbs={[{ label: 'Travel guides' }]} />
+    {
+      guides.length ? (
+        <div data-listing="guides" data-noun="guide">
+          {categories.length > 1 && (
+            <div class="chips gx__chips" role="toolbar" aria-label="Filter guides by topic">
+              {categories.map(([id, label]) => (
+                <button type="button" class="chip" aria-pressed="false" data-f-key="style" data-f-value={id}>
+                  {label}
+                </button>
+              ))}
+            </div>
+          )}
+          <p class="sr-only" aria-live="polite" data-result />
+          <ul class="gx__grid" data-items>
+            {guides.map((g) => (
+              <li data-item={g.id} data-style={g.data.category} data-text={`${g.data.title} ${g.data.tags.join(' ')}`.toLowerCase()}>
+                <BlogCard
+                  title={g.data.title}
+                  href={guideUrl(g.id)}
+                  excerpt={g.data.excerpt}
+                  category={GUIDE_CATEGORY_LABEL[g.data.category]}
+                  date={isoDate(g.data.updatedAt ?? g.data.publishedAt)}
+                  image={g.data.heroImage}
+                  imageAlt={g.data.heroAlt}
+                  headingLevel="h2"
+                />
+              </li>
+            ))}
+          </ul>
+        </div>
+      ) : (
+        <p class="muted">The first guides are being written.</p>
+      )
+    }
+    <div class="gx__band">
+      <WhatsAppBand location="guides_index" title="Rather skip the planning?" text="Tell us your dates and we'll suggest a trip, or plan one around your group." headingLevel="h2" />
+    </div>
+  </div>
+</BaseLayout>
+
+<script>
+  import { initListings } from '@/scripts/listing';
+  initListings();
+</script>
+
+<style>
+  .gx__chips {
+    margin: 0 calc(-1 * var(--gutter)) var(--s-5);
+    padding-inline: var(--gutter);
+  }
+  .gx__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
+    gap: var(--s-8) var(--s-5);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .gx__band {
+    padding-block: var(--s-12);
+  }
+  @media (min-width: 1024px) {
+    .gx__chips {
+      margin-inline: 0;
+      padding-inline: 0;
+    }
+  }
+</style>

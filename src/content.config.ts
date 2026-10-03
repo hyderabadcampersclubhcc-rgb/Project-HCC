@@ -332,4 +332,21 @@ const landings = defineCollection({
   }),
 });
 
-export const collections = { destinations, trips, departures, reviews, authors, guides, landings };
+/* ---------- simple pages (about, faq, policies) ---------- */
+
+const pages = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/pages' }),
+  schema: z.object({
+    title: z.string(), // H1
+    description: z.string().max(170),
+    intro: z.string().optional(),
+    faqs: z.array(faq).default([]),
+    updatedAt: z.coerce.date().optional(),
+    /** Draft pages still render (so links and redirects work) but show an
+        "being updated" notice instead of the body and are never indexed. */
+    draft: z.boolean().default(true),
+    seo,
+  }),
+});
+
+export const collections = { destinations, trips, departures, reviews, authors, guides, landings, pages };

@@ -1,0 +1,41 @@
+---
+/** /travel-guides/{id}/: published guides only (drafts and samples never build). */
+import type { GetStaticPaths } from 'astro';
+import { getCollection, getEntry, type CollectionEntry } from 'astro:content';
+import { getImage } from 'astro:assets';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import GuidePage from '@/components/pages/GuidePage.astro';
+import { isoDate } from '@/lib/format';
+import { settings } from '@/lib/settings';
+
+export const getStaticPaths = (async () => {
+  const showSamples = import.meta.env.PUBLIC_SHOW_SAMPLES === 'true';
+  return (await getCollection('guides', (g) => !g.data.draft && (showSamples || !g.data.sample))).map((guide) => ({ params: { id: guide.id }, props: { guide } }));
+}) satisfies GetStaticPaths;
+
+interface Props {
+  guide: CollectionEntry<'guides'>;
+}
+
+const { guide } = Astro.props;
+const g = guide.data;
+const author = await getEntry(g.author);
+const og = g.heroImage ? await getImage({ src: g.heroImage, width: 1200, height: 630, fit: 'cover', format: 'jpg', quality: 80 }) : null;
+const url = new URL(`/travel-guides/${guide.id}/`, Astro.site).href;
+const article = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: g.title,
+  description: g.description,
+  mainEntityOfPage: url,
+  datePublished: isoDate(g.publishedAt),
+  dateModified: isoDate(g.updatedAt ?? g.publishedAt),
+  author: { '@type': 'Person', name: author?.data.name ?? settings.brand.name },
+  publisher: { '@id': new URL('/#organization', Astro.site).href },
+  ...(og ? { image: new URL(og.src, Astro.site).href } : {}),
+};
+---
+
+<BaseLayout title={g.seo.title ?? g.title} description={g.seo.description ?? g.description} ogType="article" ogImage={og?.src} ogImageAlt={g.heroAlt} jsonLd={article}>
+  <GuidePage guide={guide} />
+</BaseLayout>

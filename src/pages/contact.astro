@@ -1,0 +1,173 @@
+---
+/** /contact/: every way to reach HCC (only details that exist in settings) + a short form. */
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageIntro from '@/components/listing/PageIntro.astro';
+import ContactForm from '@/components/forms/ContactForm.astro';
+import WhatsAppCTA from '@/components/cta/WhatsAppCTA.astro';
+import Icon from '@/components/ui/Icon.astro';
+import { settings, whatsappNumber } from '@/lib/settings';
+import { organizationLd } from '@/lib/schema';
+
+const c = settings.contact;
+const a = c.address;
+const phone = c.phone.replace(/[^\d+]/g, '');
+const addressLine = [a.street, a.locality, a.city, a.postalCode].filter(Boolean).join(', ');
+const hasAddress = !!(a.street && a.postalCode);
+---
+
+<BaseLayout
+  title="Contact Hyderabad Campers Club"
+  description="Talk to the HCC team about group trips, custom trips and bookings from Hyderabad: WhatsApp, phone or the contact form."
+  jsonLd={organizationLd(Astro.site!)}
+>
+  <div class="container ct">
+    <PageIntro title="Contact HCC" intro="Questions about a trip, a custom plan for your group, or a booking: a real person from the HCC team will reply." crumbs={[{ label: 'Contact' }]} />
+    <div class="ct__grid">
+      <ul class="ct__ways">
+        {
+          whatsappNumber && (
+            <li class="ct__way ct__way--wa">
+              <span class="ct__ico"><Icon name="whatsapp" /></span>
+              <div>
+                <b>WhatsApp</b>
+                <p>Fastest way to reach us{c.hours ? ` · ${c.hours}` : ''}.</p>
+                <WhatsAppCTA location="contact_page" label="Chat on WhatsApp" />
+              </div>
+            </li>
+          )
+        }
+        {
+          phone && (
+            <li class="ct__way">
+              <span class="ct__ico"><Icon name="phone" /></span>
+              <div>
+                <b>Call</b>
+                <p>
+                  <a href={`tel:${phone}`} data-cta-location="contact_page">{c.phone}</a>
+                </p>
+              </div>
+            </li>
+          )
+        }
+        {
+          c.email && (
+            <li class="ct__way">
+              <span class="ct__ico"><Icon name="mail" /></span>
+              <div>
+                <b>Email</b>
+                <p>
+                  <a href={`mailto:${c.email}`}>{c.email}</a>
+                </p>
+              </div>
+            </li>
+          )
+        }
+        <li class="ct__way">
+          <span class="ct__ico"><Icon name="pin" /></span>
+          <div>
+            <b>Where we are</b>
+            {hasAddress ? (
+              <p>
+                {addressLine}
+                {a.mapUrl && (
+                  <>
+                    <br />
+                    <a href={a.mapUrl} target="_blank" rel="noopener">
+                      Open in Google Maps
+                    </a>
+                  </>
+                )}
+              </p>
+            ) : (
+              <p>Based in {a.city || 'Hyderabad'}, {a.region || 'Telangana'}. Trips leave from pickup points across the city.</p>
+            )}
+          </div>
+        </li>
+      </ul>
+      <div class="ct__form">
+        <h2 class="ct__h2">Send us a message</h2>
+        <ContactForm />
+      </div>
+    </div>
+    <p class="ct__faq">Looking for quick answers? See the <a href="/faq/">FAQs</a> or <a href="/customised-trips/">plan a custom trip</a>.</p>
+  </div>
+</BaseLayout>
+
+<style>
+  .ct {
+    padding-bottom: var(--s-12);
+  }
+  .ct__grid {
+    display: grid;
+    gap: var(--s-8);
+  }
+  .ct__ways {
+    display: grid;
+    gap: var(--s-3);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    align-content: start;
+  }
+  .ct__way {
+    display: flex;
+    gap: var(--s-4);
+    padding: var(--s-5);
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--r-lg);
+  }
+  .ct__way b {
+    font: 700 1.0625rem / 1.2 var(--font-display);
+  }
+  .ct__way p {
+    margin: 4px 0 var(--s-2);
+    color: var(--ink-700);
+  }
+  .ct__way a {
+    color: var(--link);
+    font-weight: 600;
+  }
+  .ct__way--wa :global(.btn) {
+    color: var(--ink-900);
+  }
+  .ct__ico {
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    background: var(--forest-50);
+    color: var(--forest-700);
+    font-size: 1.2rem;
+    flex: none;
+  }
+  .ct__form {
+    padding: var(--s-5);
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--r-xl);
+    box-shadow: var(--sh-2);
+  }
+  .ct__h2 {
+    margin-bottom: var(--s-4);
+    font-size: var(--fs-h3);
+  }
+  .ct__faq {
+    margin-top: var(--s-8);
+    color: var(--text-2);
+  }
+  .ct__faq a {
+    color: var(--link);
+    font-weight: 600;
+  }
+  @media (min-width: 1024px) {
+    .ct__grid {
+      grid-template-columns: 1fr minmax(0, 460px);
+      gap: var(--s-12);
+    }
+    .ct__form {
+      padding: var(--s-8);
+    }
+  }
+</style>

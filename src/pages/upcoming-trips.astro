@@ -1,0 +1,16 @@
+---
+/** /upcoming-trips/: every bookable departure by date. */
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import UpcomingPage from '@/components/pages/UpcomingPage.astro';
+import { getUpcoming } from '@/lib/catalog';
+
+const items = await getUpcoming();
+---
+
+<BaseLayout
+  title="Upcoming Trips from Hyderabad: All Departure Dates"
+  description="Every upcoming HCC group trip from Hyderabad, soonest first. Weekend getaways, treks and long trips with dates, prices and seats."
+  noindex={items.length === 0}
+>
+  <UpcomingPage />
+</BaseLayout>

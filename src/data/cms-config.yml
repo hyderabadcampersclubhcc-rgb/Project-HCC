@@ -438,6 +438,7 @@ collections:
       - { label: Active from, name: activeFrom, widget: datetime, time_format: false, format: YYYY-MM-DD, required: false }
       - { label: Active until, name: activeUntil, widget: datetime, time_format: false, format: YYYY-MM-DD, required: false }
       - { label: Primary keyword, name: primaryKeyword, widget: string, required: false }
+      - { label: Related category paths, name: related, widget: list, required: false, hint: 'e.g. /camping/ (one per line)' }
       - label: SEO overrides
         name: seo
         widget: object
@@ -447,6 +448,42 @@ collections:
           - { label: Title, name: title, widget: string, required: false }
           - { label: Description, name: description, widget: text, required: false }
       - { label: Editorial content, name: body, widget: markdown, required: false }
+      - { label: Sample content, name: sample, widget: hidden, default: false }
+
+# ---------------------------------------------------------------- PAGES
+  - name: pages
+    label: Pages (About, FAQ, policies)
+    label_singular: Page
+    description: Simple pages. While "Draft" is on, the page shows a short "being updated" note and is hidden from Google.
+    folder: src/content/pages
+    extension: md
+    format: frontmatter
+    create: false
+    delete: false
+    summary: '{{title}}{{draft | ternary(" (draft)", "")}}'
+    fields:
+      - { label: Draft, name: draft, widget: boolean, default: true, hint: 'Turn off when the text below is final.' }
+      - { label: Title (H1), name: title, widget: string }
+      - { label: Meta description, name: description, widget: text, hint: 'Max 170 characters' }
+      - { label: Intro line, name: intro, widget: string, required: false }
+      - { label: Last updated, name: updatedAt, widget: datetime, time_format: false, format: YYYY-MM-DD, required: false }
+      - label: FAQs
+        name: faqs
+        widget: list
+        required: false
+        summary: '{{q}}'
+        fields:
+          - { label: Question, name: q, widget: string }
+          - { label: Answer, name: a, widget: text }
+      - label: SEO overrides
+        name: seo
+        widget: object
+        required: false
+        collapsed: true
+        fields:
+          - { label: Title, name: title, widget: string, required: false }
+          - { label: Description, name: description, widget: text, required: false }
+      - { label: Page content, name: body, widget: markdown, required: false }
 
   # ---------------------------------------------------------------- HOMEPAGE
   - name: homepage

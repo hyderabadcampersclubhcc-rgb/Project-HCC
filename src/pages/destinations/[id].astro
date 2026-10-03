@@ -1,0 +1,50 @@
+---
+/** /destinations/{id}/: indexed with ≥1 live trip or ≥400 words of copy. */
+import type { GetStaticPaths } from 'astro';
+import { getCollection, type CollectionEntry } from 'astro:content';
+import { getImage } from 'astro:assets';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import DestinationPage from '@/components/pages/DestinationPage.astro';
+import { getTripsForDestination } from '@/lib/catalog';
+import { destinationIndexable } from '@/lib/indexing';
+
+export const getStaticPaths = (async () => {
+  const showSamples = import.meta.env.PUBLIC_SHOW_SAMPLES === 'true';
+  return (await getCollection('destinations', (d) => showSamples || !d.data.sample)).map((destination) => ({
+    params: { id: destination.id },
+    props: { destination },
+  }));
+}) satisfies GetStaticPaths;
+
+interface Props {
+  destination: CollectionEntry<'destinations'>;
+}
+
+const { destination } = Astro.props;
+const d = destination.data;
+const trips = await getTripsForDestination(destination.id);
+const og = d.heroImage ? await getImage({ src: d.heroImage, width: 1200, height: 630, fit: 'cover', format: 'jpg', quality: 80 }) : null;
+const ld = {
+  '@context': 'https://schema.org',
+  '@type': 'TouristDestination',
+  name: d.name,
+  description: d.summary,
+  url: new URL(`/destinations/${destination.id}/`, Astro.site).href,
+  ...(og ? { image: new URL(og.src, Astro.site).href } : {}),
+  containedInPlace: { '@type': 'State', name: d.state },
+  ...(d.experiences.length ? { includesAttraction: d.experiences.map((e) => ({ '@type': 'TouristAttraction', name: e.title })) } : {}),
+};
+---
+
+<BaseLayout
+  title={d.seo.title ?? `${d.name} Trips from Hyderabad: Packages, Best Time & How to Reach | HCC`}
+  rawTitle
+  description={d.seo.description ?? `${d.summary} Group trips to ${d.name} from Hyderabad with dates and prices.`.slice(0, 165)}
+  noindex={!destinationIndexable({ tripCount: trips.length, body: destination.body })}
+  headerOverlay
+  ogImage={og?.src}
+  ogImageAlt={d.heroAlt}
+  jsonLd={ld}
+>
+  <DestinationPage destination={destination} />
+</BaseLayout>

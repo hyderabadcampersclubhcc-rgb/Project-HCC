@@ -13,7 +13,7 @@ interface Props {
   image?: ImageMetadata;
   imageAlt?: string;
   tone?: Tone;
-  headingLevel?: 'h3' | 'h4';
+  headingLevel?: 'h2' | 'h3' | 'h4';
 }
 
 const { title, href, excerpt, category, date, readMinutes, image, imageAlt, tone = 'hills', headingLevel = 'h3' } = Astro.props;

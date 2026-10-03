@@ -5,7 +5,7 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import CategoryPage from '@/components/pages/CategoryPage.astro';
 import PreviewBar from '@/components/preview/PreviewBar.astro';
 
-const landing = (await getEntry('landings', 'weekend-trips-from-hyderabad'))!;
+const landing = (await getEntry('landings', 'sample-weekend'))!;
 ---
 
 <BaseLayout title={`PREVIEW · ${landing.data.title} | HCC`} rawTitle description={landing.data.intro} noindex>

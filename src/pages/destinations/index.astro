@@ -1,0 +1,98 @@
+---
+/** /destinations/: every published destination, grouped by region. */
+import { getCollection } from 'astro:content';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageIntro from '@/components/listing/PageIntro.astro';
+import DestinationCard from '@/components/trip/DestinationCard.astro';
+import WhatsAppBand from '@/components/cta/WhatsAppBand.astro';
+import { getTripsForDestination, toneFor } from '@/lib/catalog';
+import { REGION_LABELS } from '@/data/navigation';
+
+const showSamples = import.meta.env.PUBLIC_SHOW_SAMPLES === 'true';
+const destinations = (await getCollection('destinations')).filter((d) => showSamples || !d.data.sample);
+const cards = await Promise.all(
+  destinations.map(async (d) => {
+    const trips = await getTripsForDestination(d.id);
+    const prices = trips.map((t) => t.primary.fromPrice).filter((p): p is number => p != null);
+    const shortest = [...trips].sort((a, b) => a.data.durationNights - b.data.durationNights)[0];
+    return { d, trips, from: prices.length ? Math.min(...prices) : null, shortest };
+  }),
+);
+const regions = Object.entries(REGION_LABELS)
+  .map(([id, label]) => ({
+    id,
+    label,
+    cards: cards.filter((c) => c.d.data.region === id).sort((a, b) => b.trips.length - a.trips.length || a.d.data.name.localeCompare(b.d.data.name)),
+  }))
+  .filter((r) => r.cards.length);
+---
+
+<BaseLayout
+  title="Destinations: Where HCC Travels from Hyderabad"
+  description="Every destination HCC travels to from Hyderabad, by region: hill stations, beaches, coffee country, the Himalaya and more."
+  noindex={destinations.length === 0}
+>
+  <div class="container">
+    <PageIntro title="Destinations" intro="Every place we travel to from Hyderabad. Pick a place to see its trips, the best time to go and how to get there." crumbs={[{ label: 'Destinations' }]} />
+    {
+      regions.length ? (
+        regions.map((r) => (
+          <section class="dx__region" aria-labelledby={`r-${r.id}`}>
+            <h2 id={`r-${r.id}`} class="dx__h2">
+              {r.label}
+            </h2>
+            <div class="dx__grid">
+              {r.cards.map(({ d, trips, from, shortest }) => (
+                <DestinationCard
+                  id={d.id}
+                  name={d.data.name}
+                  image={d.data.heroImage}
+                  imageAlt={d.data.heroAlt}
+                  tone={shortest ? toneFor(shortest.data) : 'hills'}
+                  tripCount={trips.length}
+                  fromPrice={from}
+                  duration={shortest ? [shortest.data.durationNights, shortest.data.durationDays] : null}
+                  bestMonths={d.data.bestMonths}
+                />
+              ))}
+            </div>
+          </section>
+        ))
+      ) : (
+        <p class="muted">Destinations are being added.</p>
+      )
+    }
+    <div class="dx__band">
+      <WhatsAppBand location="destinations_index" title="Have a place in mind?" text="Tell us where you'd like to go. If we don't run it yet, we can plan it for your group." headingLevel="h2" />
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .dx__region + .dx__region {
+    margin-top: var(--s-10);
+  }
+  .dx__h2 {
+    margin-bottom: var(--s-4);
+    font-size: var(--fs-h3);
+  }
+  .dx__grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--s-3);
+  }
+  .dx__band {
+    padding-block: var(--s-12);
+  }
+  @media (min-width: 768px) {
+    .dx__grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+  @media (min-width: 1024px) {
+    .dx__grid {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: var(--s-5);
+    }
+  }
+</style>

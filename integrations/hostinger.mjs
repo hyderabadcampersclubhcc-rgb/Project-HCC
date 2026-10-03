@@ -7,7 +7,7 @@
  * The redirect table comes from /build-redirects.json (generated from content), which is
  * deleted after use so it never ships.
  */
-import { readFile, writeFile, rm, mkdir } from 'node:fs/promises';
+import { readFile, writeFile, rm, mkdir, readdir } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 
@@ -34,6 +34,13 @@ export default function hostinger({ productionHost = 'hyderabadcampersclubhcc.in
           await rm(tableFile);
         } catch {
           logger.warn('build-redirects.json not found; .htaccess written without legacy redirects');
+        }
+
+        // Production never ships the review/approval pages: they show sample trips and prices.
+        // Staging keeps them so layouts can be reviewed on a phone.
+        if (process.env.PUBLIC_ALLOW_INDEXING === 'true') {
+          for (const dir of ['preview', 'styleguide']) await rm(path.join(out, dir), { recursive: true, force: true });
+          logger.info('production build: removed /preview/ and /styleguide/');
         }
 
         const host = site.hostname;
@@ -110,6 +117,30 @@ RewriteRule ^(wp-admin|wp-login\\.php|xmlrpc\\.php|wp-json)(/.*)?$ - [R=410,L]
           '<IfModule mod_headers.c>\n  Header set Cache-Control "public, max-age=31536000, immutable"\n</IfModule>\n',
         );
         logger.info(`.htaccess written for ${host} (${legacy.length} legacy redirects)`);
+
+        // Drop noindex pages from the sitemap: thin/draft pages exist for users and
+        // redirects, but Google should only be offered pages that are ready.
+        for (const file of (await readdir(out)).filter((f) => /^sitemap-\d+\.xml$/.test(f))) {
+          const xmlPath = path.join(out, file);
+          const xml = await readFile(xmlPath, 'utf8');
+          let dropped = 0;
+          const urls = [];
+          for (const block of xml.match(/<url>[\s\S]*?<\/url>/g) ?? []) {
+            const loc = block.match(/<loc>([^<]+)<\/loc>/)?.[1];
+            if (!loc) continue;
+            const rel = decodeURI(new URL(loc).pathname);
+            const htmlFile = path.join(out, rel.endsWith('/') ? `${rel}index.html` : rel);
+            const html = await readFile(htmlFile, 'utf8').catch(() => '');
+            if (/<meta name="robots" content="noindex/.test(html)) {
+              dropped++;
+              continue;
+            }
+            urls.push(block);
+          }
+          const head = xml.slice(0, xml.indexOf('<url>') === -1 ? xml.indexOf('</urlset>') : xml.indexOf('<url>'));
+          await writeFile(xmlPath, `${head}${urls.join('')}</urlset>`);
+          logger.info(`${file}: ${urls.length} indexable URLs (${dropped} noindex pages removed)`);
+        }
       },
     },
   };

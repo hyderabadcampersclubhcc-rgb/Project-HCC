@@ -1,0 +1,24 @@
+---
+/** /trips/: full catalogue with filters (owns "group trips from Hyderabad"). */
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import TripsIndexPage from '@/components/pages/TripsIndexPage.astro';
+import { getTrips } from '@/lib/catalog';
+import { organizationLd } from '@/lib/schema';
+
+const trips = await getTrips();
+const itemList = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  name: 'Group trips from Hyderabad',
+  itemListElement: trips.map((t, i) => ({ '@type': 'ListItem', position: i + 1, url: new URL(t.url, Astro.site).href, name: t.data.title })),
+};
+---
+
+<BaseLayout
+  title="Group Trips from Hyderabad: Weekend Getaways, Treks & Camping"
+  description="All HCC group trips from Hyderabad in one place: weekend getaways, treks, camping and long trips with dates, prices, travel and stays listed upfront."
+  noindex={trips.length === 0}
+  jsonLd={trips.length ? [organizationLd(Astro.site!), itemList] : [organizationLd(Astro.site!)]}
+>
+  <TripsIndexPage />
+</BaseLayout>

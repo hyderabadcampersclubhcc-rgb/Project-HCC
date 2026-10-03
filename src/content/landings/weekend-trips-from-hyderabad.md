@@ -1,33 +1,12 @@
 ---
-# SAMPLE CONTENT: shows the category-page layout in /preview/category/. Not published.
-# Replace intro, body and FAQs with HCC-approved copy before launch.
+# H1 + intro are live. HCC to add 300–600 words of guidance (body) and FAQs in the CMS:
+# the page is only indexed by Google once it has ≥3 trips and real guidance copy.
 path: /weekend-trips-from-hyderabad/
 title: Weekend Trips from Hyderabad
-intro: Leave Friday night, be back Monday morning. Group getaways to the Nilgiris, coffee country and the Karnataka coast, with travel, stays and a coordinator included.
+intro: "Leave Friday night, be back Monday morning. Group weekend getaways from Hyderabad with travel, stays and trip details listed upfront."
 rule:
   tripTypes: [weekend]
   origin: hyderabad
-faqs:
-  - { q: 'Sample: when do weekend trips leave Hyderabad?', a: 'Sample answer. HCC to supply.' }
-  - { q: 'Sample: can I join a weekend trip on my own?', a: 'Sample answer. HCC to supply.' }
-  - { q: 'Sample: which weekend trip is best for first-timers?', a: 'Sample answer. HCC to supply.' }
 related: ['/camping/', '/treks/', '/long-trips/', '/customised-trips/']
 primaryKeyword: weekend trips from hyderabad
-sample: true
 ---
-
-## Which weekend trip suits you?
-
-**Sample editorial copy.** This section is written once per category in the CMS: 300–600 words that genuinely help people choose. For example, which trips suit first-timers, which are best in the monsoon, and how the overnight train compares with the sleeper bus.
-
-### For first-time group travellers
-
-Sample: a short paragraph recommending the easiest trips, with links to them.
-
-### For the monsoon
-
-Sample: which destinations are at their best from June to September, and what to pack.
-
-### Train or bus?
-
-Sample: an honest comparison of overnight trains and sleeper buses from Hyderabad.

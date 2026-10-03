@@ -1,0 +1,72 @@
+---
+/** General contact form (kind: contact): name + WhatsApp number required, message optional. */
+import Field from '@/components/ui/Field.astro';
+import Icon from '@/components/ui/Icon.astro';
+import { settings, whatsappNumber } from '@/lib/settings';
+---
+
+<div class="cform" data-intent-scope>
+  <form method="post" action="/api/intents" data-intent-form="contact" data-wa={whatsappNumber || undefined} data-fallback-intro="Hi HCC! I have a question." novalidate>
+    <input type="hidden" name="kind" value="contact" />
+    <div class="cform__hp" aria-hidden="true">
+      <label>Leave this empty <input type="text" name="company" tabindex="-1" autocomplete="off" /></label>
+    </div>
+    <Field label="Your name" name="name" id="cf-name" autocomplete="name" />
+    <Field label="WhatsApp number" name="phone" id="cf-phone" kind="tel" placeholder="98765 43210" help="We'll reply here." />
+    <Field label="Your message" name="message" id="cf-msg" kind="textarea" optional placeholder="Trip, dates, group size, or any question" />
+    <button type="submit" class="btn btn--primary btn--lg btn--block">Send Message</button>
+    <div class="note note--alert" data-form-error hidden tabindex="-1" role="alert">
+      <Icon name="info" />
+      <span>
+        We couldn't send your message.
+        {whatsappNumber ? ' Send it on WhatsApp instead:' : settings.contact.phone ? ` Please call ${settings.contact.phone}.` : ' Please try again in a moment.'}
+        <a class="btn btn--whatsapp btn--block cform__fb" data-fallback-wa hidden target="_blank" rel="noopener" data-wa data-cta-location="contact_fallback">
+          <Icon name="whatsapp" /> Send on WhatsApp
+        </a>
+      </span>
+    </div>
+  </form>
+  <div class="cform__done" data-form-success hidden tabindex="-1" role="status">
+    <span class="cform__tick" aria-hidden="true"><Icon name="check" /></span>
+    <h2>Message sent. Thank you!</h2>
+    <p>The HCC team will reply on WhatsApp{settings.contact.hours ? ` (${settings.contact.hours})` : ''}.</p>
+  </div>
+</div>
+
+<script>
+  import { initIntentForms } from '@/scripts/intent-form';
+  initIntentForms();
+</script>
+
+<style>
+  .cform form {
+    display: grid;
+    gap: var(--s-4);
+  }
+  .cform__hp {
+    position: absolute;
+    left: -9999px;
+  }
+  .cform__fb {
+    margin-top: var(--s-3);
+  }
+  .cform__done {
+    display: grid;
+    justify-items: start;
+    gap: var(--s-2);
+    outline: none;
+  }
+  .cform__done h2 {
+    font-size: var(--fs-h3);
+  }
+  .cform__tick {
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--ok-bg);
+    color: var(--forest-700);
+    font-size: 1.4rem;
+  }
+</style>
