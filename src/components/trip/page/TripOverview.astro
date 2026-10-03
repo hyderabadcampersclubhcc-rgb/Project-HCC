@@ -1,0 +1,79 @@
+---
+/** Overview: the trip's unique story (markdown body) + highlights checklist. */
+import { render } from 'astro:content';
+import TripSection from './TripSection.astro';
+import Icon from '@/components/ui/Icon.astro';
+import type { TripView } from '@/lib/catalog';
+
+interface Props {
+  trip: TripView;
+}
+
+const { trip } = Astro.props;
+const { Content } = await render(trip.entry);
+const hasBody = !!trip.entry.body?.trim();
+---
+
+<TripSection id="overview" title="Overview">
+  {
+    hasBody && (
+      <div class="ov__body prose">
+        <Content />
+      </div>
+    )
+  }
+  {
+    trip.data.highlights.length > 0 && (
+      <>
+        <h3 class="ov__h3">Highlights</h3>
+        <ul class="ov__hl">
+          {trip.data.highlights.map((h) => (
+            <li>
+              <Icon name="check" />
+              {h}
+            </li>
+          ))}
+        </ul>
+      </>
+    )
+  }
+</TripSection>
+
+<style>
+  .ov__body {
+    max-width: 68ch;
+    color: var(--ink-700);
+    font-size: 1.0625rem;
+  }
+  .ov__body :global(p + p) {
+    margin-top: var(--s-4);
+  }
+  .ov__body :global(strong) {
+    color: var(--ink-900);
+  }
+  .ov__h3 {
+    margin: var(--s-6) 0 var(--s-3);
+    font-size: 1.125rem;
+  }
+  .ov__hl {
+    display: grid;
+    gap: var(--s-3);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .ov__hl li {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+  }
+  .ov__hl :global(.icon) {
+    margin-top: 3px;
+    color: var(--forest-500);
+  }
+  @media (min-width: 768px) {
+    .ov__hl {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+</style>

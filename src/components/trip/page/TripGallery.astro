@@ -1,0 +1,245 @@
+---
+/**
+ * Trip gallery. Mobile: full-bleed swipe carousel with a "1 / N" counter (photo-first,
+ * Instagram-like). Desktop: 1 large + 4 small mosaic. "View all photos" opens a dialog.
+ * The first photo is the LCP image (eager + high priority); the rest lazy-load.
+ * Without photos: a single branded placeholder (preview: a few tones to show the mosaic).
+ */
+import type { ImageMetadata } from 'astro';
+import Photo, { type Tone } from '@/components/ui/Photo.astro';
+import Icon from '@/components/ui/Icon.astro';
+import { toneFor, type TripView } from '@/lib/catalog';
+
+interface Props {
+  trip: TripView;
+  originLabel: string;
+  preview?: boolean;
+}
+
+const { trip, originLabel, preview = false } = Astro.props;
+const d = trip.data;
+
+type Item = { src?: ImageMetadata; alt: string; tone: Tone };
+const real: Item[] = [
+  ...(d.heroImage ? [{ src: d.heroImage, alt: d.heroAlt ?? `${d.title} group trip from ${originLabel}`, tone: toneFor(d) }] : []),
+  ...d.gallery.map((g) => ({ src: g.src, alt: g.alt, tone: toneFor(d) })),
+];
+const placeholders: Tone[] = [toneFor(d), 'forest', 'camp', 'coffee', 'dusk', 'hills'];
+const items: Item[] = real.length
+  ? real
+  : (preview ? placeholders : [toneFor(d)]).map((tone, i) => ({ alt: i === 0 ? `${d.title} group trip from ${originLabel}` : `${d.title} photo ${i + 1}`, tone }));
+const total = items.length;
+---
+
+<div class="gal" data-gallery>
+  <div class="gal__track" data-gal-track>
+    {
+      items.map((it, i) => (
+        <figure class:list={['gal__item', i === 0 && 'gal__item--main']} data-gal-item={i}>
+          <Photo
+            src={it.src}
+            alt={it.alt}
+            tone={it.tone}
+            eager={i === 0}
+            sizes={i === 0 ? '(min-width: 1024px) 60vw, 100vw' : '(min-width: 1024px) 20vw, 100vw'}
+            widths={i === 0 ? [480, 768, 1080, 1440] : [360, 480, 768]}
+            label={preview && !it.src ? `Trip photo ${i + 1}` : undefined}
+          />
+        </figure>
+      ))
+    }
+  </div>
+  {total > 1 && <span class="gal__count badge badge--glass" aria-hidden="true"><span data-gal-current>1</span> / {total}</span>}
+  {
+    total > 1 && (
+      <button type="button" class="btn btn--sm gal__all" data-gal-open>
+        <Icon name="columns" /> View all {total} photos
+      </button>
+    )
+  }
+  <button type="button" class="gal__share btn btn--sm btn--icon" aria-label="Share this trip" data-share>
+    <Icon name="share" />
+  </button>
+
+  {
+    total > 1 && (
+      <dialog class="gal__dialog" aria-label={`${d.title} photos`} data-gal-dialog>
+        <div class="gal__dialog-top">
+          <p>
+            {d.title} · {total} photos
+          </p>
+          <button type="button" class="btn btn--sm btn--icon btn--whatsapp" aria-label="Close photos" data-gal-close autofocus>
+            <Icon name="x" />
+          </button>
+        </div>
+        <div class="gal__dialog-grid">
+          {items.map((it) => (
+            <figure>
+              <Photo src={it.src} alt={it.alt} tone={it.tone} sizes="(min-width: 1024px) 50vw, 100vw" widths={[480, 768, 1080]} />
+            </figure>
+          ))}
+        </div>
+      </dialog>
+    )
+  }
+</div>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-gallery]').forEach((g) => {
+    const track = g.querySelector<HTMLElement>('[data-gal-track]')!;
+    const current = g.querySelector('[data-gal-current]');
+    if (current) {
+      const io = new IntersectionObserver(
+        (entries) => entries.forEach((e) => e.isIntersecting && (current.textContent = String(Number((e.target as HTMLElement).dataset.galItem) + 1))),
+        { root: track, threshold: 0.6 },
+      );
+      track.querySelectorAll('[data-gal-item]').forEach((el) => io.observe(el));
+    }
+    const dialog = g.querySelector<HTMLDialogElement>('[data-gal-dialog]');
+    g.querySelector('[data-gal-open]')?.addEventListener('click', () => dialog?.showModal());
+    g.querySelector('[data-gal-close]')?.addEventListener('click', () => dialog?.close());
+    dialog?.addEventListener('click', (e) => e.target === dialog && dialog.close());
+
+    g.querySelector('[data-share]')?.addEventListener('click', async () => {
+      const data = { title: document.title, url: location.origin + location.pathname };
+      try {
+        if (navigator.share) await navigator.share(data);
+        else {
+          await navigator.clipboard.writeText(data.url);
+          (g.querySelector('[data-share]') as HTMLElement).setAttribute('aria-label', 'Link copied');
+        }
+      } catch {
+        /* user cancelled */
+      }
+    });
+  });
+</script>
+
+<style>
+  .gal {
+    position: relative;
+    margin-inline: calc(-1 * var(--gutter));
+  }
+  .gal__track {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 100%;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    aspect-ratio: 16 / 10;
+    background: var(--surface-2);
+  }
+  .gal__track::-webkit-scrollbar {
+    display: none;
+  }
+  .gal__item {
+    margin: 0;
+    scroll-snap-align: start;
+    min-width: 0;
+    overflow: hidden;
+  }
+  .gal__count {
+    position: absolute;
+    bottom: 12px;
+    left: 12px;
+  }
+  .gal__all {
+    display: none;
+  }
+  .gal__share {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: var(--surface);
+    border-color: transparent;
+    color: var(--ink-900);
+    box-shadow: var(--sh-1);
+  }
+  @media (min-width: 768px) {
+    .gal {
+      margin-inline: 0;
+    }
+    .gal__track {
+      grid-auto-flow: row;
+      grid-template-columns: 2fr 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
+      gap: 8px;
+      overflow: hidden;
+      aspect-ratio: auto;
+      /* Keep the title and booking card in the first screen on laptops */
+      height: clamp(300px, 32vw, 420px);
+      border-radius: var(--r-xl);
+      background: transparent;
+    }
+    .gal__item--main {
+      grid-row: span 2;
+    }
+    .gal__item:nth-child(n + 6) {
+      display: none;
+    }
+    .gal__item:not(.gal__item--main) {
+      border-radius: 0;
+    }
+    /* A single photo fills the whole mosaic */
+    .gal__track:has(.gal__item:only-child) {
+      grid-template-columns: 1fr;
+    }
+    .gal__count {
+      display: none;
+    }
+    .gal__all {
+      display: inline-flex;
+      position: absolute;
+      right: 16px;
+      bottom: 16px;
+      background: var(--surface);
+      color: var(--ink-900);
+      box-shadow: var(--sh-2);
+    }
+    .gal__share {
+      top: 16px;
+      right: 16px;
+    }
+  }
+
+  .gal__dialog {
+    width: min(1100px, 100%);
+    max-height: 100dvh;
+    padding: 0;
+    border: 0;
+    border-radius: var(--r-xl);
+    background: var(--bg);
+  }
+  .gal__dialog::backdrop {
+    background: rgb(10 20 16 / 0.75);
+  }
+  .gal__dialog-top {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px var(--s-4);
+    background: var(--bg);
+    border-bottom: 1px solid var(--line);
+    font-weight: 600;
+  }
+  .gal__dialog-grid {
+    display: grid;
+    gap: var(--s-2);
+    padding: var(--s-4);
+  }
+  .gal__dialog-grid figure {
+    margin: 0;
+    aspect-ratio: 3 / 2;
+    border-radius: var(--r-md);
+    overflow: hidden;
+  }
+  @media (min-width: 768px) {
+    .gal__dialog-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+</style>

@@ -59,8 +59,7 @@ const price = next?.price ?? o.fromPrice;
 
     bar.querySelector('[data-sbar-book]')?.addEventListener('click', () => card.querySelector<HTMLButtonElement>('[data-book]')?.click());
 
-    window.addEventListener('hcc:selection', (e) => {
-      const s = e.detail;
+    const apply = (s: NonNullable<Window['hccSelection']>) => {
       const fmt = new Intl.DateTimeFormat('en-IN', { timeZone: 'UTC', weekday: 'short', day: 'numeric', month: 'short' });
       const priceEl = bar.querySelector('[data-sbar-price]');
       if (priceEl && s.pricePerPerson != null) priceEl.textContent = `₹${new Intl.NumberFormat('en-IN').format(s.pricePerPerson)}`;
@@ -74,7 +73,9 @@ const price = next?.price ?? o.fromPrice;
         wa.dataset.waRef = src.dataset.waRef;
         wa.dataset.departureDate = src.dataset.departureDate;
       }
-    });
+    };
+    if (window.hccSelection) apply(window.hccSelection);
+    window.addEventListener('hcc:selection', (e) => apply(e.detail));
   }
 </script>
 

@@ -1,0 +1,168 @@
+---
+/**
+ * Good to know: who it's for / not for, things to carry, important notes, and a
+ * payment & cancellation summary (link to the full policy). Each block renders only with data.
+ */
+import TripSection from './TripSection.astro';
+import Icon from '@/components/ui/Icon.astro';
+import type { TripView } from '@/lib/catalog';
+import { inr } from '@/lib/format';
+import { settings } from '@/lib/settings';
+
+interface Props {
+  trip: TripView;
+}
+
+const { trip } = Astro.props;
+const d = trip.data;
+const hasPayment = d.advanceAmount != null || d.cancellationPolicy;
+const any = d.suitableFor.length || d.notSuitableFor.length || d.thingsToCarry.length || d.importantInfo.length || hasPayment;
+---
+
+{
+  any && (
+    <TripSection id="info" title="Good to know">
+      <div class="gtk">
+        {(d.suitableFor.length > 0 || d.notSuitableFor.length > 0) && (
+          <div class="gtk__card gtk__card--wide">
+            <div class="gtk__fit">
+              {d.suitableFor.length > 0 && (
+                <div>
+                  <h3>Great for</h3>
+                  <ul class="gtk__tags">
+                    {d.suitableFor.map((s) => (
+                      <li class="gtk__tag gtk__tag--yes">{s}</li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+              {d.notSuitableFor.length > 0 && (
+                <div>
+                  <h3>Not ideal for</h3>
+                  <ul class="gtk__tags">
+                    {d.notSuitableFor.map((s) => (
+                      <li class="gtk__tag">{s}</li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+        {d.thingsToCarry.length > 0 && (
+          <div class="gtk__card">
+            <h3>
+              <Icon name="backpack" /> Things to carry
+            </h3>
+            <ul class="gtk__list">
+              {d.thingsToCarry.map((t) => (
+                <li>{t}</li>
+              ))}
+            </ul>
+          </div>
+        )}
+        {d.importantInfo.length > 0 && (
+          <div class="gtk__card">
+            <h3>
+              <Icon name="info" /> Important
+            </h3>
+            <ul class="gtk__list">
+              {d.importantInfo.map((t) => (
+                <li>{t}</li>
+              ))}
+            </ul>
+          </div>
+        )}
+        {hasPayment && (
+          <div class="gtk__card gtk__card--wide" id="policies">
+            <h3>
+              <Icon name="shield" /> Payment & cancellation
+            </h3>
+            <ul class="gtk__list">
+              {d.advanceAmount != null && (
+                <li>
+                  Reserve your seat with <b>{inr(d.advanceAmount)} per person</b>
+                  {settings.payments.enabled ? ', paid securely online.' : '. The HCC team confirms your seat and shares payment details.'}
+                </li>
+              )}
+              {d.gstPercent != null && <li>GST of {d.gstPercent}% applies and is shown in the price summary.</li>}
+              {d.cancellationPolicy && <li>{d.cancellationPolicy}</li>}
+            </ul>
+            <a class="btn btn--text gtk__more" href="/cancellation-policy/">
+              Read the full cancellation policy <Icon name="arrow" />
+            </a>
+          </div>
+        )}
+      </div>
+    </TripSection>
+  )
+}
+
+<style>
+  .gtk {
+    display: grid;
+    gap: var(--s-3);
+  }
+  .gtk__card {
+    padding: var(--s-5);
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--r-lg);
+  }
+  .gtk__card h3 {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: var(--s-3);
+    font-size: 1rem;
+  }
+  .gtk__card h3 :global(.icon) {
+    color: var(--forest-500);
+  }
+  .gtk__fit {
+    display: grid;
+    gap: var(--s-5);
+  }
+  .gtk__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .gtk__tag {
+    padding: 6px 12px;
+    border-radius: var(--r-pill);
+    background: var(--surface-2);
+    font-size: 0.8125rem;
+    font-weight: 500;
+  }
+  .gtk__tag--yes {
+    background: var(--ok-bg);
+    color: var(--forest-700);
+  }
+  .gtk__list {
+    display: grid;
+    gap: 8px;
+    margin: 0;
+    padding-left: 18px;
+    font-size: 0.9375rem;
+    color: var(--ink-700);
+  }
+  .gtk__more {
+    margin-top: var(--s-3);
+    font-size: 0.875rem;
+  }
+  @media (min-width: 768px) {
+    .gtk {
+      grid-template-columns: 1fr 1fr;
+    }
+    .gtk__card--wide {
+      grid-column: 1 / -1;
+    }
+    .gtk__fit {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+</style>

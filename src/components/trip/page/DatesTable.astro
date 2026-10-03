@@ -1,0 +1,128 @@
+---
+/**
+ * Every departure for this origin, with status. "Select" picks the date in the
+ * BookingCard (hcc:select-departure) and brings the card into view. Sold-out dates stay
+ * listed (proof of demand) but can't be selected. Seat counts only appear from data.
+ */
+import TripSection from './TripSection.astro';
+import Badge from '@/components/ui/Badge.astro';
+import { type TripOriginView } from '@/lib/catalog';
+import { inr, dateRange, dayShort } from '@/lib/format';
+
+interface Props {
+  origin: TripOriginView;
+  recurrence?: string;
+}
+
+const { origin, recurrence } = Astro.props;
+const deps = origin.departures;
+---
+
+<TripSection id="dates" title="Dates & prices" subtitle={deps.length ? `Departures from ${origin.label}. Prices are per person, cheapest room and travel option.` : undefined}>
+  {
+    deps.length > 0 ? (
+      <ul class="dates">
+        {deps.map((d) => (
+          <li class:list={['dates__row', !d.bookable && 'is-off']}>
+            <div class="dates__when">
+              <b>{dateRange(d.start, d.end)}</b>
+              <small>
+                {dayShort(d.start)} to {dayShort(d.end)}
+                {d.note && <> · {d.note}</>}
+              </small>
+            </div>
+            <div class="dates__status">
+              {d.status === 'soldout' ? (
+                <Badge tone="muted">Sold out</Badge>
+              ) : d.status === 'waitlist' ? (
+                <Badge tone="info">Waitlist</Badge>
+              ) : d.urgency === 'seats' ? (
+                <Badge tone="alert">{d.seatsLeft} seats left</Badge>
+              ) : d.urgency === 'filling' ? (
+                <Badge tone="alert">Filling fast</Badge>
+              ) : (
+                <Badge tone="ok">Available</Badge>
+              )}
+            </div>
+            <div class="dates__price">
+              {d.originalPrice && <s class="price__was num">{inr(d.originalPrice)}</s>}
+              <b class="num">{inr(d.price)}</b>
+            </div>
+            <button type="button" class="btn btn--sm btn--secondary dates__btn" data-select-dep={d.id} disabled={!d.bookable} aria-label={`Select ${dateRange(d.start, d.end)}`}>
+              {d.status === 'waitlist' ? 'Join' : 'Select'}
+            </button>
+          </li>
+        ))}
+      </ul>
+    ) : (
+      <p class="note">{recurrence ?? 'New dates are being planned.'} Message us and we'll tell you the next departure first.</p>
+    )
+  }
+</TripSection>
+
+<script>
+  document.querySelectorAll<HTMLButtonElement>('[data-select-dep]').forEach((b) =>
+    b.addEventListener('click', () => {
+      window.dispatchEvent(new CustomEvent('hcc:select-departure', { detail: { id: b.dataset.selectDep } }));
+      document.querySelector('[data-booking-card]')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }),
+  );
+</script>
+
+<style>
+  .dates {
+    display: grid;
+    gap: var(--s-2);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .dates__row {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-areas: 'when price' 'status btn';
+    align-items: center;
+    gap: 8px 12px;
+    padding: 14px 16px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--r-lg);
+  }
+  .dates__row.is-off {
+    opacity: 0.6;
+  }
+  .dates__when {
+    grid-area: when;
+    display: grid;
+  }
+  .dates__when b {
+    font: 700 1rem / 1.3 var(--font-display);
+  }
+  .dates__when small {
+    font-size: 0.78rem;
+    color: var(--text-2);
+  }
+  .dates__status {
+    grid-area: status;
+  }
+  .dates__price {
+    grid-area: price;
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+    justify-self: end;
+  }
+  .dates__price b {
+    font: 800 1.0625rem / 1 var(--font-display);
+  }
+  .dates__btn {
+    grid-area: btn;
+    justify-self: end;
+  }
+  @media (min-width: 640px) {
+    .dates__row {
+      grid-template-columns: 1.6fr 1fr 1fr auto;
+      grid-template-areas: 'when status price btn';
+    }
+  }
+</style>

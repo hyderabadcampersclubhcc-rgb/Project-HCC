@@ -1,0 +1,102 @@
+---
+/**
+ * Trip page approval preview: the real trip-page composition with the sample
+ * "Ooty & Coonoor" trip, section notes and pending states. noindex, not in the sitemap.
+ * Campaign links work here too: /preview/trip/?d=2026-10-30 or ?d=2026-10-16&opt=3a&view=book
+ */
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import TripPage from '@/components/trip/page/TripPage.astro';
+import { getTrip } from '@/lib/catalog';
+import { tripSeo } from '@/lib/seo';
+import { organizationLd, touristTripLd } from '@/lib/schema';
+
+const catalog = { samples: true, today: '2026-10-03' };
+const trip = (await getTrip('ooty-coonoor', catalog))!;
+const seo = tripSeo(trip, trip.primary);
+---
+
+<BaseLayout
+  title={`PREVIEW · ${seo.title}`}
+  rawTitle
+  description={seo.description}
+  noindex
+  mobileBar="none"
+  jsonLd={[organizationLd(Astro.site!), touristTripLd(trip, trip.primary, Astro.site!)]}
+>
+  <TripPage trip={trip} catalog={catalog} preview />
+
+  <div slot="end" class="pv-bar" role="region" aria-label="Preview controls">
+    <span class="pv-bar__tag">Trip page preview</span>
+    <span class="pv-bar__txt">Sample data · not live</span>
+    <button type="button" class="pv-bar__btn" aria-pressed="true" data-notes-toggle>Notes on</button>
+  </div>
+</BaseLayout>
+
+<script>
+  const btn = document.querySelector<HTMLButtonElement>('[data-notes-toggle]');
+  const set = (on: boolean) => {
+    document.body.dataset.notes = on ? 'on' : 'off';
+    if (btn) {
+      btn.setAttribute('aria-pressed', String(on));
+      btn.textContent = on ? 'Notes on' : 'Notes off';
+    }
+    try {
+      localStorage.setItem('hcc_preview_notes', on ? 'on' : 'off');
+    } catch {
+      /* ignore */
+    }
+  };
+  let initial = true;
+  try {
+    initial = localStorage.getItem('hcc_preview_notes') !== 'off';
+  } catch {
+    /* ignore */
+  }
+  set(initial);
+  btn?.addEventListener('click', () => set(document.body.dataset.notes !== 'on'));
+</script>
+
+<style>
+  .pv-bar {
+    position: fixed;
+    left: 12px;
+    bottom: calc(var(--mobile-bar-h) + 16px + env(safe-area-inset-bottom));
+    z-index: 60;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 6px 6px 6px 12px;
+    border-radius: var(--r-pill);
+    background: var(--ink-900);
+    color: var(--white);
+    box-shadow: var(--sh-3);
+    font-size: 0.75rem;
+  }
+  .pv-bar__tag {
+    font-weight: 700;
+    color: var(--cta);
+  }
+  .pv-bar__txt {
+    opacity: 0.7;
+  }
+  .pv-bar__btn {
+    min-height: 32px;
+    padding: 0 12px;
+    border: 0;
+    border-radius: var(--r-pill);
+    background: var(--white);
+    color: var(--ink-900);
+    font-weight: 600;
+    font-size: 0.75rem;
+  }
+  @media (max-width: 420px) {
+    .pv-bar__txt {
+      display: none;
+    }
+  }
+  @media (min-width: 1024px) {
+    .pv-bar {
+      bottom: 16px;
+    }
+  }
+</style>

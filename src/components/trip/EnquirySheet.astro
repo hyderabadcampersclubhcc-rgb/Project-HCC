@@ -1,0 +1,290 @@
+---
+/**
+ * The "Book Your Seat" / "Get Full Itinerary" sheet. Opens on hcc:book / hcc:itinerary
+ * (from BookingCard or StickyBar), shows the exact selection, asks only for name + WhatsApp
+ * number, and submits a BookingIntent through src/scripts/intent-form.ts.
+ *
+ * Razorpay hook: when payments are enabled, /api/intents answers next:"pay"; the
+ * `hcc:lead` listener below is where checkout opens. Nothing else changes.
+ * Bottom sheet on mobile, centred dialog on desktop.
+ */
+import Field from '@/components/ui/Field.astro';
+import Icon from '@/components/ui/Icon.astro';
+import { settings, whatsappNumber } from '@/lib/settings';
+
+interface Props {
+  tripId: string;
+  tripTitle: string;
+  originLabel: string;
+  transport: { id: string; label: string }[];
+  stay: { id: string; label: string }[];
+  advance?: number | null;
+  gstPercent?: number | null;
+}
+
+const { tripId, tripTitle, originLabel, transport, stay, advance, gstPercent } = Astro.props;
+const labels = JSON.stringify({ transport: Object.fromEntries(transport.map((t) => [t.id, t.label])), stay: Object.fromEntries(stay.map((s) => [s.id, s.label])) });
+---
+
+<dialog class="esheet" aria-labelledby="esheet-title" data-enquiry-sheet data-labels={labels} data-advance={advance ?? ''} data-gst={gstPercent ?? ''}>
+  <div class="esheet__in" data-intent-scope>
+    <header class="esheet__head">
+      <div>
+        <p class="overline" data-es-over>Reserve your seat</p>
+        <h2 id="esheet-title" class="esheet__title">{tripTitle}</h2>
+      </div>
+      <button type="button" class="btn btn--sm btn--icon btn--whatsapp" aria-label="Close" data-es-close>
+        <Icon name="x" />
+      </button>
+    </header>
+
+    <dl class="esheet__sum" data-es-summary>
+      <div><dt>From</dt><dd>{originLabel}</dd></div>
+      <div data-es-row="date"><dt>Date</dt><dd data-es="date"></dd></div>
+      <div data-es-row="option"><dt>Option</dt><dd data-es="option"></dd></div>
+      <div data-es-row="travellers"><dt>Travellers</dt><dd data-es="travellers"></dd></div>
+      <div data-es-row="total" class="esheet__tot"><dt>Trip total</dt><dd data-es="total" class="num"></dd></div>
+      <div data-es-row="advance"><dt>Advance to reserve</dt><dd data-es="advance" class="num"></dd></div>
+    </dl>
+
+    <form class="esheet__form" method="post" action="/api/intents" data-intent-form="book" data-trip-id={tripId} data-wa={whatsappNumber || undefined} data-fallback-intro={`Hi HCC! I'd like to book the ${tripTitle} trip from ${originLabel}.`} novalidate>
+      <input type="hidden" name="kind" value="book" data-es-input="kind" />
+      <input type="hidden" name="tripTitle" value={tripTitle} />
+      <input type="hidden" name="date" data-es-input="date" />
+      <input type="hidden" name="transport" data-es-input="transport" />
+      <input type="hidden" name="stay" data-es-input="stay" />
+      <input type="hidden" name="option" data-es-input="option" />
+      <input type="hidden" name="travellers" data-es-input="travellers" />
+      <input type="hidden" name="quotedTotal" data-es-input="total" />
+      <div class="esheet__hp" aria-hidden="true">
+        <label>Leave this empty <input type="text" name="company" tabindex="-1" autocomplete="off" /></label>
+      </div>
+      <Field label="Your name" name="name" id="es-name" autocomplete="name" placeholder="e.g. Priya" />
+      <Field label="WhatsApp number" name="phone" id="es-phone" kind="tel" placeholder="98765 43210" help="We'll confirm your seat here." />
+      <button type="submit" class="btn btn--primary btn--lg btn--block" data-es-submit>Request My Seat</button>
+      <p class="esheet__fine">
+        <Icon name="shield" />
+        <span data-es-fine>
+          {
+            settings.payments.enabled
+              ? 'Next: pay the advance securely to confirm your seat.'
+              : 'No payment now. The HCC team confirms availability and shares payment details on WhatsApp.'
+          }
+        </span>
+      </p>
+      <div class="note note--alert" data-form-error hidden tabindex="-1" role="alert">
+        <Icon name="info" />
+        <span>
+          We couldn't send your request.
+          {whatsappNumber ? ' Send the same details on WhatsApp instead:' : settings.contact.phone ? ` Please call ${settings.contact.phone}.` : ' Please try again in a moment.'}
+          <a class="btn btn--whatsapp btn--block esheet__fallback" data-fallback-wa hidden target="_blank" rel="noopener" data-wa data-cta-location="enquiry_sheet_fallback">
+            <Icon name="whatsapp" /> Send on WhatsApp
+          </a>
+        </span>
+      </div>
+    </form>
+
+    <div class="esheet__done" data-form-success hidden tabindex="-1" role="status">
+      <span class="esheet__tick" aria-hidden="true"><Icon name="check" /></span>
+      <h3 data-es-done-title>Request received!</h3>
+      <p data-es-done-text>The HCC team will confirm your seat on WhatsApp{settings.contact.hours ? ` (${settings.contact.hours})` : ''}.</p>
+      <button type="button" class="btn btn--secondary btn--block" data-es-close>Back to the trip</button>
+    </div>
+  </div>
+</dialog>
+
+<script>
+  import type { Selection } from '@/scripts/booking';
+  import { track } from '@/scripts/analytics';
+  import { initIntentForms } from '@/scripts/intent-form';
+
+  initIntentForms();
+
+  const sheet = document.querySelector<HTMLDialogElement>('[data-enquiry-sheet]');
+  if (sheet) {
+    const labels = JSON.parse(sheet.dataset.labels!) as { transport: Record<string, string>; stay: Record<string, string> };
+    const form = sheet.querySelector<HTMLFormElement>('form')!;
+    const inr = (n: number) => `₹${new Intl.NumberFormat('en-IN').format(n)}`;
+    const fmt = new Intl.DateTimeFormat('en-IN', { timeZone: 'UTC', weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' });
+    const set = (key: string, text: string | null) => {
+      const row = sheet.querySelector<HTMLElement>(`[data-es-row="${key}"]`);
+      const dd = sheet.querySelector<HTMLElement>(`[data-es="${key}"]`);
+      if (row) row.hidden = !text;
+      if (dd && text) dd.textContent = text;
+    };
+    const input = (key: string, v: string) => {
+      const el = sheet.querySelector<HTMLInputElement>(`[data-es-input="${key}"]`);
+      if (el) el.value = v;
+    };
+
+    const open = (s: Selection, mode: 'book' | 'itinerary') => {
+      // Reset from a previous submission
+      form.hidden = false;
+      sheet.querySelector<HTMLElement>('[data-form-success]')!.hidden = true;
+      sheet.querySelector<HTMLElement>('[data-form-error]')!.hidden = true;
+
+      const option = [labels.transport[s.transport], labels.stay[s.stay]].filter(Boolean).join(' · ');
+      const waitlist = mode === 'book' && !s.departureId ? 'dates' : null;
+      const over = mode === 'itinerary' ? 'Get the full itinerary' : waitlist ? 'Request dates' : 'Reserve your seat';
+      sheet.querySelector('[data-es-over]')!.textContent = over;
+      sheet.querySelector('[data-es-submit]')!.textContent = mode === 'itinerary' ? 'Send Me the Itinerary' : waitlist ? 'Request Dates' : 'Request My Seat';
+      sheet.querySelector('[data-es-done-text]')!.textContent =
+        mode === 'itinerary' ? 'We’ll send the full day-wise itinerary to your WhatsApp shortly.' : 'The HCC team will confirm your seat on WhatsApp.';
+
+      set('date', s.date ? fmt.format(new Date(`${s.date}T00:00:00Z`)).replace(/,/g, '') : null);
+      set('option', mode === 'book' && s.date ? option : null);
+      set('travellers', mode === 'book' && s.date ? String(s.travellers) : null);
+      const gst = sheet.dataset.gst ? ` + ${sheet.dataset.gst}% GST` : '';
+      set('total', mode === 'book' && s.total != null ? `${inr(s.total)}${gst}${s.travellers > 1 ? ` (${inr(s.pricePerPerson!)} × ${s.travellers})` : ''}` : null);
+      set('advance', mode === 'book' && s.advanceTotal != null ? inr(s.advanceTotal) : null);
+
+      input('kind', mode);
+      input('date', s.date ?? '');
+      input('transport', s.transport);
+      input('stay', s.stay);
+      input('option', option);
+      input('travellers', String(s.travellers));
+      input('total', s.total != null ? String(s.total) : '');
+      form.dataset.departureId = s.departureId ?? '';
+      form.dataset.intentForm = mode;
+
+      sheet.showModal();
+      sheet.querySelector<HTMLInputElement>('#es-name')?.focus();
+      track('view_enquiry_sheet', { form_name: mode, trip_id: s.tripId, departure_date: s.date });
+    };
+
+    window.addEventListener('hcc:book', (e) => open(e.detail, 'book'));
+    window.addEventListener('hcc:itinerary', (e) => open(e.detail, 'itinerary'));
+    sheet.querySelectorAll('[data-es-close]').forEach((b) => b.addEventListener('click', () => sheet.close()));
+    sheet.addEventListener('click', (e) => e.target === sheet && sheet.close());
+
+    // Razorpay hook (payments phase): open checkout when the intent asks for payment.
+    window.addEventListener('hcc:lead', (e) => {
+      const detail = (e as CustomEvent<{ next?: string }>).detail;
+      if (detail.next === 'pay') {
+        // window.dispatchEvent(new CustomEvent('hcc:pay', { detail })) → Razorpay Checkout
+      }
+    });
+  }
+</script>
+
+<style>
+  .esheet {
+    width: 100%;
+    max-width: 100%;
+    max-height: 92dvh;
+    margin: auto 0 0;
+    padding: 0;
+    border: 0;
+    border-radius: var(--r-xl) var(--r-xl) 0 0;
+    background: var(--bg);
+    color: var(--ink-900);
+    box-shadow: var(--sh-3);
+  }
+  .esheet[open] {
+    animation: sheet-up var(--t-slow) var(--ease);
+  }
+  @keyframes sheet-up {
+    from {
+      transform: translateY(24px);
+      opacity: 0;
+    }
+  }
+  .esheet::backdrop {
+    background: rgb(10 20 16 / 0.55);
+  }
+  .esheet__in {
+    display: grid;
+    gap: var(--s-4);
+    padding: var(--s-5) var(--gutter) calc(var(--s-5) + env(safe-area-inset-bottom));
+  }
+  .esheet__head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: var(--s-3);
+  }
+  .esheet__title {
+    margin-top: 4px;
+    font-size: 1.375rem;
+  }
+  .esheet__sum {
+    display: grid;
+    gap: 6px;
+    margin: 0;
+    padding: 14px 16px;
+    border-radius: var(--r-md);
+    background: var(--surface);
+    border: 1px solid var(--line);
+    font-size: 0.875rem;
+  }
+  .esheet__sum div {
+    display: flex;
+    justify-content: space-between;
+    gap: var(--s-3);
+  }
+  .esheet__sum dt {
+    color: var(--text-2);
+  }
+  .esheet__sum dd {
+    margin: 0;
+    text-align: right;
+    font-weight: 600;
+  }
+  .esheet__tot {
+    padding-top: 6px;
+    border-top: 1px dashed var(--line-strong);
+  }
+  .esheet__form {
+    display: grid;
+    gap: var(--s-4);
+  }
+  .esheet__hp {
+    position: absolute;
+    left: -9999px;
+  }
+  .esheet__fine {
+    display: flex;
+    gap: 8px;
+    font-size: 0.78rem;
+    color: var(--text-2);
+  }
+  .esheet__fine :global(.icon) {
+    margin-top: 2px;
+    color: var(--forest-500);
+  }
+  .esheet__fallback {
+    margin-top: var(--s-3);
+  }
+  .esheet__done {
+    display: grid;
+    justify-items: center;
+    gap: var(--s-3);
+    padding: var(--s-4) 0;
+    text-align: center;
+    outline: none;
+  }
+  .esheet__done p {
+    color: var(--ink-700);
+  }
+  .esheet__tick {
+    display: grid;
+    place-items: center;
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: var(--ok-bg);
+    color: var(--forest-700);
+    font-size: 1.5rem;
+  }
+  @media (min-width: 640px) {
+    .esheet {
+      width: min(480px, calc(100% - 32px));
+      margin: auto;
+      border-radius: var(--r-xl);
+    }
+    .esheet__in {
+      padding: var(--s-6);
+    }
+  }
+</style>

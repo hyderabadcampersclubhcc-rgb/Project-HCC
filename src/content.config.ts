@@ -143,6 +143,7 @@ const trips = defineCollection({
               text: z.string(),
               icon: z.enum(['train', 'bus', 'bed', 'food', 'compass', 'mountain', 'users', 'tent', 'shield', 'check']).default('check'),
               showOnCard: z.boolean().default(false),
+              cardLabel: z.string().max(24).optional(), // short label on trip cards, e.g. "Train"
               conditional: z.boolean().default(false),
               fallback: z.string().optional(),
             }),

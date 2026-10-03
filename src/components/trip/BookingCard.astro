@@ -50,7 +50,8 @@ const payload = {
   wa: whatsappNumber,
   transport: d.transportOptions.map(({ id, label }) => ({ id, label })),
   stay: d.stayOptions.map(({ id, label }) => ({ id, label })),
-  departures: deps.map((x) => ({
+  // All departures (the card shows the first 12 as stubs; the Dates list can select any).
+  departures: o.departures.map((x) => ({
     id: x.id,
     start: x.start,
     end: x.end,
@@ -363,6 +364,44 @@ const flagFor = (x: (typeof deps)[number]) =>
   .book__itin {
     justify-self: center;
     min-height: 40px;
+  }
+  /* Desktop: compact two-column options, and the CTA block pinned to the bottom of the
+     (scrollable) sticky card so "Book Your Seat" is always on screen. */
+  @media (min-width: 1024px) {
+    .book {
+      gap: var(--s-3);
+      padding: 18px;
+    }
+    .book__opts {
+      grid-template-columns: 1fr 1fr;
+    }
+    .opt {
+      flex-wrap: wrap;
+      align-content: center;
+      gap: 2px 8px;
+      min-height: 44px;
+      padding: 8px 10px;
+      font-size: 0.8125rem;
+    }
+    .opt b {
+      width: 100%;
+      padding-left: 26px;
+      font-size: 0.78rem;
+      color: var(--text-2);
+    }
+    .opt[aria-checked='true'] b {
+      color: var(--ink-900);
+    }
+    .book__cta {
+      position: sticky;
+      bottom: -18px;
+      z-index: 1;
+      margin: 0 -18px -18px;
+      padding: 12px 18px 18px;
+      background: var(--surface);
+      border-top: 1px solid var(--line);
+      border-radius: 0 0 var(--r-xl) var(--r-xl);
+    }
   }
   .book__note {
     display: flex;

@@ -1,0 +1,178 @@
+---
+/**
+ * Trip title block: breadcrumbs, the page's single H1 ("{Title} Group Trip from {City}"),
+ * key-fact chips and the route line. Answers what / from where / how long / when at a glance.
+ * A rating line appears only when a genuine rating exists in settings.
+ */
+import Breadcrumbs from '@/components/content/Breadcrumbs.astro';
+import Stub from '@/components/ui/Stub.astro';
+import RouteLine from '@/components/ui/RouteLine.astro';
+import Icon, { type IconName } from '@/components/ui/Icon.astro';
+import { TRIP_TYPE_LINKS } from '@/data/navigation';
+import { type TripView, type TripOriginView } from '@/lib/catalog';
+import { dateLong, inr } from '@/lib/format';
+import { visibleTrustItems } from '@/lib/settings';
+
+interface Props {
+  trip: TripView;
+  origin: TripOriginView;
+}
+
+const { trip, origin } = Astro.props;
+const d = trip.data;
+const typeLink = TRIP_TYPE_LINKS.find((t) => t.type === d.tripTypes[0]);
+const crumbs = [
+  ...(typeLink ? [{ label: typeLink.type === 'weekend' ? `Weekend Trips from ${origin.label}` : typeLink.label, href: typeLink.href }] : [{ label: 'Trips', href: '/trips/' }]),
+  { label: d.title },
+];
+
+const MODE_ICON: Record<string, IconName> = { train: 'train', bus: 'bus', tempo: 'bus', cab: 'bus', flight: 'route', self: 'route' };
+const transport = d.transportOptions.length > 1 ? `${d.transportOptions.map((t) => t.label).join(' or ')}` : d.transportOptions[0].label;
+const stayType = d.stays[0]?.type;
+const facts: { icon: IconName; label: string }[] = [
+  { icon: MODE_ICON[d.transportOptions[0].mode] ?? 'route', label: transport },
+  ...(stayType ? [{ icon: 'bed' as IconName, label: stayType }] : []),
+  { icon: 'mountain', label: d.difficulty[0].toUpperCase() + d.difficulty.slice(1) },
+  ...(d.groupSize ? [{ icon: 'users' as IconName, label: `${d.groupSize.min}–${d.groupSize.max} people` }] : []),
+];
+const rating = visibleTrustItems().find((t) => t.icon === 'star');
+---
+
+<header class="thead">
+  <Breadcrumbs items={crumbs} />
+  <h1 class="thead__title">
+    {d.title} Group Trip from {origin.label}
+  </h1>
+  <p class="thead__tag">{d.tagline}</p>
+  <ul class="thead__facts" aria-label="Trip facts">
+    <li><Stub nights={d.durationNights} days={d.durationDays} outlined /></li>
+    {
+      facts.map((f) => (
+        <li class="badge badge--outline thead__fact">
+          <Icon name={f.icon} />
+          {f.label}
+        </li>
+      ))
+    }
+  </ul>
+  <RouteLine stops={[origin.label, ...trip.destinationNames]} />
+  <p class="thead__meta">
+    {
+      origin.next ? (
+        <span class="thead__live" data-hd-live>
+          <Icon name="calendar" />
+          <span data-hd-label>Next departure</span> <b data-hd-date>{dateLong(origin.next.start)}</b>
+          <span aria-hidden="true">·</span>
+          <b class="thead__price num" data-hd-price>{inr(origin.next.price)}</b>/person
+          {origin.bookable.length > 1 && (
+            <a href="#dates" class="thead__dates">
+              {origin.bookable.length} dates
+            </a>
+          )}
+        </span>
+      ) : d.recurrence ? (
+        <span>
+          <Icon name="calendar" /> {d.recurrence}
+        </span>
+      ) : (
+        <span>
+          <Icon name="calendar" /> New dates coming soon
+        </span>
+      )
+    }
+    {
+      rating && (
+        <a href={rating.sourceUrl || undefined} target={rating.sourceUrl ? '_blank' : undefined} rel="noopener" class="thead__rating">
+          <Icon name="star" filled /> {rating.value} on Google{rating.detail && ` · ${rating.detail}`}
+        </a>
+      )
+    }
+  </p>
+</header>
+
+<script>
+  // Keep the title-block summary in sync with the booking card (incl. ?d= campaign links),
+  // so the advertised date and price are visible above the fold on mobile.
+  const live = document.querySelector<HTMLElement>('[data-hd-live]');
+  if (live) {
+    const fmt = new Intl.DateTimeFormat('en-IN', { timeZone: 'UTC', weekday: 'short', day: 'numeric', month: 'short' });
+    const first = live.querySelector('[data-hd-date]')!.textContent;
+    const apply = (s: NonNullable<Window['hccSelection']>) => {
+      if (!s.date || s.pricePerPerson == null) return;
+      const label = fmt.format(new Date(`${s.date}T00:00:00Z`)).replace(',', '');
+      live.querySelector('[data-hd-date]')!.textContent = label;
+      live.querySelector('[data-hd-label]')!.textContent = label === first ? 'Next departure' : 'Selected';
+      live.querySelector('[data-hd-price]')!.textContent = `₹${new Intl.NumberFormat('en-IN').format(s.pricePerPerson)}`;
+    };
+    if (window.hccSelection) apply(window.hccSelection);
+    window.addEventListener('hcc:selection', (e) => apply(e.detail));
+  }
+</script>
+
+<style>
+  .thead {
+    display: grid;
+    gap: var(--s-3);
+    padding-top: var(--s-5);
+  }
+  .thead__title {
+    font-size: var(--fs-h1);
+    line-height: 1.08;
+  }
+  .thead__tag {
+    font-size: var(--fs-lg);
+    color: var(--ink-700);
+  }
+  .thead__facts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .thead__fact {
+    min-height: 28px;
+    padding: 0 10px;
+    font-size: 0.78rem;
+  }
+  .thead__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 18px;
+    font-size: 0.9rem;
+    color: var(--ink-700);
+  }
+  .thead__meta span,
+  .thead__rating {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .thead__meta :global(.icon) {
+    color: var(--forest-500);
+  }
+  .thead__live {
+    flex-wrap: wrap;
+    padding: 10px 14px;
+    border-radius: var(--r-md);
+    background: var(--surface);
+    border: 1px solid var(--line);
+  }
+  .thead__price {
+    font: 800 1.0625rem / 1 var(--font-display);
+  }
+  .thead__dates {
+    margin-left: auto;
+    color: var(--link);
+    font-weight: 600;
+    text-underline-offset: 3px;
+  }
+  .thead__rating {
+    font-weight: 600;
+    text-decoration: none;
+  }
+  .thead__rating :global(.icon) {
+    color: var(--marigold-500);
+  }
+</style>

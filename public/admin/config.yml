@@ -175,6 +175,7 @@ collections:
           - { label: Text, name: text, widget: string }
           - { label: Icon, name: icon, widget: select, options: [check, train, bus, bed, food, compass, mountain, users, tent, shield], default: check }
           - { label: Show on trip card, name: showOnCard, widget: boolean, default: false }
+          - { label: Short card label, name: cardLabel, widget: string, required: false, hint: 'e.g. Train. Max 24 characters. Defaults to the full text.' }
           - { label: Subject to availability, name: conditional, widget: boolean, default: false }
           - { label: Fallback if unavailable, name: fallback, widget: string, required: false }
       - { label: Exclusions, name: exclusions, widget: list, required: false }

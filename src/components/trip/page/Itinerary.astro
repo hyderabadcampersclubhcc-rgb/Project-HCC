@@ -1,0 +1,184 @@
+---
+/**
+ * Day-wise itinerary as native <details> (crawlable, works without JS). Day 1 opens by
+ * default; "Expand all" toggles every day. Weekday labels come from the next departure.
+ */
+import TripSection from './TripSection.astro';
+import Icon from '@/components/ui/Icon.astro';
+import type { TripView, TripOriginView } from '@/lib/catalog';
+import { dayShort } from '@/lib/format';
+
+interface Props {
+  trip: TripView;
+  origin: TripOriginView;
+}
+
+const { trip, origin } = Astro.props;
+const days = [...trip.data.itinerary].sort((a, b) => a.day - b.day);
+const start = origin.next?.start;
+const weekday = (offset: number) => {
+  if (!start) return null;
+  const d = new Date(`${start}T00:00:00Z`);
+  d.setUTCDate(d.getUTCDate() + offset);
+  return dayShort(d.toISOString().slice(0, 10));
+};
+const firstDay = days[0]?.day ?? 0;
+const MEAL: Record<string, string> = { breakfast: 'Breakfast', lunch: 'Lunch', dinner: 'Dinner', snacks: 'Snacks' };
+---
+
+{
+  days.length > 0 && (
+    <TripSection id="itinerary" title="Day-wise itinerary">
+      <button slot="action" type="button" class="btn btn--text it__toggle" data-it-toggle aria-expanded="false">
+        Expand all
+      </button>
+      <ol class="it">
+        {days.map((day, i) => (
+          <li class="it__day">
+            <details open={i === 0 || (firstDay === 0 && i === 1)} data-it-day>
+              <summary>
+                <span class="it__num">
+                  <b>Day {day.day}</b>
+                  {weekday(day.day - firstDay) && <small>{weekday(day.day - firstDay)}</small>}
+                </span>
+                <span class="it__title">{day.title}</span>
+                <Icon name="chevron" class="it__chev" />
+              </summary>
+              <div class="it__body">
+                <p>{day.description}</p>
+                {(day.meals.length > 0 || day.stay) && (
+                  <p class="it__meta">
+                    {day.meals.length > 0 && (
+                      <span>
+                        <Icon name="food" /> {day.meals.map((m) => MEAL[m]).join(', ')}
+                      </span>
+                    )}
+                    {day.stay && (
+                      <span>
+                        <Icon name="bed" /> {day.stay}
+                      </span>
+                    )}
+                  </p>
+                )}
+              </div>
+            </details>
+          </li>
+        ))}
+      </ol>
+    </TripSection>
+  )
+}
+
+<script>
+  document.querySelectorAll<HTMLButtonElement>('[data-it-toggle]').forEach((btn) => {
+    const days = [...(btn.closest('section')?.querySelectorAll<HTMLDetailsElement>('[data-it-day]') ?? [])];
+    btn.addEventListener('click', () => {
+      const open = btn.getAttribute('aria-expanded') !== 'true';
+      days.forEach((d) => (d.open = open));
+      btn.setAttribute('aria-expanded', String(open));
+      btn.textContent = open ? 'Collapse all' : 'Expand all';
+    });
+  });
+</script>
+
+<style>
+  .it {
+    position: relative;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  /* Trail line down the left */
+  .it::before {
+    content: '';
+    position: absolute;
+    left: 27px;
+    top: 24px;
+    bottom: 24px;
+    width: 2px;
+    background: radial-gradient(circle, var(--line-strong) 1px, transparent 1.5px) 50% 0 / 2px 6px repeat-y;
+  }
+  .it__day + .it__day {
+    margin-top: var(--s-2);
+  }
+  details {
+    position: relative;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--r-lg);
+  }
+  summary {
+    display: flex;
+    align-items: center;
+    gap: var(--s-3);
+    min-height: 64px;
+    padding: 10px 14px 10px 10px;
+    list-style: none;
+    cursor: pointer;
+  }
+  summary::-webkit-details-marker {
+    display: none;
+  }
+  .it__num {
+    display: grid;
+    justify-items: center;
+    align-content: center;
+    width: 36px;
+    min-height: 44px;
+    border-radius: 10px;
+    background: var(--forest-50);
+    color: var(--forest-700);
+    line-height: 1.1;
+    flex: none;
+  }
+  .it__num b {
+    font: 800 0.625rem / 1 var(--font-body);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .it__num small {
+    margin-top: 3px;
+    font-size: 0.625rem;
+    font-weight: 600;
+  }
+  details[open] .it__num {
+    background: var(--brand);
+    color: var(--white);
+  }
+  .it__title {
+    flex: 1;
+    font: 700 1rem / 1.3 var(--font-display);
+  }
+  summary :global(.it__chev) {
+    color: var(--text-3);
+    transition: transform var(--t) var(--ease);
+  }
+  details[open] summary :global(.it__chev) {
+    transform: rotate(180deg);
+  }
+  .it__body {
+    display: grid;
+    gap: var(--s-3);
+    padding: 0 16px 16px 58px;
+    color: var(--ink-700);
+    font-size: 0.9375rem;
+  }
+  .it__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 16px;
+    font-size: 0.8125rem;
+    color: var(--text-2);
+  }
+  .it__meta span {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .it__meta :global(.icon) {
+    color: var(--forest-500);
+  }
+  .it__toggle {
+    font-size: 0.875rem;
+  }
+</style>

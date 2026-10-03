@@ -63,14 +63,16 @@ const hasContent = reviews.length >= min || !!google;
     <div class:list={[section && 'section section--sand']}>
       <div class:list={[section && 'container']}>
         {reviews.length >= min ? (
-          <section class="reviews" aria-labelledby="reviews-title">
-            <SectionHeader id="reviews-title" title={title} level={headingLevel} subtitle={subtitle}>
-              {google && (
-                <a class="btn btn--text" href={google} target="_blank" rel="noopener">
-                  Read more reviews <Icon name="arrow" />
-                </a>
-              )}
-            </SectionHeader>
+          <section class="reviews" aria-labelledby={title ? 'reviews-title' : undefined}>
+            {title && (
+              <SectionHeader id="reviews-title" title={title} level={headingLevel} subtitle={subtitle}>
+                {google && (
+                  <a class="btn btn--text" href={google} target="_blank" rel="noopener">
+                    Read more reviews <Icon name="arrow" />
+                  </a>
+                )}
+              </SectionHeader>
+            )}
             <div class="rail rail--grid" style="--rail-cols:3">
               {reviews.map((r) => (
                 <ReviewCard review={r} />

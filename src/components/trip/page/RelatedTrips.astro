@@ -1,0 +1,55 @@
+---
+/**
+ * Related trips: shared destination first, then same trip type, then similar length.
+ * Internal links that keep visitors browsing instead of bouncing. Hidden if nothing relates.
+ */
+import TripCard from '@/components/trip/TripCard.astro';
+import { getTrips, type TripView } from '@/lib/catalog';
+
+interface Props {
+  trip: TripView;
+  catalog?: { samples?: boolean; today?: string };
+  max?: number;
+}
+
+const { trip, catalog = {}, max = 3 } = Astro.props;
+const dests = new Set(trip.data.destinations.map((d) => d.id));
+const score = (t: TripView) =>
+  (t.data.destinations.some((d) => dests.has(d.id)) ? 4 : 0) +
+  (t.data.tripTypes.some((x) => trip.data.tripTypes.includes(x)) ? 2 : 0) +
+  (Math.abs(t.data.durationNights - trip.data.durationNights) <= 1 ? 1 : 0) +
+  (t.primary.next ? 0.5 : 0);
+
+const related = (await getTrips(catalog))
+  .filter((t) => t.id !== trip.id)
+  .map((t) => ({ t, s: score(t) }))
+  .filter((x) => x.s >= 2)
+  .sort((a, b) => b.s - a.s)
+  .slice(0, max)
+  .map((x) => x.t);
+---
+
+{
+  related.length > 0 && (
+    <section class="section rel" aria-labelledby="rel-title">
+      <div class="container">
+        <h2 id="rel-title" class="rel__title">You might also like</h2>
+        <div class="rail rail--grid" style="--rail-cols:3">
+          {related.map((t, i) => (
+            <TripCard trip={t} index={i} listName="related_trips" />
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
+
+<style>
+  .rel {
+    background: var(--surface-2);
+  }
+  .rel__title {
+    margin-bottom: var(--s-5);
+    font-size: var(--fs-h2);
+  }
+</style>

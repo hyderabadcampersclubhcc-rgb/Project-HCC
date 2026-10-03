@@ -1,0 +1,80 @@
+---
+/** Sticky in-page navigation for the trip page, with scroll-spy. Only lists sections that render. */
+interface Props {
+  sections: { id: string; label: string }[];
+}
+
+const { sections } = Astro.props;
+---
+
+{
+  sections.length > 2 && (
+    <nav class="tabs" aria-label="On this page" data-tabs>
+      <ul class="chips tabs__list">
+        {sections.map((s, i) => (
+          <li>
+            <a class="chip tabs__chip" href={`#${s.id}`} aria-current={i === 0 ? 'true' : undefined} data-tab={s.id}>
+              {s.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  )
+}
+
+<script>
+  const nav = document.querySelector<HTMLElement>('[data-tabs]');
+  if (nav) {
+    const links = [...nav.querySelectorAll<HTMLAnchorElement>('[data-tab]')];
+    const targets = links.map((l) => document.getElementById(l.dataset.tab!)).filter(Boolean) as HTMLElement[];
+    const setActive = (id: string) => {
+      links.forEach((l) => {
+        const on = l.dataset.tab === id;
+        if (on) {
+          l.setAttribute('aria-current', 'true');
+          // keep the active chip visible inside the horizontal scroller
+          const list = l.closest('ul')!;
+          const left = l.offsetLeft - list.clientWidth / 2 + l.clientWidth / 2;
+          list.scrollTo({ left, behavior: 'smooth' });
+        } else l.removeAttribute('aria-current');
+      });
+    };
+    const io = new IntersectionObserver(
+      (entries) => {
+        const visible = entries.filter((e) => e.isIntersecting).sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top)[0];
+        if (visible) setActive(visible.target.id);
+      },
+      { rootMargin: '-30% 0px -60% 0px' },
+    );
+    targets.forEach((t) => io.observe(t));
+  }
+</script>
+
+<style>
+  .tabs {
+    position: sticky;
+    top: var(--header-h);
+    z-index: 15;
+    margin-inline: calc(-1 * var(--gutter));
+    padding: 8px var(--gutter);
+    background: color-mix(in srgb, var(--bg) 94%, transparent);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--line);
+  }
+  .tabs__list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .tabs__chip {
+    min-height: 36px;
+    font-size: 0.8125rem;
+  }
+  @media (min-width: 1024px) {
+    .tabs {
+      margin-inline: 0;
+      padding-inline: 0;
+    }
+  }
+</style>

@@ -29,7 +29,8 @@ export function initIntentForms() {
 function init(form: HTMLFormElement) {
   form.dataset.ready = '';
   form.noValidate = true;
-  const name = form.dataset.intentForm!;
+  // Read at event time: one form can serve several intents (e.g. the sheet's book/itinerary modes).
+  const formName = () => form.dataset.intentForm!;
   const scope = form.closest<HTMLElement>('[data-intent-scope]') ?? form.parentElement!;
   const success = scope.querySelector<HTMLElement>('[data-form-success]');
   const failure = scope.querySelector<HTMLElement>('[data-form-error]');
@@ -39,7 +40,7 @@ function init(form: HTMLFormElement) {
   const start = () => {
     if (started) return;
     started = true;
-    track('form_start', { form_name: name, trip_id: form.dataset.tripId });
+    track('form_start', { form_name: formName(), trip_id: form.dataset.tripId });
   };
   form.addEventListener('focusin', start, { once: true });
   form.addEventListener('input', start, { once: true });
@@ -76,7 +77,7 @@ function init(form: HTMLFormElement) {
     errors.forEach(([el, msg]) => setError(el, msg));
     if (errors.length) {
       errors[0][0]?.focus();
-      track('form_error', { form_name: name, fields: errors.map(([el]) => el?.name).join(',') });
+      track('form_error', { form_name: formName(), fields: errors.map(([el]) => el?.name).join(',') });
       return;
     }
 
@@ -86,7 +87,7 @@ function init(form: HTMLFormElement) {
       return;
     }
 
-    track('form_submit', { form_name: name, trip_id: form.dataset.tripId });
+    track('form_submit', { form_name: formName(), trip_id: form.dataset.tripId });
     const payload = {
       ...Object.fromEntries([...fd.entries()].filter(([k]) => k !== 'company').map(([k, v]) => [k, String(v).trim()])),
       phone,
@@ -111,8 +112,8 @@ function init(form: HTMLFormElement) {
       const data = (await res.json().catch(() => ({ ok: false }))) as IntentResponse;
       if (!res.ok || !data.ok) throw new Error(`HTTP ${res.status}`);
 
-      track('generate_lead', { form_name: name, lead_id: data.id, trip_id: form.dataset.tripId, currency: 'INR' });
-      window.dispatchEvent(new CustomEvent('hcc:lead', { detail: { form: name, id: data.id, next: data.next } }));
+      track('generate_lead', { form_name: formName(), lead_id: data.id, trip_id: form.dataset.tripId, currency: 'INR' });
+      window.dispatchEvent(new CustomEvent('hcc:lead', { detail: { form: formName(), id: data.id, next: data.next } }));
       showSuccess();
     } catch {
       showFailure(payload as Record<string, unknown>);
@@ -130,21 +131,26 @@ function init(form: HTMLFormElement) {
   }
 
   function showFailure(p: Record<string, unknown>) {
-    track('form_failed', { form_name: name });
+    track('form_failed', { form_name: formName() });
     if (!failure) return;
     failure.hidden = false;
     const wa = form.dataset.wa;
     const link = failure.querySelector<HTMLAnchorElement>('[data-fallback-wa]');
     if (wa && link) {
+      const LABELS: [string, string][] = [
+        ['date', 'Date'],
+        ['option', 'Option'],
+        ['destination', 'Destination'],
+        ['dates', 'When'],
+        ['travellers', 'Travellers'],
+        ['budget', 'Budget'],
+        ['travelType', 'Type'],
+        ['name', 'Name'],
+      ];
       const lines = [
-        "Hi HCC! I'd like to plan a trip.",
-        `Name: ${p.name}`,
-        p.destination && `Destination: ${p.destination}`,
-        p.dates && `When: ${p.dates}`,
-        p.travellers && `Travellers: ${p.travellers}`,
-        p.budget && `Budget: ${p.budget}`,
-        p.travelType && `Type: ${p.travelType}`,
-      ].filter(Boolean);
+        form.dataset.fallbackIntro ?? "Hi HCC! I'd like to plan a trip.",
+        ...LABELS.filter(([k]) => p[k]).map(([k, label]) => `${label}: ${p[k]}`),
+      ];
       link.href = `https://wa.me/${wa}?text=${encodeURIComponent(lines.join('\n'))}`;
       link.hidden = false;
     }

@@ -1,0 +1,117 @@
+---
+/**
+ * Inclusions ✓ / Exclusions ✗ side by side. Conditional items carry a visible
+ * "Subject to availability" tag and their fallback, turning a common complaint into trust.
+ */
+import TripSection from './TripSection.astro';
+import Icon from '@/components/ui/Icon.astro';
+import type { TripView } from '@/lib/catalog';
+
+interface Props {
+  trip: TripView;
+}
+
+const { trip } = Astro.props;
+const inc = trip.data.inclusions;
+const exc = trip.data.exclusions;
+---
+
+{
+  (inc.length > 0 || exc.length > 0) && (
+    <TripSection id="inclusions" title="What's included">
+      <div class="inc">
+        {inc.length > 0 && (
+          <div class="inc__col">
+            <h3>Included</h3>
+            <ul>
+              {inc.map((i) => (
+                <li class="inc__yes">
+                  <Icon name="check" />
+                  <span>
+                    {i.text}
+                    {i.conditional && (
+                      <>
+                        <span class="badge badge--info inc__cond">Subject to availability</span>
+                        {i.fallback && <small>If unavailable: {i.fallback}</small>}
+                      </>
+                    )}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+        {exc.length > 0 && (
+          <div class="inc__col">
+            <h3>Not included</h3>
+            <ul>
+              {exc.map((e) => (
+                <li class="inc__no">
+                  <Icon name="x" />
+                  <span>{e}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+      </div>
+    </TripSection>
+  )
+}
+
+<style>
+  .inc {
+    display: grid;
+    gap: var(--s-4);
+  }
+  .inc__col {
+    padding: var(--s-5);
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--r-lg);
+  }
+  .inc__col h3 {
+    margin-bottom: var(--s-3);
+    font-size: 1rem;
+  }
+  ul {
+    display: grid;
+    gap: 10px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-size: 0.9375rem;
+  }
+  li {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+  }
+  li :global(.icon) {
+    margin-top: 3px;
+  }
+  .inc__yes :global(.icon) {
+    color: var(--forest-500);
+  }
+  .inc__no :global(.icon) {
+    color: var(--alert);
+  }
+  .inc__no {
+    color: var(--ink-700);
+  }
+  .inc__cond {
+    margin-left: 6px;
+    vertical-align: middle;
+  }
+  li small {
+    display: block;
+    margin-top: 2px;
+    font-size: 0.8rem;
+    color: var(--text-2);
+  }
+  @media (min-width: 768px) {
+    .inc {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+</style>

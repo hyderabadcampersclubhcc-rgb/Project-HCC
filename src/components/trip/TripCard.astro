@@ -86,7 +86,7 @@ const track = toAttr(itemParams(trip, o, { listName, index }));
           {cardInclusions.map((i) => (
             <li>
               <Icon name={i.icon} />
-              {i.text}
+              {i.cardLabel ?? i.text}
             </li>
           ))}
         </ul>

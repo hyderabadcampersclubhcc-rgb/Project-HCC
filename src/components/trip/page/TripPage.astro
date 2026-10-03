@@ -1,0 +1,194 @@
+---
+/**
+ * Trip detail page body. Used by:
+ *   /trips/{trip}-from-{city}/  → live (Phase 4)
+ *   /preview/trip/              → approval preview (sample data + notes)
+ *
+ * Layout: gallery → [title | sticky booking card] → section tabs → content sections.
+ * Mobile: gallery → title → booking card inline → tabs → sections, plus the StickyBar.
+ */
+import { getCollection } from 'astro:content';
+import TripGallery from './TripGallery.astro';
+import TripHeader from './TripHeader.astro';
+import SectionTabs from './SectionTabs.astro';
+import TripOverview from './TripOverview.astro';
+import DatesTable from './DatesTable.astro';
+import Itinerary from './Itinerary.astro';
+import StaysTransport from './StaysTransport.astro';
+import Inclusions from './Inclusions.astro';
+import GoodToKnow from './GoodToKnow.astro';
+import TripSection from './TripSection.astro';
+import RelatedTrips from './RelatedTrips.astro';
+import BookingCard from '@/components/trip/BookingCard.astro';
+import StickyBar from '@/components/trip/StickyBar.astro';
+import EnquirySheet from '@/components/trip/EnquirySheet.astro';
+import FAQ from '@/components/content/FAQ.astro';
+import Reviews from '@/components/trust/Reviews.astro';
+import WhatsAppBand from '@/components/cta/WhatsAppBand.astro';
+import SectionNote from '@/components/home/SectionNote.astro';
+import type { ReviewView } from '@/components/trust/ReviewCard.astro';
+import type { TripView } from '@/lib/catalog';
+
+interface Props {
+  trip: TripView;
+  origin?: string;
+  catalog?: { samples?: boolean; today?: string };
+  preview?: boolean;
+}
+
+const { trip, origin: originCity, catalog = {}, preview = false } = Astro.props;
+const o = trip.origins.find((x) => x.city === originCity) ?? trip.primary;
+const d = trip.data;
+
+const reviewCount = (await getCollection('reviews')).filter((r) => r.data.trip?.id === trip.id).length;
+const demoReviews: ReviewView[] = [1, 2].map((i) => ({
+  name: `Reviewer ${i}`,
+  rating: 5,
+  text: 'LAYOUT DEMO, NOT A REAL REVIEW. Genuine reviews from travellers on this trip appear here verbatim, with name, travel month and source.',
+  date: '2026-09-14',
+  source: 'google',
+}));
+const showReviews = preview || reviewCount > 0;
+
+const sections = [
+  (d.highlights.length || trip.entry.body?.trim()) && { id: 'overview', label: 'Overview' },
+  { id: 'dates', label: 'Dates' },
+  d.itinerary.length && { id: 'itinerary', label: 'Itinerary' },
+  { id: 'stays', label: 'Stays & travel' },
+  (d.inclusions.length || d.exclusions.length) && { id: 'inclusions', label: 'Inclusions' },
+  (d.thingsToCarry.length || d.importantInfo.length || d.suitableFor.length || d.advanceAmount != null || d.cancellationPolicy) && {
+    id: 'info',
+    label: 'Good to know',
+  },
+  d.faqs.length && { id: 'faqs', label: 'FAQs' },
+  showReviews && { id: 'reviews', label: 'Reviews' },
+].filter((s): s is { id: string; label: string } => !!s);
+---
+
+<div class="container tp">
+  {preview && <SectionNote n={1} title="Gallery" purpose="Photo-first, like Instagram: real trip photos sell the experience before any text. Swipe carousel with a counter on mobile; 1 + 4 mosaic with 'View all photos' on desktop." data="Trip hero image + gallery (CMS uploads, auto-converted to AVIF/WebP). First photo is the LCP image; the rest lazy-load." empty="A single branded placeholder until photos are uploaded." status="needs-data" />}
+  <TripGallery trip={trip} originLabel={o.label} preview={preview} />
+
+  <div class="tp__grid">
+    <div class="tp__head">
+      {preview && <SectionNote n={2} title="Title + key facts" purpose="Answers what / from where / how long / when in one glance. H1 = '{Trip} Group Trip from {City}' (the transactional keyword); breadcrumbs link up to the category page that owns the broader search." data="Trip title, tagline, duration, transport, stay type, difficulty, group size, route; next departure computed from dates. Rating line only if a real Google rating is set." />}
+      <TripHeader trip={trip} origin={o} />
+    </div>
+
+    <aside class="tp__book" aria-label="Book this trip">
+      {preview && <SectionNote n={3} title="Booking card" purpose="The conversion engine, placed beside the content on desktop (sticky) and directly under the title on mobile. Date → options → travellers → live total → Book / WhatsApp / Itinerary." data="Departures (status, seats, overrides) and trip options. Campaign links preselect a date: try ?d=2026-10-30 (sold out → next date) or ?opt=3a." cta="Book Your Seat opens the request sheet (name + WhatsApp only). WhatsApp is pre-filled with the selected date. Get Full Itinerary is a soft lead capture." />}
+      <div class="tp__book-in">
+        <BookingCard trip={trip} origin={o.city} />
+      </div>
+    </aside>
+
+    <div class="tp__body">
+      <SectionTabs sections={sections} />
+      {preview && <SectionNote n={4} title="Overview" purpose="The trip's unique story (2–3 short paragraphs) plus highlights. Unique copy per trip, never a template with the destination swapped, so every page earns its own ranking." data="Trip body (markdown) + highlights list." />}
+      <TripOverview trip={trip} />
+      {preview && <SectionNote n={5} title="Dates & prices" purpose="Every departure with honest status. Sold-out dates stay visible as proof of demand. 'Select' picks the date in the booking card." data="Departures for this city. Seat counts only when entered by the team and under the threshold." />}
+      <DatesTable origin={o} recurrence={d.recurrence} />
+      {preview && <SectionNote n={6} title="Day-wise itinerary" purpose="The #1 thing people check before booking. Native accordions (crawlable), first day open, 'Expand all'. Weekday labels follow the next departure." data="Itinerary days with meals and overnight stay." />}
+      <Itinerary trip={trip} origin={o} />
+      {preview && <SectionNote n={7} title="Stays, transport & pickup" purpose="Transparency that competitors skip: property type, washroom, 'or similar' stated honestly; every travel/room option with its price difference; pickup points with reporting time and map link." data="Stays, transport and stay options, and this city's pickup points and journey notes." />}
+      <StaysTransport trip={trip} origin={o} />
+      {preview && <SectionNote n={8} title="What's included" purpose="Side-by-side ✓/✗. Conditional items show 'Subject to availability' plus the fallback, turning a common complaint into a trust signal." data="Inclusions (each can also show a short label on trip cards) and exclusions." />}
+      <Inclusions trip={trip} />
+      {preview && <SectionNote n={9} title="Good to know" purpose="Pre-empts objections: who it's for and not for, what to pack, important notes, and a plain-language payment & cancellation summary." data="Suitable/not suitable, things to carry, important info, advance, GST, cancellation summary (links to the full policy page)." status="needs-data" />}
+      <GoodToKnow trip={trip} />
+      {
+        d.faqs.length > 0 && (
+          <>
+            {preview && <SectionNote n={10} title="Trip FAQs" purpose="Trip-specific questions only (general ones live on /faq/), so there's no duplicate content across pages." data="Trip FAQs (CMS)." status="needs-data" />}
+            <TripSection id="faqs" title="Questions about this trip">
+              <FAQ items={d.faqs} />
+            </TripSection>
+          </>
+        )
+      }
+      {
+        showReviews && (
+          <>
+            {preview && <SectionNote n={11} title="Reviews from this trip" purpose="Social proof tied to this exact trip." data="Reviews linked to this trip (genuine, with consent). Shown from 1 review." empty="Section and tab hidden until a real review is linked. Shown here with labelled layout demos." status="needs-data" />}
+            <TripSection id="reviews" title="What travellers say">
+              <Reviews tripId={trip.id} min={1} headingLevel="h3" title="" reviews={preview ? demoReviews : undefined} />
+            </TripSection>
+          </>
+        )
+      }
+      <div class="tp__band">
+        <WhatsAppBand
+          location="trip_page"
+          title="Questions before you book?"
+          text={`Ask us anything about the ${d.title} trip: dates, rooms, travelling solo. A real person replies.`}
+          primaryLabel="Plan a Custom Version"
+          primaryHref="/customised-trips/"
+          context={{ tripTitle: d.title, originLabel: o.label }}
+          headingLevel="h2"
+        />
+      </div>
+    </div>
+  </div>
+</div>
+
+{preview && <SectionNote n={12} title="Related trips" purpose="Keeps undecided visitors browsing: same destination first, then same trip type, then similar length." data="Computed from live trips; hidden when nothing relates." />}
+<RelatedTrips trip={trip} catalog={catalog} />
+
+<StickyBar trip={trip} origin={o.city} />
+<EnquirySheet tripId={trip.id} tripTitle={d.title} originLabel={o.label} transport={d.transportOptions} stay={d.stayOptions} advance={d.advanceAmount} gstPercent={d.gstPercent} />
+
+<style>
+  .tp {
+    padding-top: var(--s-3);
+  }
+  .tp__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas: 'head' 'book' 'body';
+    column-gap: var(--s-10);
+  }
+  .tp__head {
+    grid-area: head;
+  }
+  .tp__book {
+    grid-area: book;
+    padding-top: var(--s-5);
+  }
+  .tp__body {
+    grid-area: body;
+    padding-top: var(--s-6);
+    min-width: 0;
+  }
+  .tp__band {
+    padding-block: var(--s-6) var(--s-12);
+  }
+  /* Notes inside the narrow column shouldn't break out of the grid */
+  .tp :global(.pnote) {
+    margin-block: var(--s-3);
+    border-radius: var(--r-md);
+    border: 1.5px dashed var(--marigold-500);
+  }
+  .tp :global(.pnote .container) {
+    padding-inline: var(--s-3);
+  }
+  @media (min-width: 1024px) {
+    .tp__grid {
+      grid-template-columns: minmax(0, 1fr) 400px;
+      grid-template-areas: 'head book' 'body book';
+      grid-template-rows: auto 1fr;
+    }
+    .tp__book {
+      padding-top: var(--s-6);
+    }
+    .tp__book-in {
+      position: sticky;
+      top: calc(var(--header-h) + var(--s-4));
+      /* Short laptop screens: the card scrolls inside itself; its CTA block stays pinned. */
+      max-height: calc(100dvh - var(--header-h) - var(--s-8));
+      overflow-y: auto;
+      overscroll-behavior: contain;
+      scrollbar-width: thin;
+      border-radius: var(--r-xl);
+    }
+  }
+</style>

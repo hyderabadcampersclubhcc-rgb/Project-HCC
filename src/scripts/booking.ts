@@ -51,10 +51,14 @@ export interface Selection {
 }
 
 declare global {
+  interface Window {
+    hccSelection?: Selection;
+  }
   interface WindowEventMap {
     'hcc:selection': CustomEvent<Selection>;
     'hcc:book': CustomEvent<Selection>;
     'hcc:itinerary': CustomEvent<Selection>;
+    'hcc:select-departure': CustomEvent<{ id: string }>;
   }
 }
 
@@ -208,6 +212,8 @@ function init(root: HTMLElement) {
       if (label) label.textContent = `WhatsApp HCC about ${dateLong(dep.start).split(' ').slice(1).join(' ')}`;
     }
 
+    // Late subscribers (scripts that load after this one) read the latest selection from here.
+    window.hccSelection = s;
     window.dispatchEvent(new CustomEvent('hcc:selection', { detail: s }));
   }
 
@@ -257,6 +263,17 @@ function init(root: HTMLElement) {
       track('get_itinerary_click', { trip_id: data.tripId });
       window.dispatchEvent(new CustomEvent('hcc:itinerary', { detail: selection() }));
     }
+  });
+
+  // "Select" buttons in the Dates & prices list
+  window.addEventListener('hcc:select-departure', (e) => {
+    const id = (e as CustomEvent<{ id: string }>).detail.id;
+    const dep = data.departures.find((d) => d.id === id);
+    if (!dep?.bookable) return;
+    state.dep = dep;
+    ensureComboAvailable();
+    render();
+    track('select_departure', { trip_id: data.tripId, departure_date: dep.start, cta_location: 'dates_list' });
   });
 
   // Arrow-key navigation inside radio groups

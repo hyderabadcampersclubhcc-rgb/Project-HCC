@@ -1,0 +1,229 @@
+---
+/**
+ * Stays, transport and pickup, as structured facts rather than prose: property type,
+ * washroom, "or similar" stated honestly; every travel option with its price difference;
+ * pickup points with reporting time and map link.
+ */
+import TripSection from './TripSection.astro';
+import Icon from '@/components/ui/Icon.astro';
+import type { TripView, TripOriginView } from '@/lib/catalog';
+import { inr } from '@/lib/format';
+
+interface Props {
+  trip: TripView;
+  origin: TripOriginView;
+}
+
+const { trip, origin } = Astro.props;
+const d = trip.data;
+const o = d.origins.find((x) => x.city === origin.city)!;
+const WASH: Record<string, string> = { attached: 'Attached washroom', shared: 'Shared washroom', common: 'Common washroom' };
+const delta = (n: number) => (n === 0 ? 'Included' : n > 0 ? `+${inr(n)}` : `−${inr(-n)}`);
+---
+
+<TripSection id="stays" title="Stays, transport & pickup">
+  <div class="st">
+    {
+      d.stays.length > 0 && (
+        <div class="st__block">
+          <h3>
+            <Icon name="bed" /> Where you'll stay
+          </h3>
+          <ul class="st__list">
+            {d.stays.map((s) => (
+              <li class="st__card">
+                <b>
+                  {s.name ?? s.type}
+                  {s.orSimilar && <span class="muted"> or similar</span>}
+                </b>
+                <span class="st__tags">
+                  {s.name && <span>{s.type}</span>}
+                  {s.location && <span>{s.location}</span>}
+                  {s.washroom && <span>{WASH[s.washroom]}</span>}
+                </span>
+                {s.description && <p>{s.description}</p>}
+              </li>
+            ))}
+          </ul>
+          {d.stayOptions.length > 0 && (
+            <ul class="st__opts" aria-label="Room sharing options">
+              {d.stayOptions.map((s) => (
+                <li>
+                  <span>{s.label}</span>
+                  <b class="num">{delta(s.priceDelta)}</b>
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+      )
+    }
+
+    <div class="st__block">
+      <h3>
+        <Icon name="train" /> Getting there
+      </h3>
+      <ul class="st__opts" aria-label="Travel options">
+        {
+          d.transportOptions.map((t) => (
+            <li>
+              <span>
+                {t.label}
+                {t.class && t.class !== t.label && <small class="muted"> · {t.class}</small>}
+              </span>
+              <b class="num">{delta(t.priceDelta)}</b>
+            </li>
+          ))
+        }
+      </ul>
+      {
+        (o.outbound || o.return) && (
+          <dl class="st__journey">
+            {o.outbound && (
+              <div>
+                <dt>Outbound</dt>
+                <dd>{o.outbound}</dd>
+              </div>
+            )}
+            {o.return && (
+              <div>
+                <dt>Return</dt>
+                <dd>{o.return}</dd>
+              </div>
+            )}
+          </dl>
+        )
+      }
+    </div>
+
+    {
+      o.pickupPoints.length > 0 && (
+        <div class="st__block">
+          <h3>
+            <Icon name="pin" /> Pickup points in {origin.label}
+          </h3>
+          <ul class="st__pick">
+            {o.pickupPoints.map((p) => (
+              <li>
+                <div>
+                  <b>{p.name}</b>
+                  {p.note && <small>{p.note}</small>}
+                </div>
+                {p.time && <span class="badge badge--outline num">{p.time}</span>}
+                {p.mapUrl && (
+                  <a href={p.mapUrl} target="_blank" rel="noopener" class="btn btn--text st__map">
+                    Map
+                  </a>
+                )}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )
+    }
+  </div>
+</TripSection>
+
+<style>
+  .st {
+    display: grid;
+    gap: var(--s-6);
+  }
+  .st__block h3 {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: var(--s-3);
+    font-size: 1.0625rem;
+  }
+  .st__block h3 :global(.icon) {
+    color: var(--forest-500);
+  }
+  .st__list,
+  .st__opts,
+  .st__pick {
+    display: grid;
+    gap: var(--s-2);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .st__card {
+    display: grid;
+    gap: 6px;
+    padding: 14px 16px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--r-lg);
+  }
+  .st__card p {
+    font-size: 0.875rem;
+    color: var(--ink-700);
+  }
+  .st__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .st__tags span {
+    padding: 3px 8px;
+    border-radius: var(--r-pill);
+    background: var(--surface-2);
+    font-size: 0.75rem;
+    font-weight: 500;
+  }
+  .st__opts {
+    margin-top: var(--s-2);
+    border: 1px solid var(--line);
+    border-radius: var(--r-lg);
+    background: var(--surface);
+    gap: 0;
+  }
+  .st__opts li {
+    display: flex;
+    justify-content: space-between;
+    gap: var(--s-3);
+    padding: 12px 16px;
+    font-size: 0.9rem;
+  }
+  .st__opts li + li {
+    border-top: 1px solid var(--line);
+  }
+  .st__journey {
+    display: grid;
+    gap: 6px;
+    margin: var(--s-3) 0 0;
+    font-size: 0.875rem;
+  }
+  .st__journey div {
+    display: grid;
+    grid-template-columns: 84px 1fr;
+  }
+  .st__journey dt {
+    font-weight: 600;
+  }
+  .st__journey dd {
+    margin: 0;
+    color: var(--ink-700);
+  }
+  .st__pick li {
+    display: flex;
+    align-items: center;
+    gap: var(--s-3);
+    padding: 12px 16px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--r-lg);
+  }
+  .st__pick li > div {
+    flex: 1;
+    display: grid;
+  }
+  .st__pick small {
+    font-size: 0.78rem;
+    color: var(--text-2);
+  }
+  .st__map {
+    font-size: 0.8125rem;
+  }
+</style>
