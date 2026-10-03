@@ -23,7 +23,7 @@ Visitor submits a form  →  /api/intents (PHP)  →  Google Sheet (+ email aler
 
 ## 2. GitHub repository
 
-1. Create a **private** repository, e.g. `hcc-website`, and push this project to `main`.
+1. Repository: **github.com/hyderabadcampersclubhcc-rgb/Project-HCC** (private). Already connected; `main` is the deploy branch.
 2. **Settings → Secrets and variables → Actions:**
 
 | Type | Name | Value |
@@ -34,7 +34,7 @@ Visitor submits a form  →  /api/intents (PHP)  →  Google Sheet (+ email aler
 | Variable | `STAGING_URL` | `https://staging.hyderabadcampersclubhcc.in` |
 | Variable | `STAGING_DIR` | the subdomain folder relative to the FTP root, ending with `/` |
 | Variable | `PRODUCTION_DIR` | `/public_html/` (relative to the FTP root) |
-| Variable | `CMS_REPO` | `your-github-user/hcc-website` |
+| Variable | `CMS_REPO` | `hyderabadcampersclubhcc-rgb/Project-HCC` (optional, this is the default) |
 | Variable | `PRODUCTION_LIVE` | leave **unset** until go-live |
 | Variable | `STAGING_SHOW_SAMPLES` | `true` only if you want sample trips on staging for review |
 
