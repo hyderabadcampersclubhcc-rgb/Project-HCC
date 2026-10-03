@@ -24,3 +24,6 @@ public/api/config.php
 hcc-leads/
 .leads/
 tools/.mock-sheet.jsonl
+
+# local copies of server secrets (never commit)
+.secrets/

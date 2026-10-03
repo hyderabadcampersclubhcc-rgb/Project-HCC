@@ -89,6 +89,21 @@ function notify(lead, emails) {
   });
 }
 
+/**
+ * Run this once from the Apps Script editor (select "testSetup" → Run). It asks Google for
+ * permission, writes a test row to the "Leads" tab and sends a test email if NOTIFY_EMAILS
+ * is set. Delete the test row afterwards.
+ */
+function testSetup() {
+  const props = PropertiesService.getScriptProperties();
+  if (!props.getProperty('SECRET')) throw new Error('Add the SECRET script property first (Project Settings → Script properties).');
+  const now = Utilities.formatDate(new Date(), 'Asia/Kolkata', 'yyyy-MM-dd HH:mm:ss');
+  const lead = { id: 'TEST-' + now.replace(/\D/g, ''), receivedAt: now, kind: 'test', status: 'test', name: 'Setup test (delete me)', phone: '+91 9999999999' };
+  appendLead(lead);
+  notify(lead, props.getProperty('NOTIFY_EMAILS'));
+  Logger.log('OK: test row added to the "' + SHEET_NAME + '" tab.');
+}
+
 function json(obj) {
   return ContentService.createTextOutput(JSON.stringify(obj)).setMimeType(ContentService.MimeType.JSON);
 }
