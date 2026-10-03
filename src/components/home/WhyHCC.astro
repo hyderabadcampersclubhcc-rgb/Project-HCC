@@ -1,0 +1,143 @@
+---
+/**
+ * "Why travel with HCC?": trust pillars on the deep-forest band. Only pillars with
+ * `enabled: true` (claims HCC confirms) render. In preview, pending pillars show with a
+ * "needs HCC confirmation" tag so the design can be reviewed.
+ */
+import SectionHeader from '@/components/ui/SectionHeader.astro';
+import Icon from '@/components/ui/Icon.astro';
+import Photo from '@/components/ui/Photo.astro';
+import { home } from '@/lib/home';
+
+interface Props {
+  preview?: boolean;
+}
+
+const { preview = false } = Astro.props;
+const w = home.why;
+const pillars = w.pillars.filter((p) => p.enabled || preview);
+const solo = w.solo.enabled || preview ? w.solo : null;
+---
+
+{
+  pillars.length >= 3 && (
+    <section class="section section--deep why" aria-labelledby="why-title">
+      <div class="container why__in">
+        <div class="why__intro">
+          <SectionHeader id="why-title" overline={w.overline} title={w.title} onDark />
+          {solo?.title && (
+            <figure class="why__solo">
+              <Photo alt="HCC group photo at a viewpoint" tone="hills" label={preview ? 'Real HCC group photo' : undefined} widths={[480, 720]} sizes="(min-width: 1024px) 40vw, 90vw" />
+              <figcaption>
+                <b>{solo.title}</b>
+                {solo.text && <span>{solo.text}</span>}
+                {preview && !w.solo.enabled && <em class="why__pending">Needs HCC confirmation</em>}
+              </figcaption>
+            </figure>
+          )}
+        </div>
+        <ul class="why__grid">
+          {pillars.map((p) => (
+            <li class:list={['pillar', !p.enabled && 'pillar--pending']}>
+              <span class="pillar__ico" aria-hidden="true">
+                <Icon name={p.icon} />
+              </span>
+              <h3>{p.title}</h3>
+              <p>{p.text}</p>
+              {!p.enabled && <em class="why__pending">Needs HCC confirmation</em>}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  )
+}
+
+<style>
+  .why__in {
+    display: grid;
+    gap: var(--s-8);
+  }
+  .why__solo {
+    position: relative;
+    margin: 0;
+    aspect-ratio: 4 / 3;
+    border-radius: var(--r-xl);
+    overflow: hidden;
+    isolation: isolate;
+  }
+  .why__solo :global(.photo) {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+  }
+  .why__solo figcaption {
+    position: absolute;
+    inset: auto 0 0;
+    display: grid;
+    gap: 4px;
+    padding: var(--s-5);
+    background: linear-gradient(0deg, rgb(10 20 16 / 0.85), transparent);
+  }
+  .why__solo b {
+    font: 800 1.5rem / 1.1 var(--font-display);
+  }
+  .why__grid {
+    display: grid;
+    gap: var(--s-3);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .pillar {
+    display: grid;
+    gap: var(--s-2);
+    align-content: start;
+    padding: var(--s-5);
+    border-radius: var(--r-lg);
+    background: rgb(255 255 255 / 0.06);
+    border: 1px solid rgb(255 255 255 / 0.1);
+  }
+  .pillar--pending {
+    border-style: dashed;
+    border-color: rgb(242 166 29 / 0.6);
+  }
+  .pillar__ico {
+    display: grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    background: rgb(242 166 29 / 0.15);
+    color: var(--cta);
+    font-size: 1.2rem;
+  }
+  .pillar h3 {
+    font-size: 1.0625rem;
+  }
+  .pillar p {
+    font-size: 0.9rem;
+    color: rgb(255 255 255 / 0.78);
+  }
+  .why__pending {
+    justify-self: start;
+    padding: 2px 8px;
+    border-radius: var(--r-pill);
+    background: var(--cta);
+    color: var(--cta-ink);
+    font: 600 0.6875rem / 1.4 var(--font-body);
+    font-style: normal;
+  }
+  @media (min-width: 768px) {
+    .why__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  @media (min-width: 1024px) {
+    .why__in {
+      grid-template-columns: 5fr 7fr;
+      gap: var(--s-12);
+      align-items: start;
+    }
+  }
+</style>

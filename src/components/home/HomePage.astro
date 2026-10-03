@@ -1,0 +1,112 @@
+---
+/**
+ * The homepage, composed from data-driven sections. Used by:
+ *   /                    → live (real content only)
+ *   /preview/homepage/   → approval preview (sample data + annotations + pending states)
+ * Every section hides itself when it has no real data, so the page never shows placeholders.
+ */
+import HomeHero from './HomeHero.astro';
+import UpcomingSection from './UpcomingSection.astro';
+import DestinationDiscovery from './DestinationDiscovery.astro';
+import WeekendSection from './WeekendSection.astro';
+import TripTypes from './TripTypes.astro';
+import FeaturedTrips from './FeaturedTrips.astro';
+import WhyHCC from './WhyHCC.astro';
+import HowItWorks from './HowItWorks.astro';
+import InstagramSection from './InstagramSection.astro';
+import CustomTripSection from './CustomTripSection.astro';
+import GuidesSection from './GuidesSection.astro';
+import HomeFAQ from './HomeFAQ.astro';
+import SectionNote from './SectionNote.astro';
+import TrustBar from '@/components/trust/TrustBar.astro';
+import Reviews from '@/components/trust/Reviews.astro';
+import { visibleTrustItems } from '@/lib/settings';
+
+interface Props {
+  catalog?: { samples?: boolean; today?: string };
+  preview?: boolean;
+}
+
+const { catalog = {}, preview = false } = Astro.props;
+
+const trust = visibleTrustItems();
+const demoTrust = [
+  { icon: 'star' as const, value: '[rating] ★', label: 'Google rating', detail: '[n] reviews', sourceUrl: '', enabled: true },
+  { icon: 'users' as const, value: '[n]+', label: 'travellers', detail: '', sourceUrl: '', enabled: true },
+  { icon: 'calendar' as const, value: 'Weekly', label: 'departures', detail: '', sourceUrl: '', enabled: true },
+  { icon: 'pin' as const, value: 'Hyderabad', label: 'based team', detail: '', sourceUrl: '', enabled: true },
+  { icon: 'whatsapp' as const, value: 'WhatsApp', label: 'trip support', detail: '', sourceUrl: '', enabled: true },
+];
+const trustItems = trust.length >= 2 ? trust : preview ? demoTrust : trust;
+
+const demoReviews = [1, 2, 3].map((i) => ({
+  name: `Reviewer ${i}`,
+  rating: 5,
+  text: 'LAYOUT DEMO, NOT A REAL REVIEW. Genuine Google reviews appear here verbatim, with the reviewer’s name, travel month and trip. Long reviews get a "Read more" toggle.',
+  date: '2026-09-14',
+  source: 'google' as const,
+  tripTitle: 'Ooty & Coonoor',
+  tripUrl: '#',
+}));
+---
+
+{preview && <SectionNote {...({ n: 1, title: 'Hero + trip finder', purpose: 'Answers "what is HCC, where from, what next" in one screen. The single H1 holds the visible overline "Group trips from Hyderabad" and the brand line, so the keyword is in the H1 with no hidden text.', data: 'Homepage settings (headline, subline, hero photo). Finder months come from real departures.', empty: 'Without a hero photo it shows a branded gradient. Upload one real group photo (it is the LCP image, preloaded as AVIF).', cta: 'Find My Trip → /trips/?q=&month=&style= (GA4 "search"). Secondary: Plan a custom trip.', status: 'needs-data' })} />}
+<HomeHero preview={preview} catalog={catalog} />
+
+{preview && <SectionNote {...({ n: 2, title: 'Trust strip', purpose: 'Immediate credibility right under the hero, before any scrolling.', data: 'Site settings → Trust strip. Each item can link to its proof (e.g. Google profile).', empty: trust.length >= 2 ? 'Showing live values.' : 'Currently HIDDEN on the live site (fewer than 2 real values). Shown here with [placeholders].', status: trust.length >= 2 ? 'ready' : 'needs-data' })} />}
+{
+  trustItems.length >= 2 && (
+    <div class="container home-trust">
+      <TrustBar items={trustItems} />
+    </div>
+  )
+}
+
+{preview && <SectionNote {...({ n: 3, title: 'Upcoming trips', purpose: 'The highest-intent section: date-first, so visitors who already know WHEN can act. Placed above destinations on purpose.', data: 'All future bookable departures, sorted by date (max 10). Chips: This/Next weekend (only if matches), months with departures, city (only if >1 city).', empty: 'Section hidden if there are no bookable departures.', cta: 'Each card deep-links to the trip with that date preselected (?d=). GA4 select_item.' })} />}
+<UpcomingSection catalog={catalog} />
+
+{preview && <SectionNote {...({ n: 4, title: 'Where are you going next?', purpose: 'Destination-led discovery for visitors who know WHERE but not when.', data: 'Destinations that have ≥1 live trip; count, from-price, duration and best months are computed. Style chips appear only if they have destinations.', empty: 'Hidden when no destination has live trips.', cta: 'Card → destination page (owner of "X trip packages" searches).' })} />}
+<DestinationDiscovery catalog={catalog} />
+
+{preview && <SectionNote {...({ n: 5, title: 'Weekend trips from Hyderabad', purpose: 'Local-SEO block for the biggest search ("weekend trips from Hyderabad") that passes authority to the owner landing page instead of competing with it.', data: 'Weekend trips (cards + planner table generated from trip data). The intro sentence links each destination page automatically.', empty: 'Hidden without weekend trips.', cta: 'Explore Weekend Trips from Hyderabad → landing page. Cards → trip pages.' })} />}
+<WeekendSection catalog={catalog} />
+
+{preview && <SectionNote {...({ n: 6, title: 'Travel your way', purpose: 'Browse by trip type; each tile is the internal link to its SEO landing page.', data: 'Trip types with ≥1 live trip (with count), plus Customised and Corporate (always).', empty: 'Types without trips are not shown, so no links to thin pages.' })} />}
+<TripTypes catalog={catalog} />
+
+{preview && <SectionNote {...({ n: 7, title: 'Signature trips', purpose: 'Storytelling for best-sellers: emotion first, price second. Converts browsers who need inspiration.', data: 'Trips with "Featured on homepage" ticked (max 4) + their featured story and highlights.', empty: 'Hidden if no trip is featured.', cta: 'See the Itinerary + Ask on WhatsApp (pre-filled with the trip).' })} />}
+<FeaturedTrips catalog={catalog} preview={preview} />
+
+{preview && <SectionNote {...({ n: 8, title: 'Why travel with HCC?', purpose: 'Trust and differentiation from ordinary operators.', data: 'Homepage settings → pillars. Three are statements about how the site presents trips (enabled). Coordinator, safety, solo-friendly and the solo photo need HCC to confirm they are true.', empty: 'Only enabled pillars render; the section needs ≥3.', status: 'needs-data' })} />}
+<WhyHCC preview={preview} />
+
+{preview && <SectionNote {...({ n: 9, title: 'How it works', purpose: 'Removes "how do I actually book?" friction in three steps.', data: 'Homepage settings → steps (editable copy).', cta: 'Start Exploring → /trips/' })} />}
+<HowItWorks />
+
+{preview && <SectionNote {...({ n: 10, title: 'Real traveller reviews', purpose: 'Social proof in travellers’ own words.', data: 'Reviews collection (genuine, with consent). Name, month travelled, trip, source link.', empty: 'With fewer than 3 reviews: replaced by a "Read our reviews on Google" link, or nothing if no profile URL. Shown here with labelled layout demos.', status: 'needs-data' })} />}
+<Reviews section reviews={preview ? demoReviews : undefined} />
+
+{preview && <SectionNote {...({ n: 11, title: 'See where we’ve been (Instagram)', purpose: 'Bridges Instagram traffic and shows real groups on real trips, which is HCC’s strongest trust signal.', data: 'Curated tiles uploaded in the CMS, each linking to the post/reel. No live embed (saves ~400 KB of third-party JS).', empty: 'Hidden without an Instagram URL; without tiles it shows only the follow button.', status: 'needs-data' })} />}
+<InstagramSection preview={preview} />
+
+{preview && <SectionNote {...({ n: 12, title: 'Custom trip lead form', purpose: 'Captures visitors who did not find a fixed departure: groups, couples, corporates.', data: '2 required fields (name, WhatsApp number); destination and dates optional; travellers/budget/type behind "Add more details". UTM/gclid attached automatically.', cta: 'Plan My Trip → BookingIntent (kind: custom) via /api/intents (Phase 4). WhatsApp alternative beside it.' })} />}
+<CustomTripSection preview={preview} />
+
+{preview && <SectionNote {...({ n: 13, title: 'Travel guides & stories', purpose: 'Feeds informational SEO traffic into trips; shows expertise.', data: 'Latest 3 published guides.', empty: 'Hidden until the first guide is published. Shown here with the planned launch guides.', status: 'needs-data' })} />}
+<GuidesSection preview={preview} />
+
+{preview && <SectionNote {...({ n: 14, title: 'FAQ + "Still have a question?"', purpose: 'Answers the 5 objections that block a first booking (solo, advance, pickup, cancellation, safety), next to a human-help CTA.', data: 'Homepage settings → FAQ. Only answered questions render.', empty: 'Hidden until HCC writes the answers (they involve policy).', status: 'needs-data' })} />}
+<HomeFAQ preview={preview} />
+
+<style>
+  .home-trust {
+    position: relative;
+    z-index: 2;
+    margin-top: var(--s-4);
+  }
+  @media (min-width: 1024px) {
+    .home-trust {
+      margin-top: calc(-1 * var(--s-10));
+    }
+  }
+</style>

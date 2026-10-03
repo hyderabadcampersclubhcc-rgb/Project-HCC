@@ -1,0 +1,85 @@
+---
+/** Three-step booking explainer that removes "how do I actually book?" friction. */
+import SectionHeader from '@/components/ui/SectionHeader.astro';
+import Button from '@/components/ui/Button.astro';
+import { home } from '@/lib/home';
+---
+
+<section class="section how" aria-labelledby="how-title">
+  <div class="container">
+    <SectionHeader id="how-title" title={home.how.title} />
+    <ol class="how__steps">
+      {
+        home.how.steps.map((s, i) => (
+          <li class="how__step">
+            <span class="how__n" aria-hidden="true">
+              {String(i + 1).padStart(2, '0')}
+            </span>
+            <h3>{s.title}</h3>
+            <p>{s.text}</p>
+          </li>
+        ))
+      }
+    </ol>
+    <Button href="/trips/" iconRight="arrow" class="how__cta" data-cta-location="how_it_works">Start Exploring</Button>
+  </div>
+</section>
+
+<style>
+  .how__steps {
+    display: grid;
+    gap: var(--s-3);
+    margin: 0 0 var(--s-6);
+    padding: 0;
+    list-style: none;
+    counter-reset: step;
+  }
+  .how__step {
+    position: relative;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    column-gap: var(--s-4);
+    padding: var(--s-5);
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--r-lg);
+  }
+  .how__n {
+    grid-row: span 2;
+    font: 800 2rem / 1 var(--font-display);
+    color: var(--cta);
+  }
+  .how__step h3 {
+    font-size: 1.125rem;
+  }
+  .how__step p {
+    margin-top: 4px;
+    font-size: 0.9rem;
+    color: var(--text-2);
+  }
+  @media (min-width: 900px) {
+    .how__steps {
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--s-5);
+    }
+    .how__step {
+      grid-template-columns: 1fr;
+      row-gap: var(--s-2);
+      padding: var(--s-6);
+    }
+    .how__n {
+      grid-row: auto;
+      font-size: 2.5rem;
+    }
+    /* Trail line connecting the steps */
+    .how__step:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      top: 44px;
+      right: calc(-1 * var(--s-5));
+      width: var(--s-5);
+      height: 2px;
+      background: radial-gradient(circle, var(--line-strong) 1px, transparent 1.5px) 0 50% / 6px 2px repeat-x;
+    }
+  }
+</style>

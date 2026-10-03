@@ -1,0 +1,126 @@
+---
+/**
+ * "Travel your way": entry points to the trip-type SEO landing pages.
+ * A trip-based type only appears when it has ≥1 live trip (no links to thin pages);
+ * Customised and Corporate are enquiry-led and always shown.
+ */
+import SectionHeader from '@/components/ui/SectionHeader.astro';
+import Icon from '@/components/ui/Icon.astro';
+import { TRIP_TYPE_LINKS } from '@/data/navigation';
+import { getTrips } from '@/lib/catalog';
+import { home } from '@/lib/home';
+
+interface Props {
+  catalog?: { samples?: boolean; today?: string };
+}
+
+const { catalog = {} } = Astro.props;
+const trips = await getTrips(catalog);
+const ALWAYS = new Set(['custom', 'corporate']);
+
+const tiles = TRIP_TYPE_LINKS.map((t) => {
+  const count = trips.filter((x) => (x.data.tripTypes as string[]).includes(t.type)).length;
+  return { ...t, count };
+}).filter((t) => t.count > 0 || ALWAYS.has(t.type));
+---
+
+{
+  tiles.length > 2 && (
+    <section class="section types" aria-labelledby="types-title">
+      <div class="container">
+        <SectionHeader id="types-title" title={home.tripTypes.title} subtitle={home.tripTypes.subtitle} />
+        <ul class="types__grid">
+          {tiles.map((t) => (
+            <li>
+              <a class="type" href={t.href} data-track="select_content" data-track-params={JSON.stringify({ content_type: 'trip_type', item_id: t.type })}>
+                <span class="type__ico" aria-hidden="true">
+                  <Icon name={t.icon} />
+                </span>
+                <span class="type__text">
+                  <b>{t.label}</b>
+                  <small>{t.count > 0 ? `${t.count} trip${t.count > 1 ? 's' : ''} · ${t.blurb}` : t.blurb}</small>
+                </span>
+                <Icon name="chevron-right" class="type__go" />
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  )
+}
+
+<style>
+  .types__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--s-2);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .type {
+    display: flex;
+    align-items: center;
+    gap: var(--s-3);
+    min-height: 72px;
+    padding: 12px 14px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--r-lg);
+    text-decoration: none;
+    transition:
+      border-color var(--t) var(--ease),
+      box-shadow var(--t) var(--ease);
+  }
+  @media (hover: hover) {
+    .type:hover {
+      border-color: var(--line-strong);
+      box-shadow: var(--sh-2);
+    }
+    .type:hover :global(.type__go) {
+      transform: translateX(3px);
+      color: var(--ink-900);
+    }
+  }
+  .type__ico {
+    display: grid;
+    place-items: center;
+    width: 46px;
+    height: 46px;
+    border-radius: 14px;
+    background: var(--forest-50);
+    color: var(--forest-700);
+    font-size: 1.35rem;
+    flex: none;
+  }
+  .type__text {
+    flex: 1;
+    min-width: 0;
+  }
+  .type__text b {
+    display: block;
+    font: 700 1.0625rem / 1.2 var(--font-display);
+  }
+  .type__text small {
+    display: block;
+    margin-top: 2px;
+    font-size: 0.8125rem;
+    color: var(--text-2);
+  }
+  .type :global(.type__go) {
+    color: var(--text-3);
+    transition: transform var(--t) var(--ease);
+  }
+  @media (min-width: 600px) {
+    .types__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  @media (min-width: 1024px) {
+    .types__grid {
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--s-3);
+    }
+  }
+</style>

@@ -1,0 +1,61 @@
+---
+/**
+ * Homepage FAQ: answers the objections that block a first booking. Only questions with
+ * an answer from HCC render; the section hides when none are answered.
+ * In preview, unanswered questions show with a "needs answer" marker.
+ */
+import FAQ from '@/components/content/FAQ.astro';
+import WhatsAppBand from '@/components/cta/WhatsAppBand.astro';
+import { home } from '@/lib/home';
+
+interface Props {
+  preview?: boolean;
+}
+
+const { preview = false } = Astro.props;
+const answered = home.faq.items.filter((f) => f.a);
+const items = answered.length ? answered : preview ? home.faq.items.map((f) => ({ q: f.q, a: 'Answer needed from HCC (policy, pickup point, advance amount).' })) : [];
+---
+
+{
+  items.length > 0 && (
+    <section class="section faqs" aria-labelledby="faq-title">
+      <div class="container faqs__in">
+        <div>
+          <h2 id="faq-title" class="faqs__title">{home.faq.title}</h2>
+          <FAQ items={items} />
+          <p class="faqs__more">
+            More questions? <a href="/faq/">Read all FAQs</a>
+          </p>
+        </div>
+        <WhatsAppBand location="home_faq" title="Still have a question?" text="Message the HCC team. A real person will answer, not a bot." primaryLabel="Plan My Trip" primaryHref="#plan" headingLevel="h3" />
+      </div>
+    </section>
+  )
+}
+
+<style>
+  .faqs__in {
+    display: grid;
+    gap: var(--s-8);
+  }
+  .faqs__title {
+    margin-bottom: var(--s-5);
+    font-size: var(--fs-h2);
+  }
+  .faqs__more {
+    margin-top: var(--s-4);
+    color: var(--text-2);
+  }
+  .faqs__more a {
+    color: var(--link);
+    font-weight: 600;
+  }
+  @media (min-width: 1024px) {
+    .faqs__in {
+      grid-template-columns: 7fr 5fr;
+      gap: var(--s-16);
+      align-items: start;
+    }
+  }
+</style>

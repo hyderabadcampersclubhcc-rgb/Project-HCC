@@ -14,7 +14,7 @@ export default defineConfig({
   integrations: [
     sitemap({
       // Internal / utility pages never go into the sitemap.
-      filter: (page) => !/\/(styleguide|admin|thank-you|go)\//.test(page),
+      filter: (page) => !/\/(styleguide|preview|admin|thank-you|go)\//.test(page),
     }),
   ],
   // Self-hosted, Latin-subset variable fonts. Astro generates metric-adjusted

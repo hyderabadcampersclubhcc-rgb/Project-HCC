@@ -246,6 +246,10 @@ const phone = settings.contact.phone.replace(/[^\d+]/g, '');
   .hdr[data-overlay][data-scrolled] :global(.logo) {
     color: var(--ink-900);
   }
+  .hdr[data-overlay][data-scrolled] :global(.logo__mark) {
+    background: var(--brand);
+    box-shadow: none;
+  }
   .hdr[data-overlay][data-scrolled] :global(.btn--ghost) {
     background: var(--surface);
     border-color: var(--line-strong);

@@ -1,0 +1,167 @@
+---
+/**
+ * "Where are you going next?": destination discovery by travel style.
+ * Only destinations with ≥1 live trip appear; a style chip appears only if it has
+ * destinations; with a single style the chips are omitted. Counts and prices are computed.
+ */
+import { getCollection } from 'astro:content';
+import SectionHeader from '@/components/ui/SectionHeader.astro';
+import DestinationCard from '@/components/trip/DestinationCard.astro';
+import Button from '@/components/ui/Button.astro';
+import { getTrips, toneFor } from '@/lib/catalog';
+import { home } from '@/lib/home';
+
+interface Props {
+  catalog?: { samples?: boolean; today?: string };
+  max?: number;
+}
+
+const { catalog = {}, max = 8 } = Astro.props;
+const showSamples = catalog.samples ?? import.meta.env.PUBLIC_SHOW_SAMPLES === 'true';
+
+const STYLES = [
+  { id: 'weekend', label: 'Weekend', types: ['weekend'] },
+  { id: 'long', label: 'Long trips', types: ['long', 'backpacking'] },
+  { id: 'adventure', label: 'Adventure', types: ['trek'] },
+  { id: 'camping', label: 'Camping', types: ['camping'] },
+];
+
+const trips = await getTrips(catalog);
+const destinations = (await getCollection('destinations')).filter((d) => showSamples || !d.data.sample);
+
+const cards = destinations
+  .map((d) => {
+    const ts = trips.filter((t) => t.data.destinations.some((x) => x.id === d.id));
+    if (!ts.length) return null;
+    const prices = ts.map((t) => t.primary.fromPrice).filter((p): p is number => p != null);
+    const shortest = [...ts].sort((a, b) => a.data.durationNights - b.data.durationNights)[0];
+    const styles = STYLES.filter((s) => ts.some((t) => t.data.tripTypes.some((x) => s.types.includes(x)))).map((s) => s.id);
+    const nextStart = ts.map((t) => t.primary.next?.start).filter(Boolean).sort()[0] ?? '9999';
+    return {
+      d,
+      styles,
+      nextStart,
+      props: {
+        id: d.id,
+        name: d.data.name,
+        image: d.data.heroImage,
+        imageAlt: d.data.heroAlt,
+        tone: toneFor(shortest.data),
+        tripCount: ts.length,
+        fromPrice: prices.length ? Math.min(...prices) : null,
+        duration: [shortest.data.durationNights, shortest.data.durationDays] as [number, number],
+        bestMonths: d.data.bestMonths,
+      },
+    };
+  })
+  .filter((c): c is NonNullable<typeof c> => c !== null)
+  .sort((a, b) => a.nextStart.localeCompare(b.nextStart));
+
+const styles = STYLES.filter((s) => cards.some((c) => c.styles.includes(s.id)));
+const first = styles[0]?.id;
+const inFirst = (c: (typeof cards)[number]) => !first || styles.length < 2 || c.styles.includes(first);
+---
+
+{
+  cards.length > 0 && (
+    <section class="section section--sand disc" aria-labelledby="disc-title" data-discovery>
+      <div class="container">
+        <SectionHeader id="disc-title" title={home.destinations.title} subtitle={home.destinations.subtitle}>
+          <Button variant="text" href="/destinations/" iconRight="arrow">
+            All destinations
+          </Button>
+        </SectionHeader>
+
+        {styles.length > 1 && (
+          <div class="chips disc__chips" role="toolbar" aria-label="Filter destinations by travel style">
+            {styles.map((s) => (
+              <button type="button" class="chip" aria-pressed={s.id === first ? 'true' : 'false'} data-style={s.id}>
+                {s.label}
+              </button>
+            ))}
+            <span class="disc__from">
+              From <b>Hyderabad</b>
+            </span>
+          </div>
+        )}
+
+        <ul class="disc__grid">
+          {cards.map((c) => {
+            const shownInFirst = inFirst(c);
+            return (
+              <li data-styles={c.styles.join(' ')} hidden={!shownInFirst} data-rank>
+                <DestinationCard {...c.props} />
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+    </section>
+  )
+}
+
+<script define:vars={{ max }}>
+  document.querySelectorAll('[data-discovery]').forEach((root) => {
+    const items = [...root.querySelectorAll('[data-styles]')];
+    const apply = (style) => {
+      let n = 0;
+      items.forEach((li) => {
+        const ok = (!style || li.dataset.styles.split(' ').includes(style)) && n < max;
+        li.hidden = !ok;
+        if (ok) n++;
+      });
+    };
+    const active = root.querySelector('[data-style][aria-pressed="true"]');
+    apply(active?.dataset.style);
+    root.addEventListener('click', (e) => {
+      const chip = e.target.closest('[data-style]');
+      if (!chip) return;
+      root.querySelectorAll('[data-style]').forEach((c) => c.setAttribute('aria-pressed', String(c === chip)));
+      apply(chip.dataset.style);
+    });
+  });
+</script>
+
+<style>
+  .disc__chips {
+    align-items: center;
+    margin-inline: calc(-1 * var(--gutter));
+    padding-inline: var(--gutter);
+    margin-bottom: var(--s-5);
+  }
+  .disc__from {
+    display: none;
+    flex: none;
+    margin-left: auto;
+    padding-left: var(--s-3);
+    font-size: 0.8125rem;
+    color: var(--text-2);
+    white-space: nowrap;
+  }
+  .disc__grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--s-3);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  @media (min-width: 768px) {
+    .disc__from {
+      display: inline;
+    }
+    .disc__grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+  @media (min-width: 1024px) {
+    .disc__grid {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: var(--s-5);
+    }
+    .disc__chips {
+      margin-inline: 0;
+      padding-inline: 0;
+    }
+  }
+</style>

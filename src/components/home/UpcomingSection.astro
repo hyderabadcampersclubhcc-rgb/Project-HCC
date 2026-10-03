@@ -1,0 +1,175 @@
+---
+/**
+ * "Upcoming trips": date-first rail, the highest-intent section on the page.
+ * Chips: All · This weekend · Next weekend · months with departures · (city, only if >1).
+ * Weekend chips are evaluated in the browser against today's date (IST) and hide
+ * themselves when nothing matches. Hidden entirely when there are no bookable departures.
+ */
+import SectionHeader from '@/components/ui/SectionHeader.astro';
+import DepartureCard from '@/components/trip/DepartureCard.astro';
+import Button from '@/components/ui/Button.astro';
+import { getUpcoming, getActiveOrigins } from '@/lib/catalog';
+import { monthLong } from '@/lib/format';
+import { home } from '@/lib/home';
+
+interface Props {
+  catalog?: { samples?: boolean; today?: string };
+}
+
+const { catalog = {} } = Astro.props;
+// Render a generous pool so date filters have complete results; the script caps what's visible.
+const items = await getUpcoming({ ...catalog, limit: 30 });
+const cap = home.upcoming.limit;
+const months = [...new Set(items.map((i) => i.departure.start.slice(0, 7)))].slice(0, 4);
+const origins = await getActiveOrigins(catalog);
+---
+
+{
+  items.length > 0 && (
+    <section class="section upcoming" aria-labelledby="upcoming-title" data-upcoming data-today={catalog.today} data-cap={cap}>
+      <div class="container">
+        <SectionHeader id="upcoming-title" title={home.upcoming.title} subtitle={home.upcoming.subtitle}>
+          <Button variant="text" href="/upcoming-trips/" iconRight="arrow" class="upcoming__all-top">
+            See all dates
+          </Button>
+        </SectionHeader>
+
+        <div class="chips upcoming__chips" role="toolbar" aria-label="Filter departures by date">
+          <button type="button" class="chip" aria-pressed="true" data-f="all">
+            All dates
+          </button>
+          <button type="button" class="chip" aria-pressed="false" data-f="weekend:0" hidden>
+            This weekend
+          </button>
+          <button type="button" class="chip" aria-pressed="false" data-f="weekend:1" hidden>
+            Next weekend
+          </button>
+          {months.map((m) => (
+            <button type="button" class="chip" aria-pressed="false" data-f={`month:${m}`}>
+              {monthLong(m).split(' ')[0]}
+            </button>
+          ))}
+          {origins.length > 1 &&
+            origins.map((o) => (
+              <button type="button" class="chip" aria-pressed="false" data-f={`origin:${o.city}`}>
+                From {o.label}
+              </button>
+            ))}
+        </div>
+
+        <div class="rail rail--grid upcoming__rail" style="--rail-cols:3">
+          {items.map((item, i) => (
+            <DepartureCard item={item} index={i} listName="home_upcoming" />
+          ))}
+        </div>
+        <p class="upcoming__empty muted" hidden data-empty>
+          No departures for this filter yet. <a href="/upcoming-trips/">See all dates</a>
+        </p>
+
+        <Button href="/upcoming-trips/" variant="secondary" block class="upcoming__all-bottom">
+          See All Dates
+        </Button>
+      </div>
+    </section>
+  )
+}
+
+<script>
+  import { track } from '@/scripts/analytics';
+
+  const iso = (d: Date) => d.toISOString().slice(0, 10);
+  function weekend(todayIso: string, ahead: number): [string, string] {
+    const d = new Date(`${todayIso}T00:00:00Z`);
+    const dow = d.getUTCDay();
+    const offset = dow >= 5 || dow === 0 ? -((dow + 3) % 7) : (4 - dow + 7) % 7;
+    const thu = new Date(d);
+    thu.setUTCDate(d.getUTCDate() + offset + ahead * 7);
+    const sun = new Date(thu);
+    sun.setUTCDate(thu.getUTCDate() + 3);
+    return [iso(thu), iso(sun)];
+  }
+
+  document.querySelectorAll<HTMLElement>('[data-upcoming]').forEach((root) => {
+    const today = root.dataset.today || new Date().toLocaleDateString('en-CA', { timeZone: 'Asia/Kolkata' });
+    const cards = [...root.querySelectorAll<HTMLElement>('[data-start]')];
+    const chips = [...root.querySelectorAll<HTMLButtonElement>('[data-f]')];
+    const empty = root.querySelector<HTMLElement>('[data-empty]');
+
+    const matches = (f: string, el: HTMLElement) => {
+      if (f === 'all') return true;
+      const [kind, val] = f.split(':');
+      if (kind === 'month') return el.dataset.month === val;
+      if (kind === 'origin') return el.dataset.origin === val;
+      const [from, to] = weekend(today, Number(val));
+      return el.dataset.start! >= from && el.dataset.start! <= to;
+    };
+
+    // Reveal weekend chips only when they have results.
+    chips.filter((c) => c.dataset.f!.startsWith('weekend')).forEach((c) => (c.hidden = !cards.some((el) => matches(c.dataset.f!, el))));
+
+    // Desktop grid shows at most 6 results (two rows); the mobile swipe rail shows up to data-cap.
+    const desktop = window.matchMedia('(min-width: 1024px)');
+    let current = 'all';
+    const apply = () => {
+      const cap = desktop.matches ? 6 : Number(root.dataset.cap) || 10;
+      let shown = 0;
+      cards.forEach((el) => {
+        const ok = matches(current, el) && shown < cap;
+        el.hidden = !ok;
+        if (ok) shown++;
+      });
+      if (empty) empty.hidden = shown > 0;
+      return shown;
+    };
+    apply();
+    root.querySelector('.upcoming__rail')?.setAttribute('data-ready', '');
+    desktop.addEventListener('change', apply);
+
+    root.addEventListener('click', (e) => {
+      const chip = (e.target as Element).closest<HTMLButtonElement>('[data-f]');
+      if (!chip) return;
+      chips.forEach((c) => c.setAttribute('aria-pressed', String(c === chip)));
+      current = chip.dataset.f!;
+      const shown = apply();
+      track('filter_departures', { filter: current, results: shown, cta_location: 'home_upcoming' });
+    });
+  });
+</script>
+
+<style>
+  .upcoming__chips {
+    margin-inline: calc(-1 * var(--gutter));
+    padding-inline: var(--gutter);
+    margin-bottom: var(--s-4);
+  }
+  /* Before the script runs (or without JS): 10 cards on mobile, 6 on desktop */
+  .upcoming__rail:not([data-ready]) > :global(:nth-child(n + 11)) {
+    display: none;
+  }
+  @media (min-width: 1024px) {
+    .upcoming__rail:not([data-ready]) > :global(:nth-child(n + 7)) {
+      display: none;
+    }
+  }
+  .upcoming__empty {
+    padding-block: var(--s-6);
+  }
+  .upcoming :global(.upcoming__all-bottom) {
+    margin-top: var(--s-5);
+  }
+  .upcoming :global(.upcoming__all-top) {
+    display: none;
+  }
+  @media (min-width: 1024px) {
+    .upcoming :global(.upcoming__all-top) {
+      display: inline-flex;
+    }
+    .upcoming :global(.upcoming__all-bottom) {
+      display: none;
+    }
+    .upcoming__chips {
+      margin-inline: 0;
+      padding-inline: 0;
+    }
+  }
+</style>

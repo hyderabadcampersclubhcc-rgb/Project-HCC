@@ -1,0 +1,100 @@
+---
+/** Approval annotations shown only on /preview/homepage/. Never rendered on the live site. */
+interface Props {
+  n: number | string;
+  title: string;
+  purpose: string;
+  data?: string;
+  empty?: string;
+  cta?: string;
+  status?: 'ready' | 'needs-data';
+}
+
+const { n, title, purpose, data, empty, cta, status = 'ready' } = Astro.props;
+---
+
+<aside class="pnote" data-pnote>
+  <div class="container pnote__in">
+    <p class="pnote__head">
+      <span class="pnote__n">{n}</span>
+      <b>{title}</b>
+      <span class:list={['pnote__status', `pnote__status--${status}`]}>{status === 'ready' ? 'Works with data entered in the CMS' : 'Needs HCC content'}</span>
+    </p>
+    <dl class="pnote__grid">
+      <div><dt>Why it's here</dt><dd>{purpose}</dd></div>
+      {data && <div><dt>Data</dt><dd>{data}</dd></div>}
+      {empty && <div><dt>If data is missing</dt><dd>{empty}</dd></div>}
+      {cta && <div><dt>Conversion</dt><dd>{cta}</dd></div>}
+    </dl>
+  </div>
+</aside>
+
+<style>
+  .pnote {
+    padding-block: 10px;
+    background: repeating-linear-gradient(135deg, #fff8e6 0 10px, #fdf0d5 10px 20px);
+    border-block: 1.5px dashed var(--marigold-500);
+    font-size: 0.8125rem;
+    color: var(--ink-700);
+  }
+  :global(body[data-notes='off']) .pnote {
+    display: none;
+  }
+  .pnote__head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px 10px;
+    margin-bottom: 6px;
+  }
+  .pnote__n {
+    display: grid;
+    place-items: center;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: var(--ink-900);
+    color: var(--white);
+    font: 700 0.75rem / 1 var(--font-body);
+  }
+  .pnote__head b {
+    font: 700 0.9375rem / 1.2 var(--font-display);
+    color: var(--ink-900);
+  }
+  .pnote__status {
+    padding: 3px 8px;
+    border-radius: var(--r-pill);
+    font-size: 0.6875rem;
+    font-weight: 600;
+  }
+  .pnote__status--ready {
+    background: var(--ok-bg);
+    color: var(--forest-700);
+  }
+  .pnote__status--needs-data {
+    background: var(--alert-bg);
+    color: var(--alert);
+  }
+  .pnote__grid {
+    display: grid;
+    gap: 4px 20px;
+    margin: 0;
+  }
+  .pnote__grid div {
+    display: grid;
+    grid-template-columns: 112px 1fr;
+    gap: 8px;
+  }
+  .pnote__grid dt {
+    font-weight: 600;
+    color: var(--ink-900);
+  }
+  .pnote__grid dd {
+    margin: 0;
+  }
+  @media (min-width: 1024px) {
+    .pnote__grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+</style>

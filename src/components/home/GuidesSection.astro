@@ -1,0 +1,67 @@
+---
+/** "Travel guides & stories": latest published guides. Hidden until guides exist. */
+import { getCollection } from 'astro:content';
+import SectionHeader from '@/components/ui/SectionHeader.astro';
+import BlogCard from '@/components/content/BlogCard.astro';
+import Button from '@/components/ui/Button.astro';
+import { guideUrl } from '@/lib/catalog';
+import { isoDate } from '@/lib/format';
+import { home } from '@/lib/home';
+
+interface Props {
+  preview?: boolean;
+  max?: number;
+}
+
+const { preview = false, max = 3 } = Astro.props;
+const CATEGORY: Record<string, string> = {
+  'weekend-getaways': 'Weekend getaways',
+  'destination-guides': 'Destination guides',
+  treks: 'Treks',
+  camping: 'Camping',
+  seasonal: 'Seasonal',
+  comparisons: 'Comparisons',
+  stories: 'Traveller stories',
+};
+
+const guides = (await getCollection('guides', (g) => !g.data.draft))
+  .sort((a, b) => +(b.data.updatedAt ?? b.data.publishedAt) - +(a.data.updatedAt ?? a.data.publishedAt))
+  .slice(0, max)
+  .map((g) => ({
+    title: g.data.title,
+    href: guideUrl(g.id),
+    excerpt: g.data.excerpt,
+    category: CATEGORY[g.data.category],
+    date: isoDate(g.data.updatedAt ?? g.data.publishedAt),
+    readMinutes: Math.max(3, Math.round((g.body?.split(/\s+/).length ?? 0) / 220)),
+    image: g.data.heroImage,
+    imageAlt: g.data.heroAlt,
+  }));
+
+// Preview only: show the planned launch guides as layout placeholders.
+const planned = [
+  { title: 'Best Weekend Getaways from Hyderabad', category: 'Weekend getaways', tone: 'hills' as const },
+  { title: 'Ooty vs Coorg: Which One Should You Pick?', category: 'Comparisons', tone: 'coffee' as const },
+  { title: 'Best Camping Places Near Hyderabad', category: 'Camping', tone: 'camp' as const },
+];
+const items = guides.length ? guides : preview ? planned.map((p) => ({ ...p, href: '#', excerpt: 'Planned launch guide (layout placeholder).' })) : [];
+---
+
+{
+  items.length > 0 && (
+    <section class="section guides" aria-labelledby="guides-title">
+      <div class="container">
+        <SectionHeader id="guides-title" title={home.guides.title} subtitle={home.guides.subtitle}>
+          <Button variant="text" href="/travel-guides/" iconRight="arrow">
+            All guides
+          </Button>
+        </SectionHeader>
+        <div class="rail rail--grid" style="--rail-cols:3">
+          {items.map((g) => (
+            <BlogCard {...g} />
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}

@@ -1,0 +1,134 @@
+---
+/**
+ * Homepage hero. LCP = the hero photo (eager, fetchpriority=high, AVIF/WebP).
+ * The H1 contains the visible overline ("Group trips from Hyderabad") plus the brand
+ * line, so the page's single H1 carries the primary keyword without hidden text.
+ */
+import Photo from '@/components/ui/Photo.astro';
+import Icon from '@/components/ui/Icon.astro';
+import TripFinder from '@/components/search/TripFinder.astro';
+import { home, uploadedImage } from '@/lib/home';
+
+interface Props {
+  preview?: boolean;
+  catalog?: { samples?: boolean; today?: string };
+}
+
+const { preview = false, catalog = {} } = Astro.props;
+const h = home.hero;
+const image = uploadedImage(h.image);
+// "Your weekend. Your adventure. Your people." → one line per sentence (natural wrap if a line is too long).
+const lines = h.headline.split(/(?<=[.!?])\s+/).filter(Boolean);
+---
+
+<section class="hero" aria-labelledby="hero-title">
+  <Photo
+    src={image}
+    alt={h.imageAlt || 'HCC travellers on a group trip from Hyderabad'}
+    tone="dusk"
+    eager
+    sizes="100vw"
+    widths={[480, 768, 1080, 1440, 1920]}
+    label={preview && !image ? 'Hero: real HCC group photo' : undefined}
+    class="hero__photo"
+  />
+  <div class="container hero__in">
+    <h1 id="hero-title" class="hero__title">
+      {h.overline && <span class="hero__over">{h.overline}</span>}{' '}
+      <span class="hero__headline">
+        {lines.map((l, i) => (
+          <>
+            {i > 0 && ' '}
+            <span class="hero__line">{l}</span>
+          </>
+        ))}
+      </span>
+    </h1>
+    {h.subline && <p class="hero__sub">{h.subline}</p>}
+    <TripFinder id="hero-finder" layout="row" class="hero__finder" catalog={catalog} />
+    <a class="hero__custom" href="/customised-trips/" data-track="select_content" data-track-params='{"content_type":"custom_trip","cta_location":"hero"}'>
+      Or plan a custom trip <Icon name="arrow" />
+    </a>
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    isolation: isolate;
+    display: flex;
+    align-items: flex-end;
+    min-height: min(100svh, 760px);
+    /* Slide under the transparent overlay header */
+    margin-top: calc(-1 * var(--header-h));
+    padding-top: calc(var(--header-h) + var(--s-8));
+    padding-bottom: var(--s-8);
+    color: var(--white);
+    background: var(--brand-deep);
+  }
+  .hero > :global(.hero__photo),
+  .hero > :global(picture) {
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background:
+      linear-gradient(180deg, rgb(10 20 16 / 0.55) 0%, rgb(10 20 16 / 0) 28%),
+      linear-gradient(0deg, rgb(10 20 16 / 0.82) 0%, rgb(10 20 16 / 0.35) 45%, rgb(10 20 16 / 0) 70%);
+  }
+  .hero__in {
+    display: grid;
+    gap: var(--s-4);
+  }
+  .hero__title {
+    display: grid;
+    gap: var(--s-3);
+  }
+  .hero__over {
+    font: 600 var(--fs-xs) / 1.2 var(--font-body);
+    letter-spacing: var(--tracking-overline);
+    text-transform: uppercase;
+    color: rgb(255 255 255 / 0.9);
+  }
+  .hero__headline {
+    font: 800 var(--fs-display) / 0.98 var(--font-display);
+    letter-spacing: var(--tracking-display);
+  }
+  .hero__line {
+    display: block;
+  }
+  .hero__sub {
+    max-width: 46ch;
+    font-size: var(--fs-lg);
+    color: rgb(255 255 255 / 0.9);
+  }
+  .hero :global(.hero__finder) {
+    margin-top: var(--s-2);
+    max-width: 960px;
+  }
+  .hero__custom {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    justify-self: start;
+    min-height: 44px;
+    font-weight: 600;
+    text-decoration: none;
+    color: var(--white);
+  }
+  .hero__custom:hover {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  @media (min-width: 1024px) {
+    .hero {
+      min-height: 720px;
+      padding-bottom: var(--s-16);
+    }
+  }
+</style>

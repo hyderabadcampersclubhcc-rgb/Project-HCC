@@ -1,0 +1,67 @@
+---
+/** "Signature trips": editorial cards for trips marked `featured`. Hidden if none. */
+import SectionHeader from '@/components/ui/SectionHeader.astro';
+import FeaturedTripCard from '@/components/trip/FeaturedTripCard.astro';
+import { getTrips } from '@/lib/catalog';
+import { home } from '@/lib/home';
+
+interface Props {
+  catalog?: { samples?: boolean; today?: string };
+  preview?: boolean;
+  max?: number;
+}
+
+const { catalog = {}, preview = false, max = 4 } = Astro.props;
+const featured = (await getTrips(catalog)).filter((t) => t.data.featured).slice(0, max);
+---
+
+{
+  featured.length > 0 && (
+    <section class="section feat" aria-labelledby="feat-title">
+      <div class="container">
+        <SectionHeader id="feat-title" title={home.featured.title} subtitle={home.featured.subtitle} />
+        <div class:list={['feat__grid', featured.length === 1 && 'feat__grid--one']}>
+          {featured.map((t, i) => (
+            <FeaturedTripCard trip={t} index={i} showPhotoLabel={preview} />
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
+
+<style>
+  .feat__grid {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 88%;
+    gap: var(--s-3);
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    margin-inline: calc(-1 * var(--gutter));
+    padding: 0 var(--gutter) var(--s-2);
+    scrollbar-width: none;
+  }
+  .feat__grid::-webkit-scrollbar {
+    display: none;
+  }
+  .feat__grid > :global(*) {
+    scroll-snap-align: start;
+  }
+  .feat__grid--one {
+    grid-auto-columns: 100%;
+  }
+  @media (min-width: 1024px) {
+    .feat__grid {
+      grid-auto-flow: row;
+      grid-template-columns: repeat(2, 1fr);
+      overflow: visible;
+      margin-inline: 0;
+      padding-inline: 0;
+      gap: var(--s-5);
+    }
+    .feat__grid--one {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

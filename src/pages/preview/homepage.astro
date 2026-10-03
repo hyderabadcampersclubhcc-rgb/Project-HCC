@@ -1,0 +1,91 @@
+---
+/**
+ * Homepage approval preview: the real homepage composition rendered with sample data,
+ * pending states and section annotations. noindex, not in the sitemap, blocked in robots.
+ */
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import HomePage from '@/components/home/HomePage.astro';
+import { home } from '@/lib/home';
+import { organizationLd, websiteLd } from '@/lib/schema';
+
+const SAMPLE_TODAY = '2026-10-03';
+---
+
+<BaseLayout title={`PREVIEW · ${home.seo.title}`} rawTitle description={home.seo.description} noindex headerOverlay jsonLd={[organizationLd(Astro.site!), websiteLd(Astro.site!)]}>
+  <HomePage catalog={{ samples: true, today: SAMPLE_TODAY }} preview />
+
+  <div slot="end" class="pv-bar" role="region" aria-label="Preview controls">
+    <span class="pv-bar__tag">Homepage preview</span>
+    <span class="pv-bar__txt">Sample data · not live</span>
+    <button type="button" class="pv-bar__btn" aria-pressed="true" data-notes-toggle>Notes on</button>
+  </div>
+</BaseLayout>
+
+<script>
+  const btn = document.querySelector<HTMLButtonElement>('[data-notes-toggle]');
+  const set = (on: boolean) => {
+    document.body.dataset.notes = on ? 'on' : 'off';
+    if (btn) {
+      btn.setAttribute('aria-pressed', String(on));
+      btn.textContent = on ? 'Notes on' : 'Notes off';
+    }
+    try {
+      localStorage.setItem('hcc_preview_notes', on ? 'on' : 'off');
+    } catch {
+      /* ignore */
+    }
+  };
+  let initial = true;
+  try {
+    initial = localStorage.getItem('hcc_preview_notes') !== 'off';
+  } catch {
+    /* ignore */
+  }
+  set(initial);
+  btn?.addEventListener('click', () => set(document.body.dataset.notes !== 'on'));
+</script>
+
+<style>
+  .pv-bar {
+    position: fixed;
+    left: 12px;
+    bottom: calc(var(--mobile-bar-h) + 12px + env(safe-area-inset-bottom));
+    z-index: 60;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 6px 6px 6px 12px;
+    border-radius: var(--r-pill);
+    background: var(--ink-900);
+    color: var(--white);
+    box-shadow: var(--sh-3);
+    font-size: 0.75rem;
+  }
+  .pv-bar__tag {
+    font-weight: 700;
+    color: var(--cta);
+  }
+  .pv-bar__txt {
+    opacity: 0.7;
+  }
+  .pv-bar__btn {
+    min-height: 32px;
+    padding: 0 12px;
+    border: 0;
+    border-radius: var(--r-pill);
+    background: var(--white);
+    color: var(--ink-900);
+    font-weight: 600;
+    font-size: 0.75rem;
+  }
+  @media (max-width: 420px) {
+    .pv-bar__txt {
+      display: none;
+    }
+  }
+  @media (min-width: 1024px) {
+    .pv-bar {
+      bottom: 16px;
+    }
+  }
+</style>

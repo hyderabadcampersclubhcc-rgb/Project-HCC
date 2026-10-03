@@ -47,3 +47,16 @@ export function weekendWindow(todayIso: string, weeksAhead = 0): [string, string
   sun.setUTCDate(thu.getUTCDate() + 3);
   return [isoDate(thu), isoDate(sun)];
 }
+
+const MONTHS_SHORT = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+/** Best-months label from month numbers: [10,11,12,1,2,3] → "Oct–Mar"; all 12 → "Year-round". */
+export function bestMonthsLabel(months: number[]): string {
+  if (!months.length) return '';
+  if (months.length === 12) return 'Year-round';
+  const set = new Set(months);
+  const start = months.find((m) => !set.has(((m + 10) % 12) + 1)) ?? months[0];
+  let end = start;
+  while (set.has((end % 12) + 1) && (end % 12) + 1 !== start) end = (end % 12) + 1;
+  return start === end ? MONTHS_SHORT[start - 1] : `${MONTHS_SHORT[start - 1]}–${MONTHS_SHORT[end - 1]}`;
+}

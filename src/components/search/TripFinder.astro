@@ -14,12 +14,14 @@ interface Props {
   layout?: 'stack' | 'row';
   id?: string;
   class?: string;
+  /** Catalog options (style guide / preview use sample data). */
+  catalog?: { samples?: boolean; today?: string };
 }
 
-const { layout = 'stack', id = 'finder', class: className } = Astro.props;
-const showSamples = import.meta.env.PUBLIC_SHOW_SAMPLES === 'true';
+const { layout = 'stack', id = 'finder', class: className, catalog = {} } = Astro.props;
+const showSamples = catalog.samples ?? import.meta.env.PUBLIC_SHOW_SAMPLES === 'true';
 
-const upcoming = await getUpcoming();
+const upcoming = await getUpcoming(catalog);
 const months = [...new Set(upcoming.map((u) => u.departure.start.slice(0, 7)))].slice(0, 6);
 const destinations = (await getCollection('destinations')).filter((d) => showSamples || !d.data.sample).map((d) => d.data.name);
 const suggestions = [...new Set([...destinations, ...TRIP_TYPE_LINKS.filter((t) => t.type !== 'custom').map((t) => t.label)])].sort();
@@ -154,7 +156,7 @@ const styles = [
     margin: 4px;
   }
 
-  /* Stack layout: When + Style side by side on phones */
+  /* Stacked: When + Style side by side. Always for "stack"; below 900px for "row". */
   .finder--stack {
     grid-template-columns: 1fr 1fr;
   }
@@ -165,6 +167,19 @@ const styles = [
   }
   .finder--stack .finder__sep:not(:first-of-type) {
     display: none;
+  }
+  @media (max-width: 899.98px) {
+    .finder--row {
+      grid-template-columns: 1fr 1fr;
+    }
+    .finder--row .finder__f--where,
+    .finder--row .finder__sep:first-of-type,
+    .finder--row .finder__go {
+      grid-column: 1 / -1;
+    }
+    .finder--row .finder__sep:not(:first-of-type) {
+      display: none;
+    }
   }
 
   @media (min-width: 900px) {

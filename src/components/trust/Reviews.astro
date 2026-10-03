@@ -22,9 +22,11 @@ interface Props {
   /** Supply reviews directly (style guide demo). */
   reviews?: ReviewView[];
   headingLevel?: 'h2' | 'h3';
+  /** Wrap in a full-width sand section (homepage). Nothing renders when there is nothing to show. */
+  section?: boolean;
 }
 
-const { title = 'Real traveller reviews', tripId, destinationId, limit = 6, min = 3, reviews: given, headingLevel = 'h2' } = Astro.props;
+const { title = 'Real traveller reviews', tripId, destinationId, limit = 6, min = 3, reviews: given, headingLevel = 'h2', section = false } = Astro.props;
 
 let reviews: ReviewView[] = given ?? [];
 if (!given) {
@@ -52,31 +54,37 @@ if (!given) {
 
 const google = settings.social.googleBusiness;
 const rating = visibleTrustItems().find((t) => t.icon === 'star');
+const subtitle = rating ? `${rating.value} on Google${rating.detail ? ` · ${rating.detail}` : ''}` : undefined;
+const hasContent = reviews.length >= min || !!google;
 ---
 
 {
-  reviews.length >= min ? (
-    <section class="reviews" aria-labelledby="reviews-title">
-      <SectionHeader id="reviews-title" title={title} level={headingLevel} subtitle={rating ? `${rating.value} on Google${rating.detail ? ` · ${rating.detail}` : ''}` : undefined}>
-        {google && (
-          <a class="btn btn--text" href={google} target="_blank" rel="noopener">
-            Read more reviews <Icon name="arrow" />
-          </a>
+  hasContent && (
+    <div class:list={[section && 'section section--sand']}>
+      <div class:list={[section && 'container']}>
+        {reviews.length >= min ? (
+          <section class="reviews" aria-labelledby="reviews-title">
+            <SectionHeader id="reviews-title" title={title} level={headingLevel} subtitle={subtitle}>
+              {google && (
+                <a class="btn btn--text" href={google} target="_blank" rel="noopener">
+                  Read more reviews <Icon name="arrow" />
+                </a>
+              )}
+            </SectionHeader>
+            <div class="rail rail--grid" style="--rail-cols:3">
+              {reviews.map((r) => (
+                <ReviewCard review={r} />
+              ))}
+            </div>
+          </section>
+        ) : (
+          <p class="reviews__link">
+            <a class="btn btn--secondary" href={google} target="_blank" rel="noopener">
+              <Icon name="star" /> Read our reviews on Google
+            </a>
+          </p>
         )}
-      </SectionHeader>
-      <div class="rail rail--grid" style="--rail-cols:3">
-        {reviews.map((r) => (
-          <ReviewCard review={r} />
-        ))}
       </div>
-    </section>
-  ) : (
-    google && (
-      <p class="reviews__link">
-        <a class="btn btn--secondary" href={google} target="_blank" rel="noopener">
-          <Icon name="star" /> Read our reviews on Google
-        </a>
-      </p>
-    )
+    </div>
   )
 }

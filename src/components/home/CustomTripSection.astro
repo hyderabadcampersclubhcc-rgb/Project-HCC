@@ -1,0 +1,156 @@
+---
+/**
+ * "Can't find your perfect trip?": custom-trip lead form + WhatsApp alternative.
+ * Two required fields (name, phone); the rest are optional and tucked behind
+ * "Add more details" to keep the form short on mobile.
+ * Posts a BookingIntent (kind: custom) to /api/intents (endpoint arrives in Phase 4).
+ */
+import Field from '@/components/ui/Field.astro';
+import Icon from '@/components/ui/Icon.astro';
+import WhatsAppCTA from '@/components/cta/WhatsAppCTA.astro';
+import { home } from '@/lib/home';
+import { settings, whatsappNumber } from '@/lib/settings';
+
+interface Props {
+  preview?: boolean;
+}
+
+const { preview = false } = Astro.props;
+const c = home.custom;
+---
+
+<section class="section custom" aria-labelledby="custom-title" id="plan">
+  <div class="container custom__in">
+    <div class="custom__copy">
+      <p class="overline custom__over">Customised trips</p>
+      <h2 id="custom-title" class="custom__title">{c.title}</h2>
+      {c.text && <p class="custom__text">{c.text}</p>}
+      <ul class="custom__points">
+        <li><Icon name="users" /> Friends, family, couples or office groups</li>
+        <li><Icon name="calendar" /> Your dates, your pace</li>
+        <li><Icon name="file" /> A clear quote with inclusions listed</li>
+      </ul>
+      {
+        whatsappNumber && (
+          <div class="custom__wa">
+            <p>Prefer to chat?</p>
+            <WhatsAppCTA location="custom_trip" variant="whatsapp-deep" context={{ custom: "Hi HCC! I'd like to plan a custom trip." }} />
+          </div>
+        )
+      }
+    </div>
+
+    <form class="custom__form" method="post" action="/api/intents" data-intent-form="custom" novalidate>
+      <input type="hidden" name="kind" value="custom" />
+      <div class="custom__hp" aria-hidden="true">
+        <label>Leave this empty <input type="text" name="company" tabindex="-1" autocomplete="off" /></label>
+      </div>
+      <Field label="Your name" name="name" id="ct-name" autocomplete="name" placeholder="e.g. Priya" />
+      <Field label="WhatsApp number" name="phone" id="ct-phone" kind="tel" placeholder="98765 43210" help="We'll reply here with ideas and a quote." />
+      <Field label="Where do you want to go?" name="destination" id="ct-dest" optional placeholder="e.g. Coorg, Kerala, anywhere with mountains" />
+      <Field label="When?" name="dates" id="ct-dates" optional placeholder="e.g. 2nd week of December" />
+      <details class="custom__more">
+        <summary>Add more details{' '}<span class="muted">(optional)</span></summary>
+        <div class="custom__more-grid">
+          <Field label="Travellers" name="travellers" id="ct-trav" kind="select" optional options={[{ value: '', label: 'Choose…' }, '1', '2', '3–5', '6–10', '11–20', '20+']} />
+          <Field label="Budget per person" name="budget" id="ct-budget" kind="select" optional options={[{ value: '', label: 'Choose…' }, 'Under ₹5,000', '₹5,000–10,000', '₹10,000–20,000', '₹20,000–40,000', '₹40,000+']} />
+          <Field label="Travel type" name="travelType" id="ct-type" kind="select" optional options={[{ value: '', label: 'Choose…' }, 'Friends', 'Couple', 'Family', 'Corporate / office', 'College group', 'Solo']} />
+        </div>
+      </details>
+      <button type="submit" class="btn btn--primary btn--lg btn--block">Plan My Trip</button>
+      <p class="custom__fine">
+        {settings.contact.hours ? `We usually reply within working hours (${settings.contact.hours}).` : 'The HCC team will get back to you on WhatsApp.'}
+        {' '}No spam.
+      </p>
+      {preview && <p class="note note--highlight"><Icon name="info" /><span>Preview: the form submits once the enquiry endpoint ships in Phase 4.</span></p>}
+    </form>
+  </div>
+</section>
+
+<style>
+  .custom {
+    background: var(--surface-2);
+  }
+  .custom__in {
+    display: grid;
+    gap: var(--s-8);
+  }
+  .custom__over {
+    margin-bottom: var(--s-2);
+  }
+  .custom__title {
+    font-size: var(--fs-h2);
+    line-height: 1.1;
+  }
+  .custom__text {
+    margin-top: var(--s-3);
+    max-width: 52ch;
+    color: var(--ink-700);
+    font-size: var(--fs-lg);
+  }
+  .custom__points {
+    display: grid;
+    gap: var(--s-2);
+    margin: var(--s-5) 0 0;
+    padding: 0;
+    list-style: none;
+    font-size: 0.9375rem;
+  }
+  .custom__points li {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
+  .custom__points :global(.icon) {
+    color: var(--forest-500);
+  }
+  .custom__wa {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--s-3);
+    margin-top: var(--s-6);
+    font-weight: 600;
+  }
+  .custom__form {
+    display: grid;
+    gap: var(--s-4);
+    padding: var(--s-5);
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--r-xl);
+    box-shadow: var(--sh-2);
+  }
+  .custom__hp {
+    position: absolute;
+    left: -9999px;
+  }
+  .custom__more summary {
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    font-weight: 600;
+    color: var(--link);
+    cursor: pointer;
+  }
+  .custom__more-grid {
+    display: grid;
+    gap: var(--s-4);
+    padding-top: var(--s-2);
+  }
+  .custom__fine {
+    font-size: 0.78rem;
+    color: var(--text-2);
+    text-align: center;
+  }
+  @media (min-width: 1024px) {
+    .custom__in {
+      grid-template-columns: 1fr minmax(0, 480px);
+      gap: var(--s-16);
+      align-items: center;
+    }
+    .custom__form {
+      padding: var(--s-8);
+    }
+  }
+</style>

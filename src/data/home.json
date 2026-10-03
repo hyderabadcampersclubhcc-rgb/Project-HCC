@@ -1,0 +1,82 @@
+{
+  "seo": {
+    "title": "Group Trips & Weekend Getaways from Hyderabad | HCC",
+    "description": "Weekend getaways, treks, camping and group trips from Hyderabad. Clear itineraries with transport and stays listed upfront. See upcoming dates and enquire on WhatsApp."
+  },
+  "hero": {
+    "overline": "Group trips from Hyderabad",
+    "headline": "Your weekend. Your adventure. Your people.",
+    "subline": "Group trips, weekend getaways, treks & unforgettable escapes from Hyderabad.",
+    "image": "",
+    "imageAlt": ""
+  },
+  "upcoming": {
+    "title": "Upcoming trips",
+    "subtitle": "Pick a date. Pack your bags. We'll handle the rest.",
+    "limit": 10
+  },
+  "destinations": {
+    "title": "Where are you going next?",
+    "subtitle": "Every trip leaves from Hyderabad. Pick a vibe, then a place."
+  },
+  "weekend": {
+    "title": "Weekend trips from Hyderabad",
+    "intro": "Escape Hyderabad for the weekend. Leave on Friday night, wake up somewhere green, and be back for Monday."
+  },
+  "tripTypes": {
+    "title": "Travel your way",
+    "subtitle": "Short escapes, long expeditions, or something built just for your group."
+  },
+  "featured": {
+    "title": "Signature trips",
+    "subtitle": "The trips our travellers keep coming back for."
+  },
+  "why": {
+    "overline": "Why HCC",
+    "title": "Why travel with HCC?",
+    "solo": {
+      "enabled": false,
+      "title": "Come alone. Leave with a crew.",
+      "text": ""
+    },
+    "pillars": [
+      { "icon": "file", "title": "No confusing packages", "text": "Inclusions, exclusions, transport and stays are listed on every trip before you pay.", "enabled": true },
+      { "icon": "train", "title": "Transport stated upfront", "text": "Train, bus or tempo, with the class and timings written on the trip page.", "enabled": true },
+      { "icon": "bed", "title": "Stays described honestly", "text": "Property type, room sharing and washroom details, with nothing hidden in fine print.", "enabled": true },
+      { "icon": "users", "title": "A coordinator on every trip", "text": "An HCC team member travels with the group from pickup to drop.", "enabled": false },
+      { "icon": "shield", "title": "Safety first", "text": "Vetted transport and stays, with an emergency contact throughout the trip.", "enabled": false },
+      { "icon": "heart", "title": "Solo-friendly", "text": "Come on your own. Most groups are a mix of solo travellers and friends.", "enabled": false }
+    ]
+  },
+  "how": {
+    "title": "How it works",
+    "steps": [
+      { "title": "Choose your trip", "text": "Browse destinations and upcoming departures. Every price and date is on the page." },
+      { "title": "Reserve your seat", "text": "Send your details or WhatsApp us. Pay the advance to confirm your seat." },
+      { "title": "Pack & travel", "text": "Get the full trip details, meet your group at the pickup point, and go." }
+    ]
+  },
+  "instagram": {
+    "title": "See where we've been",
+    "subtitle": "Real trips, real groups. Follow along on Instagram.",
+    "posts": []
+  },
+  "custom": {
+    "title": "Can't find your perfect trip?",
+    "text": "Tell us where you want to go, who you're travelling with and what kind of experience you want. We'll build the trip around you."
+  },
+  "guides": {
+    "title": "Travel guides & stories",
+    "subtitle": "Honest guides to getting out of Hyderabad."
+  },
+  "faq": {
+    "title": "Before your first trip",
+    "items": [
+      { "q": "Can I join a group trip if I'm travelling alone?", "a": "" },
+      { "q": "How do I reserve a seat, and how much is the advance?", "a": "" },
+      { "q": "Where do trips leave from in Hyderabad?", "a": "" },
+      { "q": "What happens if I need to cancel?", "a": "" },
+      { "q": "Are your trips safe for women travelling alone?", "a": "" }
+    ]
+  }
+}

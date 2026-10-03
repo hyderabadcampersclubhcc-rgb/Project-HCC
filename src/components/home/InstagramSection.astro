@@ -1,0 +1,116 @@
+---
+/**
+ * "See where we've been": a curated grid of real HCC Instagram posts/reels (images
+ * uploaded in the CMS, each linking to the post). Not a live embed: embeds cost
+ * ~400 KB of third-party JS. Hidden without an Instagram URL; without curated posts it
+ * collapses to a compact follow band.
+ */
+import Photo, { type Tone } from '@/components/ui/Photo.astro';
+import Icon from '@/components/ui/Icon.astro';
+import SectionHeader from '@/components/ui/SectionHeader.astro';
+import { home, uploadedImage } from '@/lib/home';
+import { settings } from '@/lib/settings';
+
+interface Props {
+  preview?: boolean;
+}
+
+const { preview = false } = Astro.props;
+const ig = settings.social.instagram || (preview ? 'https://www.instagram.com/' : '');
+const handle = settings.social.instagram ? `@${settings.social.instagram.replace(/\/+$/, '').split('/').pop()}` : '@hcc';
+const posts = home.instagram.posts
+  .map((p) => ({ ...p, img: uploadedImage(p.image) }))
+  .filter((p) => p.img);
+const tones: Tone[] = ['camp', 'hills', 'beach', 'forest', 'dusk', 'coffee', 'snow', 'hills', 'camp'];
+const tiles = posts.length ? posts : preview ? tones.slice(0, 6).map((tone, i) => ({ tone, kind: i % 3 === 1 ? 'reel' : 'post' })) : [];
+---
+
+{
+  ig && (
+    <section class="section ig" aria-labelledby="ig-title">
+      <div class="container">
+        <SectionHeader id="ig-title" title={home.instagram.title} subtitle={home.instagram.subtitle}>
+          <a class="btn btn--secondary" href={ig} target="_blank" rel="noopener">
+            <Icon name="instagram" /> Follow {handle}
+          </a>
+        </SectionHeader>
+        {tiles.length > 0 && (
+          <ul class="ig__grid">
+            {tiles.map((t, i) => (
+              <li class:list={['ig__tile', i === 0 && 'ig__tile--big']}>
+                <a href={'url' in t ? t.url : ig} target="_blank" rel="noopener" aria-label={'alt' in t ? `${t.alt} (opens Instagram)` : 'Instagram post'}>
+                  <Photo
+                    src={'img' in t ? t.img : undefined}
+                    alt={'alt' in t ? t.alt : ''}
+                    tone={'tone' in t ? (t.tone as Tone) : 'hills'}
+                    widths={[240, 360, 540]}
+                    sizes="(min-width: 1024px) 20vw, 33vw"
+                    label={preview && !('img' in t) ? 'Instagram' : undefined}
+                  />
+                  {t.kind === 'reel' && (
+                    <span class="ig__reel" aria-hidden="true">
+                      <Icon name="play" filled />
+                    </span>
+                  )}
+                </a>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+    </section>
+  )
+}
+
+<style>
+  .ig__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--s-2);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .ig__tile a {
+    position: relative;
+    display: block;
+    aspect-ratio: 1;
+    border-radius: var(--r-md);
+    overflow: hidden;
+  }
+  .ig__tile--big {
+    grid-column: span 2;
+    grid-row: span 2;
+  }
+  .ig__tile a :global(.photo) {
+    transition: transform var(--t-slow) var(--ease);
+  }
+  @media (hover: hover) {
+    .ig__tile a:hover :global(.photo) {
+      transform: scale(1.04);
+    }
+  }
+  .ig__reel {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    display: grid;
+    place-items: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: rgb(0 0 0 / 0.45);
+    color: var(--white);
+    font-size: 0.75rem;
+  }
+  @media (min-width: 1024px) {
+    .ig__grid {
+      grid-template-columns: repeat(6, 1fr);
+      gap: var(--s-3);
+    }
+    .ig__tile--big {
+      grid-column: span 1;
+      grid-row: span 1;
+    }
+  }
+</style>
