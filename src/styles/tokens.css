@@ -16,7 +16,7 @@
   --marigold-600: #db8f0a;
   --marigold-500: #f2a61d;
   --marigold-100: #fdf0d5;
-  --ember-600: #c2401a;
+  --ember-600: #b03a14; /* 5:1 on ember-100 */
   --ember-100: #fbe4da;
   --sky-600: #2b6a8c;
   --sky-100: #dfeef5;
@@ -27,7 +27,7 @@
   --ink-900: #121816;
   --ink-700: #2d3633;
   --ink-500: #5b6560;
-  --ink-400: #7e8782;
+  --ink-400: #646c68; /* 4.6:1 on sand-100, 5.4:1 on white (WCAG AA) */
   --white: #ffffff;
   --wa-green: #1da851; /* WhatsApp glyph only, never a fill */
 
@@ -43,7 +43,7 @@
   --brand: var(--forest-900);
   --brand-2: var(--forest-700);
   --brand-deep: var(--forest-950);
-  --link: var(--forest-500);
+  --link: var(--forest-700); /* AA on sand backgrounds too */
   --cta: var(--marigold-500);
   --cta-hover: var(--marigold-600);
   --cta-ink: var(--ink-900);

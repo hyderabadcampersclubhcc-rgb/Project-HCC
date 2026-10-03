@@ -87,7 +87,7 @@ const ROWS: [string, string][] = [
       </div>
     </div>
   </section>
-  <script type="application/json" data-cmp-data set:html={JSON.stringify({ trips: data, rows: ROWS })} />
+  <script type="application/json" data-cmp-data set:html={JSON.stringify({ trips: data, rows: ROWS }).replace(/</g, '\\u003c')} />
 </BaseLayout>
 
 <script>

@@ -34,6 +34,7 @@ const {
   sheetKeys = ['month', 'style', 'dur', 'budget', 'travel'],
   defaultSort = 'soonest',
   today,
+  headingLevel = 'h2',
 } = Astro.props;
 
 const chipGroups = tripFacets(trips, chipKeys);
@@ -96,7 +97,7 @@ const viewItems = trips.slice(0, 20).map((t, index) => ({
         <ul class="tl__grid" data-items>
           {trips.map((t, i) => (
             <li {...tripItemAttrs(t)}>
-              <TripCard trip={t} index={i} listName={listName} />
+              <TripCard trip={t} index={i} listName={listName} headingLevel={headingLevel} />
             </li>
           ))}
         </ul>
@@ -148,7 +149,7 @@ const viewItems = trips.slice(0, 20).map((t, index) => ({
         location={`${listName}_empty`}
         title="New departures are being planned"
         text="Tell us where and when you'd like to go, and we'll message you as soon as dates are announced, or plan a custom trip."
-        headingLevel="h3"
+        headingLevel={headingLevel}
       />
     )
   }

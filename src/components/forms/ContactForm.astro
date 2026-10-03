@@ -20,7 +20,7 @@ import { settings, whatsappNumber } from '@/lib/settings';
       <span>
         We couldn't send your message.
         {whatsappNumber ? ' Send it on WhatsApp instead:' : settings.contact.phone ? ` Please call ${settings.contact.phone}.` : ' Please try again in a moment.'}
-        <a class="btn btn--whatsapp btn--block cform__fb" data-fallback-wa hidden target="_blank" rel="noopener" data-wa data-cta-location="contact_fallback">
+        <a class="btn btn--whatsapp btn--block cform__fb" data-fallback-wa href={whatsappNumber ? `https://wa.me/${whatsappNumber}` : undefined} hidden target="_blank" rel="noopener" data-wa data-cta-location="contact_fallback">
           <Icon name="whatsapp" /> Send on WhatsApp
         </a>
       </span>

@@ -70,7 +70,7 @@ const c = home.custom;
         <span>
           We couldn't send your request just now.
           {whatsappNumber ? ' Tap below to send the same details on WhatsApp.' : settings.contact.phone ? ` Please call us on ${settings.contact.phone}.` : ' Please try again in a moment.'}
-          <a class="btn btn--whatsapp btn--block custom__fallback" data-fallback-wa hidden target="_blank" rel="noopener" data-wa data-cta-location="custom_trip_fallback">
+          <a class="btn btn--whatsapp btn--block custom__fallback" data-fallback-wa href={whatsappNumber ? `https://wa.me/${whatsappNumber}` : undefined} hidden target="_blank" rel="noopener" data-wa data-cta-location="custom_trip_fallback">
             <Icon name="whatsapp" /> Send on WhatsApp
           </a>
         </span>

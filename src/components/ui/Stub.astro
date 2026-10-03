@@ -10,7 +10,7 @@ interface Props {
 const { nights, days, outlined = false, class: className } = Astro.props;
 ---
 
-<span class:list={['stub', outlined && 'stub--outlined', className]} aria-label={`${nights} nights, ${days} days`}>
+<span class:list={['stub', outlined && 'stub--outlined', className]} role="img" aria-label={`${nights} nights, ${days} days`}>
   <span aria-hidden="true">{nights}N</span>
   <span class="stub__sep" aria-hidden="true"></span>
   <span aria-hidden="true">{days}D</span>

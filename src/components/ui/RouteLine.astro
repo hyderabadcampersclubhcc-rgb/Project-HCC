@@ -9,7 +9,7 @@ interface Props {
 const { stops, light = false, class: className } = Astro.props;
 ---
 
-<p class:list={['route', light && 'route--light', className]} aria-label={`Route: ${stops.join(' to ')}`}>
+<p class:list={['route', light && 'route--light', className]} role="img" aria-label={`Route: ${stops.join(' to ')}`}>
   {
     stops.map((stop, i) => (
       <>

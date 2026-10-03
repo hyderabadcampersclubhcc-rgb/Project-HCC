@@ -7,9 +7,12 @@ import { track } from './analytics';
 
 const KEY = 'hcc_compare';
 export const MAX_COMPARE = 3;
+// Fallback when storage is blocked (some in-app browsers, private mode): lasts for this page view.
+let memory: string[] | null = null;
 
 export function getCompare(): string[] {
   try {
+    if (memory) return memory;
     const v = JSON.parse(localStorage.getItem(KEY) ?? '[]');
     return Array.isArray(v) ? v.filter((x) => typeof x === 'string').slice(0, MAX_COMPARE) : [];
   } catch {
@@ -22,7 +25,7 @@ export function setCompare(ids: string[]) {
   try {
     localStorage.setItem(KEY, JSON.stringify(unique));
   } catch {
-    /* storage blocked: selection lives for this page only */
+    memory = unique; // storage blocked: selection lives for this page only
   }
   window.dispatchEvent(new CustomEvent('hcc:compare', { detail: unique }));
   return unique;

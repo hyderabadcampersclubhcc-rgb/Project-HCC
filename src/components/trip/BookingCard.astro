@@ -70,7 +70,7 @@ const flagFor = (x: (typeof deps)[number]) =>
 
 <section class="book" id={id} aria-labelledby={`${id}-title`} data-booking-card>
   <h2 class="sr-only" id={`${id}-title`}>Dates and booking</h2>
-  <script type="application/json" data-booking-data set:html={JSON.stringify(payload)} />
+  <script type="application/json" data-booking-data set:html={JSON.stringify(payload).replace(/</g, '\\u003c')} />
 
   <div class="note note--highlight book__deeplink" hidden data-deeplink-note aria-live="polite">
     <Icon name="calendar" /><span data-deeplink-text></span>

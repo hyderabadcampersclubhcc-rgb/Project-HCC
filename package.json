@@ -10,7 +10,10 @@
     "preview": "astro preview",
     "check": "astro check",
     "astro": "astro",
-    "check:links": "node tools/check-links.mjs"
+    "check:links": "node tools/check-links.mjs",
+    "check:seo": "node tools/check-seo.mjs",
+    "make:og": "node tools/make-og.mjs",
+    "audit": "astro check && astro build && node tools/check-links.mjs && node tools/check-seo.mjs"
   },
   "dependencies": {
     "@astrojs/mdx": "^8.0.2",
