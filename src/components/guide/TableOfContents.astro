@@ -1,0 +1,99 @@
+---
+/**
+ * Table of contents from the guide's H2/H3 headings (astro:content render() headings).
+ * Mobile: collapsible <details>. Desktop: sticky sidebar with scroll-spy.
+ */
+interface Props {
+  headings: { depth: number; slug: string; text: string }[];
+}
+
+const items = Astro.props.headings.filter((h) => h.depth === 2 || h.depth === 3);
+---
+
+{
+  items.length >= 3 && (
+    <nav class="toc" aria-label="Contents" data-toc>
+      <details open>
+        <summary>Contents</summary>
+        <ol>
+          {items.map((h) => (
+            <li class:list={[h.depth === 3 && 'toc__sub']}>
+              <a href={`#${h.slug}`} data-toc-link={h.slug}>
+                {h.text}
+              </a>
+            </li>
+          ))}
+        </ol>
+      </details>
+    </nav>
+  )
+}
+
+<script>
+  const toc = document.querySelector<HTMLElement>('[data-toc]');
+  if (toc) {
+    if (window.matchMedia('(max-width: 1023.98px)').matches) toc.querySelector('details')?.removeAttribute('open');
+    const links = [...toc.querySelectorAll<HTMLAnchorElement>('[data-toc-link]')];
+    const io = new IntersectionObserver(
+      (entries) => {
+        const hit = entries.find((e) => e.isIntersecting);
+        if (!hit) return;
+        links.forEach((l) => l.toggleAttribute('aria-current', l.dataset.tocLink === hit.target.id));
+      },
+      { rootMargin: '-20% 0px -70% 0px' },
+    );
+    links.forEach((l) => {
+      const el = document.getElementById(l.dataset.tocLink!);
+      if (el) io.observe(el);
+    });
+  }
+</script>
+
+<style>
+  .toc details {
+    padding: var(--s-4) var(--s-5);
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--r-lg);
+  }
+  .toc summary {
+    min-height: 32px;
+    font: 700 1rem / 1.6 var(--font-display);
+    cursor: pointer;
+  }
+  .toc ol {
+    display: grid;
+    gap: 2px;
+    margin: var(--s-2) 0 0;
+    padding: 0;
+    list-style: none;
+    counter-reset: toc;
+  }
+  .toc li a {
+    display: block;
+    padding: 6px 8px;
+    margin-inline: -8px;
+    border-radius: var(--r-sm);
+    font-size: 0.875rem;
+    color: var(--ink-700);
+    text-decoration: none;
+  }
+  .toc li a:hover {
+    background: var(--surface-2);
+  }
+  .toc li a[aria-current] {
+    color: var(--forest-700);
+    font-weight: 600;
+    box-shadow: inset 2px 0 0 var(--forest-500);
+  }
+  .toc__sub a {
+    padding-left: 22px !important;
+    font-size: 0.8125rem !important;
+  }
+  @media (min-width: 1024px) {
+    .toc {
+      position: sticky;
+      top: calc(var(--header-h) + var(--s-4));
+    }
+  }
+</style>

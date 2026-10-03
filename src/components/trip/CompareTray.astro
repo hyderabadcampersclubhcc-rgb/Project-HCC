@@ -1,0 +1,147 @@
+---
+/** Floating compare tray: appears once a trip is added to compare (max 3). */
+import Icon from '@/components/ui/Icon.astro';
+---
+
+<div class="ctray" data-compare-tray hidden role="region" aria-label="Trips to compare">
+  <p class="ctray__summary" data-compare-summary aria-live="polite"></p>
+  <ul class="ctray__slots">
+    {
+      [0, 1, 2].map(() => (
+        <li class="ctray__slot" data-compare-slot data-filled="false">
+          <span class="ctray__name" data-compare-name>
+            Add a trip
+          </span>
+          <button type="button" class="ctray__rm" data-compare-remove aria-label="Remove from compare" hidden>
+            <Icon name="x" />
+          </button>
+        </li>
+      ))
+    }
+  </ul>
+  <div class="ctray__actions">
+    <button type="button" class="ctray__clear" data-compare-clear>Clear</button>
+    <a class="btn btn--primary btn--sm" href="/trips/compare/" data-compare-go aria-disabled="true">
+      <Icon name="columns" /> <span data-compare-count>Compare</span>
+    </a>
+  </div>
+</div>
+
+<script>
+  import { initCompare } from '@/scripts/compare';
+  initCompare();
+</script>
+
+<style>
+  .ctray {
+    position: fixed;
+    left: 50%;
+    bottom: calc(var(--mobile-bar-h) + 12px + env(safe-area-inset-bottom));
+    z-index: 35;
+    translate: -50% 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+    width: min(720px, calc(100% - 24px));
+    padding: 10px;
+    border-radius: var(--r-lg);
+    background: var(--ink-900);
+    color: var(--white);
+    box-shadow: var(--sh-3);
+  }
+  .ctray__slots {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 6px;
+    flex: 1 1 320px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .ctray__slot {
+    position: relative;
+    display: flex;
+    align-items: center;
+    min-height: 40px;
+    padding: 6px 28px 6px 10px;
+    border-radius: 10px;
+    border: 1.5px dashed rgb(255 255 255 / 0.25);
+    font-size: 0.75rem;
+    line-height: 1.2;
+    color: rgb(255 255 255 / 0.6);
+  }
+  .ctray__slot[data-filled='true'] {
+    border: 0;
+    background: rgb(255 255 255 / 0.12);
+    color: var(--white);
+    font-weight: 600;
+  }
+  .ctray__name {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .ctray__rm {
+    position: absolute;
+    top: 50%;
+    right: 4px;
+    translate: 0 -50%;
+    display: grid;
+    place-items: center;
+    width: 24px;
+    height: 24px;
+    border: 0;
+    border-radius: 50%;
+    background: transparent;
+    color: var(--white);
+  }
+  .ctray__actions {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-left: auto;
+  }
+  .ctray__clear {
+    min-height: 40px;
+    padding: 0 10px;
+    border: 0;
+    background: none;
+    color: rgb(255 255 255 / 0.7);
+    font-size: 0.8125rem;
+  }
+  .ctray a[aria-disabled='true'] {
+    opacity: 0.5;
+  }
+  /* Redundant on the compare page itself */
+  :global(body.is-compare-page) .ctray {
+    display: none !important;
+  }
+  .ctray__summary {
+    display: none;
+    margin: 0;
+    font-size: 0.8125rem;
+    font-weight: 600;
+  }
+  /* Phones: one compact row so the tray never covers page content */
+  @media (max-width: 639.98px) {
+    .ctray {
+      flex-wrap: nowrap;
+      padding: 8px 8px 8px 14px;
+    }
+    .ctray__slots {
+      display: none;
+    }
+    .ctray__summary {
+      display: block;
+      flex: 1;
+    }
+  }
+  @media (min-width: 1024px) {
+    .ctray {
+      bottom: 20px;
+    }
+  }
+</style>

@@ -2,12 +2,15 @@
 # The build re-validates everything with Zod, so an invalid edit fails the deploy
 # instead of breaking the live site.
 #
-# Backend: set `repo` once the GitHub repository exists. For local editing run
+# Served at /admin/config.yml by src/pages/admin/config.yml.ts, which fills in the
+# __PLACEHOLDERS__ per environment (staging/production). For local editing run
 #   npx decap-server   (then open http://localhost:4321/admin/)
 backend:
   name: github
-  repo: OWNER/hcc-website # TODO: set the real repository
+  repo: __CMS_REPO__
   branch: main
+  base_url: __SITE_ORIGIN__
+  auth_endpoint: api/decap-auth
   commit_messages:
     create: 'content: create {{collection}} "{{slug}}"'
     update: 'content: update {{collection}} "{{slug}}"'
@@ -17,7 +20,7 @@ backend:
 
 local_backend: true
 publish_mode: simple
-site_url: https://www.example.com
+site_url: __SITE_ORIGIN__
 logo_url: /favicon.svg
 
 media_folder: src/assets/uploads
@@ -229,6 +232,7 @@ collections:
       - { label: Featured story, name: featuredStory, widget: text, required: false }
       - { label: Sort order, name: sortOrder, widget: number, value_type: int, default: 100 }
       - { label: Primary keyword, name: primaryKeyword, widget: string, required: false, hint: 'e.g. ooty trip from hyderabad. Build warns on duplicates.' }
+      - { label: Old website URLs, name: legacyPaths, widget: list, required: false, hint: 'Old WordPress URLs that should redirect here, e.g. /ooty-coonoor/ (one per line, with slashes).' }
       - label: SEO overrides
         name: seo
         widget: object
@@ -292,6 +296,7 @@ collections:
           - { label: Answer, name: a, widget: text }
       - { label: Nearby destinations, name: nearby, widget: relation, collection: destinations, value_field: '{{slug}}', search_fields: [name], display_fields: [name], multiple: true, required: false }
       - { label: Primary keyword, name: primaryKeyword, widget: string, required: false }
+      - { label: Old website URLs, name: legacyPaths, widget: list, required: false, hint: 'Old WordPress URLs that should redirect here, e.g. /ooty-coonoor/ (one per line, with slashes).' }
       - label: SEO overrides
         name: seo
         widget: object

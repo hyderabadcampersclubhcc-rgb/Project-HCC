@@ -1,0 +1,46 @@
+---
+/** Trips visiting a destination (from the catalog), with a custom-trip fallback when none exist. */
+import TripCard from '@/components/trip/TripCard.astro';
+import WhatsAppBand from '@/components/cta/WhatsAppBand.astro';
+import { getTripsForDestination } from '@/lib/catalog';
+
+interface Props {
+  id: string;
+  name: string;
+  catalog?: { samples?: boolean; today?: string };
+}
+
+const { id, name, catalog = {} } = Astro.props;
+const trips = await getTripsForDestination(id, catalog);
+---
+
+<section id="trips" class="dtrips" aria-labelledby="dtrips-title">
+  <h2 id="dtrips-title" class="dtrips__title">{trips.length ? `${name} trips from Hyderabad` : `Plan a trip to ${name}`}</h2>
+  {
+    trips.length > 0 ? (
+      <div class="rail rail--grid" style="--rail-cols:3">
+        {trips.map((t, i) => (
+          <TripCard trip={t} index={i} listName={`destination_${id}`} />
+        ))}
+      </div>
+    ) : (
+      <WhatsAppBand
+        location="destination_no_trips"
+        title={`No fixed ${name} departures right now`}
+        text={`We can plan a ${name} trip around your dates and group. Tell us what you have in mind.`}
+        context={{ destination: name }}
+        headingLevel="h3"
+      />
+    )
+  }
+</section>
+
+<style>
+  .dtrips {
+    scroll-margin-top: calc(var(--header-h) + 16px);
+  }
+  .dtrips__title {
+    margin-bottom: var(--s-5);
+    font-size: var(--fs-h2);
+  }
+</style>

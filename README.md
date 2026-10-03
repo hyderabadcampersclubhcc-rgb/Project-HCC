@@ -1,6 +1,8 @@
 # Hyderabad Campers Club: website
 
-Astro 7 static site + Decap CMS. Built for conversion (WhatsApp + enquiry), trust, mobile, SEO and speed, in that order.
+Astro 7 static site + Decap CMS, hosted on **Hostinger** at hyderabadcampersclubhcc.in. Built for conversion (WhatsApp + enquiry), trust, mobile, SEO and speed, in that order.
+
+**Deploying:** see [`docs/deployment-hostinger.md`](docs/deployment-hostinger.md). GitHub Actions builds the site and uploads it over FTPS: staging first, production on approval. Enquiries go to `api/intents.php` → Google Sheet (backup copy kept on the server). Old WordPress URLs 301 to their new pages via the generated `.htaccess`.
 
 Strategy and design decisions: [`docs/phase-1-strategy.md`](docs/phase-1-strategy.md) · [`docs/phase-2-design-system.html`](docs/phase-2-design-system.html)
 

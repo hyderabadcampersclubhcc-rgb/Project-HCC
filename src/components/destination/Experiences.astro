@@ -1,0 +1,98 @@
+---
+/** Top experiences at a destination: unique copy per place (never a template). */
+import type { ImageMetadata } from 'astro';
+import Photo, { type Tone } from '@/components/ui/Photo.astro';
+
+interface Props {
+  name: string;
+  items: { title: string; text: string; image?: ImageMetadata; imageAlt?: string }[];
+  tone?: Tone;
+}
+
+const { name, items, tone = 'hills' } = Astro.props;
+const tones: Tone[] = [tone, 'forest', 'dusk', 'coffee', 'beach', 'snow'];
+---
+
+{
+  items.length > 0 && (
+    <section class="exp" aria-labelledby="exp-title">
+      <h2 id="exp-title" class="exp__title">
+        Things to do in {name}
+      </h2>
+      <ol class="exp__grid">
+        {items.map((it, i) => (
+          <li class="exp__card">
+            <div class="exp__img">
+              <Photo src={it.image} alt={it.imageAlt ?? it.title} tone={tones[i % tones.length]} widths={[360, 540]} sizes="(min-width: 1024px) 30vw, 85vw" />
+              <span class="exp__n">{String(i + 1).padStart(2, '0')}</span>
+            </div>
+            <h3>{it.title}</h3>
+            <p>{it.text}</p>
+          </li>
+        ))}
+      </ol>
+    </section>
+  )
+}
+
+<style>
+  .exp__title {
+    margin-bottom: var(--s-5);
+    font-size: var(--fs-h2);
+  }
+  .exp__grid {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 80%;
+    gap: var(--s-3);
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    margin: 0 calc(-1 * var(--gutter));
+    padding: 0 var(--gutter) var(--s-2);
+    list-style: none;
+    scrollbar-width: none;
+  }
+  .exp__grid::-webkit-scrollbar {
+    display: none;
+  }
+  .exp__card {
+    display: grid;
+    gap: var(--s-2);
+    align-content: start;
+    scroll-snap-align: start;
+  }
+  .exp__img {
+    position: relative;
+    aspect-ratio: 4 / 3;
+    border-radius: var(--r-lg);
+    overflow: hidden;
+  }
+  .exp__n {
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    z-index: 2;
+    padding: 4px 8px;
+    border-radius: 8px;
+    background: var(--white);
+    color: var(--ink-900);
+    font: 800 0.75rem / 1 var(--font-display);
+  }
+  .exp__card h3 {
+    font-size: 1.0625rem;
+  }
+  .exp__card p {
+    font-size: 0.9rem;
+    color: var(--ink-700);
+  }
+  @media (min-width: 1024px) {
+    .exp__grid {
+      grid-auto-flow: row;
+      grid-template-columns: repeat(3, 1fr);
+      overflow: visible;
+      margin-inline: 0;
+      padding-inline: 0;
+      gap: var(--s-5);
+    }
+  }
+</style>

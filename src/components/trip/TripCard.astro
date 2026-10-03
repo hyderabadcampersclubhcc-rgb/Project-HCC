@@ -71,6 +71,9 @@ const track = toAttr(itemParams(trip, o, { listName, index }));
         )
       }
     </div>
+    <button type="button" class="tcard__cmp" data-compare-toggle={trip.id} data-compare-title={d.title} aria-pressed="false" aria-label={`Compare ${d.title}`}>
+      <Icon name="columns" /> <span data-compare-label>Compare</span>
+    </button>
   </div>
 
   <div class="tcard__body">
@@ -177,6 +180,31 @@ const track = toAttr(itemParams(trip, o, { listName, index }));
     justify-content: space-between;
     align-items: flex-start;
     gap: 6px;
+  }
+  .tcard__cmp {
+    position: absolute;
+    left: 12px;
+    bottom: 12px;
+    z-index: 2;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    min-height: 32px;
+    padding: 0 10px;
+    border: 0;
+    border-radius: var(--r-pill);
+    background: rgb(10 36 28 / 0.6);
+    backdrop-filter: blur(6px);
+    color: var(--white);
+    font: 600 0.72rem / 1 var(--font-body);
+  }
+  .tcard__cmp[aria-pressed='true'] {
+    background: var(--white);
+    color: var(--forest-700);
+  }
+  .tcard__cmp:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
   }
   .tcard__body {
     display: flex;

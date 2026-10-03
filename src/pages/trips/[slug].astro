@@ -1,0 +1,48 @@
+---
+/**
+ * Trip detail pages: /trips/{trip}-from-{city}/
+ * One page per live trip × departure city marked "own search page" (indexable). Each page
+ * differs in pickup points, journey, dates and prices, so they're genuinely distinct.
+ * Departure dates are chosen on the page (campaign links use ?d=), never separate URLs.
+ */
+import type { GetStaticPaths } from 'astro';
+import { getImage } from 'astro:assets';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import TripPage from '@/components/trip/page/TripPage.astro';
+import { getTrips, type TripView } from '@/lib/catalog';
+import { tripSeo } from '@/lib/seo';
+import { organizationLd, touristTripLd } from '@/lib/schema';
+
+export const getStaticPaths = (async () => {
+  const trips = await getTrips();
+  return trips.flatMap((trip) =>
+    trip.origins
+      .filter((o) => o.indexable)
+      .map((o) => ({ params: { slug: `${trip.id}-from-${o.city}` }, props: { trip, city: o.city } })),
+  );
+}) satisfies GetStaticPaths;
+
+interface Props {
+  trip: TripView;
+  city: string;
+}
+
+const { trip, city } = Astro.props;
+const origin = trip.origins.find((o) => o.city === city)!;
+const seo = tripSeo(trip, origin);
+
+// 1200×630 share image (Instagram/WhatsApp/Facebook previews) from the hero photo.
+const og = trip.data.heroImage ? await getImage({ src: trip.data.heroImage, width: 1200, height: 630, fit: 'cover', format: 'jpg', quality: 80 }) : null;
+---
+
+<BaseLayout
+  title={seo.title}
+  rawTitle
+  description={seo.description}
+  ogImage={og?.src}
+  ogImageAlt={trip.data.heroAlt}
+  mobileBar="none"
+  jsonLd={[organizationLd(Astro.site!), touristTripLd(trip, origin, Astro.site!, og ? new URL(og.src, Astro.site).href : undefined)]}
+>
+  <TripPage trip={trip} origin={city} />
+</BaseLayout>

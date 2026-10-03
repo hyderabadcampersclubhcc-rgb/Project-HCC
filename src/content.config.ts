@@ -22,6 +22,9 @@ const slug = z.string().regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/, 'Use lowercase-words
 
 const faq = z.object({ q: z.string().min(5), a: z.string().min(5) });
 
+/** Old WordPress URLs that should 301 to this page, e.g. "/ooty-coonoor/". */
+const legacyPaths = z.array(z.string().regex(/^\/[a-z0-9_\/-]*\/$/, 'Use a path like /ooty-coonoor/')).default([]);
+
 const seo = z
   .object({
     title: z.string().max(70).optional(),
@@ -79,6 +82,7 @@ const destinations = defineCollection({
       faqs: z.array(faq).default([]),
       nearby: z.array(reference('destinations')).default([]),
       primaryKeyword: z.string().optional(),
+      legacyPaths,
       seo,
       sample: z.boolean().default(false),
     }),
@@ -190,6 +194,7 @@ const trips = defineCollection({
         recurrence: z.string().optional(), // "Every Friday" — shown when no dated departure exists
         status: z.enum(['draft', 'live', 'archived']).default('draft'),
         primaryKeyword: z.string().optional(),
+        legacyPaths,
         seo,
         sample: z.boolean().default(false),
       })

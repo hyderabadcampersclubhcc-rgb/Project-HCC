@@ -1,0 +1,98 @@
+# Build the Astro site and deploy it to Hostinger over FTPS.
+#
+#  push to main (incl. every CMS save) → staging, and production once PRODUCTION_LIVE=true
+#  daily 00:05 IST                      → rebuild so past departures drop off
+#  manual run                           → choose staging or production
+#
+# Repository settings → Secrets and variables → Actions:
+#   secrets: FTP_SERVER, FTP_USERNAME, FTP_PASSWORD
+#   vars:    STAGING_URL (e.g. https://staging.hyderabadcampersclubhcc.in)
+#            STAGING_DIR (e.g. /public_html/staging/ or the subdomain's folder)
+#            PRODUCTION_DIR (e.g. /public_html/)
+#            PRODUCTION_LIVE ("true" only after the go-live cutover)
+#            CMS_REPO (owner/repo of this repository)
+# The "production" environment should require a reviewer (Settings → Environments).
+name: Build & deploy
+
+on:
+  push:
+    branches: [main]
+  schedule:
+    - cron: '35 18 * * *'
+  workflow_dispatch:
+    inputs:
+      target:
+        description: Where to deploy
+        type: choice
+        options: [staging, production]
+        default: staging
+
+concurrency:
+  group: deploy
+  cancel-in-progress: false
+
+jobs:
+  staging:
+    if: github.event_name != 'workflow_dispatch' || inputs.target == 'staging'
+    runs-on: ubuntu-latest
+    environment: staging
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - name: Build (noindex)
+        run: npm run build
+        env:
+          SITE_URL: ${{ vars.STAGING_URL }}
+          PUBLIC_CMS_REPO: ${{ vars.CMS_REPO }}
+          PUBLIC_SHOW_SAMPLES: ${{ vars.STAGING_SHOW_SAMPLES }}
+      - name: Deploy to Hostinger (staging)
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ftps
+          local-dir: ./dist/
+          server-dir: ${{ vars.STAGING_DIR }}
+          exclude: |
+            **/.git*
+            **/.git*/**
+            api/config.php
+
+  production:
+    if: >-
+      (github.event_name == 'workflow_dispatch' && inputs.target == 'production') ||
+      (github.event_name != 'workflow_dispatch' && vars.PRODUCTION_LIVE == 'true')
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npx astro check
+      - name: Build (indexable)
+        run: npm run build
+        env:
+          SITE_URL: https://hyderabadcampersclubhcc.in
+          PUBLIC_ALLOW_INDEXING: 'true'
+          PUBLIC_CMS_REPO: ${{ vars.CMS_REPO }}
+      - name: Deploy to Hostinger (production)
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ftps
+          local-dir: ./dist/
+          server-dir: ${{ vars.PRODUCTION_DIR }}
+          exclude: |
+            **/.git*
+            **/.git*/**
+            api/config.php

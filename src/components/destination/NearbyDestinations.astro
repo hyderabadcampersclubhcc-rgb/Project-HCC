@@ -1,0 +1,65 @@
+---
+/** Nearby destinations (from destination.nearby), with live trip counts. */
+import { getCollection } from 'astro:content';
+import DestinationCard from '@/components/trip/DestinationCard.astro';
+import { getTripsForDestination, toneFor } from '@/lib/catalog';
+
+interface Props {
+  ids: string[];
+  title?: string;
+  catalog?: { samples?: boolean; today?: string };
+}
+
+const { ids, title = 'Nearby destinations', catalog = {} } = Astro.props;
+const showSamples = catalog.samples ?? import.meta.env.PUBLIC_SHOW_SAMPLES === 'true';
+const all = (await getCollection('destinations')).filter((d) => ids.includes(d.id) && (showSamples || !d.data.sample));
+const cards = await Promise.all(
+  all.map(async (d) => {
+    const trips = await getTripsForDestination(d.id, catalog);
+    const prices = trips.map((t) => t.primary.fromPrice).filter((p): p is number => p != null);
+    return { d, trips, from: prices.length ? Math.min(...prices) : null };
+  }),
+);
+---
+
+{
+  cards.length > 0 && (
+    <section class="near" aria-labelledby="near-title">
+      <h2 id="near-title" class="near__title">
+        {title}
+      </h2>
+      <div class="near__grid">
+        {cards.map(({ d, trips, from }) => (
+          <DestinationCard
+            id={d.id}
+            name={d.data.name}
+            image={d.data.heroImage}
+            imageAlt={d.data.heroAlt}
+            tone={trips[0] ? toneFor(trips[0].data) : 'hills'}
+            tripCount={trips.length}
+            fromPrice={from}
+            bestMonths={d.data.bestMonths}
+            size="sm"
+          />
+        ))}
+      </div>
+    </section>
+  )
+}
+
+<style>
+  .near__title {
+    margin-bottom: var(--s-5);
+    font-size: var(--fs-h3);
+  }
+  .near__grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--s-3);
+  }
+  @media (min-width: 1024px) {
+    .near__grid {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+  }
+</style>

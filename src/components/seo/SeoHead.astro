@@ -22,10 +22,10 @@ export interface SeoProps {
 const { title, description, rawTitle = false, canonicalPath, noindex = false, ogImage, ogImageAlt, ogType = 'website', jsonLd } =
   Astro.props as SeoProps;
 
-// Safety net: until SITE_URL points at the real domain (placeholder example.com), every page is
-// noindex, so staging/preview deploys can never be indexed. Removing the placeholder lifts it.
-const isPlaceholderSite = !Astro.site || Astro.site.hostname.endsWith('example.com');
-const robotsNoindex = noindex || isPlaceholderSite;
+// Safety net: pages are noindex unless the build sets PUBLIC_ALLOW_INDEXING=true, which only the
+// production deploy does. Local, staging and preview builds can never be indexed by accident.
+const indexingAllowed = import.meta.env.PUBLIC_ALLOW_INDEXING === 'true';
+const robotsNoindex = noindex || !indexingAllowed;
 const fullTitle = rawTitle ? title : `${title} | ${settings.brand.short}`;
 const canonical = new URL(canonicalPath ?? Astro.url.pathname, Astro.site).href;
 const image = ogImage ? new URL(ogImage, Astro.site).href : undefined;

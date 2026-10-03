@@ -1,0 +1,114 @@
+---
+/**
+ * Inline trip card for guides (MDX): <TripCallout trip="ooty-coonoor" />
+ * Shows the live from-price and next departure from the catalog, so guides never go stale.
+ * Renders nothing if the trip isn't live, so a guide never links to a dead trip.
+ */
+import Photo from '@/components/ui/Photo.astro';
+import Stub from '@/components/ui/Stub.astro';
+import Icon from '@/components/ui/Icon.astro';
+import { getTrip, toneFor } from '@/lib/catalog';
+import { inr, dateLong } from '@/lib/format';
+import { itemParams, toAttr } from '@/lib/tracking';
+
+interface Props {
+  trip: string;
+  note?: string;
+  catalog?: { samples?: boolean; today?: string };
+}
+
+const { trip: id, note, catalog = {} } = Astro.props;
+const trip = await getTrip(id, catalog);
+const o = trip?.primary;
+---
+
+{
+  trip && o && (
+    <aside class="tco" aria-label={`Trip: ${trip.data.title}`}>
+      <div class="tco__img">
+        <Photo src={trip.data.heroImage} alt={trip.data.heroAlt ?? trip.data.title} tone={toneFor(trip.data)} widths={[240, 360]} sizes="140px" />
+      </div>
+      <div class="tco__body">
+        <p class="overline">{note ?? `HCC trip from ${o.label}`}</p>
+        <p class="tco__title">
+          <a href={o.url} data-track="select_item" data-track-params={toAttr(itemParams(trip, o, { listName: 'guide_callout' }))}>
+            {trip.data.title}
+          </a>
+        </p>
+        <p class="tco__meta">
+          <Stub nights={trip.data.durationNights} days={trip.data.durationDays} outlined />
+          {o.fromPrice != null && (
+            <span>
+              from <b>{inr(o.fromPrice)}</b>
+            </span>
+          )}
+          {o.next && <span>· next {dateLong(o.next.start)}</span>}
+        </p>
+      </div>
+      <span class="tco__go" aria-hidden="true">
+        <Icon name="arrow" />
+      </span>
+    </aside>
+  )
+}
+
+<style>
+  .tco {
+    position: relative;
+    display: grid;
+    grid-template-columns: 96px 1fr auto;
+    gap: var(--s-4);
+    align-items: center;
+    margin-block: var(--s-6);
+    padding: 10px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--r-lg);
+    box-shadow: var(--sh-1);
+  }
+  .tco:hover {
+    box-shadow: var(--sh-2);
+  }
+  .tco__img {
+    aspect-ratio: 1;
+    border-radius: var(--r-md);
+    overflow: hidden;
+  }
+  .tco__body {
+    display: grid;
+    gap: 4px;
+    min-width: 0;
+  }
+  .tco__title {
+    font: 700 1.0625rem / 1.25 var(--font-display);
+  }
+  .tco__title a {
+    text-decoration: none;
+  }
+  .tco__title a::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+  }
+  .tco__meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.8125rem;
+    color: var(--text-2);
+  }
+  .tco__meta b {
+    color: var(--ink-900);
+  }
+  .tco__go {
+    display: grid;
+    place-items: center;
+    width: 36px;
+    height: 36px;
+    margin-right: 6px;
+    border-radius: 50%;
+    background: var(--cta);
+    color: var(--cta-ink);
+  }
+</style>

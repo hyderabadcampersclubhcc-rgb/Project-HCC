@@ -1,0 +1,187 @@
+---
+/** Destination quick facts: distance, ideal duration, how to reach, and a 12-month best-time strip. */
+import Icon, { type IconName } from '@/components/ui/Icon.astro';
+
+interface Props {
+  name: string;
+  distanceFromHydKm?: number;
+  idealDuration?: string;
+  howToReach: { mode: string; duration: string; note?: string }[];
+  bestMonths: number[];
+}
+
+const { name, distanceFromHydKm, idealDuration, howToReach, bestMonths } = Astro.props;
+const MONTHS = ['J', 'F', 'M', 'A', 'M', 'J', 'J', 'A', 'S', 'O', 'N', 'D'];
+const MONTHS_LONG = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+const MODE: Record<string, { icon: IconName; label: string }> = {
+  train: { icon: 'train', label: 'Train' },
+  bus: { icon: 'bus', label: 'Bus' },
+  tempo: { icon: 'bus', label: 'Tempo traveller' },
+  cab: { icon: 'bus', label: 'Cab' },
+  flight: { icon: 'route', label: 'Flight' },
+  self: { icon: 'route', label: 'Self-drive' },
+};
+const best = new Set(bestMonths);
+const hasAny = distanceFromHydKm || idealDuration || howToReach.length || bestMonths.length;
+---
+
+{
+  hasAny && (
+    <section class="glance" aria-labelledby="glance-title">
+      <h2 id="glance-title" class="glance__title">
+        {name} at a glance
+      </h2>
+      <div class="glance__grid">
+        {(distanceFromHydKm || idealDuration) && (
+          <dl class="glance__facts">
+            {distanceFromHydKm && (
+              <div>
+                <dt>From Hyderabad</dt>
+                <dd>~{distanceFromHydKm.toLocaleString('en-IN')} km</dd>
+              </div>
+            )}
+            {idealDuration && (
+              <div>
+                <dt>Ideal trip length</dt>
+                <dd>{idealDuration}</dd>
+              </div>
+            )}
+          </dl>
+        )}
+        {howToReach.length > 0 && (
+          <div class="glance__card">
+            <h3>How to get there</h3>
+            <ul class="glance__reach">
+              {howToReach.map((r) => (
+                <li>
+                  <Icon name={MODE[r.mode]?.icon ?? 'route'} />
+                  <span>
+                    <b>{MODE[r.mode]?.label ?? r.mode}</b> · {r.duration}
+                    {r.note && <small>{r.note}</small>}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+        {bestMonths.length > 0 && (
+          <div class="glance__card">
+            <h3>Best time to visit</h3>
+            <ol class="glance__months" aria-label={`Best months: ${bestMonths.map((m) => MONTHS_LONG[m - 1]).join(', ')}`}>
+              {MONTHS.map((m, i) => (
+                <li class:list={[best.has(i + 1) && 'is-best']} aria-hidden="true" title={MONTHS_LONG[i]}>
+                  {m}
+                </li>
+              ))}
+            </ol>
+            <p class="glance__legend">
+              <span class="glance__dot" /> Recommended months
+            </p>
+          </div>
+        )}
+      </div>
+    </section>
+  )
+}
+
+<style>
+  .glance__title {
+    margin-bottom: var(--s-5);
+    font-size: var(--fs-h2);
+  }
+  .glance__grid {
+    display: grid;
+    gap: var(--s-3);
+  }
+  .glance__facts {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--s-3);
+    margin: 0;
+  }
+  .glance__facts div,
+  .glance__card {
+    padding: var(--s-5);
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--r-lg);
+  }
+  .glance__facts dt {
+    font-size: 0.8125rem;
+    color: var(--text-2);
+  }
+  .glance__facts dd {
+    margin: 4px 0 0;
+    font: 800 1.375rem / 1.1 var(--font-display);
+  }
+  .glance__card h3 {
+    margin-bottom: var(--s-3);
+    font-size: 1rem;
+  }
+  .glance__reach {
+    display: grid;
+    gap: 10px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-size: 0.9375rem;
+  }
+  .glance__reach li {
+    display: flex;
+    gap: 10px;
+  }
+  .glance__reach :global(.icon) {
+    margin-top: 3px;
+    color: var(--forest-500);
+  }
+  .glance__reach small {
+    display: block;
+    color: var(--text-2);
+    font-size: 0.8rem;
+  }
+  .glance__months {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 4px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .glance__months li {
+    display: grid;
+    place-items: center;
+    height: 36px;
+    border-radius: 6px;
+    background: var(--surface-2);
+    color: var(--text-3);
+    font-size: 0.75rem;
+    font-weight: 600;
+  }
+  .glance__months li.is-best {
+    background: var(--forest-500);
+    color: var(--white);
+  }
+  .glance__legend {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: var(--s-2);
+    font-size: 0.75rem;
+    color: var(--text-2);
+  }
+  .glance__dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 3px;
+    background: var(--forest-500);
+  }
+  @media (min-width: 1024px) {
+    .glance__grid {
+      grid-template-columns: 1fr 1fr;
+    }
+    .glance__facts {
+      grid-column: 1 / -1;
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+</style>

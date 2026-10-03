@@ -1,0 +1,39 @@
+---
+/** 2–3 sentence answer at the top of a guide: targets featured snippets and AI overviews. */
+import Icon from '@/components/ui/Icon.astro';
+
+interface Props {
+  text: string;
+}
+
+const { text } = Astro.props;
+---
+
+<aside class="qa" aria-label="Quick answer">
+  <p class="qa__label"><Icon name="sparkles" /> Quick answer</p>
+  <p class="qa__text">{text}</p>
+</aside>
+
+<style>
+  .qa {
+    padding: var(--s-5);
+    border-left: 4px solid var(--cta);
+    border-radius: 0 var(--r-lg) var(--r-lg) 0;
+    background: var(--highlight-bg);
+  }
+  .qa__label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 6px;
+    font: 600 var(--fs-xs) / 1 var(--font-body);
+    letter-spacing: var(--tracking-overline);
+    text-transform: uppercase;
+    color: var(--marigold-600);
+  }
+  .qa__text {
+    font-size: 1.0625rem;
+    line-height: 1.55;
+    color: var(--ink-900);
+  }
+</style>

@@ -9,6 +9,7 @@ import AnnouncementBar from '@/components/layout/AnnouncementBar.astro';
 import Header from '@/components/layout/Header.astro';
 import Footer from '@/components/layout/Footer.astro';
 import MobileNav from '@/components/layout/MobileNav.astro';
+import CompareTray from '@/components/trip/CompareTray.astro';
 import '@/styles/tokens.css';
 import '@/styles/base.css';
 import '@/styles/primitives.css';
@@ -53,6 +54,7 @@ const { headerOverlay = false, mobileBar = 'nav', chrome = true, bodyClass, ...s
     </main>
     {chrome && <Footer />}
     {chrome && mobileBar === 'nav' && <MobileNav />}
+    {chrome && <CompareTray />}
     <slot name="end" />
     <script>
       import '@/scripts/site';

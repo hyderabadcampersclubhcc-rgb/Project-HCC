@@ -18,3 +18,9 @@ npm-debug.log*
 Thumbs.db
 .vscode/*
 !.vscode/extensions.json
+
+# server secrets & local lead backups
+public/api/config.php
+hcc-leads/
+.leads/
+tools/.mock-sheet.jsonl

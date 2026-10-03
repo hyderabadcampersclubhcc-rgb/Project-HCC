@@ -76,6 +76,7 @@ featured: true
 featuredStory: Overnight train, two days in tea country and a campfire with new friends. Back at your desk on Monday morning.
 sortOrder: 10
 primaryKeyword: ooty trip from hyderabad
+legacyPaths: ['/ooty-coonoor/', '/isha-ooty-coonoor/']
 status: live
 sample: true
 ---

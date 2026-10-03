@@ -30,13 +30,22 @@ import Breadcrumbs from '@/components/content/Breadcrumbs.astro';
 import TripFinder from '@/components/search/TripFinder.astro';
 import FilterBar, { type Facet } from '@/components/search/FilterBar.astro';
 import WhatsAppBand from '@/components/cta/WhatsAppBand.astro';
-import { getCollection } from 'astro:content';
+import AtAGlance from '@/components/destination/AtAGlance.astro';
+import Experiences from '@/components/destination/Experiences.astro';
+import NearbyDestinations from '@/components/destination/NearbyDestinations.astro';
+import GuideHeader from '@/components/guide/GuideHeader.astro';
+import QuickAnswer from '@/components/guide/QuickAnswer.astro';
+import TableOfContents from '@/components/guide/TableOfContents.astro';
+import TripCallout from '@/components/guide/TripCallout.astro';
+import AuthorBox from '@/components/guide/AuthorBox.astro';
+import { getCollection, getEntry } from 'astro:content';
 import { getTrips, getUpcoming, getTripsForDestination, toneFor } from '@/lib/catalog';
 import { monthLong } from '@/lib/format';
 import { visibleTrustItems, whatsappNumber } from '@/lib/settings';
 
 const SAMPLE_TODAY = '2026-10-03';
 const opts = { samples: true, today: SAMPLE_TODAY };
+const ooty = (await getEntry('destinations', 'ooty'))!;
 
 const trips = await getTrips(opts);
 const byId = Object.fromEntries(trips.map((t) => [t.id, t]));
@@ -119,6 +128,8 @@ const sections = [
   ['search', 'Search & filters'],
   ['trust', 'Trust & reviews'],
   ['content', 'Content'],
+  ['destination', 'Destination'],
+  ['guide', 'Guide'],
   ['icons', 'Icons'],
 ];
 ---
@@ -375,9 +386,41 @@ const sections = [
       </div>
     </section>
 
+    <!-- DESTINATION -->
+    <section id="destination" class="sg-sec">
+      <SectionHeader overline="14" title="Destination components" subtitle="At a glance (distance, travel, best months), experiences and nearby places, all from the destination record. Each block hides without data." />
+      <div class="stack" style="--stack:48px">
+        <AtAGlance name={ooty.data.name} distanceFromHydKm={ooty.data.distanceFromHydKm} idealDuration={ooty.data.idealDuration} howToReach={ooty.data.howToReach} bestMonths={ooty.data.bestMonths} />
+        <Experiences name={ooty.data.name} items={ooty.data.experiences} />
+        <NearbyDestinations ids={ooty.data.nearby.map((n) => n.id)} catalog={opts} />
+      </div>
+    </section>
+
+    <!-- GUIDE -->
+    <section id="guide" class="sg-sec">
+      <SectionHeader overline="15" title="Guide components" subtitle="Used by travel guides. TripCallout embeds a live trip (price + next date) inside an article via MDX." />
+      <div class="sg-guide">
+        <div class="stack" style="--stack:24px">
+          <GuideHeader title="Hyderabad to Ooty Travel Guide" category="Destination guides" authorName="Author name" published="2026-08-01" updated="2026-09-20" readMinutes={8} />
+          <QuickAnswer text="Sample: the easiest way to reach Ooty from Hyderabad is the overnight train to Mettupalayam, then the toy train or a 2-hour drive up the ghat. October to June has the best weather." />
+          <TripCallout trip="ooty-coonoor" catalog={opts} />
+          <AuthorBox name="Author name" role="Trip lead, HCC" bio="Sample bio: real author profiles add credibility to guides (who wrote it, and why they know the place)." />
+        </div>
+        <TableOfContents
+          headings={[
+            { depth: 2, slug: 'how-to-reach', text: 'How to reach Ooty from Hyderabad' },
+            { depth: 3, slug: 'by-train', text: 'By train' },
+            { depth: 3, slug: 'by-bus', text: 'By bus' },
+            { depth: 2, slug: 'best-time', text: 'Best time to visit' },
+            { depth: 2, slug: 'itinerary', text: 'A 3-day itinerary' },
+          ]}
+        />
+      </div>
+    </section>
+
     <!-- ICONS -->
     <section id="icons" class="sg-sec">
-      <SectionHeader overline="14" title="Icons" subtitle="Lucide-style 24px line icons, inlined per use (no icon font, no sprite request)." />
+      <SectionHeader overline="16" title="Icons" subtitle="Lucide-style 24px line icons, inlined per use (no icon font, no sprite request)." />
       <ul class="sg-icons">
         {iconNames.map((n) => <li><Icon name={n} /><span>{n}</span></li>)}
       </ul>
@@ -549,6 +592,16 @@ const sections = [
     margin-bottom: var(--s-4);
     padding: var(--s-6);
     border-radius: var(--r-xl);
+  }
+  .sg-guide {
+    display: grid;
+    gap: var(--s-6);
+    align-items: start;
+  }
+  @media (min-width: 1024px) {
+    .sg-guide {
+      grid-template-columns: minmax(0, 1fr) 280px;
+    }
   }
   .sg-icons {
     display: grid;

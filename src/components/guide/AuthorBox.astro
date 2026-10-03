@@ -1,0 +1,81 @@
+---
+/** Author box at the end of a guide (expertise + accountability signals). */
+import type { ImageMetadata } from 'astro';
+import { Image } from 'astro:assets';
+
+interface Props {
+  name: string;
+  role: string;
+  bio: string;
+  photo?: ImageMetadata;
+  socials?: { label: string; url: string }[];
+}
+
+const { name, role, bio, photo, socials = [] } = Astro.props;
+---
+
+<aside class="author" aria-label="About the author">
+  {photo ? <Image src={photo} alt={name} width={128} height={128} class="author__img" /> : <span class="author__img author__img--i" aria-hidden="true">{name[0]}</span>}
+  <div>
+    <p class="author__name">{name}</p>
+    <p class="author__role">{role}</p>
+    <p class="author__bio">{bio}</p>
+    {
+      socials.length > 0 && (
+        <p class="author__links">
+          {socials.map((s) => (
+            <a href={s.url} target="_blank" rel="noopener me">
+              {s.label}
+            </a>
+          ))}
+        </p>
+      )
+    }
+  </div>
+</aside>
+
+<style>
+  .author {
+    display: grid;
+    grid-template-columns: 64px 1fr;
+    gap: var(--s-4);
+    padding: var(--s-5);
+    background: var(--surface-2);
+    border-radius: var(--r-lg);
+  }
+  .author__img {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  .author__img--i {
+    display: grid;
+    place-items: center;
+    background: var(--forest-100);
+    color: var(--forest-700);
+    font: 800 1.5rem / 1 var(--font-display);
+  }
+  .author__name {
+    font: 700 1.0625rem / 1.2 var(--font-display);
+  }
+  .author__role {
+    font-size: 0.8125rem;
+    color: var(--text-2);
+  }
+  .author__bio {
+    margin-top: var(--s-2);
+    font-size: 0.9rem;
+    color: var(--ink-700);
+  }
+  .author__links {
+    display: flex;
+    gap: var(--s-3);
+    margin-top: var(--s-2);
+    font-size: 0.8125rem;
+  }
+  .author__links a {
+    color: var(--link);
+    font-weight: 600;
+  }
+</style>

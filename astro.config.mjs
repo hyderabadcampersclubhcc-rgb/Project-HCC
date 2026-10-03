@@ -1,10 +1,13 @@
 // @ts-check
 import { defineConfig, fontProviders } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
+import mdx from '@astrojs/mdx';
+import hostinger from './integrations/hostinger.mjs';
 
-// Production domain: set SITE_URL in the hosting environment once HCC confirms it.
-// Canonicals, OG URLs and the sitemap all derive from this value.
-const site = process.env.SITE_URL ?? 'https://www.example.com';
+// Canonical production origin. Canonicals, OG URLs, the sitemap and redirects derive from it.
+// Staging builds set SITE_URL to the staging host. Indexing is controlled separately by
+// PUBLIC_ALLOW_INDEXING (only the production deploy sets it).
+const site = process.env.SITE_URL ?? 'https://hyderabadcampersclubhcc.in';
 
 export default defineConfig({
   site,
@@ -12,10 +15,12 @@ export default defineConfig({
   build: { format: 'directory', inlineStylesheets: 'auto' },
   prefetch: { defaultStrategy: 'hover' },
   integrations: [
+    mdx(),
     sitemap({
       // Internal / utility pages never go into the sitemap.
-      filter: (page) => !/\/(styleguide|preview|admin|thank-you|go)\//.test(page),
+      filter: (page) => !/\/(styleguide|preview|admin|thank-you|go|api|build-redirects\.json)(\/|$)/.test(page) && !/\/trips\/compare\//.test(page),
     }),
+    hostinger(),
   ],
   // Self-hosted, Latin-subset variable fonts. Astro generates metric-adjusted
   // fallbacks from the generic family at the end of `fallbacks` to avoid CLS.
