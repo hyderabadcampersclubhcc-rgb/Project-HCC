@@ -11,7 +11,9 @@
 #            PRODUCTION_DIR (e.g. /public_html/)
 #            PRODUCTION_LIVE ("true" only after the go-live cutover)
 #            CMS_REPO (owner/repo of this repository)
-# The "production" environment should require a reviewer (Settings → Environments).
+#            FTP_PROTOCOL (optional: ftps by default; set to ftp if the server refuses TLS)
+# Production only deploys when run manually with target=production, or automatically once
+# PRODUCTION_LIVE=true (go-live). Restrict the "production" environment to the main branch.
 name: Build & deploy
 
 on:
@@ -37,8 +39,8 @@ jobs:
     runs-on: ubuntu-latest
     environment: staging
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
         with:
           node-version: 24
           cache: npm
@@ -49,13 +51,23 @@ jobs:
           SITE_URL: ${{ vars.STAGING_URL }}
           PUBLIC_CMS_REPO: ${{ vars.CMS_REPO }}
           PUBLIC_SHOW_SAMPLES: ${{ vars.STAGING_SHOW_SAMPLES }}
+      - name: Normalise FTP host
+        id: ftp
+        # Accepts "145.79.213.106", "ftp://145.79.213.106", trailing spaces/newlines, ":21".
+        run: |
+          host=$(printf '%s' "$RAW" | tr -d '[:space:]' | sed -E 's#^[a-zA-Z]+://##; s#/.*$##; s#:[0-9]+$##')
+          if [ -z "$host" ]; then echo "::error::FTP_SERVER secret is empty"; exit 1; fi
+          echo "::add-mask::$host"
+          echo "host=$host" >> "$GITHUB_OUTPUT"
+        env:
+          RAW: ${{ secrets.FTP_SERVER }}
       - name: Deploy to Hostinger (staging)
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
-          server: ${{ secrets.FTP_SERVER }}
+          server: ${{ steps.ftp.outputs.host }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          protocol: ftps
+          protocol: ${{ vars.FTP_PROTOCOL || 'ftps' }}
           local-dir: ./dist/
           server-dir: ${{ vars.STAGING_DIR }}
           exclude: |
@@ -70,8 +82,8 @@ jobs:
     runs-on: ubuntu-latest
     environment: production
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
         with:
           node-version: 24
           cache: npm
@@ -83,13 +95,23 @@ jobs:
           SITE_URL: https://hyderabadcampersclubhcc.in
           PUBLIC_ALLOW_INDEXING: 'true'
           PUBLIC_CMS_REPO: ${{ vars.CMS_REPO }}
+      - name: Normalise FTP host
+        id: ftp
+        # Accepts "145.79.213.106", "ftp://145.79.213.106", trailing spaces/newlines, ":21".
+        run: |
+          host=$(printf '%s' "$RAW" | tr -d '[:space:]' | sed -E 's#^[a-zA-Z]+://##; s#/.*$##; s#:[0-9]+$##')
+          if [ -z "$host" ]; then echo "::error::FTP_SERVER secret is empty"; exit 1; fi
+          echo "::add-mask::$host"
+          echo "host=$host" >> "$GITHUB_OUTPUT"
+        env:
+          RAW: ${{ secrets.FTP_SERVER }}
       - name: Deploy to Hostinger (production)
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
-          server: ${{ secrets.FTP_SERVER }}
+          server: ${{ steps.ftp.outputs.host }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          protocol: ftps
+          protocol: ${{ vars.FTP_PROTOCOL || 'ftps' }}
           local-dir: ./dist/
           server-dir: ${{ vars.PRODUCTION_DIR }}
           exclude: |
