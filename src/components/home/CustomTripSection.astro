@@ -3,7 +3,8 @@
  * "Can't find your perfect trip?": custom-trip lead form + WhatsApp alternative.
  * Two required fields (name, phone); the rest are optional and tucked behind
  * "Add more details" to keep the form short on mobile.
- * Posts a BookingIntent (kind: custom) to /api/intents (endpoint arrives in Phase 4).
+ * Posts a BookingIntent (kind: custom) to /api/intents via src/scripts/intent-form.ts.
+ * If the endpoint can't be reached, the visitor is offered WhatsApp with their details pre-filled.
  */
 import Field from '@/components/ui/Field.astro';
 import Icon from '@/components/ui/Icon.astro';
@@ -40,7 +41,8 @@ const c = home.custom;
       }
     </div>
 
-    <form class="custom__form" method="post" action="/api/intents" data-intent-form="custom" novalidate>
+    <div class="custom__panel" data-intent-scope>
+    <form class="custom__form" method="post" action="/api/intents" data-intent-form="custom" data-wa={whatsappNumber || undefined} novalidate>
       <input type="hidden" name="kind" value="custom" />
       <div class="custom__hp" aria-hidden="true">
         <label>Leave this empty <input type="text" name="company" tabindex="-1" autocomplete="off" /></label>
@@ -62,10 +64,32 @@ const c = home.custom;
         {settings.contact.hours ? `We usually reply within working hours (${settings.contact.hours}).` : 'The HCC team will get back to you on WhatsApp.'}
         {' '}No spam.
       </p>
-      {preview && <p class="note note--highlight"><Icon name="info" /><span>Preview: the form submits once the enquiry endpoint ships in Phase 4.</span></p>}
+      {preview && <p class="note note--highlight"><Icon name="info" /><span>Preview: the enquiry endpoint ships in Phase 4.</span></p>}
+      <div class="note note--alert custom__error" data-form-error hidden tabindex="-1" role="alert">
+        <Icon name="info" />
+        <span>
+          We couldn't send your request just now.
+          {whatsappNumber ? ' Tap below to send the same details on WhatsApp.' : settings.contact.phone ? ` Please call us on ${settings.contact.phone}.` : ' Please try again in a moment.'}
+          <a class="btn btn--whatsapp btn--block custom__fallback" data-fallback-wa hidden target="_blank" rel="noopener" data-wa data-cta-location="custom_trip_fallback">
+            <Icon name="whatsapp" /> Send on WhatsApp
+          </a>
+        </span>
+      </div>
     </form>
+    <div class="custom__success" data-form-success hidden tabindex="-1" role="status">
+      <span class="custom__tick" aria-hidden="true"><Icon name="check" /></span>
+      <h3>Got it, thank you!</h3>
+      <p>The HCC team will message you on WhatsApp with trip ideas and a quote{settings.contact.hours ? `, usually within ${settings.contact.hours}` : ''}.</p>
+      <a class="btn btn--secondary" href="/upcoming-trips/">Browse upcoming trips</a>
+    </div>
+    </div>
   </div>
 </section>
+
+<script>
+  import { initIntentForms } from '@/scripts/intent-form';
+  initIntentForms();
+</script>
 
 <style>
   .custom {
@@ -120,6 +144,39 @@ const c = home.custom;
     border: 1px solid var(--line);
     border-radius: var(--r-xl);
     box-shadow: var(--sh-2);
+  }
+  .custom__error {
+    flex-wrap: wrap;
+  }
+  .custom__fallback {
+    margin-top: var(--s-3);
+  }
+  .custom__success {
+    display: grid;
+    justify-items: start;
+    gap: var(--s-3);
+    padding: var(--s-8);
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--r-xl);
+    box-shadow: var(--sh-2);
+    outline: none;
+  }
+  .custom__success h3 {
+    font-size: var(--fs-h3);
+  }
+  .custom__success p {
+    color: var(--ink-700);
+  }
+  .custom__tick {
+    display: grid;
+    place-items: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: var(--ok-bg);
+    color: var(--forest-700);
+    font-size: 1.5rem;
   }
   .custom__hp {
     position: absolute;

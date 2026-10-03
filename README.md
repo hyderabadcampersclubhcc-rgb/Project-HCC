@@ -44,6 +44,16 @@ Invalid content (unknown trip/origin/option, end before start, reviews without c
 
 **No fake data.** Empty settings values hide their component (trust items, WhatsApp buttons, address, socials). Files marked `sample: true` exist only to render `/styleguide/` and are excluded from public pages.
 
+## Homepage
+
+`/` renders [`HomePage.astro`](src/components/home/HomePage.astro). Copy, hero photo, trust points, steps, FAQ and Instagram tiles live in [`src/data/home.json`](src/data/home.json) (CMS → Homepage). Every section hides itself until it has real data. `/preview/homepage/` shows the same page with sample data and section notes (noindex).
+
+**Indexing safety:** while `SITE_URL` is unset (placeholder `example.com`), every page outputs `noindex`, so staging deploys can't be indexed. Set `SITE_URL` to the real domain at launch.
+
+## Lead forms
+
+Forms with `data-intent-form` ([`src/scripts/intent-form.ts`](src/scripts/intent-form.ts)) validate name + 10-digit mobile, attach attribution, POST JSON to `/api/intents`, and fire `form_start` → `form_submit` → `generate_lead`. If the endpoint is unreachable, the visitor is offered WhatsApp with their details pre-filled.
+
 ## Campaign links
 
 Ads link to the canonical trip page plus parameters; there are no separate landing pages:

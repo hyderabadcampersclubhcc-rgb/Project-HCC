@@ -442,6 +442,153 @@ collections:
           - { label: Description, name: description, widget: text, required: false }
       - { label: Editorial content, name: body, widget: markdown, required: false }
 
+  # ---------------------------------------------------------------- HOMEPAGE
+  - name: homepage
+    label: Homepage
+    editor: { preview: false }
+    files:
+      - name: home
+        label: Homepage content
+        file: src/data/home.json
+        format: json
+        media_folder: /src/assets/uploads/home
+        public_folder: src/assets/uploads/home
+        fields:
+          - label: SEO
+            name: seo
+            widget: object
+            fields:
+              - { label: Page title, name: title, widget: string, hint: 'Max 70 characters' }
+              - { label: Meta description, name: description, widget: text, hint: 'Max 170 characters' }
+          - label: Hero
+            name: hero
+            widget: object
+            fields:
+              - { label: Overline (part of the H1, keep the keyword), name: overline, widget: string }
+              - { label: Headline, name: headline, widget: string, hint: 'Each sentence goes on its own line.' }
+              - { label: Subline, name: subline, widget: text }
+              - { label: Hero photo (real HCC group photo, landscape, min 1920px wide), name: image, widget: image, required: false }
+              - { label: Hero photo alt text, name: imageAlt, widget: string, required: false }
+          - label: Upcoming trips
+            name: upcoming
+            widget: object
+            collapsed: true
+            fields:
+              - { label: Title, name: title, widget: string }
+              - { label: Subtitle, name: subtitle, widget: string, required: false }
+              - { label: Cards shown on mobile, name: limit, widget: number, value_type: int, min: 3, max: 20 }
+          - label: Destinations
+            name: destinations
+            widget: object
+            collapsed: true
+            fields:
+              - { label: Title, name: title, widget: string }
+              - { label: Subtitle, name: subtitle, widget: string, required: false }
+          - label: Weekend trips block
+            name: weekend
+            widget: object
+            collapsed: true
+            fields:
+              - { label: Title, name: title, widget: string }
+              - { label: Intro (destination links are added automatically), name: intro, widget: text }
+          - label: Trip types
+            name: tripTypes
+            widget: object
+            collapsed: true
+            fields:
+              - { label: Title, name: title, widget: string }
+              - { label: Subtitle, name: subtitle, widget: string, required: false }
+          - label: Featured trips
+            name: featured
+            widget: object
+            collapsed: true
+            fields:
+              - { label: Title, name: title, widget: string }
+              - { label: Subtitle, name: subtitle, widget: string, required: false }
+          - label: Why HCC
+            name: why
+            widget: object
+            collapsed: true
+            fields:
+              - { label: Overline, name: overline, widget: string, required: false }
+              - { label: Title, name: title, widget: string }
+              - label: Solo callout
+                name: solo
+                widget: object
+                fields:
+                  - { label: Show (only if true for HCC), name: enabled, widget: boolean }
+                  - { label: Title, name: title, widget: string, required: false }
+                  - { label: Text, name: text, widget: string, required: false }
+              - label: Pillars
+                name: pillars
+                widget: list
+                summary: '{{title}}'
+                hint: Only switch on claims HCC can genuinely stand behind. At least 3 must be on for the section to show.
+                fields:
+                  - { label: Icon, name: icon, widget: select, options: [file, train, bed, users, shield, heart, compass, mountain, tent, whatsapp] }
+                  - { label: Title, name: title, widget: string }
+                  - { label: Text, name: text, widget: text }
+                  - { label: Show, name: enabled, widget: boolean, default: false }
+          - label: How it works
+            name: how
+            widget: object
+            collapsed: true
+            fields:
+              - { label: Title, name: title, widget: string }
+              - label: Steps (exactly 3)
+                name: steps
+                widget: list
+                min: 3
+                max: 3
+                summary: '{{title}}'
+                fields:
+                  - { label: Title, name: title, widget: string }
+                  - { label: Text, name: text, widget: text }
+          - label: Instagram
+            name: instagram
+            widget: object
+            collapsed: true
+            fields:
+              - { label: Title, name: title, widget: string }
+              - { label: Subtitle, name: subtitle, widget: string, required: false }
+              - label: Tiles (6 work best)
+                name: posts
+                widget: list
+                summary: '{{alt}}'
+                fields:
+                  - { label: Image (square), name: image, widget: image }
+                  - { label: Alt text, name: alt, widget: string }
+                  - { label: Instagram post/reel URL, name: url, widget: string }
+                  - { label: Type, name: kind, widget: select, options: [post, reel], default: post }
+          - label: Custom trip section
+            name: custom
+            widget: object
+            collapsed: true
+            fields:
+              - { label: Title, name: title, widget: string }
+              - { label: Text, name: text, widget: text }
+          - label: Guides
+            name: guides
+            widget: object
+            collapsed: true
+            fields:
+              - { label: Title, name: title, widget: string }
+              - { label: Subtitle, name: subtitle, widget: string, required: false }
+          - label: FAQ
+            name: faq
+            widget: object
+            collapsed: true
+            fields:
+              - { label: Title, name: title, widget: string }
+              - label: Questions
+                name: items
+                widget: list
+                summary: '{{q}}'
+                hint: Questions without an answer stay hidden.
+                fields:
+                  - { label: Question, name: q, widget: string }
+                  - { label: Answer, name: a, widget: text, required: false }
+
   # ---------------------------------------------------------------- SETTINGS
   - name: settings
     label: Site settings
