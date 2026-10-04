@@ -1,10 +1,21 @@
 ---
-# SAMPLE CONTENT: for the style guide only. Replace with verified HCC content before launch.
+# Imported from HCC’s trip listings (Oct 2026). Review prices, dates and inclusions in the CMS before go-live.
 name: Wayanad
 region: kerala
 state: Kerala
-summary: "Green highlands in north Kerala with waterfalls, caves and spice plantations."
-distanceFromHydKm: 900
-bestMonths: [9,10,11,12,1,2,3,4,5]
-sample: true
+summary: Green Kerala highlands with Chembra Peak, Banasura Sagar dam, the 900 Kandi glass bridge and waterfalls.
+bestMonths:
+  - 10
+  - 11
+  - 12
+  - 1
+  - 2
+  - 3
+  - 4
+  - 5
+idealDuration: 2–3 days
+nearby:
+  - ooty
+  - mysore
+sample: false
 ---

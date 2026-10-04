@@ -1,0 +1,89 @@
+---
+# Imported from HCC’s trip listings (Oct 2026). Review prices, dates and inclusions in the CMS before go-live.
+title: Kerala Honeymoon
+tagline: Athirappilly, Munnar’s tea hills and a private Alleppey houseboat, from Kochi (₹45,000 per couple).
+tripTypes:
+  - couple
+destinations:
+  - munnar
+  - alleppey
+durationNights: 3
+durationDays: 4
+difficulty: easy
+origins:
+  - city: kochi
+    label: Kochi
+    outbound: Pickup in Kochi
+    return: Drop at Kochi airport
+transportOptions:
+  - id: cab
+    label: Private cab
+    mode: cab
+    priceDelta: 0
+stayOptions:
+  - id: couple
+    label: Couple room + private houseboat
+    sharing: 2
+    priceDelta: 0
+basePrice: 22500
+originalPrice: 24000
+highlights:
+  - Athirappilly waterfalls
+  - Kundala Lake, Mattupetty Dam and the Tea Museum
+  - Echo Point, Blossom Park and a spice garden
+  - Private houseboat night in Alleppey
+inclusions:
+  - text: Private cab for all transfers
+    icon: compass
+    showOnCard: true
+    cardLabel: Sightseeing
+  - text: Hotel in Munnar + private houseboat
+    icon: bed
+    showOnCard: true
+    cardLabel: Stays
+  - text: Breakfast, plus dinner in Munnar and on the houseboat
+    icon: food
+    showOnCard: true
+    cardLabel: Meals
+exclusions:
+  - Flights or trains to Kochi
+  - Entry tickets and activities
+  - Personal expenses
+itinerary:
+  - day: 1
+    title: Athirappilly
+    description: Start at Athirappilly falls, then lunch at a local restaurant on the way.
+  - day: 2
+    title: Munnar
+    description: Kundala Lake, Mattupetty Dam, the Tea Museum, Echo Point, Blossom Park and a spice plantation, with a tea-estate photo stop.
+    meals:
+      - dinner
+    stay: Hotel, Munnar
+  - day: 3
+    title: Alleppey houseboat
+    description: Breakfast and the drive to Alleppey to board your own houseboat. Cruise the backwaters and watch the sunset; dinner on board.
+    meals:
+      - breakfast
+      - dinner
+    stay: Private houseboat
+  - day: 4
+    title: Farewell
+    description: Breakfast on board and the drop at Kochi airport.
+    meals:
+      - breakfast
+thingsToCarry:
+  - Government photo ID
+  - Light cottons and a light jacket for Munnar
+  - Sunscreen
+importantInfo:
+  - Price shown is per person; the package is sold per couple (two travellers sharing a room).
+  - The itinerary may be adjusted for weather or safety.
+cancellationPolicy: "30+ days before departure: 25% cancellation fee. 15–30 days: 50%. Under 15 days: no refund. The booking amount is non-refundable."
+sortOrder: 92
+recurrence: Your dates, on request
+primaryKeyword: kerala honeymoon package
+status: live
+sample: false
+---
+
+A relaxed Kerala honeymoon starting and ending in Kochi: waterfalls, tea hills and a night on your own houseboat. ₹45,000 per couple.

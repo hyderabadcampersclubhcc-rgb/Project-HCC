@@ -1,10 +1,19 @@
 ---
-# SAMPLE CONTENT: for the style guide only. Replace with verified HCC content before launch.
+# Imported from HCC’s trip listings (Oct 2026). Review prices, dates and inclusions in the CMS before go-live.
 name: Chikmagalur
 region: karnataka
 state: Karnataka
-summary: "Karnataka's coffee country, home to Mullayanagiri, the state's highest peak."
-distanceFromHydKm: 700
-bestMonths: [9,10,11,12,1,2,3,4]
-sample: true
+summary: "Where India’s coffee story began: Mullayanagiri, Karnataka’s highest peak, plus Jhari falls and Hoysala temples."
+bestMonths:
+  - 9
+  - 10
+  - 11
+  - 12
+  - 1
+  - 2
+  - 3
+idealDuration: 2 days
+nearby:
+  - coorg
+sample: false
 ---

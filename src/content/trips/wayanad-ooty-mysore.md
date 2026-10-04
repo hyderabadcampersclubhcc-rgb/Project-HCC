@@ -1,0 +1,105 @@
+---
+# Imported from HCC’s trip listings (Oct 2026). Review prices, dates and inclusions in the CMS before go-live.
+title: Wayanad, Ooty & Mysore
+tagline: Five days across Wayanad, Mudumalai, Ooty and Coonoor, with the toy train included.
+tripTypes:
+  - long
+destinations:
+  - wayanad
+  - ooty
+  - coonoor
+  - mysore
+durationNights: 4
+durationDays: 5
+difficulty: easy
+origins:
+  - city: hyderabad
+    label: Hyderabad
+    outbound: Sleeper train to Mysore
+    return: Train from Mysore on day 5
+transportOptions:
+  - id: sl
+    label: Sleeper train
+    mode: train
+    class: Sleeper
+    priceDelta: 0
+stayOptions:
+  - id: triple
+    label: Triple sharing
+    sharing: 3
+    priceDelta: 0
+basePrice: 12999
+originalPrice: 18999
+highlights:
+  - Banasura Sagar, ziplining and the Tea Museum
+  - Soochipara falls, glass bridge and giant swing
+  - Mudumalai Tiger Reserve drive
+  - Pykara falls and Pine Forest
+  - Toy train to Coonoor (ticket included)
+  - Campfire night in Ooty
+inclusions:
+  - text: Non-AC sleeper train tickets
+    icon: train
+    showOnCard: true
+    cardLabel: Train
+  - text: Deluxe rooms in resorts/homestays, triple sharing
+    icon: bed
+    showOnCard: true
+    cardLabel: Stays
+  - text: Non-AC tempo traveller for 5 days
+    icon: compass
+    showOnCard: true
+    cardLabel: Sightseeing
+  - text: Toy train tickets
+    icon: train
+  - text: Swimming pool in Wayanad and a campfire night in Ooty
+    icon: check
+  - text: Tolls, parking, state permit, driver allowance and food
+    icon: check
+  - text: Basic first aid
+    icon: shield
+exclusions:
+  - Food
+  - Entry tickets, activities and jeep rides
+  - Personal expenses
+itinerary:
+  - day: 1
+    title: Mysore to Wayanad
+    description: "Reach Mysore by 9:30 am and drive to Wayanad: Banasura Sagar dam, ziplining and water activities, the Tea Museum and the Lakkidi view."
+    stay: Wayanad
+  - day: 2
+    title: Wayanad highlights
+    description: Soochipara falls, the 900 Kandi glass bridge, the giant swing, Pookode Lake and shopping.
+    stay: Wayanad
+  - day: 3
+    title: Through Mudumalai to Ooty
+    description: Early start through Mudumalai Tiger Reserve, then Needle Rock, the Eucalyptus garden, Pykara falls, Shooting Point and the Pine Forest.
+    stay: Ooty
+  - day: 4
+    title: Coonoor by toy train
+    description: Toy train to Coonoor, Dolphin’s Nose, tea gardens, the tea and chocolate factories and Ooty’s Botanical Garden.
+    stay: Ooty
+  - day: 5
+    title: Mysore and home
+    description: Leave by 6 am, visit Mysore Palace and Chamundi Hill if time permits, and drop at Mysore station.
+thingsToCarry:
+  - Government photo ID (needed on trains)
+  - Comfortable walking shoes
+  - Power bank
+  - Personal medicines
+  - Reusable water bottle
+  - Light jacket or hoodie (hill evenings get cool)
+importantInfo:
+  - "This is a budget group trip: comfortable and well run, not a luxury tour."
+  - Sightseeing order can change with weather, traffic or local restrictions; your trip captain decides on the day for everyone’s safety.
+  - If a departure doesn’t reach the minimum group size, HCC may merge it with another batch or move you to the next date.
+  - Please reach the boarding point on time; missed trains or buses can’t be refunded.
+cancellationPolicy: "30+ days before departure: 25% cancellation fee. 15–30 days: 50%. Under 15 days: no refund. The booking amount is non-refundable."
+sortOrder: 70
+recurrence: Group dates on request
+primaryKeyword: wayanad ooty trip from hyderabad
+status: live
+sample: false
+---
+
+A five-day loop through the best of the Western Ghats: two days in Wayanad, a drive through Mudumalai, and two days in Ooty and Coonoor, with the toy train and a campfire night included.
