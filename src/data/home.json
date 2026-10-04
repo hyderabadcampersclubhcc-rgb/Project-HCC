@@ -7,8 +7,13 @@
     "overline": "Group trips from Hyderabad & Bangalore",
     "headline": "Your weekend. Your adventure. Your people.",
     "subline": "Group trips, weekend getaways, treks & unforgettable escapes from Hyderabad & Bangalore.",
-    "image": "",
-    "imageAlt": ""
+    "image": "/src/assets/uploads/hero-hills-sunrise.jpg",
+    "imageAlt": "Sunrise over a sea of clouds in the hills",
+    "imageCredit": {
+      "author": "Viswasagar27",
+      "license": "CC BY-SA 4.0",
+      "source": "https://commons.wikimedia.org/wiki/File:Early_sunrise_above_clouds_Nandi_hills_Bangalore.jpg"
+    }
   },
   "upcoming": {
     "title": "Upcoming trips",
@@ -40,20 +45,59 @@
       "text": ""
     },
     "pillars": [
-      { "icon": "file", "title": "No confusing packages", "text": "Inclusions, exclusions, transport and stays are listed on every trip before you pay.", "enabled": true },
-      { "icon": "train", "title": "Transport stated upfront", "text": "Train, bus or tempo, with the class and timings written on the trip page.", "enabled": true },
-      { "icon": "bed", "title": "Stays described honestly", "text": "Property type, room sharing and washroom details, with nothing hidden in fine print.", "enabled": true },
-      { "icon": "users", "title": "A coordinator on every trip", "text": "An HCC team member travels with the group from pickup to drop.", "enabled": false },
-      { "icon": "shield", "title": "Safety first", "text": "Vetted transport and stays, with an emergency contact throughout the trip.", "enabled": false },
-      { "icon": "heart", "title": "Solo-friendly", "text": "Come on your own. Most groups are a mix of solo travellers and friends.", "enabled": false }
+      {
+        "icon": "file",
+        "title": "No confusing packages",
+        "text": "Inclusions, exclusions, transport and stays are listed on every trip before you pay.",
+        "enabled": true
+      },
+      {
+        "icon": "train",
+        "title": "Transport stated upfront",
+        "text": "Train, bus or tempo, with the class and timings written on the trip page.",
+        "enabled": true
+      },
+      {
+        "icon": "bed",
+        "title": "Stays described honestly",
+        "text": "Property type, room sharing and washroom details, with nothing hidden in fine print.",
+        "enabled": true
+      },
+      {
+        "icon": "users",
+        "title": "A coordinator on every trip",
+        "text": "An HCC team member travels with the group from pickup to drop.",
+        "enabled": false
+      },
+      {
+        "icon": "shield",
+        "title": "Safety first",
+        "text": "Vetted transport and stays, with an emergency contact throughout the trip.",
+        "enabled": false
+      },
+      {
+        "icon": "heart",
+        "title": "Solo-friendly",
+        "text": "Come on your own. Most groups are a mix of solo travellers and friends.",
+        "enabled": false
+      }
     ]
   },
   "how": {
     "title": "How it works",
     "steps": [
-      { "title": "Choose your trip", "text": "Browse destinations and upcoming departures. Every price and date is on the page." },
-      { "title": "Reserve your seat", "text": "Send your details or WhatsApp us. Pay the advance to confirm your seat." },
-      { "title": "Pack & travel", "text": "Get the full trip details, meet your group at the pickup point, and go." }
+      {
+        "title": "Choose your trip",
+        "text": "Browse destinations and upcoming departures. Every price and date is on the page."
+      },
+      {
+        "title": "Reserve your seat",
+        "text": "Send your details or WhatsApp us. Pay the advance to confirm your seat."
+      },
+      {
+        "title": "Pack & travel",
+        "text": "Get the full trip details, meet your group at the pickup point, and go."
+      }
     ]
   },
   "instagram": {
@@ -72,11 +116,26 @@
   "faq": {
     "title": "Before your first trip",
     "items": [
-      { "q": "Can I join a group trip if I'm travelling alone?", "a": "" },
-      { "q": "How do I reserve a seat, and how much is the advance?", "a": "" },
-      { "q": "Where do trips leave from in Hyderabad?", "a": "" },
-      { "q": "What happens if I need to cancel?", "a": "" },
-      { "q": "Are your trips safe for women travelling alone?", "a": "" }
+      {
+        "q": "Can I join a group trip if I'm travelling alone?",
+        "a": ""
+      },
+      {
+        "q": "How do I reserve a seat, and how much is the advance?",
+        "a": ""
+      },
+      {
+        "q": "Where do trips leave from in Hyderabad?",
+        "a": ""
+      },
+      {
+        "q": "What happens if I need to cancel?",
+        "a": ""
+      },
+      {
+        "q": "Are your trips safe for women travelling alone?",
+        "a": ""
+      }
     ]
   }
 }

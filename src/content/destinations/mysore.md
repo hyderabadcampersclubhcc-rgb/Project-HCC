@@ -16,5 +16,11 @@ nearby:
   - coorg
   - ooty
   - wayanad
+heroImage: ../../assets/photos/mysore-palace.jpg
+heroAlt: Mysore Palace
+heroCredit:
+  author: Whistleraja
+  license: CC BY-SA 4.0
+  source: https://commons.wikimedia.org/wiki/File:Mysore_Palace_-_Amba_Vilas_Palace.jpg
 sample: false
 ---

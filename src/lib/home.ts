@@ -12,7 +12,15 @@ const section = z.object({ title: z.string(), subtitle: text });
 
 const HomeSchema = z.object({
   seo: z.object({ title: z.string().max(70), description: z.string().max(170) }),
-  hero: z.object({ overline: text, headline: z.string(), subline: text, image: text, imageAlt: text }),
+  hero: z.object({
+    overline: text,
+    headline: z.string(),
+    subline: text,
+    image: text,
+    imageAlt: text,
+    // Attribution for licensed stock photos; leave empty for HCC's own photos.
+    imageCredit: z.object({ author: text, license: text, source: text }).default({ author: '', license: '', source: '' }),
+  }),
   upcoming: section.extend({ limit: z.number().int().min(3).max(20) }),
   destinations: section,
   weekend: z.object({ title: z.string(), intro: text }),

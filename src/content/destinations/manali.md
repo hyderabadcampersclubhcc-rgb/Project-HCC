@@ -18,5 +18,11 @@ idealDuration: 3–4 days
 nearby:
   - kasol
   - shimla
+heroImage: ../../assets/photos/manali.jpg
+heroAlt: Snow peaks above Manali
+heroCredit:
+  author: Ganesh Mohan T
+  license: CC BY-SA 4.0
+  source: https://commons.wikimedia.org/wiki/File:Manali_8.jpg
 sample: false
 ---

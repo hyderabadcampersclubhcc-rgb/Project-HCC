@@ -14,5 +14,11 @@ bestMonths:
 idealDuration: 1 day
 nearby:
   - alleppey
+heroImage: ../../assets/photos/varkala.jpg
+heroAlt: Varkala cliff and beach
+heroCredit:
+  author: Ganesh Mohan T
+  license: CC BY-SA 4.0
+  source: https://commons.wikimedia.org/wiki/File:Varkala_cliff_08.jpg
 sample: false
 ---

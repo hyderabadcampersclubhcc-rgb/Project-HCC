@@ -13,5 +13,11 @@ bestMonths:
 idealDuration: 2–3 days
 nearby:
   - lonavala
+heroImage: ../../assets/photos/lohagad.jpg
+heroAlt: Lohagad Fort walls
+heroCredit:
+  author: Rangan Datta Wiki
+  license: CC BY-SA 4.0
+  source: https://commons.wikimedia.org/wiki/File:Bastions_of_Lohagad_Fort_3.jpg
 sample: false
 ---

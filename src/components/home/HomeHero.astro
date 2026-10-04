@@ -5,6 +5,7 @@
  * line, so the page's single H1 carries the primary keyword without hidden text.
  */
 import Photo from '@/components/ui/Photo.astro';
+import PhotoCredit from '@/components/ui/PhotoCredit.astro';
 import Icon from '@/components/ui/Icon.astro';
 import TripFinder from '@/components/search/TripFinder.astro';
 import { home, uploadedImage } from '@/lib/home';
@@ -18,6 +19,7 @@ const { preview = false, catalog = {} } = Astro.props;
 const h = home.hero;
 const image = uploadedImage(h.image);
 // "Your weekend. Your adventure. Your people." → one line per sentence (natural wrap if a line is too long).
+const credit = h.imageCredit.source ? { author: h.imageCredit.author, license: h.imageCredit.license, source: h.imageCredit.source } : undefined;
 const lines = h.headline.split(/(?<=[.!?])\s+/).filter(Boolean);
 ---
 
@@ -32,6 +34,7 @@ const lines = h.headline.split(/(?<=[.!?])\s+/).filter(Boolean);
     label={preview && !image ? 'Hero: real HCC group photo' : undefined}
     class="hero__photo"
   />
+  {image && <PhotoCredit credit={credit} placement="top" />}
   <div class="container hero__in">
     <h1 id="hero-title" class="hero__title">
       {h.overline && <span class="hero__over">{h.overline}</span>}{' '}
@@ -66,6 +69,7 @@ const lines = h.headline.split(/(?<=[.!?])\s+/).filter(Boolean);
     color: var(--white);
     background: var(--brand-deep);
   }
+  .hero :global(img.hero__photo),
   .hero > :global(.hero__photo),
   .hero > :global(picture) {
     position: absolute;

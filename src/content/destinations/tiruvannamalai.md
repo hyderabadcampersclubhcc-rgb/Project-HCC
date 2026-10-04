@@ -14,5 +14,11 @@ bestMonths:
 idealDuration: 1 day
 nearby:
   - pondicherry
+heroImage: ../../assets/photos/tiruvannamalai.jpg
+heroAlt: Arunachaleswara Temple, Tiruvannamalai
+heroCredit:
+  author: Vyacheslav Argenberg
+  license: CC BY 4.0
+  source: https://commons.wikimedia.org/wiki/File:Thiruvannamalai,_Arunachalesvara_Temple,_City,_India.jpg
 sample: false
 ---

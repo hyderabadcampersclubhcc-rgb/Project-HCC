@@ -17,5 +17,11 @@ bestMonths:
 idealDuration: 1–2 days
 nearby:
   - manali
+heroImage: ../../assets/photos/shimla.jpg
+heroAlt: The Ridge, Shimla
+heroCredit:
+  author: Virusism
+  license: CC BY-SA 4.0
+  source: https://commons.wikimedia.org/wiki/File:The_Ridge_Shimla_4.jpg
 sample: false
 ---

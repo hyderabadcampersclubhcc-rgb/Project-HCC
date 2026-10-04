@@ -14,5 +14,11 @@ bestMonths:
 idealDuration: Half a day
 nearby:
   - gokarna
+heroImage: ../../assets/photos/murudeshwar.jpg
+heroAlt: Murudeshwar coast
+heroCredit:
+  author: Rizka
+  license: CC BY-SA 4.0
+  source: https://commons.wikimedia.org/wiki/File:Rainy_Day_during_the_Monsoon_in_Murudeshwar.jpg
 sample: false
 ---

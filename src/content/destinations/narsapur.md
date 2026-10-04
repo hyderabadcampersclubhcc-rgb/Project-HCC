@@ -16,5 +16,11 @@ bestMonths:
 idealDuration: 1 night
 nearby:
   - ananthagiri
+heroImage: ../../assets/photos/paddy.jpg
+heroAlt: Paddy fields at sunrise
+heroCredit:
+  author: Mohammad Anees Qamar
+  license: CC0
+  source: https://commons.wikimedia.org/wiki/File:Sunrise_over_paddy_fields_with_palm_trees_in_rural_Telangana,_India.jpg
 sample: false
 ---

@@ -14,5 +14,11 @@ bestMonths:
 idealDuration: 2 days
 nearby:
   - tiruvannamalai
+heroImage: ../../assets/photos/pondicherry.jpg
+heroAlt: Pondicherry promenade at dusk
+heroCredit:
+  author: Dey.sandip
+  license: CC BY 3.0
+  source: https://commons.wikimedia.org/wiki/File:Beach_Promenade,_Pondicherry,_India.jpg
 sample: false
 ---

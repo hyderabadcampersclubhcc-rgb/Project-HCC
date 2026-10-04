@@ -17,5 +17,11 @@ bestMonths:
 idealDuration: 2 days
 nearby:
   - alleppey
+heroImage: ../../assets/photos/munnar.jpg
+heroAlt: Tea hills of Munnar
+heroCredit:
+  author: Manukrishnan80
+  license: CC BY-SA 3.0
+  source: https://commons.wikimedia.org/wiki/File:Munnar_Road_and_Tea_Plantations_(11223).jpg
 sample: false
 ---

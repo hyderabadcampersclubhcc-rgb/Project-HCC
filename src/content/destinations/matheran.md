@@ -17,5 +17,11 @@ bestMonths:
 idealDuration: 1 day
 nearby:
   - lonavala
+heroImage: ../../assets/photos/matheran.jpg
+heroAlt: Viewpoint in Matheran
+heroCredit:
+  author: Aalokmjoshi
+  license: CC BY-SA 4.0
+  source: https://commons.wikimedia.org/wiki/File:Matheran_point.jpg
 sample: false
 ---

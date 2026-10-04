@@ -18,5 +18,11 @@ idealDuration: 2–3 days
 nearby:
   - coonoor
   - mysore
+heroImage: ../../assets/photos/ooty-hills.jpg
+heroAlt: Tea estates in the Nilgiri hills
+heroCredit:
+  author: This Photo was taken by Timothy A. Gonsalves. Feel free to u
+  license: CC BY-SA 4.0
+  source: https://commons.wikimedia.org/wiki/File:Vegetables_Tea_Fields_Nilgiris_Nov25_A7CR_09820-4_HDR1.jpg
 sample: false
 ---

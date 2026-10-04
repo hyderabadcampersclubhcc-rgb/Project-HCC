@@ -17,5 +17,11 @@ idealDuration: 2–3 days
 nearby:
   - ooty
   - mysore
+heroImage: ../../assets/photos/wayanad.jpg
+heroAlt: Heart-shaped lake on Chembra peak, Wayanad
+heroCredit:
+  author: Ravi Dwivedi
+  license: CC BY-SA 4.0
+  source: https://commons.wikimedia.org/wiki/File:Chembra_Peak_Heart_Lake.jpg
 sample: false
 ---

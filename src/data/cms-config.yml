@@ -512,6 +512,14 @@ collections:
               - { label: Subline, name: subline, widget: text }
               - { label: Hero photo (real HCC group photo, landscape, min 1920px wide), name: image, widget: image, required: false }
               - { label: Hero photo alt text, name: imageAlt, widget: string, required: false }
+              - label: Photo credit (only for stock photos; clear all three when you upload your own)
+                name: imageCredit
+                widget: object
+                required: false
+                fields:
+                  - { label: Photographer, name: author, widget: string, required: false }
+                  - { label: Licence, name: license, widget: string, required: false }
+                  - { label: Source link, name: source, widget: string, required: false }
           - label: Upcoming trips
             name: upcoming
             widget: object

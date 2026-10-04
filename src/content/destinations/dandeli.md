@@ -17,5 +17,11 @@ idealDuration: 1–2 days
 nearby:
   - gokarna
   - dudhsagar
+heroImage: ../../assets/photos/kayak.jpg
+heroAlt: Kayaking on a river
+heroCredit:
+  author: Deeps2200
+  license: CC BY-SA 4.0
+  source: https://commons.wikimedia.org/wiki/File:Kayaking_nachani.jpg
 sample: false
 ---

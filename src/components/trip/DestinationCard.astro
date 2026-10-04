@@ -68,7 +68,7 @@ const best = bestMonthsLabel(bestMonths);
     text-decoration: none;
     background: var(--surface-2);
   }
-  .xcard > :global(.photo),
+  .xcard :global(.photo),
   .xcard > :global(picture),
   .xcard > :global(img) {
     position: absolute;
@@ -84,7 +84,7 @@ const best = bestMonthsLabel(bestMonths);
     background: linear-gradient(180deg, rgb(10 20 16 / 0.15) 0%, rgb(10 20 16 / 0) 35%, rgb(10 20 16 / 0.78) 100%);
   }
   @media (hover: hover) {
-    .xcard:hover > :global(.photo) {
+    .xcard:hover :global(.photo) {
       transform: scale(1.04);
     }
     .xcard:hover .xcard__go {

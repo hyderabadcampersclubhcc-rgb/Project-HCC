@@ -17,5 +17,11 @@ bestMonths:
 idealDuration: 1 day
 nearby:
   - ooty
+heroImage: ../../assets/photos/coonoor.jpg
+heroAlt: Coonoor town in the Nilgiris
+heroCredit:
+  author: Robinder Uppal
+  license: CC BY-SA 3.0
+  source: https://commons.wikimedia.org/wiki/File:Coonoor.JPG
 sample: false
 ---

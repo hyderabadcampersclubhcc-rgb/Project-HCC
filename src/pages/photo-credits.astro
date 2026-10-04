@@ -3,6 +3,7 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import PageIntro from '@/components/listing/PageIntro.astro';
+import { home } from '@/lib/home';
 
 type Credit = { author: string; license: string; source: string };
 const used = new Map<string, { credit: Credit; where: Set<string> }>();
@@ -18,6 +19,7 @@ for (const t of await getCollection('trips', (t) => t.data.status === 'live' && 
   t.data.itinerary.forEach((d) => add(d.imageCredit, t.data.title));
 }
 for (const d of await getCollection('destinations', (d) => !d.data.sample)) add(d.data.heroCredit, d.data.name);
+if (home.hero.image && home.hero.imageCredit.source) add(home.hero.imageCredit, 'Homepage');
 const rows = [...used.values()].sort((a, b) => a.credit.author.localeCompare(b.credit.author));
 const fileName = (url: string) => decodeURIComponent(url.split('File:')[1] ?? url).replace(/_/g, ' ').replace(/\.[a-z]+$/i, '');
 ---

@@ -16,5 +16,11 @@ bestMonths:
 idealDuration: 1 night
 nearby:
   - narsapur
+heroImage: ../../assets/photos/ananthagiri.jpg
+heroAlt: Forest view from Ananthagiri Hills
+heroCredit:
+  author: Praveen120
+  license: CC BY-SA 3.0
+  source: https://commons.wikimedia.org/wiki/File:Ananthagiri_Hills.JPG
 sample: false
 ---

@@ -14,5 +14,11 @@ idealDuration: 1 day
 nearby:
   - dandeli
   - goa
+heroImage: ../../assets/photos/dudhsagar.jpg
+heroAlt: Waterfall in the Western Ghats
+heroCredit:
+  author: soumyajit pramanick
+  license: CC BY-SA 2.0
+  source: https://commons.wikimedia.org/wiki/File:Dudhsagar_falls_(4266264965).jpg
 sample: false
 ---

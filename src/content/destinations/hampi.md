@@ -13,5 +13,11 @@ bestMonths:
 idealDuration: 2 days
 nearby:
   - gokarna
+heroImage: ../../assets/photos/hampi.jpg
+heroAlt: Boulders and ruins at Hampi
+heroCredit:
+  author: Dey.sandip
+  license: CC BY-SA 3.0
+  source: https://commons.wikimedia.org/wiki/File:Krishna_Pushkarani_-_Hampi_Ruins.jpg
 sample: false
 ---

@@ -14,5 +14,11 @@ bestMonths:
 idealDuration: 1 day
 nearby:
   - araku
+heroImage: ../../assets/photos/vizag.jpg
+heroAlt: Beach road in Visakhapatnam
+heroCredit:
+  author: eclicks_by_bunny
+  license: CC BY-SA 4.0
+  source: https://commons.wikimedia.org/wiki/File:Visakhapatnam_beach_road_near_Kailasagiri.jpg
 sample: false
 ---

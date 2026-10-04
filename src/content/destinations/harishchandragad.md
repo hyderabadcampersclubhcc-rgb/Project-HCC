@@ -14,5 +14,11 @@ bestMonths:
 idealDuration: 2 days
 nearby:
   - lohagad
+heroImage: ../../assets/photos/harishchandragad.jpg
+heroAlt: Green trail on Harishchandragad
+heroCredit:
+  author: Tokendra
+  license: CC BY-SA 4.0
+  source: https://commons.wikimedia.org/wiki/File:Harishchandragad_view_from_caves.jpg
 sample: false
 ---

@@ -15,5 +15,11 @@ idealDuration: 1 day
 nearby:
   - jaipur
   - delhi
+heroImage: ../../assets/photos/taj-mahal.jpg
+heroAlt: Taj Mahal
+heroCredit:
+  author: Antrix3
+  license: CC BY-SA 4.0
+  source: https://commons.wikimedia.org/wiki/File:Aks_The_Reflection_Taj_Mahal.jpg
 sample: false
 ---

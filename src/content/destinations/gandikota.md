@@ -11,5 +11,11 @@ bestMonths:
   - 1
   - 2
 idealDuration: 1 night
+heroImage: ../../assets/photos/gandikota.jpg
+heroAlt: Gandikota gorge on the Pennar river
+heroCredit:
+  author: ThejeshGN
+  license: CC BY-SA 3.0
+  source: https://commons.wikimedia.org/wiki/File:Gandikota_Gorge_(10882).jpg
 sample: false
 ---

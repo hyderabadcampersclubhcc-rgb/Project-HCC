@@ -18,5 +18,11 @@ idealDuration: 1–2 days
 nearby:
   - matheran
   - lohagad
+heroImage: ../../assets/photos/lonavala.jpg
+heroAlt: Sahyadri pinnacle at sunset near Lonavala
+heroCredit:
+  author: Akshaydhillon7977
+  license: CC BY-SA 3.0
+  source: https://commons.wikimedia.org/wiki/File:Lonavla_view.jpg
 sample: false
 ---

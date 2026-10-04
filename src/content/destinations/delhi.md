@@ -15,5 +15,11 @@ idealDuration: 1 day
 nearby:
   - agra
   - jaipur
+heroImage: ../../assets/photos/india-gate.jpg
+heroAlt: India Gate, New Delhi
+heroCredit:
+  author: Nikhilb239
+  license: CC BY-SA 4.0
+  source: https://commons.wikimedia.org/wiki/File:India_Gate,_New_Delhi_from_West.jpg
 sample: false
 ---

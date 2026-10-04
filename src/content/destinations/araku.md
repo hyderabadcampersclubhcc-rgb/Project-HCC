@@ -14,5 +14,11 @@ bestMonths:
 idealDuration: 2 days
 nearby:
   - vizag
+heroImage: ../../assets/photos/araku.jpg
+heroAlt: Green hills of Araku Valley
+heroCredit:
+  author: Maina Tudu
+  license: CC0
+  source: https://commons.wikimedia.org/wiki/File:Araku_Valley,_Visakhapatnam.jpg
 sample: false
 ---

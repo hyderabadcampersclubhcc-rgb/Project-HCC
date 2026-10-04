@@ -15,5 +15,11 @@ idealDuration: 1–2 days
 nearby:
   - murudeshwar
   - dandeli
+heroImage: ../../assets/photos/om-beach.jpg
+heroAlt: Om Beach, Gokarna
+heroCredit:
+  author: Sourabh.biswas003
+  license: CC BY-SA 4.0
+  source: https://commons.wikimedia.org/wiki/File:PXL_20260103_101009613_People_and_Beach_Om_Beach_Gokarna,_Karnataka_43.jpg
 sample: false
 ---

@@ -19,5 +19,11 @@ idealDuration: 2–3 days
 nearby:
   - chikmagalur
   - mysore
+heroImage: ../../assets/photos/abbey-falls.jpg
+heroAlt: Abbey Falls, Coorg
+heroCredit:
+  author: "User: (WT-shared) Rohithrajjc at wts wikivoyage"
+  license: Public domain
+  source: https://commons.wikimedia.org/wiki/File:Abbey_falls_2010.jpg
 sample: false
 ---

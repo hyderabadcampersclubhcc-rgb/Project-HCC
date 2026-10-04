@@ -16,5 +16,11 @@ idealDuration: 1 day
 nearby:
   - munnar
   - varkala
+heroImage: ../../assets/photos/houseboat.jpg
+heroAlt: Houseboats on the Alleppey backwaters
+heroCredit:
+  author: Paul Arps from The Netherlands
+  license: CC BY 2.0
+  source: https://commons.wikimedia.org/wiki/File:Houseboat_on_Alleppey_backwaters_(Kerala,_India_2023)_(52704577484).jpg
 sample: false
 ---

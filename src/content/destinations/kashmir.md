@@ -16,5 +16,11 @@ bestMonths:
   - 12
   - 1
 idealDuration: 5 days
+heroImage: ../../assets/photos/dal-lake.jpg
+heroAlt: Shikaras on Dal Lake, Srinagar
+heroCredit:
+  author: Suhail Skindar Sofi
+  license: CC BY-SA 4.0
+  source: https://commons.wikimedia.org/wiki/File:Dal_Lake_Hazratbal_Srinagar.jpg
 sample: false
 ---
