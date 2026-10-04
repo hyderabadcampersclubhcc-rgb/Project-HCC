@@ -20,6 +20,8 @@ const HomeSchema = z.object({
     imageAlt: text,
     // Attribution for licensed stock photos; leave empty for HCC's own photos.
     imageCredit: z.object({ author: text, license: text, source: text }).default({ author: '', license: '', source: '' }),
+    // Optional background video (muted loop). The photo stays as the poster and fallback.
+    video: z.object({ desktop: text, mobile: text }).default({ desktop: '', mobile: '' }),
   }),
   upcoming: section.extend({ limit: z.number().int().min(3).max(20) }),
   destinations: section,

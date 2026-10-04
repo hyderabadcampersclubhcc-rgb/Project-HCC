@@ -520,6 +520,13 @@ collections:
                   - { label: Photographer, name: author, widget: string, required: false }
                   - { label: Licence, name: license, widget: string, required: false }
                   - { label: Source link, name: source, widget: string, required: false }
+              - label: Background video (optional, muted loop; the hero photo shows first and on slow connections)
+                name: video
+                widget: object
+                required: false
+                fields:
+                  - { label: Desktop video (MP4, 1280px wide, under 3 MB), name: desktop, widget: file, required: false }
+                  - { label: Phone video (MP4, about 854px wide, under 1 MB), name: mobile, widget: file, required: false }
           - label: Upcoming trips
             name: upcoming
             widget: object

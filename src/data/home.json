@@ -13,6 +13,10 @@
       "author": "Viswasagar27",
       "license": "CC BY-SA 4.0",
       "source": "https://commons.wikimedia.org/wiki/File:Early_sunrise_above_clouds_Nandi_hills_Bangalore.jpg"
+    },
+    "video": {
+      "desktop": "/video/hero-1280.mp4",
+      "mobile": "/video/hero-854.mp4"
     }
   },
   "upcoming": {
