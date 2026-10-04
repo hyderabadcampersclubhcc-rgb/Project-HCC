@@ -66,11 +66,23 @@ itinerary:
       - lunch
       - dinner
     stay: Tents (common washrooms)
+    image: ../../assets/photos/campfire.jpg
+    imageAlt: Tents and campfire under the stars
+    imageCredit:
+      author: Joshua Tree National Park
+      license: Public domain
+      source: https://commons.wikimedia.org/wiki/File:Campers_and_tent_underneath_a_night_sky_(49950611437).jpg
   - day: 2
     title: Sunrise, fort and home
     description: Sunrise over the gorge, breakfast, trekking and rock climbing, Gandikota Fort and the Pennar river, then lunch and the drive back.
     meals:
       - breakfast
+    image: ../../assets/photos/gandikota.jpg
+    imageAlt: Gandikota gorge on the Pennar river
+    imageCredit:
+      author: ThejeshGN
+      license: CC BY-SA 3.0
+      source: https://commons.wikimedia.org/wiki/File:Gandikota_Gorge_(10882).jpg
 thingsToCarry:
   - Government photo ID
   - Trekking shoes
@@ -84,9 +96,29 @@ importantInfo:
   - If a departure doesn’t reach the minimum group size, HCC may merge it with another batch or move you to the next date.
   - Please reach the boarding point on time; missed trains or buses can’t be refunded.
 cancellationPolicy: No refund after booking is confirmed. If weather or government restrictions cancel the trip, you get a full refund or another date.
-sortOrder: 46
+sortOrder: 230
 recurrence: Weekly departures
 primaryKeyword: gandikota camping from hyderabad
+featured: false
+heroImage: ../../assets/photos/gandikota.jpg
+heroAlt: Gandikota gorge on the Pennar river
+heroCredit:
+  author: ThejeshGN
+  license: CC BY-SA 3.0
+  source: https://commons.wikimedia.org/wiki/File:Gandikota_Gorge_(10882).jpg
+gallery:
+  - src: ../../assets/photos/campfire.jpg
+    alt: Tents and campfire under the stars
+    credit:
+      author: Joshua Tree National Park
+      license: Public domain
+      source: https://commons.wikimedia.org/wiki/File:Campers_and_tent_underneath_a_night_sky_(49950611437).jpg
+  - src: ../../assets/photos/tents.jpg
+    alt: Tents at a campsite
+    credit:
+      author: USFWSAlaska
+      license: Public domain
+      source: https://commons.wikimedia.org/wiki/File:Field_camp_tents_(53707969369).jpg
 status: live
 sample: false
 ---

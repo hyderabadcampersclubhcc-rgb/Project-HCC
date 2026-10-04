@@ -5,6 +5,8 @@
  */
 import TripSection from './TripSection.astro';
 import Icon from '@/components/ui/Icon.astro';
+import Photo from '@/components/ui/Photo.astro';
+import PhotoCredit from '@/components/ui/PhotoCredit.astro';
 import type { TripView, TripOriginView } from '@/lib/catalog';
 import { dayShort } from '@/lib/format';
 
@@ -45,6 +47,12 @@ const MEAL: Record<string, string> = { breakfast: 'Breakfast', lunch: 'Lunch', d
                 <Icon name="chevron" class="it__chev" />
               </summary>
               <div class="it__body">
+                {day.image && (
+                  <figure class="it__photo">
+                    <Photo src={day.image} alt={day.imageAlt ?? day.title} sizes="(min-width: 1024px) 560px, 90vw" widths={[360, 560, 840]} />
+                    <PhotoCredit credit={day.imageCredit} />
+                  </figure>
+                )}
                 <p>{day.description}</p>
                 {(day.meals.length > 0 || day.stay) && (
                   <p class="it__meta">
@@ -82,6 +90,14 @@ const MEAL: Record<string, string> = { breakfast: 'Breakfast', lunch: 'Lunch', d
 </script>
 
 <style>
+  .it__photo {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    margin: 0 0 var(--s-3);
+    overflow: hidden;
+    border-radius: var(--r-md);
+    background: var(--surface-2);
+  }
   .it {
     position: relative;
     margin: 0;

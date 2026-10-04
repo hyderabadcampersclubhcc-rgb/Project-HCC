@@ -1,0 +1,69 @@
+---
+/** /photo-credits/: attribution for licensed photos (Wikimedia Commons) used across the site. */
+import { getCollection } from 'astro:content';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageIntro from '@/components/listing/PageIntro.astro';
+
+type Credit = { author: string; license: string; source: string };
+const used = new Map<string, { credit: Credit; where: Set<string> }>();
+const add = (credit: Credit | undefined, where: string) => {
+  if (!credit) return;
+  const e = used.get(credit.source) ?? { credit, where: new Set<string>() };
+  e.where.add(where);
+  used.set(credit.source, e);
+};
+for (const t of await getCollection('trips', (t) => t.data.status === 'live' && !t.data.sample)) {
+  add(t.data.heroCredit, t.data.title);
+  t.data.gallery.forEach((g) => add(g.credit, t.data.title));
+  t.data.itinerary.forEach((d) => add(d.imageCredit, t.data.title));
+}
+for (const d of await getCollection('destinations', (d) => !d.data.sample)) add(d.data.heroCredit, d.data.name);
+const rows = [...used.values()].sort((a, b) => a.credit.author.localeCompare(b.credit.author));
+const fileName = (url: string) => decodeURIComponent(url.split('File:')[1] ?? url).replace(/_/g, ' ').replace(/\.[a-z]+$/i, '');
+---
+
+<BaseLayout title="Photo Credits" description="Credits for the photographs used on the Hyderabad Campers Club website." noindex>
+  <div class="container pc">
+    <PageIntro title="Photo credits" intro="Some photos on this site come from Wikimedia Commons and are used under their Creative Commons or public-domain licences. Thank you to the photographers below." crumbs={[{ label: 'Photo credits' }]} />
+    <ul class="pc__list">
+      {
+        rows.map(({ credit, where }) => (
+          <li>
+            <a href={credit.source} target="_blank" rel="noopener nofollow">{fileName(credit.source)}</a>
+            <span>
+              by {credit.author} · {credit.license}
+            </span>
+            <small>Used on: {[...where].slice(0, 4).join(', ')}{where.size > 4 ? ` and ${where.size - 4} more` : ''}</small>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</BaseLayout>
+
+<style>
+  .pc {
+    max-width: 860px;
+    padding-bottom: var(--s-12);
+  }
+  .pc__list {
+    display: grid;
+    gap: var(--s-3);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .pc__list li {
+    display: grid;
+    gap: 2px;
+    padding-bottom: var(--s-3);
+    border-bottom: 1px solid var(--line);
+    font-size: 0.875rem;
+  }
+  .pc__list span {
+    color: var(--text-2);
+  }
+  .pc__list small {
+    color: var(--text-3);
+  }
+</style>

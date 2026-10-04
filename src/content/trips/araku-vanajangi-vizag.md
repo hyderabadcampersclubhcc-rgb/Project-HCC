@@ -69,20 +69,50 @@ itinerary:
   - day: 0
     title: Hyderabad to Vizag
     description: Assemble at Kacheguda at 5:30 pm for the overnight train.
+    image: ../../assets/photos/train.jpg
+    imageAlt: View from an Indian train window
+    imageCredit:
+      author: Vikramaditya V. V.
+      license: CC BY-SA 4.0
+      source: https://commons.wikimedia.org/wiki/File:A_view_from_Indian_Railways_Train.jpg
   - day: 1
     title: Vizag to Araku
     description: "Reach Vizag at 7 am and head up to Araku: Borra Caves, Katiki falls, the Tribal Museum and the Coffee Museum."
     stay: Araku
+    image: ../../assets/photos/borra.jpg
+    imageAlt: Borra Caves
+    imageCredit:
+      author: Pratishkhedekar
+      license: CC BY-SA 4.0
+      source: https://commons.wikimedia.org/wiki/File:Entrance_to_Borra_caves_from_above_01.jpg
   - day: 2
     title: Araku to Vanajangi
     description: Madagada viewpoint, Padmapuram Gardens, Galikonda, the wooden bridge, the Pine Forest and Chaparai falls, then on to Vanajangi for a bonfire.
     stay: Vanajangi
+    image: ../../assets/photos/araku.jpg
+    imageAlt: Green hills of Araku Valley
+    imageCredit:
+      author: Maina Tudu
+      license: CC0
+      source: https://commons.wikimedia.org/wiki/File:Araku_Valley,_Visakhapatnam.jpg
   - day: 3
     title: Sunrise and Vizag
     description: An early trek for the Vanajangi sunrise over the clouds, then back to Vizag for Kailasagiri and the beach. Board the 8 pm train.
+    image: ../../assets/photos/clouds.jpg
+    imageAlt: Sunrise over a sea of clouds
+    imageCredit:
+      author: Viswasagar27
+      license: CC BY-SA 4.0
+      source: https://commons.wikimedia.org/wiki/File:Early_sunrise_above_clouds_Nandi_hills_Bangalore.jpg
   - day: 4
     title: Back in Hyderabad
     description: Arrive at 7 am.
+    image: ../../assets/photos/train.jpg
+    imageAlt: View from an Indian train window
+    imageCredit:
+      author: Vikramaditya V. V.
+      license: CC BY-SA 4.0
+      source: https://commons.wikimedia.org/wiki/File:A_view_from_Indian_Railways_Train.jpg
 thingsToCarry:
   - Government photo ID (needed on trains)
   - Comfortable walking shoes
@@ -100,12 +130,37 @@ cancellationPolicy: "30+ days before departure: 25% cancellation fee. 15–30 da
 faqs:
   - q: Can I join if I’m travelling alone?
     a: Yes. Most HCC travellers join solo or in twos; you’ll be in a group with a trip captain from the start.
-featured: true
-sortOrder: 22
+featured: false
+sortOrder: 100
 recurrence: Every Thursday from Hyderabad
 primaryKeyword: araku trip from hyderabad
 legacyPaths:
   - /araku/
+heroImage: ../../assets/photos/clouds.jpg
+heroAlt: Sunrise over a sea of clouds
+heroCredit:
+  author: Viswasagar27
+  license: CC BY-SA 4.0
+  source: https://commons.wikimedia.org/wiki/File:Early_sunrise_above_clouds_Nandi_hills_Bangalore.jpg
+gallery:
+  - src: ../../assets/photos/araku.jpg
+    alt: Green hills of Araku Valley
+    credit:
+      author: Maina Tudu
+      license: CC0
+      source: https://commons.wikimedia.org/wiki/File:Araku_Valley,_Visakhapatnam.jpg
+  - src: ../../assets/photos/borra.jpg
+    alt: Borra Caves
+    credit:
+      author: Pratishkhedekar
+      license: CC BY-SA 4.0
+      source: https://commons.wikimedia.org/wiki/File:Entrance_to_Borra_caves_from_above_01.jpg
+  - src: ../../assets/photos/vizag.jpg
+    alt: Beach road in Visakhapatnam
+    credit:
+      author: eclicks_by_bunny
+      license: CC BY-SA 4.0
+      source: https://commons.wikimedia.org/wiki/File:Visakhapatnam_beach_road_near_Kailasagiri.jpg
 status: live
 sample: false
 ---

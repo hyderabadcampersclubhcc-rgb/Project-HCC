@@ -73,17 +73,35 @@ itinerary:
     meals:
       - breakfast
     stay: Munnar
+    image: ../../assets/photos/munnar.jpg
+    imageAlt: Tea hills of Munnar
+    imageCredit:
+      author: Manukrishnan80
+      license: CC BY-SA 3.0
+      source: https://commons.wikimedia.org/wiki/File:Munnar_Road_and_Tea_Plantations_(11223).jpg
   - day: 2
     title: Top Station and tea country
     description: Up at 5 am for Top Station and Echo Point, then Mattupetty Dam, a tea factory and rose garden, the elephant camp and a spice plantation.
     meals:
       - breakfast
     stay: Munnar
+    image: ../../assets/photos/mattupetty.jpg
+    imageAlt: Mattupetty reservoir, Munnar
+    imageCredit:
+      author: കാക്കര
+      license: CC BY-SA 3.0
+      source: https://commons.wikimedia.org/wiki/File:Mattupetty_Dam_-_%E0%B4%AE%E0%B4%BE%E0%B4%9F%E0%B5%8D%E0%B4%9F%E0%B5%81%E0%B4%AA%E0%B5%8D%E0%B4%AA%E0%B5%86%E0%B4%9F%E0%B5%8D%E0%B4%9F%E0%B4%BF_%E0%B4%85%E0%B4%A3%E0%B4%95%E0%B5%8D%E0%B4%95%E0%B5%86%E0%B4%9F%E0%B5%8D%E0%B4%9F%E0%B5%8D_-6.jpg
   - day: 3
     title: Eravikulam and home
     description: Gap Road, Idli Hills and Eravikulam National Park, then back to Coimbatore for the train.
     meals:
       - breakfast
+    image: ../../assets/photos/eravikulam.jpg
+    imageAlt: Misty slopes in Eravikulam National Park
+    imageCredit:
+      author: Davidvraju
+      license: CC0
+      source: https://commons.wikimedia.org/wiki/File:Landscape-3-Eravikulam_NP.jpg
 thingsToCarry:
   - Government photo ID (needed on trains)
   - Comfortable walking shoes
@@ -97,9 +115,35 @@ importantInfo:
   - If a departure doesn’t reach the minimum group size, HCC may merge it with another batch or move you to the next date.
   - Please reach the boarding point on time; missed trains or buses can’t be refunded.
 cancellationPolicy: "30+ days before departure: 25% cancellation fee. 15–30 days: 50%. Under 15 days: no refund. The booking amount is non-refundable."
-sortOrder: 35
+sortOrder: 110
 recurrence: Weekly departures
 primaryKeyword: munnar trip from hyderabad
+featured: false
+heroImage: ../../assets/photos/munnar.jpg
+heroAlt: Tea hills of Munnar
+heroCredit:
+  author: Manukrishnan80
+  license: CC BY-SA 3.0
+  source: https://commons.wikimedia.org/wiki/File:Munnar_Road_and_Tea_Plantations_(11223).jpg
+gallery:
+  - src: ../../assets/photos/munnar-tea.jpg
+    alt: Tea estates in Munnar
+    credit:
+      author: Rainer Halama
+      license: CC BY-SA 4.0
+      source: https://commons.wikimedia.org/wiki/File:Munnar_Tea_Plantations-WUS07343-Pano.jpg
+  - src: ../../assets/photos/mattupetty.jpg
+    alt: Mattupetty reservoir, Munnar
+    credit:
+      author: കാക്കര
+      license: CC BY-SA 3.0
+      source: https://commons.wikimedia.org/wiki/File:Mattupetty_Dam_-_%E0%B4%AE%E0%B4%BE%E0%B4%9F%E0%B5%8D%E0%B4%9F%E0%B5%81%E0%B4%AA%E0%B5%8D%E0%B4%AA%E0%B5%86%E0%B4%9F%E0%B5%8D%E0%B4%9F%E0%B4%BF_%E0%B4%85%E0%B4%A3%E0%B4%95%E0%B5%8D%E0%B4%95%E0%B5%86%E0%B4%9F%E0%B5%8D%E0%B4%9F%E0%B5%8D_-6.jpg
+  - src: ../../assets/photos/eravikulam.jpg
+    alt: Misty slopes in Eravikulam National Park
+    credit:
+      author: Davidvraju
+      license: CC0
+      source: https://commons.wikimedia.org/wiki/File:Landscape-3-Eravikulam_NP.jpg
 status: live
 sample: false
 ---

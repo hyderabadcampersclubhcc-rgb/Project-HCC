@@ -73,17 +73,41 @@ itinerary:
   - day: 0
     title: Overnight to Hubballi
     description: Board the 3:45 pm train from Nampally.
+    image: ../../assets/photos/train.jpg
+    imageAlt: View from an Indian train window
+    imageCredit:
+      author: Vikramaditya V. V.
+      license: CC BY-SA 4.0
+      source: https://commons.wikimedia.org/wiki/File:A_view_from_Indian_Railways_Train.jpg
   - day: 1
     title: Falls and Murudeshwar
     description: Vibhuthi falls trek and swim, Honnavar boating, and Murudeshwar temple and beach by evening.
     stay: Beach camp, Nirvana Beach
+    image: ../../assets/photos/murudeshwar.jpg
+    imageAlt: Murudeshwar coast
+    imageCredit:
+      author: Rizka
+      license: CC BY-SA 4.0
+      source: https://commons.wikimedia.org/wiki/File:Rainy_Day_during_the_Monsoon_in_Murudeshwar.jpg
   - day: 2
     title: Gokarna to Dandeli
     description: Mahabaleshwar temple at 6 am, Mirjan Fort, Om Beach if time permits, then Dandeli for a rain dance, bonfire and dinner.
     stay: Riverside camp, Dandeli
+    image: ../../assets/photos/om-beach.jpg
+    imageAlt: Om Beach, Gokarna
+    imageCredit:
+      author: Sourabh.biswas003
+      license: CC BY-SA 4.0
+      source: https://commons.wikimedia.org/wiki/File:PXL_20260103_101009613_People_and_Beach_Om_Beach_Gokarna,_Karnataka_43.jpg
   - day: 3
     title: Kali river
     description: Kayaking, zorbing and river boating, then the 9:05 pm train from Hubballi.
+    image: ../../assets/photos/kayak.jpg
+    imageAlt: Kayaking on a river
+    imageCredit:
+      author: Deeps2200
+      license: CC BY-SA 4.0
+      source: https://commons.wikimedia.org/wiki/File:Kayaking_nachani.jpg
 thingsToCarry:
   - Government photo ID (needed on trains)
   - Comfortable walking shoes
@@ -96,9 +120,35 @@ importantInfo:
   - Price shown is per person; the package is sold per couple (two travellers sharing a room).
   - "Payment: 40% at booking, 40% four days before travel, 20% on day 1."
 cancellationPolicy: "30+ days before departure: 25% cancellation fee. 15–30 days: 50%. Under 15 days: no refund. The booking amount is non-refundable."
-sortOrder: 91
+sortOrder: 280
 recurrence: Every Friday
 primaryKeyword: gokarna couple package
+featured: false
+heroImage: ../../assets/photos/gokarna.jpg
+heroAlt: Beach and headland at Gokarna
+heroCredit:
+  author: Sourabh.biswas003
+  license: CC BY-SA 4.0
+  source: https://commons.wikimedia.org/wiki/File:PXL_20260103_054657562.MP_Paradise_beach_gokarna_Paradise_Beach_Trail,_Gokarna,_Karnataka_581326_15.jpg
+gallery:
+  - src: ../../assets/photos/om-beach.jpg
+    alt: Om Beach, Gokarna
+    credit:
+      author: Sourabh.biswas003
+      license: CC BY-SA 4.0
+      source: https://commons.wikimedia.org/wiki/File:PXL_20260103_101009613_People_and_Beach_Om_Beach_Gokarna,_Karnataka_43.jpg
+  - src: ../../assets/photos/kayak.jpg
+    alt: Kayaking on a river
+    credit:
+      author: Deeps2200
+      license: CC BY-SA 4.0
+      source: https://commons.wikimedia.org/wiki/File:Kayaking_nachani.jpg
+  - src: ../../assets/photos/murudeshwar.jpg
+    alt: Murudeshwar coast
+    credit:
+      author: Rizka
+      license: CC BY-SA 4.0
+      source: https://commons.wikimedia.org/wiki/File:Rainy_Day_during_the_Monsoon_in_Murudeshwar.jpg
 status: live
 sample: false
 ---

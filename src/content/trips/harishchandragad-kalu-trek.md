@@ -72,20 +72,50 @@ itinerary:
   - day: 0
     title: Hyderabad to Pune
     description: Overnight train from Hyderabad.
+    image: ../../assets/photos/train.jpg
+    imageAlt: View from an Indian train window
+    imageCredit:
+      author: Vikramaditya V. V.
+      license: CC BY-SA 4.0
+      source: https://commons.wikimedia.org/wiki/File:A_view_from_Indian_Railways_Train.jpg
   - day: 1
     title: Kalu waterfall trek
     description: Drive through Malshej Ghat to Kalu base village and trek (4–6 km, easy to moderate) to the five-tier Kalu waterfall. If heavy rain closes the forest, an alternative trek is arranged.
     stay: Homestay or tents
+    image: ../../assets/photos/kalu-falls.jpg
+    imageAlt: Monsoon waterfall in the Sahyadris
+    imageCredit:
+      author: Sanketr3392
+      license: CC BY-SA 4.0
+      source: https://commons.wikimedia.org/wiki/File:Waterfall_in_Shivthar_Ghalai,_Sahyadri_Mountains.jpg
   - day: 2
     title: Harishchandragad
     description: Early breakfast and climb via the Pachnai route. Harishchandreshwar temple, Kedareshwar cave, Saptatirtha pushkarini and sunset at Konkan Kada.
     stay: Camp near the temple or cave (weather permitting)
+    image: ../../assets/photos/harishchandragad.jpg
+    imageAlt: Green trail on Harishchandragad
+    imageCredit:
+      author: Tokendra
+      license: CC BY-SA 4.0
+      source: https://commons.wikimedia.org/wiki/File:Harishchandragad_view_from_caves.jpg
   - day: 3
     title: Aadrai jungle trek
     description: A trail through dense forest beside waterfalls and streams, then back to Pune for the overnight train.
+    image: ../../assets/photos/andharban.jpg
+    imageAlt: Forested valleys of the Western Ghats
+    imageCredit:
+      author: Vijay Sundararaman Iyer
+      license: CC BY-SA 4.0
+      source: https://commons.wikimedia.org/wiki/File:Mountains_of_Western_Ghats.jpg
   - day: 4
     title: Back in Hyderabad
     description: Early-morning arrival.
+    image: ../../assets/photos/train.jpg
+    imageAlt: View from an Indian train window
+    imageCredit:
+      author: Vikramaditya V. V.
+      license: CC BY-SA 4.0
+      source: https://commons.wikimedia.org/wiki/File:A_view_from_Indian_Railways_Train.jpg
 thingsToCarry:
   - Government photo ID (needed on trains)
   - Comfortable walking shoes
@@ -113,11 +143,31 @@ faqs:
     a: Yes, if you have reasonable fitness. It’s rated easy to moderate with some slippery sections in the monsoon.
   - q: Can I join from Pune?
     a: Yes. The Pune price is ₹6,199; mention it when you enquire.
-sortOrder: 55
+sortOrder: 70
 recurrence: Weekly in the monsoon
 primaryKeyword: harishchandragad trek from hyderabad
 legacyPaths:
   - /harishchandragad/
+featured: false
+heroImage: ../../assets/photos/harishchandragad.jpg
+heroAlt: Green trail on Harishchandragad
+heroCredit:
+  author: Tokendra
+  license: CC BY-SA 4.0
+  source: https://commons.wikimedia.org/wiki/File:Harishchandragad_view_from_caves.jpg
+gallery:
+  - src: ../../assets/photos/kalu-falls.jpg
+    alt: Monsoon waterfall in the Sahyadris
+    credit:
+      author: Sanketr3392
+      license: CC BY-SA 4.0
+      source: https://commons.wikimedia.org/wiki/File:Waterfall_in_Shivthar_Ghalai,_Sahyadri_Mountains.jpg
+  - src: ../../assets/photos/andharban.jpg
+    alt: Forested valleys of the Western Ghats
+    credit:
+      author: Vijay Sundararaman Iyer
+      license: CC BY-SA 4.0
+      source: https://commons.wikimedia.org/wiki/File:Mountains_of_Western_Ghats.jpg
 status: live
 sample: false
 ---

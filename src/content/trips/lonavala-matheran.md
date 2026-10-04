@@ -74,6 +74,12 @@ itinerary:
     title: Matheran
     description: Arrive in Pune and drive to the Matheran base, then walk in (no vehicles allowed). Echo Point, Charlotte Lake, Lord’s Point, Khandala Point and the local market.
     stay: Homestay, Matheran
+    image: ../../assets/photos/matheran.jpg
+    imageAlt: Viewpoint in Matheran
+    imageCredit:
+      author: Aalokmjoshi
+      license: CC BY-SA 4.0
+      source: https://commons.wikimedia.org/wiki/File:Matheran_point.jpg
   - day: 2
     title: Lonavala and Pawna Lake
     description: Breakfast, then Tiger Point, Lion’s Point, Bhushi Dam and Lonavala Lake. Evening campfire and music at Pawna Lake.
@@ -81,9 +87,21 @@ itinerary:
       - breakfast
       - dinner
     stay: Lakeside camp, Pawna
+    image: ../../assets/photos/pawna.jpg
+    imageAlt: Tents beside Pawna Lake
+    imageCredit:
+      author: Bodkedd
+      license: CC BY-SA 4.0
+      source: https://commons.wikimedia.org/wiki/File:Pawna_lake_camping.jpg
   - day: 3
     title: Lohagad Fort
     description: Wake up by the lake, then trek Lohagad Fort and its viewpoints before the drive to Pune station.
+    image: ../../assets/photos/lohagad.jpg
+    imageAlt: Lohagad Fort walls
+    imageCredit:
+      author: Rangan Datta Wiki
+      license: CC BY-SA 4.0
+      source: https://commons.wikimedia.org/wiki/File:Bastions_of_Lohagad_Fort_3.jpg
 thingsToCarry:
   - Government photo ID (needed on trains)
   - Comfortable walking shoes
@@ -110,9 +128,35 @@ faqs:
     a: No, camping is on a sharing basis.
   - q: Is it beginner friendly?
     a: Yes. There’s moderate walking and a short trek to Lohagad Fort.
-sortOrder: 50
+sortOrder: 210
 recurrence: Every Thursday from Hyderabad
 primaryKeyword: lonavala trip from hyderabad
+featured: false
+heroImage: ../../assets/photos/lonavala.jpg
+heroAlt: Sahyadri pinnacle at sunset near Lonavala
+heroCredit:
+  author: Akshaydhillon7977
+  license: CC BY-SA 3.0
+  source: https://commons.wikimedia.org/wiki/File:Lonavla_view.jpg
+gallery:
+  - src: ../../assets/photos/pawna.jpg
+    alt: Tents beside Pawna Lake
+    credit:
+      author: Bodkedd
+      license: CC BY-SA 4.0
+      source: https://commons.wikimedia.org/wiki/File:Pawna_lake_camping.jpg
+  - src: ../../assets/photos/matheran.jpg
+    alt: Viewpoint in Matheran
+    credit:
+      author: Aalokmjoshi
+      license: CC BY-SA 4.0
+      source: https://commons.wikimedia.org/wiki/File:Matheran_point.jpg
+  - src: ../../assets/photos/lohagad.jpg
+    alt: Lohagad Fort walls
+    credit:
+      author: Rangan Datta Wiki
+      license: CC BY-SA 4.0
+      source: https://commons.wikimedia.org/wiki/File:Bastions_of_Lohagad_Fort_3.jpg
 status: live
 sample: false
 ---

@@ -72,20 +72,50 @@ itinerary:
   - day: 0
     title: Depart Hyderabad
     description: Meet at Kacheguda and leave for Mysore at 7 pm.
+    image: ../../assets/photos/train.jpg
+    imageAlt: View from an Indian train window
+    imageCredit:
+      author: Vikramaditya V. V.
+      license: CC BY-SA 4.0
+      source: https://commons.wikimedia.org/wiki/File:A_view_from_Indian_Railways_Train.jpg
   - day: 1
     title: Mysore and Coorg
     description: Freshen-up room in Mysore and breakfast, then Mysore Palace, Abbey Falls and the Mandalpatti trek. Shopping for spices and coffee, Raja’s Seat if time permits.
     stay: Coffee plantation, Coorg
+    image: ../../assets/photos/abbey-falls.jpg
+    imageAlt: Abbey Falls, Coorg
+    imageCredit:
+      author: "User: (WT-shared) Rohithrajjc at wts wikivoyage"
+      license: Public domain
+      source: https://commons.wikimedia.org/wiki/File:Abbey_falls_2010.jpg
   - day: 2
     title: Into Chikmagalur
     description: Dubare elephant camp, the Hoysala carvings at Belur temple and water sports at Yagachi dam.
     stay: Chikmagalur
+    image: ../../assets/photos/belur.jpg
+    imageAlt: Chennakeshava temple, Belur
+    imageCredit:
+      author: V Adithya Kamath
+      license: CC BY-SA 4.0
+      source: https://commons.wikimedia.org/wiki/File:Belur_Temple_all,_Belur.jpg
   - day: 3
     title: Mullayanagiri sunrise
     description: Up at 5 am for Mullayanagiri peak, breakfast, then back to Mysore for lunch and the 2:30 pm train.
+    image: ../../assets/photos/mullayanagiri.jpg
+    imageAlt: Mullayanagiri peak, Chikmagalur
+    imageCredit:
+      author: రవిచంద్ర
+      license: CC BY-SA 4.0
+      source: https://commons.wikimedia.org/wiki/File:Mullayanagiri_Peak1.jpg
   - day: 4
     title: Back in Hyderabad
     description: Reach Hyderabad around 5:30 am.
+    image: ../../assets/photos/train.jpg
+    imageAlt: View from an Indian train window
+    imageCredit:
+      author: Vikramaditya V. V.
+      license: CC BY-SA 4.0
+      source: https://commons.wikimedia.org/wiki/File:A_view_from_Indian_Railways_Train.jpg
 thingsToCarry:
   - Government photo ID (needed on trains)
   - Comfortable walking shoes
@@ -104,12 +134,43 @@ faqs:
   - q: Can I join if I’m travelling alone?
     a: Yes. Most HCC travellers join solo or in twos; you’ll be in a group with a trip captain from the start.
 featured: true
-sortOrder: 20
+sortOrder: 40
 recurrence: Every Friday from Hyderabad
 primaryKeyword: coorg chikmagalur trip from hyderabad
 legacyPaths:
   - /coorg-chikmagalur/
   - /chikmagalur/
+heroImage: ../../assets/photos/chikmagalur.jpg
+heroAlt: Misty grassland ridges in Chikmagalur
+heroCredit:
+  author: Gpkp
+  license: CC BY-SA 4.0
+  source: https://commons.wikimedia.org/wiki/File:Baba_Budangiri,_Chikmagalur_(2024)_74.jpg
+gallery:
+  - src: ../../assets/photos/abbey-falls.jpg
+    alt: Abbey Falls, Coorg
+    credit:
+      author: "User: (WT-shared) Rohithrajjc at wts wikivoyage"
+      license: Public domain
+      source: https://commons.wikimedia.org/wiki/File:Abbey_falls_2010.jpg
+  - src: ../../assets/photos/mullayanagiri.jpg
+    alt: Mullayanagiri peak, Chikmagalur
+    credit:
+      author: రవిచంద్ర
+      license: CC BY-SA 4.0
+      source: https://commons.wikimedia.org/wiki/File:Mullayanagiri_Peak1.jpg
+  - src: ../../assets/photos/belur.jpg
+    alt: Chennakeshava temple, Belur
+    credit:
+      author: V Adithya Kamath
+      license: CC BY-SA 4.0
+      source: https://commons.wikimedia.org/wiki/File:Belur_Temple_all,_Belur.jpg
+  - src: ../../assets/photos/coffee.jpg
+    alt: Plantation hills in Karnataka
+    credit:
+      author: Divya and Deepak
+      license: CC BY 2.0
+      source: https://commons.wikimedia.org/wiki/File:Coffee_plantation,_South_Canara.jpg
 status: live
 sample: false
 ---

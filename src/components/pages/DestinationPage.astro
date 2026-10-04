@@ -38,7 +38,7 @@ const guides = (await getCollection('guides', (g) => !g.data.draft && (showSampl
 ---
 
 {preview && <SectionNote n={1} title="Hero" purpose="H1 '{Place} Trips from Hyderabad' owns the destination search ('ooty tour packages from hyderabad'); the trip page owns the trip-specific one. Trip count and from-price in the first screen." data="Destination record: name, summary, hero photo. Count and price computed from live trips." status="needs-data" />}
-<DestinationHero name={d.name} summary={d.summary} image={d.heroImage} imageAlt={d.heroAlt} tone={tone} tripCount={trips.length} fromPrice={prices.length ? Math.min(...prices) : null} preview={preview} />
+<DestinationHero name={d.name} summary={d.summary} image={d.heroImage} imageAlt={d.heroAlt} imageCredit={d.heroCredit} tone={tone} tripCount={trips.length} fromPrice={prices.length ? Math.min(...prices) : null} preview={preview} />
 
 <div class="container dest">
   {preview && <SectionNote n={2} title="Trips to this place" purpose="Commercial intent → product first. With no live trips it becomes a 'plan a custom trip' prompt instead of an empty grid." data="Every live trip that includes this destination." />}

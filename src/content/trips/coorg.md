@@ -59,13 +59,31 @@ itinerary:
     title: Mysore to Coorg
     description: Meet in Mysore by 10 am. Golden Temple, Nisargadhama, Dubare elephant camp and sunset at Raja’s Seat, with time for shopping.
     stay: Coorg
+    image: ../../assets/photos/golden-temple.jpg
+    imageAlt: Golden Temple (Namdroling Monastery), Bylakuppe
+    imageCredit:
+      author: Nandini
+      license: CC BY-SA 4.0
+      source: https://commons.wikimedia.org/wiki/File:Namdroling_monastery_kushalnagar.jpg
   - day: 2
     title: Mandalpatti and Abbey Falls
     description: A 5 am start for Mandalpatti, ziplining, Abbey Falls, then Madikeri Fort and Raja’s Tombs.
     stay: Coorg
+    image: ../../assets/photos/abbey-falls.jpg
+    imageAlt: Abbey Falls, Coorg
+    imageCredit:
+      author: "User: (WT-shared) Rohithrajjc at wts wikivoyage"
+      license: Public domain
+      source: https://commons.wikimedia.org/wiki/File:Abbey_falls_2010.jpg
   - day: 3
     title: Coffee and Mysore
     description: Walk a coffee plantation, then Mysore Palace and Chamundi Hill before the drop in Mysore.
+    image: ../../assets/photos/mysore-palace.jpg
+    imageAlt: Mysore Palace
+    imageCredit:
+      author: Whistleraja
+      license: CC BY-SA 4.0
+      source: https://commons.wikimedia.org/wiki/File:Mysore_Palace_-_Amba_Vilas_Palace.jpg
 thingsToCarry:
   - Government photo ID (needed on trains)
   - Comfortable walking shoes
@@ -79,11 +97,37 @@ importantInfo:
   - If a departure doesn’t reach the minimum group size, HCC may merge it with another batch or move you to the next date.
   - Please reach the boarding point on time; missed trains or buses can’t be refunded.
 cancellationPolicy: "30+ days before departure: 25% cancellation fee. 15–30 days: 50%. Under 15 days: no refund. The booking amount is non-refundable."
-sortOrder: 60
+sortOrder: 250
 recurrence: Weekly departures
 primaryKeyword: coorg trip from mysore
 legacyPaths:
   - /coorg/
+featured: false
+heroImage: ../../assets/photos/abbey-falls.jpg
+heroAlt: Abbey Falls, Coorg
+heroCredit:
+  author: "User: (WT-shared) Rohithrajjc at wts wikivoyage"
+  license: Public domain
+  source: https://commons.wikimedia.org/wiki/File:Abbey_falls_2010.jpg
+gallery:
+  - src: ../../assets/photos/golden-temple.jpg
+    alt: Golden Temple (Namdroling Monastery), Bylakuppe
+    credit:
+      author: Nandini
+      license: CC BY-SA 4.0
+      source: https://commons.wikimedia.org/wiki/File:Namdroling_monastery_kushalnagar.jpg
+  - src: ../../assets/photos/coorg.jpg
+    alt: Stream through a Coorg forest
+    credit:
+      author: Nativeplants garden
+      license: CC BY-SA 4.0
+      source: https://commons.wikimedia.org/wiki/File:Padinalkunad_riserve,_Coorg_2.jpg
+  - src: ../../assets/photos/mysore-palace.jpg
+    alt: Mysore Palace
+    credit:
+      author: Whistleraja
+      license: CC BY-SA 4.0
+      source: https://commons.wikimedia.org/wiki/File:Mysore_Palace_-_Amba_Vilas_Palace.jpg
 status: live
 sample: false
 ---

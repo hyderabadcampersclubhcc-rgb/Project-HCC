@@ -62,18 +62,42 @@ itinerary:
     title: Srinagar
     description: Shikara ride on Dal Lake, the Mughal gardens of Nishat and Shalimar Bagh, and the Tulip or Botanical Garden.
     stay: Srinagar
+    image: ../../assets/photos/dal-lake.jpg
+    imageAlt: Shikaras on Dal Lake, Srinagar
+    imageCredit:
+      author: Suhail Skindar Sofi
+      license: CC BY-SA 4.0
+      source: https://commons.wikimedia.org/wiki/File:Dal_Lake_Hazratbal_Srinagar.jpg
   - day: 2
     title: Gulmarg
     description: Gondola ride towards Apharwat peak, snow activities from December to June or horse riding from July to November, and Drung waterfall.
     stay: Srinagar
+    image: ../../assets/photos/gulmarg.jpg
+    imageAlt: Gulmarg meadows and mountains
+    imageCredit:
+      author: Vikas Panwar
+      license: CC BY-SA 4.0
+      source: https://commons.wikimedia.org/wiki/File:Gulmarg_-_Jannat_on_Earth.jpg
   - day: 3
     title: Sonmarg
     description: Thajiwas glacier, Baltal and the meadows along the Sindh river.
     stay: Srinagar
+    image: ../../assets/photos/sonmarg.jpg
+    imageAlt: Sonmarg valley and glacier stream
+    imageCredit:
+      author: Mohammad Iliyas khanday
+      license: CC BY-SA 4.0
+      source: https://commons.wikimedia.org/wiki/File:Sonmarg_-_Paradise.jpg
   - day: 4
     title: Pahalgam
     description: Chandanwari, the Lidder river, Betaab Valley and Baisaran.
     stay: Houseboat, Dal Lake
+    image: ../../assets/photos/pahalgam.jpg
+    imageAlt: Pahalgam valley
+    imageCredit:
+      author: KennyOMG
+      license: CC BY-SA 3.0
+      source: https://commons.wikimedia.org/wiki/File:Pahalgam_Valley.jpg
   - day: 5
     title: Shopping and departure
     description: Old City markets for shawls, handicrafts and dry fruits, then the airport drop.
@@ -88,9 +112,35 @@ importantInfo:
   - If a departure doesn’t reach the minimum group size, HCC may merge it with another batch or move you to the next date.
   - Please reach the boarding point on time; missed trains or buses can’t be refunded.
 cancellationPolicy: "30+ days before departure: 25% cancellation fee. 15–30 days: 50%. Under 15 days: no refund. The booking amount is non-refundable."
-sortOrder: 80
+sortOrder: 130
 recurrence: Group dates on request
 primaryKeyword: kashmir group tour
+featured: false
+heroImage: ../../assets/photos/dal-lake.jpg
+heroAlt: Shikaras on Dal Lake, Srinagar
+heroCredit:
+  author: Suhail Skindar Sofi
+  license: CC BY-SA 4.0
+  source: https://commons.wikimedia.org/wiki/File:Dal_Lake_Hazratbal_Srinagar.jpg
+gallery:
+  - src: ../../assets/photos/gulmarg.jpg
+    alt: Gulmarg meadows and mountains
+    credit:
+      author: Vikas Panwar
+      license: CC BY-SA 4.0
+      source: https://commons.wikimedia.org/wiki/File:Gulmarg_-_Jannat_on_Earth.jpg
+  - src: ../../assets/photos/sonmarg.jpg
+    alt: Sonmarg valley and glacier stream
+    credit:
+      author: Mohammad Iliyas khanday
+      license: CC BY-SA 4.0
+      source: https://commons.wikimedia.org/wiki/File:Sonmarg_-_Paradise.jpg
+  - src: ../../assets/photos/pahalgam.jpg
+    alt: Pahalgam valley
+    credit:
+      author: KennyOMG
+      license: CC BY-SA 3.0
+      source: https://commons.wikimedia.org/wiki/File:Pahalgam_Valley.jpg
 status: live
 sample: false
 ---

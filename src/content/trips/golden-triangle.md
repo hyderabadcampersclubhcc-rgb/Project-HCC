@@ -65,27 +65,57 @@ itinerary:
   - day: 0
     title: Hyderabad to Agra
     description: Board the Telangana Express for the overnight journey.
+    image: ../../assets/photos/train.jpg
+    imageAlt: View from an Indian train window
+    imageCredit:
+      author: Vikramaditya V. V.
+      license: CC BY-SA 4.0
+      source: https://commons.wikimedia.org/wiki/File:A_view_from_Indian_Railways_Train.jpg
   - day: 1
     title: Agra
     description: Arrive around 4:30 am, check in, then the Taj Mahal, Agra Fort and the local markets.
     meals:
       - dinner
     stay: Agra
+    image: ../../assets/photos/taj-mahal.jpg
+    imageAlt: Taj Mahal
+    imageCredit:
+      author: Antrix3
+      license: CC BY-SA 4.0
+      source: https://commons.wikimedia.org/wiki/File:Aks_The_Reflection_Taj_Mahal.jpg
   - day: 2
     title: Agra to Jaipur
     description: 6 am drive to Jaipur (about 4 hours) for Hawa Mahal and Jantar Mantar.
     meals:
       - dinner
     stay: Jaipur
+    image: ../../assets/photos/hawa-mahal.jpg
+    imageAlt: Hawa Mahal, Jaipur
+    imageCredit:
+      author: Chainwit.
+      license: CC BY-SA 4.0
+      source: https://commons.wikimedia.org/wiki/File:East_facade_Hawa_Mahal_Jaipur_from_ground_level_(July_2022)_-_img_01.jpg
   - day: 3
     title: Jaipur to Delhi
     description: Amber Palace, Jal Mahal, Nahargarh Fort and Albert Hall Museum, then transfer to Delhi.
     meals:
       - dinner
     stay: Delhi
+    image: ../../assets/photos/amber-fort.jpg
+    imageAlt: Amber Fort, Jaipur
+    imageCredit:
+      author: "This photograph was taken by Rijin S and released under the "
+      license: CC BY-SA 4.0
+      source: https://commons.wikimedia.org/wiki/File:Amber_Fort_Jaipur_01.jpg
   - day: 4
     title: Delhi and home
     description: Red Fort, Lotus Temple, India Gate and Qutub Minar if time permits, then the evening train to Hyderabad.
+    image: ../../assets/photos/red-fort.jpg
+    imageAlt: Red Fort, Delhi
+    imageCredit:
+      author: Jakub Hałun
+      license: CC BY-SA 4.0
+      source: https://commons.wikimedia.org/wiki/File:20191203_Naubat_Khana,_Red_Fort,_Delhi_0456_6348_DxO.jpg
 thingsToCarry:
   - Government photo ID (needed on trains)
   - Comfortable walking shoes
@@ -99,9 +129,41 @@ importantInfo:
   - Please reach the boarding point on time; missed trains or buses can’t be refunded.
   - "Delhi traffic is heavy: the group keeps buffer time before the return train."
 cancellationPolicy: "30+ days before departure: 25% cancellation fee. 15–30 days: 50%. Under 15 days: no refund. The booking amount is non-refundable."
-sortOrder: 86
+sortOrder: 160
 recurrence: Group dates on request
 primaryKeyword: golden triangle tour from hyderabad
+featured: false
+heroImage: ../../assets/photos/taj-mahal.jpg
+heroAlt: Taj Mahal
+heroCredit:
+  author: Antrix3
+  license: CC BY-SA 4.0
+  source: https://commons.wikimedia.org/wiki/File:Aks_The_Reflection_Taj_Mahal.jpg
+gallery:
+  - src: ../../assets/photos/hawa-mahal.jpg
+    alt: Hawa Mahal, Jaipur
+    credit:
+      author: Chainwit.
+      license: CC BY-SA 4.0
+      source: https://commons.wikimedia.org/wiki/File:East_facade_Hawa_Mahal_Jaipur_from_ground_level_(July_2022)_-_img_01.jpg
+  - src: ../../assets/photos/amber-fort.jpg
+    alt: Amber Fort, Jaipur
+    credit:
+      author: "This photograph was taken by Rijin S and released under the "
+      license: CC BY-SA 4.0
+      source: https://commons.wikimedia.org/wiki/File:Amber_Fort_Jaipur_01.jpg
+  - src: ../../assets/photos/india-gate.jpg
+    alt: India Gate, New Delhi
+    credit:
+      author: Nikhilb239
+      license: CC BY-SA 4.0
+      source: https://commons.wikimedia.org/wiki/File:India_Gate,_New_Delhi_from_West.jpg
+  - src: ../../assets/photos/red-fort.jpg
+    alt: Red Fort, Delhi
+    credit:
+      author: Jakub Hałun
+      license: CC BY-SA 4.0
+      source: https://commons.wikimedia.org/wiki/File:20191203_Naubat_Khana,_Red_Fort,_Delhi_0456_6348_DxO.jpg
 status: live
 sample: false
 ---

@@ -74,6 +74,12 @@ itinerary:
     meals:
       - dinner
     stay: Hotel, Manali
+    image: ../../assets/photos/hadimba.jpg
+    imageAlt: Hadimba Temple in the deodar forest
+    imageCredit:
+      author: Chennai Passangai
+      license: CC BY-SA 4.0
+      source: https://commons.wikimedia.org/wiki/File:Hadimba_Devi_Temple_-Manali_-Himachal_Pradhesh_-GOPR1352.jpg
   - day: 2
     title: Solang and Sissu
     description: Solang Valley, then through the Atal Tunnel to Sissu.
@@ -81,6 +87,12 @@ itinerary:
       - breakfast
       - dinner
     stay: Hotel, Manali
+    image: ../../assets/photos/solang.jpg
+    imageAlt: Solang Valley in snow
+    imageCredit:
+      author: Bleezebub
+      license: CC BY-SA 4.0
+      source: https://commons.wikimedia.org/wiki/File:Solang_valley_under_snow,_2015.jpg
   - day: 3
     title: Kullu to Kasol
     description: Check out, optional rafting or paragliding in Kullu, and a riverside camp in Kasol with bonfire and music.
@@ -88,11 +100,23 @@ itinerary:
       - breakfast
       - dinner
     stay: Camp, Kasol
+    image: ../../assets/photos/kasol.jpg
+    imageAlt: Bridge over the Parvati river, Kasol
+    imageCredit:
+      author: Pinakpani
+      license: CC BY-SA 4.0
+      source: https://commons.wikimedia.org/wiki/File:Kasol_Bridge_at_Kasol_01.jpg
   - day: 4
     title: Kasol and Manikaran
     description: Kasol market and cafés, the 3 km riverside walk to Chalal, Manikaran Sahib’s hot springs, then the overnight bus to Delhi.
     meals:
       - breakfast
+    image: ../../assets/photos/manikaran.jpg
+    imageAlt: Manikaran Sahib
+    imageCredit:
+      author: John Hill
+      license: CC BY-SA 3.0
+      source: https://commons.wikimedia.org/wiki/File:Manikaran.jpg
   - day: 5
     title: Back in Delhi
     description: Arrive around 6 am.
@@ -112,11 +136,43 @@ cancellationPolicy: "30+ days before departure: 25% cancellation fee. 15–30 da
 faqs:
   - q: How do I get to Delhi from Hyderabad?
     a: By train or flight, booked yourself or by HCC on request; the group leaves Delhi in the evening.
-sortOrder: 82
+sortOrder: 140
 recurrence: Group dates on request
 primaryKeyword: manali trip from hyderabad
 legacyPaths:
   - /manali/
+featured: false
+heroImage: ../../assets/photos/solang.jpg
+heroAlt: Solang Valley in snow
+heroCredit:
+  author: Bleezebub
+  license: CC BY-SA 4.0
+  source: https://commons.wikimedia.org/wiki/File:Solang_valley_under_snow,_2015.jpg
+gallery:
+  - src: ../../assets/photos/manali.jpg
+    alt: Snow peaks above Manali
+    credit:
+      author: Ganesh Mohan T
+      license: CC BY-SA 4.0
+      source: https://commons.wikimedia.org/wiki/File:Manali_8.jpg
+  - src: ../../assets/photos/kasol.jpg
+    alt: Bridge over the Parvati river, Kasol
+    credit:
+      author: Pinakpani
+      license: CC BY-SA 4.0
+      source: https://commons.wikimedia.org/wiki/File:Kasol_Bridge_at_Kasol_01.jpg
+  - src: ../../assets/photos/hadimba.jpg
+    alt: Hadimba Temple in the deodar forest
+    credit:
+      author: Chennai Passangai
+      license: CC BY-SA 4.0
+      source: https://commons.wikimedia.org/wiki/File:Hadimba_Devi_Temple_-Manali_-Himachal_Pradhesh_-GOPR1352.jpg
+  - src: ../../assets/photos/sissu.jpg
+    alt: Snow peaks near Sissu, Lahaul
+    credit:
+      author: Timothy Gonsalves
+      license: CC BY-SA 4.0
+      source: https://commons.wikimedia.org/wiki/File:Wildflowers_Mountains_Sissu_Lahaul_Jul19_D72_10447.jpg
 status: live
 sample: false
 ---

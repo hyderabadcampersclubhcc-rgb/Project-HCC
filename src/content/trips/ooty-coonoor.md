@@ -85,17 +85,41 @@ itinerary:
   - day: 0
     title: Depart Hyderabad
     description: Meet the group at Kacheguda station and board the overnight Mysore Express at 7 pm.
+    image: ../../assets/photos/train.jpg
+    imageAlt: View from an Indian train window
+    imageCredit:
+      author: Vikramaditya V. V.
+      license: CC BY-SA 4.0
+      source: https://commons.wikimedia.org/wiki/File:A_view_from_Indian_Railways_Train.jpg
   - day: 1
     title: Mysore to Ooty
     description: Reach Mysore by 10 am, freshen up and have breakfast. Visit Mysore Palace and Chamundi Hill, then drive up through Bandipur forest to Needle Rock viewpoint, Pykara falls and Shooting Point.
     stay: Ooty
+    image: ../../assets/photos/mysore-palace.jpg
+    imageAlt: Mysore Palace
+    imageCredit:
+      author: Whistleraja
+      license: CC BY-SA 4.0
+      source: https://commons.wikimedia.org/wiki/File:Mysore_Palace_-_Amba_Vilas_Palace.jpg
   - day: 2
     title: Toy train to Coonoor
     description: Ride the Nilgiri Mountain Railway from Ooty to Coonoor. Dolphin’s Nose, the tea gardens or Sim’s Park, a tea-factory visit, the Rose Garden and a boat ride on Ooty Lake.
     stay: Ooty
+    image: ../../assets/photos/toy-train.jpg
+    imageAlt: Nilgiri Mountain Railway toy train crossing a bridge
+    imageCredit:
+      author: Stephan Niewolik
+      license: CC BY 3.0
+      source: https://commons.wikimedia.org/wiki/File:Nilgiri_Mountain_Railway_on_Bridge,_May_2010.JPG
   - day: 3
     title: Pine Forest and home
     description: A slow morning in the Pine Forest, lunch, then the drive back to Mysore for the overnight train to Hyderabad.
+    image: ../../assets/photos/pine-forest.jpg
+    imageAlt: Pine Forest near Ooty
+    imageCredit:
+      author: Raghavan G
+      license: CC BY-SA 4.0
+      source: https://commons.wikimedia.org/wiki/File:Pine_forest_Ooty.jpg
 stays:
   - type: Hotel / homestay
     location: Ooty
@@ -128,6 +152,37 @@ recurrence: Every Friday from Hyderabad
 primaryKeyword: ooty trip from hyderabad
 legacyPaths:
   - /ooty-coonoor/
+heroImage: ../../assets/photos/toy-train.jpg
+heroAlt: Nilgiri Mountain Railway toy train crossing a bridge
+heroCredit:
+  author: Stephan Niewolik
+  license: CC BY 3.0
+  source: https://commons.wikimedia.org/wiki/File:Nilgiri_Mountain_Railway_on_Bridge,_May_2010.JPG
+gallery:
+  - src: ../../assets/photos/ooty-hills.jpg
+    alt: Tea estates in the Nilgiri hills
+    credit:
+      author: This Photo was taken by Timothy A. Gonsalves. Feel free to u
+      license: CC BY-SA 4.0
+      source: https://commons.wikimedia.org/wiki/File:Vegetables_Tea_Fields_Nilgiris_Nov25_A7CR_09820-4_HDR1.jpg
+  - src: ../../assets/photos/ooty-lake.jpg
+    alt: Ooty Lake
+    credit:
+      author: Hellowikidoc
+      license: CC BY-SA 4.0
+      source: https://commons.wikimedia.org/wiki/File:Ooty_lake(1).jpg
+  - src: ../../assets/photos/mysore-palace.jpg
+    alt: Mysore Palace
+    credit:
+      author: Whistleraja
+      license: CC BY-SA 4.0
+      source: https://commons.wikimedia.org/wiki/File:Mysore_Palace_-_Amba_Vilas_Palace.jpg
+  - src: ../../assets/photos/pine-forest.jpg
+    alt: Pine Forest near Ooty
+    credit:
+      author: Raghavan G
+      license: CC BY-SA 4.0
+      source: https://commons.wikimedia.org/wiki/File:Pine_forest_Ooty.jpg
 status: live
 sample: false
 ---

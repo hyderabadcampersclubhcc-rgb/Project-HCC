@@ -54,6 +54,7 @@ export const FOOTER_LEGAL = [
   { label: 'Cancellation policy', href: '/cancellation-policy/' },
   { label: 'Terms', href: '/terms/' },
   { label: 'Privacy', href: '/privacy-policy/' },
+  { label: 'Photo credits', href: '/photo-credits/' },
 ];
 
 export const REGION_LABELS: Record<string, string> = {

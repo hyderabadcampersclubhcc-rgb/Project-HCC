@@ -76,13 +76,31 @@ itinerary:
     title: Mysore to Ooty
     description: Arrive in Mysore and drive through Bandipur forest, watching for wildlife. Eucalyptus forest, Pykara falls and Shooting Point, then check in at Ooty.
     stay: Ooty
+    image: ../../assets/photos/bandipur.jpg
+    imageAlt: Elephant in the Bandipur–Mudumalai forest
+    imageCredit:
+      author: Yathin S Krishnappa
+      license: CC BY-SA 3.0
+      source: https://commons.wikimedia.org/wiki/File:Elephas_maximus_(Bandipur).jpg
   - day: 2
     title: Coonoor and Isha
     description: Toy train to Coonoor, Dolphin’s Nose and a tea-garden and factory visit. In the afternoon head to the Isha Yoga Center for the Adiyogi laser light show, then back to Ooty.
     stay: Ooty
+    image: ../../assets/photos/adiyogi.jpg
+    imageAlt: Adiyogi statue at the Isha Yoga Center
+    imageCredit:
+      author: Prabhuthiru57
+      license: CC BY-SA 4.0
+      source: https://commons.wikimedia.org/wiki/File:Adiyogi_Shiva_steel_burst_2018.jpg
   - day: 3
     title: Ooty and return
     description: Pine Forest walk, Ooty Lake and Valley View point, then the drive to Mysore for the train home.
+    image: ../../assets/photos/ooty-lake.jpg
+    imageAlt: Ooty Lake
+    imageCredit:
+      author: Hellowikidoc
+      license: CC BY-SA 4.0
+      source: https://commons.wikimedia.org/wiki/File:Ooty_lake(1).jpg
 thingsToCarry:
   - Government photo ID (needed on trains)
   - Comfortable walking shoes
@@ -99,12 +117,38 @@ cancellationPolicy: "30+ days before departure: 25% cancellation fee. 15–30 da
 faqs:
   - q: Can I join if I’m travelling alone?
     a: Yes. Most HCC travellers join solo or in twos; you’ll be in a group with a trip captain from the start.
-sortOrder: 15
+sortOrder: 90
 recurrence: Every Friday from Hyderabad
 primaryKeyword: isha ooty coonoor trip from hyderabad
 legacyPaths:
   - /isha-ooty-coonoor/
   - /kodaikanal-isha-ooty-coonoor/
+featured: false
+heroImage: ../../assets/photos/adiyogi.jpg
+heroAlt: Adiyogi statue at the Isha Yoga Center
+heroCredit:
+  author: Prabhuthiru57
+  license: CC BY-SA 4.0
+  source: https://commons.wikimedia.org/wiki/File:Adiyogi_Shiva_steel_burst_2018.jpg
+gallery:
+  - src: ../../assets/photos/toy-train.jpg
+    alt: Nilgiri Mountain Railway toy train crossing a bridge
+    credit:
+      author: Stephan Niewolik
+      license: CC BY 3.0
+      source: https://commons.wikimedia.org/wiki/File:Nilgiri_Mountain_Railway_on_Bridge,_May_2010.JPG
+  - src: ../../assets/photos/ooty-hills.jpg
+    alt: Tea estates in the Nilgiri hills
+    credit:
+      author: This Photo was taken by Timothy A. Gonsalves. Feel free to u
+      license: CC BY-SA 4.0
+      source: https://commons.wikimedia.org/wiki/File:Vegetables_Tea_Fields_Nilgiris_Nov25_A7CR_09820-4_HDR1.jpg
+  - src: ../../assets/photos/ooty-lake.jpg
+    alt: Ooty Lake
+    credit:
+      author: Hellowikidoc
+      license: CC BY-SA 4.0
+      source: https://commons.wikimedia.org/wiki/File:Ooty_lake(1).jpg
 status: live
 sample: false
 ---

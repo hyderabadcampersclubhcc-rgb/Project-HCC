@@ -57,13 +57,31 @@ itinerary:
     title: North Goa
     description: Arrive at 9 am, board the AC tempo and check in to the beachside resort. Vagator Beach, Chapora Fort, Fort Aguada, Baga and Calangute, then a pool party at the resort.
     stay: Beachside resort
+    image: ../../assets/photos/fort-aguada.jpg
+    imageAlt: Fort Aguada lighthouse, Goa
+    imageCredit:
+      author: 0kumr
+      license: CC0
+      source: https://commons.wikimedia.org/wiki/File:Aguada_Fort,_with_a_view_of_light_house_and_Arabian_Sea.jpg
   - day: 2
     title: Water sports day
     description: Jet ski, banana and bumper rides, speed boat and parasailing (when operating; paid on the spot), then a relaxed evening by the pool.
     stay: Beachside resort
+    image: ../../assets/photos/jetski.jpg
+    imageAlt: Jet ski on the sea
+    imageCredit:
+      author: Julian Lupyan
+      license: CC0
+      source: https://commons.wikimedia.org/wiki/File:Group_of_Jet_Ski_Riders_in_Key_West,_Florida,_2025.jpg
   - day: 3
     title: Old Goa and home
     description: Early photos on Parra Road, check-out, then Sinquerim Fort, the Old Goa church, Goa Museum, the street market and Anjuna Beach before the train home.
+    image: ../../assets/photos/goa-church.jpg
+    imageAlt: Basilica of Bom Jesus, Old Goa
+    imageCredit:
+      author: iMahesh
+      license: CC BY-SA 4.0
+      source: https://commons.wikimedia.org/wiki/File:Front_Elevation_of_Basilica_of_Bom_Jesus.jpg
 thingsToCarry:
   - Government photo ID (needed on trains)
   - Comfortable walking shoes
@@ -79,11 +97,37 @@ importantInfo:
   - Please reach the boarding point on time; missed trains or buses can’t be refunded.
   - If the listed resort is unavailable, a similar standard stay is arranged.
 cancellationPolicy: "30+ days before departure: 25% cancellation fee. 15–30 days: 50%. Under 15 days: no refund. The booking amount is non-refundable."
-sortOrder: 38
+sortOrder: 170
 recurrence: Weekly departures
 primaryKeyword: goa trip from hyderabad
 legacyPaths:
   - /goa/
+featured: false
+heroImage: ../../assets/photos/goa-beach.jpg
+heroAlt: Beach in North Goa
+heroCredit:
+  author: This Photo was taken by Timothy A. Gonsalves. Feel free to u
+  license: CC BY-SA 4.0
+  source: https://commons.wikimedia.org/wiki/File:Cola_Beach_Bay_South_Goa_Jan19_DSC06186.jpg
+gallery:
+  - src: ../../assets/photos/fort-aguada.jpg
+    alt: Fort Aguada lighthouse, Goa
+    credit:
+      author: 0kumr
+      license: CC0
+      source: https://commons.wikimedia.org/wiki/File:Aguada_Fort,_with_a_view_of_light_house_and_Arabian_Sea.jpg
+  - src: ../../assets/photos/jetski.jpg
+    alt: Jet ski on the sea
+    credit:
+      author: Julian Lupyan
+      license: CC0
+      source: https://commons.wikimedia.org/wiki/File:Group_of_Jet_Ski_Riders_in_Key_West,_Florida,_2025.jpg
+  - src: ../../assets/photos/goa-church.jpg
+    alt: Basilica of Bom Jesus, Old Goa
+    credit:
+      author: iMahesh
+      license: CC BY-SA 4.0
+      source: https://commons.wikimedia.org/wiki/File:Front_Elevation_of_Basilica_of_Bom_Jesus.jpg
 status: live
 sample: false
 ---

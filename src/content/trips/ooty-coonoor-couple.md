@@ -57,13 +57,31 @@ itinerary:
     title: Mysore to Ooty
     description: Reach Mysore by 10 am, breakfast, Mysore Palace, Bandipur forest, Needle Rock viewpoint, Pykara falls and Shooting Point.
     stay: Ooty
+    image: ../../assets/photos/mysore-palace.jpg
+    imageAlt: Mysore Palace
+    imageCredit:
+      author: Whistleraja
+      license: CC BY-SA 4.0
+      source: https://commons.wikimedia.org/wiki/File:Mysore_Palace_-_Amba_Vilas_Palace.jpg
   - day: 2
     title: Coonoor
     description: Toy train to Coonoor, Dolphin’s Nose, tea gardens or Sim’s Park, a tea factory and a boat ride.
     stay: Ooty
+    image: ../../assets/photos/toy-train.jpg
+    imageAlt: Nilgiri Mountain Railway toy train crossing a bridge
+    imageCredit:
+      author: Stephan Niewolik
+      license: CC BY 3.0
+      source: https://commons.wikimedia.org/wiki/File:Nilgiri_Mountain_Railway_on_Bridge,_May_2010.JPG
   - day: 3
     title: Pine Forest and back
     description: A morning in the Pine Forest, lunch and the drive back to Mysore.
+    image: ../../assets/photos/pine-forest.jpg
+    imageAlt: Pine Forest near Ooty
+    imageCredit:
+      author: Raghavan G
+      license: CC BY-SA 4.0
+      source: https://commons.wikimedia.org/wiki/File:Pine_forest_Ooty.jpg
 thingsToCarry:
   - Government photo ID (needed on trains)
   - Comfortable walking shoes
@@ -74,9 +92,35 @@ thingsToCarry:
 importantInfo:
   - Price shown is per person; the package is sold per couple (two travellers sharing a room).
 cancellationPolicy: "30+ days before departure: 25% cancellation fee. 15–30 days: 50%. Under 15 days: no refund. The booking amount is non-refundable."
-sortOrder: 90
+sortOrder: 270
 recurrence: Your dates, on request
 primaryKeyword: ooty couple package from hyderabad
+featured: false
+heroImage: ../../assets/photos/ooty-lake.jpg
+heroAlt: Ooty Lake
+heroCredit:
+  author: Hellowikidoc
+  license: CC BY-SA 4.0
+  source: https://commons.wikimedia.org/wiki/File:Ooty_lake(1).jpg
+gallery:
+  - src: ../../assets/photos/toy-train.jpg
+    alt: Nilgiri Mountain Railway toy train crossing a bridge
+    credit:
+      author: Stephan Niewolik
+      license: CC BY 3.0
+      source: https://commons.wikimedia.org/wiki/File:Nilgiri_Mountain_Railway_on_Bridge,_May_2010.JPG
+  - src: ../../assets/photos/ooty-hills.jpg
+    alt: Tea estates in the Nilgiri hills
+    credit:
+      author: This Photo was taken by Timothy A. Gonsalves. Feel free to u
+      license: CC BY-SA 4.0
+      source: https://commons.wikimedia.org/wiki/File:Vegetables_Tea_Fields_Nilgiris_Nov25_A7CR_09820-4_HDR1.jpg
+  - src: ../../assets/photos/pine-forest.jpg
+    alt: Pine Forest near Ooty
+    credit:
+      author: Raghavan G
+      license: CC BY-SA 4.0
+      source: https://commons.wikimedia.org/wiki/File:Pine_forest_Ooty.jpg
 status: live
 sample: false
 ---

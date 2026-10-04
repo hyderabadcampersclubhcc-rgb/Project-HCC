@@ -67,21 +67,51 @@ itinerary:
     title: Mysore to Wayanad
     description: "Reach Mysore by 9:30 am and drive to Wayanad: Banasura Sagar dam, ziplining and water activities, the Tea Museum and the Lakkidi view."
     stay: Wayanad
+    image: ../../assets/photos/banasura.jpg
+    imageAlt: Banasura Sagar reservoir, Wayanad
+    imageCredit:
+      author: Athulvis
+      license: CC BY-SA 4.0
+      source: https://commons.wikimedia.org/wiki/File:Banasura_sagar_dam_26.jpg
   - day: 2
     title: Wayanad highlights
     description: Soochipara falls, the 900 Kandi glass bridge, the giant swing, Pookode Lake and shopping.
     stay: Wayanad
+    image: ../../assets/photos/wayanad.jpg
+    imageAlt: Heart-shaped lake on Chembra peak, Wayanad
+    imageCredit:
+      author: Ravi Dwivedi
+      license: CC BY-SA 4.0
+      source: https://commons.wikimedia.org/wiki/File:Chembra_Peak_Heart_Lake.jpg
   - day: 3
     title: Through Mudumalai to Ooty
     description: Early start through Mudumalai Tiger Reserve, then Needle Rock, the Eucalyptus garden, Pykara falls, Shooting Point and the Pine Forest.
     stay: Ooty
+    image: ../../assets/photos/bandipur.jpg
+    imageAlt: Elephant in the Bandipur–Mudumalai forest
+    imageCredit:
+      author: Yathin S Krishnappa
+      license: CC BY-SA 3.0
+      source: https://commons.wikimedia.org/wiki/File:Elephas_maximus_(Bandipur).jpg
   - day: 4
     title: Coonoor by toy train
     description: Toy train to Coonoor, Dolphin’s Nose, tea gardens, the tea and chocolate factories and Ooty’s Botanical Garden.
     stay: Ooty
+    image: ../../assets/photos/toy-train.jpg
+    imageAlt: Nilgiri Mountain Railway toy train crossing a bridge
+    imageCredit:
+      author: Stephan Niewolik
+      license: CC BY 3.0
+      source: https://commons.wikimedia.org/wiki/File:Nilgiri_Mountain_Railway_on_Bridge,_May_2010.JPG
   - day: 5
     title: Mysore and home
     description: Leave by 6 am, visit Mysore Palace and Chamundi Hill if time permits, and drop at Mysore station.
+    image: ../../assets/photos/mysore-palace.jpg
+    imageAlt: Mysore Palace
+    imageCredit:
+      author: Whistleraja
+      license: CC BY-SA 4.0
+      source: https://commons.wikimedia.org/wiki/File:Mysore_Palace_-_Amba_Vilas_Palace.jpg
 thingsToCarry:
   - Government photo ID (needed on trains)
   - Comfortable walking shoes
@@ -95,9 +125,41 @@ importantInfo:
   - If a departure doesn’t reach the minimum group size, HCC may merge it with another batch or move you to the next date.
   - Please reach the boarding point on time; missed trains or buses can’t be refunded.
 cancellationPolicy: "30+ days before departure: 25% cancellation fee. 15–30 days: 50%. Under 15 days: no refund. The booking amount is non-refundable."
-sortOrder: 70
+sortOrder: 260
 recurrence: Group dates on request
 primaryKeyword: wayanad ooty trip from hyderabad
+featured: false
+heroImage: ../../assets/photos/wayanad.jpg
+heroAlt: Heart-shaped lake on Chembra peak, Wayanad
+heroCredit:
+  author: Ravi Dwivedi
+  license: CC BY-SA 4.0
+  source: https://commons.wikimedia.org/wiki/File:Chembra_Peak_Heart_Lake.jpg
+gallery:
+  - src: ../../assets/photos/toy-train.jpg
+    alt: Nilgiri Mountain Railway toy train crossing a bridge
+    credit:
+      author: Stephan Niewolik
+      license: CC BY 3.0
+      source: https://commons.wikimedia.org/wiki/File:Nilgiri_Mountain_Railway_on_Bridge,_May_2010.JPG
+  - src: ../../assets/photos/bandipur.jpg
+    alt: Elephant in the Bandipur–Mudumalai forest
+    credit:
+      author: Yathin S Krishnappa
+      license: CC BY-SA 3.0
+      source: https://commons.wikimedia.org/wiki/File:Elephas_maximus_(Bandipur).jpg
+  - src: ../../assets/photos/ooty-hills.jpg
+    alt: Tea estates in the Nilgiri hills
+    credit:
+      author: This Photo was taken by Timothy A. Gonsalves. Feel free to u
+      license: CC BY-SA 4.0
+      source: https://commons.wikimedia.org/wiki/File:Vegetables_Tea_Fields_Nilgiris_Nov25_A7CR_09820-4_HDR1.jpg
+  - src: ../../assets/photos/mysore-palace.jpg
+    alt: Mysore Palace
+    credit:
+      author: Whistleraja
+      license: CC BY-SA 4.0
+      source: https://commons.wikimedia.org/wiki/File:Mysore_Palace_-_Amba_Vilas_Palace.jpg
 status: live
 sample: false
 ---

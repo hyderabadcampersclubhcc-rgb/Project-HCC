@@ -67,6 +67,12 @@ itinerary:
     meals:
       - dinner
     stay: Village homestay
+    image: ../../assets/photos/lohagad.jpg
+    imageAlt: Lohagad Fort walls
+    imageCredit:
+      author: Rangan Datta Wiki
+      license: CC BY-SA 4.0
+      source: https://commons.wikimedia.org/wiki/File:Bastions_of_Lohagad_Fort_3.jpg
   - day: 2
     title: Andharban forest
     description: Early breakfast and the Andharban trail through misty forest, streams and waterfalls with views over the Kundalika valley, finishing at Bhira Dam.
@@ -74,12 +80,24 @@ itinerary:
       - breakfast
       - dinner
     stay: Village homestay
+    image: ../../assets/photos/andharban.jpg
+    imageAlt: Forested valleys of the Western Ghats
+    imageCredit:
+      author: Vijay Sundararaman Iyer
+      license: CC BY-SA 4.0
+      source: https://commons.wikimedia.org/wiki/File:Mountains_of_Western_Ghats.jpg
   - day: 3
     title: Devkund waterfall
     description: Trek to Devkund and relax by its natural pool, lunch at the base village, then the drive to Pune for the overnight train.
     meals:
       - breakfast
       - lunch
+    image: ../../assets/photos/devkund.jpg
+    imageAlt: Waterfall pool in the forest
+    imageCredit:
+      author: Jnanaranjan sahu
+      license: CC BY-SA 4.0
+      source: https://commons.wikimedia.org/wiki/File:Devkund,_Odisha.jpg
 thingsToCarry:
   - Government photo ID (needed on trains)
   - Comfortable walking shoes
@@ -105,11 +123,37 @@ cancellationPolicy: HCC cancellation policy applies; train ticket cancellations 
 faqs:
   - q: Is it suitable for beginners?
     a: "Yes, with moderate fitness: the walks are long and the monsoon terrain is muddy."
-sortOrder: 56
+sortOrder: 220
 recurrence: Weekly in the monsoon
 primaryKeyword: devkund trek from hyderabad
 legacyPaths:
   - /devkund/
+featured: false
+heroImage: ../../assets/photos/andharban.jpg
+heroAlt: Forested valleys of the Western Ghats
+heroCredit:
+  author: Vijay Sundararaman Iyer
+  license: CC BY-SA 4.0
+  source: https://commons.wikimedia.org/wiki/File:Mountains_of_Western_Ghats.jpg
+gallery:
+  - src: ../../assets/photos/devkund.jpg
+    alt: Waterfall pool in the forest
+    credit:
+      author: Jnanaranjan sahu
+      license: CC BY-SA 4.0
+      source: https://commons.wikimedia.org/wiki/File:Devkund,_Odisha.jpg
+  - src: ../../assets/photos/lohagad.jpg
+    alt: Lohagad Fort walls
+    credit:
+      author: Rangan Datta Wiki
+      license: CC BY-SA 4.0
+      source: https://commons.wikimedia.org/wiki/File:Bastions_of_Lohagad_Fort_3.jpg
+  - src: ../../assets/photos/kalu-falls.jpg
+    alt: Monsoon waterfall in the Sahyadris
+    credit:
+      author: Sanketr3392
+      license: CC BY-SA 4.0
+      source: https://commons.wikimedia.org/wiki/File:Waterfall_in_Shivthar_Ghalai,_Sahyadri_Mountains.jpg
 status: live
 sample: false
 ---

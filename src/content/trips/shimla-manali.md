@@ -71,6 +71,12 @@ itinerary:
     meals:
       - dinner
     stay: Hotel, Manali
+    image: ../../assets/photos/hadimba.jpg
+    imageAlt: Hadimba Temple in the deodar forest
+    imageCredit:
+      author: Chennai Passangai
+      license: CC BY-SA 4.0
+      source: https://commons.wikimedia.org/wiki/File:Hadimba_Devi_Temple_-Manali_-Himachal_Pradhesh_-GOPR1352.jpg
   - day: 2
     title: Solang and Sissu
     description: Solang Valley and the Atal Tunnel to Sissu.
@@ -78,6 +84,12 @@ itinerary:
       - breakfast
       - dinner
     stay: Hotel, Manali
+    image: ../../assets/photos/sissu.jpg
+    imageAlt: Snow peaks near Sissu, Lahaul
+    imageCredit:
+      author: Timothy Gonsalves
+      license: CC BY-SA 4.0
+      source: https://commons.wikimedia.org/wiki/File:Wildflowers_Mountains_Sissu_Lahaul_Jul19_D72_10447.jpg
   - day: 3
     title: Kullu to Shimla
     description: Optional rafting and paragliding in Kullu and the Vaishno Devi temple on the way to Shimla.
@@ -85,6 +97,12 @@ itinerary:
       - breakfast
       - dinner
     stay: Hotel, Shimla
+    image: ../../assets/photos/manali.jpg
+    imageAlt: Snow peaks above Manali
+    imageCredit:
+      author: Ganesh Mohan T
+      license: CC BY-SA 4.0
+      source: https://commons.wikimedia.org/wiki/File:Manali_8.jpg
   - day: 4
     title: Shimla and Kufri
     description: Kufri, Mall Road, the Ridge, Christ Church, Lakkar Bazaar, Green Valley and Jakhu Temple.
@@ -92,11 +110,23 @@ itinerary:
       - breakfast
       - dinner
     stay: Hotel, Shimla
+    image: ../../assets/photos/shimla.jpg
+    imageAlt: The Ridge, Shimla
+    imageCredit:
+      author: Virusism
+      license: CC BY-SA 4.0
+      source: https://commons.wikimedia.org/wiki/File:The_Ridge_Shimla_4.jpg
   - day: 5
     title: Back to Delhi
     description: Breakfast and drive back, reaching Delhi in the evening.
     meals:
       - breakfast
+    image: ../../assets/photos/shimla-snow.jpg
+    imageAlt: Shimla in winter
+    imageCredit:
+      author: ShashankSharma2511
+      license: CC BY 3.0
+      source: https://commons.wikimedia.org/wiki/File:Ridge,_Shimla.JPG
 thingsToCarry:
   - Government photo ID
   - Warm jacket, thermals and gloves
@@ -107,9 +137,35 @@ importantInfo:
   - If a departure doesn’t reach the minimum group size, HCC may merge it with another batch or move you to the next date.
   - Please reach the boarding point on time; missed trains or buses can’t be refunded.
 cancellationPolicy: "30+ days before departure: 25% cancellation fee. 15–30 days: 50%. Under 15 days: no refund. The booking amount is non-refundable."
-sortOrder: 84
+sortOrder: 150
 recurrence: Group dates on request
 primaryKeyword: shimla manali tour package
+featured: false
+heroImage: ../../assets/photos/manali.jpg
+heroAlt: Snow peaks above Manali
+heroCredit:
+  author: Ganesh Mohan T
+  license: CC BY-SA 4.0
+  source: https://commons.wikimedia.org/wiki/File:Manali_8.jpg
+gallery:
+  - src: ../../assets/photos/shimla.jpg
+    alt: The Ridge, Shimla
+    credit:
+      author: Virusism
+      license: CC BY-SA 4.0
+      source: https://commons.wikimedia.org/wiki/File:The_Ridge_Shimla_4.jpg
+  - src: ../../assets/photos/solang.jpg
+    alt: Solang Valley in snow
+    credit:
+      author: Bleezebub
+      license: CC BY-SA 4.0
+      source: https://commons.wikimedia.org/wiki/File:Solang_valley_under_snow,_2015.jpg
+  - src: ../../assets/photos/shimla-snow.jpg
+    alt: Shimla in winter
+    credit:
+      author: ShashankSharma2511
+      license: CC BY 3.0
+      source: https://commons.wikimedia.org/wiki/File:Ridge,_Shimla.JPG
 status: live
 sample: false
 ---

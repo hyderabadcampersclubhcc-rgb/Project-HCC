@@ -67,13 +67,31 @@ itinerary:
     title: Mysore to Wayanad
     description: "Reach Mysore by 9 am (freshen-up rooms provided) and drive to Wayanad: Kuruva Dweep, Banasura Sagar dam, the Lakkidi viewpoint and a zipline before the homestay."
     stay: Homestay, Wayanad
+    image: ../../assets/photos/banasura.jpg
+    imageAlt: Banasura Sagar reservoir, Wayanad
+    imageCredit:
+      author: Athulvis
+      license: CC BY-SA 4.0
+      source: https://commons.wikimedia.org/wiki/File:Banasura_sagar_dam_26.jpg
   - day: 2
     title: Chembra and the glass bridge
     description: Ready by 4:30 am for the Chembra Peak trek, then the 900 Kandi glass bridge, Soochipara falls if time permits, and shopping.
     stay: Homestay, Wayanad
+    image: ../../assets/photos/chembra.jpg
+    imageAlt: Chembra peak, Wayanad
+    imageCredit:
+      author: Ramkishoremr
+      license: CC BY-SA 4.0
+      source: https://commons.wikimedia.org/wiki/File:Chembra_Peak_2.jpg
   - day: 3
     title: Wildlife sanctuary and home
     description: Wayanad Wildlife Sanctuary, Mysore Palace if time permits, and the 3 pm train back to Hyderabad.
+    image: ../../assets/photos/forest-trek.jpg
+    imageAlt: Forest trail
+    imageCredit:
+      author: Framesnlight
+      license: CC BY-SA 4.0
+      source: https://commons.wikimedia.org/wiki/File:Jungle_trek.jpg
 thingsToCarry:
   - Government photo ID (needed on trains)
   - Comfortable walking shoes
@@ -88,11 +106,37 @@ importantInfo:
   - If a departure doesn’t reach the minimum group size, HCC may merge it with another batch or move you to the next date.
   - Please reach the boarding point on time; missed trains or buses can’t be refunded.
 cancellationPolicy: "30+ days before departure: 25% cancellation fee. 15–30 days: 50%. Under 15 days: no refund. The booking amount is non-refundable."
-sortOrder: 25
+sortOrder: 50
 recurrence: Every Thursday from Hyderabad
 primaryKeyword: wayanad trip from hyderabad
 legacyPaths:
   - /wayanad/
+featured: true
+heroImage: ../../assets/photos/wayanad.jpg
+heroAlt: Heart-shaped lake on Chembra peak, Wayanad
+heroCredit:
+  author: Ravi Dwivedi
+  license: CC BY-SA 4.0
+  source: https://commons.wikimedia.org/wiki/File:Chembra_Peak_Heart_Lake.jpg
+gallery:
+  - src: ../../assets/photos/chembra.jpg
+    alt: Chembra peak, Wayanad
+    credit:
+      author: Ramkishoremr
+      license: CC BY-SA 4.0
+      source: https://commons.wikimedia.org/wiki/File:Chembra_Peak_2.jpg
+  - src: ../../assets/photos/banasura.jpg
+    alt: Banasura Sagar reservoir, Wayanad
+    credit:
+      author: Athulvis
+      license: CC BY-SA 4.0
+      source: https://commons.wikimedia.org/wiki/File:Banasura_sagar_dam_26.jpg
+  - src: ../../assets/photos/forest-trek.jpg
+    alt: Forest trail
+    credit:
+      author: Framesnlight
+      license: CC BY-SA 4.0
+      source: https://commons.wikimedia.org/wiki/File:Jungle_trek.jpg
 status: live
 sample: false
 ---

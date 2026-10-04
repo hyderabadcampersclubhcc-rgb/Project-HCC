@@ -68,11 +68,23 @@ itinerary:
       - lunch
       - dinner
     stay: Tents, Dandeli
+    image: ../../assets/photos/kayak.jpg
+    imageAlt: Kayaking on a river
+    imageCredit:
+      author: Deeps2200
+      license: CC BY-SA 4.0
+      source: https://commons.wikimedia.org/wiki/File:Kayaking_nachani.jpg
   - day: 2
     title: Dudhsagar falls
     description: "Breakfast at 6 am and head for Dudhsagar: jeep ride or trek to the falls, time at the water, then back to Hubballi for the train."
     meals:
       - breakfast
+    image: ../../assets/photos/dudhsagar.jpg
+    imageAlt: Waterfall in the Western Ghats
+    imageCredit:
+      author: soumyajit pramanick
+      license: CC BY-SA 2.0
+      source: https://commons.wikimedia.org/wiki/File:Dudhsagar_falls_(4266264965).jpg
 thingsToCarry:
   - Government photo ID (needed on trains)
   - Comfortable walking shoes
@@ -88,11 +100,37 @@ importantInfo:
   - If a departure doesn’t reach the minimum group size, HCC may merge it with another batch or move you to the next date.
   - Please reach the boarding point on time; missed trains or buses can’t be refunded.
 cancellationPolicy: "30+ days before departure: 25% cancellation fee. 15–30 days: 50%. Under 15 days: no refund. The booking amount is non-refundable."
-sortOrder: 45
+sortOrder: 200
 recurrence: Weekly departures
 primaryKeyword: dudhsagar trip from hyderabad
 legacyPaths:
   - /dudhsagar-tambdi-waterfalls/
+featured: false
+heroImage: ../../assets/photos/dudhsagar.jpg
+heroAlt: Waterfall in the Western Ghats
+heroCredit:
+  author: soumyajit pramanick
+  license: CC BY-SA 2.0
+  source: https://commons.wikimedia.org/wiki/File:Dudhsagar_falls_(4266264965).jpg
+gallery:
+  - src: ../../assets/photos/kayak.jpg
+    alt: Kayaking on a river
+    credit:
+      author: Deeps2200
+      license: CC BY-SA 4.0
+      source: https://commons.wikimedia.org/wiki/File:Kayaking_nachani.jpg
+  - src: ../../assets/photos/dandeli.jpg
+    alt: Forest near Dandeli
+    credit:
+      author: PJeganathan
+      license: CC BY 4.0
+      source: https://commons.wikimedia.org/wiki/File:Entada_liana_from_Dandeli_Wildlife_Sanctuary_JEG9678.jpg
+  - src: ../../assets/photos/campfire.jpg
+    alt: Tents and campfire under the stars
+    credit:
+      author: Joshua Tree National Park
+      license: Public domain
+      source: https://commons.wikimedia.org/wiki/File:Campers_and_tent_underneath_a_night_sky_(49950611437).jpg
 status: live
 sample: false
 ---

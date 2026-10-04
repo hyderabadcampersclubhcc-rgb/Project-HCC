@@ -78,12 +78,38 @@ faqs:
     a: No, food is paid separately; Pondicherry has plenty of cafés for every budget.
   - q: Can children come?
     a: Yes. Ask HCC for the child price when you enquire.
-sortOrder: 40
+sortOrder: 180
 recurrence: Weekly departures
 primaryKeyword: pondicherry trip from hyderabad
 legacyPaths:
   - /pondicherry/
   - /pondi-and-pichavaram/
+featured: false
+heroImage: ../../assets/photos/pondicherry.jpg
+heroAlt: Pondicherry promenade at dusk
+heroCredit:
+  author: Dey.sandip
+  license: CC BY 3.0
+  source: https://commons.wikimedia.org/wiki/File:Beach_Promenade,_Pondicherry,_India.jpg
+gallery:
+  - src: ../../assets/photos/french-quarter.jpg
+    alt: Colonial building in Pondicherry’s French Quarter
+    credit:
+      author: Richard Mortel from Riyadh, Saudi Arabia
+      license: CC BY 2.0
+      source: https://commons.wikimedia.org/wiki/File:French_Quarter,_Pondicherry_(5)_(36845125313).jpg
+  - src: ../../assets/photos/auroville.jpg
+    alt: Matrimandir, Auroville
+    credit:
+      author: Kpsudeep
+      license: CC BY-SA 4.0
+      source: https://commons.wikimedia.org/wiki/File:Matrimandir_Auroville_Pondicherry.jpg
+  - src: ../../assets/photos/pichavaram.jpg
+    alt: Pichavaram mangroves
+    credit:
+      author: PJeganathan
+      license: CC BY-SA 4.0
+      source: https://commons.wikimedia.org/wiki/File:Pichavaram_Mangroves_4_Jeg.jpg
 status: live
 sample: false
 ---

@@ -22,6 +22,9 @@ const slug = z.string().regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/, 'Use lowercase-words
 
 const faq = z.object({ q: z.string().min(5), a: z.string().min(5) });
 
+/** Attribution for photos that need it (e.g. Wikimedia Commons CC BY / CC BY-SA). Omit for HCC's own photos. */
+const credit = z.object({ author: z.string(), license: z.string(), source: z.url() });
+
 /** Old WordPress URLs that should 301 to this page, e.g. "/ooty-coonoor/". */
 const legacyPaths = z.array(z.string().regex(/^\/[a-z0-9_\/-]*\/$/, 'Use a path like /ooty-coonoor/')).default([]);
 
@@ -70,6 +73,7 @@ const destinations = defineCollection({
       summary: z.string().max(220),
       heroImage: image().optional(),
       heroAlt: z.string().optional(),
+      heroCredit: credit.optional(),
       distanceFromHydKm: z.number().int().positive().optional(),
       howToReach: z
         .array(z.object({ mode: z.enum(TRANSPORT_MODES), duration: z.string(), note: z.string().optional() }))
@@ -162,6 +166,9 @@ const trips = defineCollection({
               description: z.string(),
               meals: z.array(z.enum(MEALS)).default([]),
               stay: z.string().optional(),
+              image: image().optional(),
+              imageAlt: z.string().optional(),
+              imageCredit: credit.optional(),
             }),
           )
           .default([]),
@@ -186,7 +193,8 @@ const trips = defineCollection({
 
         heroImage: image().optional(),
         heroAlt: z.string().optional(),
-        gallery: z.array(z.object({ src: image(), alt: z.string() })).default([]),
+        heroCredit: credit.optional(),
+        gallery: z.array(z.object({ src: image(), alt: z.string(), credit: credit.optional() })).default([]),
 
         featured: z.boolean().default(false),
         featuredStory: z.string().max(260).optional(),

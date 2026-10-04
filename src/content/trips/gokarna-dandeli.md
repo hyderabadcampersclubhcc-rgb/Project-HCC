@@ -106,26 +106,56 @@ itinerary:
   - day: 0
     title: Overnight to Hubballi
     description: Board the overnight train from Nampally (Hyderabad), KSR Bengaluru or Vijayawada.
+    image: ../../assets/photos/train.jpg
+    imageAlt: View from an Indian train window
+    imageCredit:
+      author: Vikramaditya V. V.
+      license: CC BY-SA 4.0
+      source: https://commons.wikimedia.org/wiki/File:A_view_from_Indian_Railways_Train.jpg
   - day: 1
     title: Vibhuthi falls and Murudeshwar
     description: Reach Hubballi by 6:30 am and drive to Vibhuthi falls for a short trek and a swim. Honnavar boardwalk if time permits, then the Murudeshwar temple and beach by evening.
     meals:
       - dinner
     stay: Beach camp, Nirvana Beach
+    image: ../../assets/photos/murudeshwar.jpg
+    imageAlt: Murudeshwar coast
+    imageCredit:
+      author: Rizka
+      license: CC BY-SA 4.0
+      source: https://commons.wikimedia.org/wiki/File:Rainy_Day_during_the_Monsoon_in_Murudeshwar.jpg
   - day: 2
     title: Gokarna to Dandeli
     description: Mahabaleshwar temple at 6 am, Mirjan Fort, and Om Beach if time permits. Afternoon drive to Dandeli for a rain dance, dinner and bonfire.
     meals:
       - lunch
     stay: Riverside camp, Dandeli
+    image: ../../assets/photos/om-beach.jpg
+    imageAlt: Om Beach, Gokarna
+    imageCredit:
+      author: Sourabh.biswas003
+      license: CC BY-SA 4.0
+      source: https://commons.wikimedia.org/wiki/File:PXL_20260103_101009613_People_and_Beach_Om_Beach_Gokarna,_Karnataka_43.jpg
   - day: 3
     title: Kali river activities
     description: Kayaking, zorbing and river boating on the Kali, lunch, then back to Hubballi for the 9:05 pm train.
     meals:
       - breakfast
+    image: ../../assets/photos/kayak.jpg
+    imageAlt: Kayaking on a river
+    imageCredit:
+      author: Deeps2200
+      license: CC BY-SA 4.0
+      source: https://commons.wikimedia.org/wiki/File:Kayaking_nachani.jpg
   - day: 4
     title: Home
     description: Arrive in Hyderabad between 10 and 11 am.
+    image: ../../assets/photos/train.jpg
+    imageAlt: View from an Indian train window
+    imageCredit:
+      author: Vikramaditya V. V.
+      license: CC BY-SA 4.0
+      source: https://commons.wikimedia.org/wiki/File:A_view_from_Indian_Railways_Train.jpg
 stays:
   - type: Beach camp
     location: Nirvana Beach, Gokarna
@@ -153,12 +183,43 @@ faqs:
   - q: Can I stay in a room instead of a tent?
     a: "Yes: quad (+₹1,500), triple (+₹2,000) or double (+₹3,000) per person, non-AC."
 featured: true
-sortOrder: 5
+sortOrder: 30
 recurrence: Every Friday
 primaryKeyword: gokarna dandeli trip from hyderabad
 legacyPaths:
   - /gokarna-dandeli/
   - /gokarna/
+heroImage: ../../assets/photos/om-beach.jpg
+heroAlt: Om Beach, Gokarna
+heroCredit:
+  author: Sourabh.biswas003
+  license: CC BY-SA 4.0
+  source: https://commons.wikimedia.org/wiki/File:PXL_20260103_101009613_People_and_Beach_Om_Beach_Gokarna,_Karnataka_43.jpg
+gallery:
+  - src: ../../assets/photos/gokarna.jpg
+    alt: Beach and headland at Gokarna
+    credit:
+      author: Sourabh.biswas003
+      license: CC BY-SA 4.0
+      source: https://commons.wikimedia.org/wiki/File:PXL_20260103_054657562.MP_Paradise_beach_gokarna_Paradise_Beach_Trail,_Gokarna,_Karnataka_581326_15.jpg
+  - src: ../../assets/photos/murudeshwar.jpg
+    alt: Murudeshwar coast
+    credit:
+      author: Rizka
+      license: CC BY-SA 4.0
+      source: https://commons.wikimedia.org/wiki/File:Rainy_Day_during_the_Monsoon_in_Murudeshwar.jpg
+  - src: ../../assets/photos/kayak.jpg
+    alt: Kayaking on a river
+    credit:
+      author: Deeps2200
+      license: CC BY-SA 4.0
+      source: https://commons.wikimedia.org/wiki/File:Kayaking_nachani.jpg
+  - src: ../../assets/photos/beach-camp.jpg
+    alt: Tents on a beach
+    credit:
+      author: arjenD
+      license: CC BY-SA 3.0
+      source: https://commons.wikimedia.org/wiki/File:Tent_pitch_on_beach_Dh%C3%ABrmi_-_panoramio.jpg
 status: live
 sample: false
 ---

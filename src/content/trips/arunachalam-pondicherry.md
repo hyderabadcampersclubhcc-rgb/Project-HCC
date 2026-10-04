@@ -69,13 +69,31 @@ itinerary:
     title: Arunachalam
     description: "Arrive and check in, South Indian lunch, then quiet time at Sri Ramana Maharshi Ashram. Evening aarti at Arunachaleswara Temple and the local markets. Optional: the 14 km Giri Pradakshinam walk at night."
     stay: Tiruvannamalai
+    image: ../../assets/photos/tiruvannamalai.jpg
+    imageAlt: Arunachaleswara Temple, Tiruvannamalai
+    imageCredit:
+      author: Vyacheslav Argenberg
+      license: CC BY 4.0
+      source: https://commons.wikimedia.org/wiki/File:Thiruvannamalai,_Arunachalesvara_Temple,_City,_India.jpg
   - day: 2
     title: Pichavaram and Pondicherry
     description: "Early boat ride through the Pichavaram mangroves, then Pondicherry: Auroville, the French Colony and the beaches, with a free evening."
     stay: Pondicherry
+    image: ../../assets/photos/pichavaram.jpg
+    imageAlt: Pichavaram mangroves
+    imageCredit:
+      author: PJeganathan
+      license: CC BY-SA 4.0
+      source: https://commons.wikimedia.org/wiki/File:Pichavaram_Mangroves_4_Jeg.jpg
   - day: 3
     title: Mahabalipuram and home
     description: The rock carvings and shore temples of Mahabalipuram, lunch, and the journey back to Hyderabad.
+    image: ../../assets/photos/mahabalipuram.jpg
+    imageAlt: Shore Temple, Mahabalipuram
+    imageCredit:
+      author: Bernard Gagnon
+      license: CC BY-SA 3.0
+      source: https://commons.wikimedia.org/wiki/File:Shore_Temple_01.jpg
 thingsToCarry:
   - Government photo ID (needed on trains)
   - Comfortable walking shoes
@@ -90,9 +108,35 @@ importantInfo:
   - If a departure doesn’t reach the minimum group size, HCC may merge it with another batch or move you to the next date.
   - Please reach the boarding point on time; missed trains or buses can’t be refunded.
 cancellationPolicy: "30+ days before departure: 25% cancellation fee. 15–30 days: 50%. Under 15 days: no refund. The booking amount is non-refundable."
-sortOrder: 42
+sortOrder: 190
 recurrence: Weekly departures
 primaryKeyword: arunachalam trip from hyderabad
+featured: false
+heroImage: ../../assets/photos/tiruvannamalai.jpg
+heroAlt: Arunachaleswara Temple, Tiruvannamalai
+heroCredit:
+  author: Vyacheslav Argenberg
+  license: CC BY 4.0
+  source: https://commons.wikimedia.org/wiki/File:Thiruvannamalai,_Arunachalesvara_Temple,_City,_India.jpg
+gallery:
+  - src: ../../assets/photos/pichavaram.jpg
+    alt: Pichavaram mangroves
+    credit:
+      author: PJeganathan
+      license: CC BY-SA 4.0
+      source: https://commons.wikimedia.org/wiki/File:Pichavaram_Mangroves_4_Jeg.jpg
+  - src: ../../assets/photos/auroville.jpg
+    alt: Matrimandir, Auroville
+    credit:
+      author: Kpsudeep
+      license: CC BY-SA 4.0
+      source: https://commons.wikimedia.org/wiki/File:Matrimandir_Auroville_Pondicherry.jpg
+  - src: ../../assets/photos/mahabalipuram.jpg
+    alt: Shore Temple, Mahabalipuram
+    credit:
+      author: Bernard Gagnon
+      license: CC BY-SA 3.0
+      source: https://commons.wikimedia.org/wiki/File:Shore_Temple_01.jpg
 status: live
 sample: false
 ---

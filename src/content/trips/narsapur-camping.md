@@ -60,11 +60,23 @@ itinerary:
       - snacks
       - dinner
     stay: Tents, Narsapur
+    image: ../../assets/photos/paddy.jpg
+    imageAlt: Paddy fields at sunrise
+    imageCredit:
+      author: Mohammad Anees Qamar
+      license: CC0
+      source: https://commons.wikimedia.org/wiki/File:Sunrise_over_paddy_fields_with_palm_trees_in_rural_Telangana,_India.jpg
   - day: 2
     title: Forest trek
     description: Wake up at 6, tea and morning games, breakfast, then the Narsapur forest trek. Head home around 11 am.
     meals:
       - breakfast
+    image: ../../assets/photos/forest-trek.jpg
+    imageAlt: Forest trail
+    imageCredit:
+      author: Framesnlight
+      license: CC BY-SA 4.0
+      source: https://commons.wikimedia.org/wiki/File:Jungle_trek.jpg
 thingsToCarry:
   - Government photo ID
   - Comfortable clothes and shoes
@@ -74,9 +86,35 @@ importantInfo:
   - Reach on time to enjoy the full programme; late arrivals may miss meals and activities.
   - "Camp rules apply: no drugs or illegal activity, and anyone causing trouble is asked to leave without a refund."
   - Parking is free but at the owner’s risk.
-sortOrder: 47
+sortOrder: 240
 recurrence: Every Saturday
 primaryKeyword: camping near hyderabad
+featured: false
+heroImage: ../../assets/photos/paddy.jpg
+heroAlt: Paddy fields at sunrise
+heroCredit:
+  author: Mohammad Anees Qamar
+  license: CC0
+  source: https://commons.wikimedia.org/wiki/File:Sunrise_over_paddy_fields_with_palm_trees_in_rural_Telangana,_India.jpg
+gallery:
+  - src: ../../assets/photos/tents.jpg
+    alt: Tents at a campsite
+    credit:
+      author: USFWSAlaska
+      license: Public domain
+      source: https://commons.wikimedia.org/wiki/File:Field_camp_tents_(53707969369).jpg
+  - src: ../../assets/photos/campfire.jpg
+    alt: Tents and campfire under the stars
+    credit:
+      author: Joshua Tree National Park
+      license: Public domain
+      source: https://commons.wikimedia.org/wiki/File:Campers_and_tent_underneath_a_night_sky_(49950611437).jpg
+  - src: ../../assets/photos/forest-trek.jpg
+    alt: Forest trail
+    credit:
+      author: Framesnlight
+      license: CC BY-SA 4.0
+      source: https://commons.wikimedia.org/wiki/File:Jungle_trek.jpg
 status: live
 sample: false
 ---

@@ -1,0 +1,49 @@
+---
+/**
+ * Small attribution overlay for licensed photos (e.g. Wikimedia Commons).
+ * Place inside a positioned container (the photo's figure). Links to the source page.
+ */
+interface Props {
+  credit?: { author: string; license: string; source: string };
+  /** 'top' for heroes whose text sits at the bottom. */
+  placement?: 'bottom' | 'top';
+}
+
+const { credit, placement = 'bottom' } = Astro.props;
+---
+
+{
+  credit && (
+    <a class:list={['pcredit', placement === 'top' && 'pcredit--top']} href={credit.source} target="_blank" rel="noopener nofollow">
+      Photo: {credit.author} · {credit.license}
+    </a>
+  )
+}
+
+<style>
+  .pcredit {
+    position: absolute;
+    right: 6px;
+    bottom: 6px;
+    z-index: 1;
+    max-width: calc(100% - 12px);
+    overflow: hidden;
+    padding: 2px 6px;
+    border-radius: 4px;
+    background: rgb(0 0 0 / 0.45);
+    color: rgb(255 255 255 / 0.85);
+    font-size: 0.625rem;
+    line-height: 1.4;
+    text-decoration: none;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+  .pcredit--top {
+    top: calc(var(--header-h, 72px) + 8px);
+    bottom: auto;
+  }
+  .pcredit:hover {
+    color: #fff;
+    text-decoration: underline;
+  }
+</style>

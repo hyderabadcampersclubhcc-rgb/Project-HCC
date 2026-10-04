@@ -66,12 +66,30 @@ itinerary:
     title: Ruins of Hampi
     description: Reach Hospet at 6 am. Virupaksha temple, Lotus Mahal and the ruins, a coracle ride on the Tungabhadra (cliff jumping if water levels allow), sunset at Hemakuta Hill and the Hippie Market.
     stay: Hampi
+    image: ../../assets/photos/virupaksha.jpg
+    imageAlt: Virupaksha temple and Hemakuta hill, Hampi
+    imageCredit:
+      author: iMahesh
+      license: CC BY-SA 4.0
+      source: https://commons.wikimedia.org/wiki/File:Complex_of_Virupaksha_Temple,_Hampi_(04).jpg
   - day: 2
     title: Vitthala temple, then the coast
     description: Ganesha temples and the Vitthala temple’s stone chariot and musical pillars, lunch at a café, then the overnight drive to Murudeshwar.
+    image: ../../assets/photos/vitthala.jpg
+    imageAlt: Vitthala temple gopuram, Hampi
+    imageCredit:
+      author: Ingo Mehling
+      license: CC BY-SA 4.0
+      source: https://commons.wikimedia.org/wiki/File:Hampi_-_Vittala_Temple_-_Entrance_Gopuram.jpg
   - day: 3
     title: Murudeshwar and Gokarna
     description: Murudeshwar temple and its giant Shiva statue, Honnavar boating if time permits, Mahabaleshwar temple and Gokarna beach, then the bus home.
+    image: ../../assets/photos/gokarna.jpg
+    imageAlt: Beach and headland at Gokarna
+    imageCredit:
+      author: Sourabh.biswas003
+      license: CC BY-SA 4.0
+      source: https://commons.wikimedia.org/wiki/File:PXL_20260103_054657562.MP_Paradise_beach_gokarna_Paradise_Beach_Trail,_Gokarna,_Karnataka_581326_15.jpg
   - day: 4
     title: Back in Hyderabad
     description: Arrive around 11 am.
@@ -95,11 +113,43 @@ faqs:
     a: Yes. Most HCC travellers join solo or in twos; you’ll be in a group with a trip captain from the start.
   - q: Can the itinerary be customised for our group?
     a: Yes. HCC plans private versions for groups; send your dates and group size.
-sortOrder: 30
+sortOrder: 20
 recurrence: Weekly departures
 primaryKeyword: hampi gokarna trip from hyderabad
 legacyPaths:
   - /hampi/
+featured: true
+heroImage: ../../assets/photos/hampi.jpg
+heroAlt: Boulders and ruins at Hampi
+heroCredit:
+  author: Dey.sandip
+  license: CC BY-SA 3.0
+  source: https://commons.wikimedia.org/wiki/File:Krishna_Pushkarani_-_Hampi_Ruins.jpg
+gallery:
+  - src: ../../assets/photos/vitthala.jpg
+    alt: Vitthala temple gopuram, Hampi
+    credit:
+      author: Ingo Mehling
+      license: CC BY-SA 4.0
+      source: https://commons.wikimedia.org/wiki/File:Hampi_-_Vittala_Temple_-_Entrance_Gopuram.jpg
+  - src: ../../assets/photos/coracle.jpg
+    alt: Coracles on the Tungabhadra, Hampi
+    credit:
+      author: Dey.sandip
+      license: CC BY-SA 3.0
+      source: https://commons.wikimedia.org/wiki/File:Two_Coracles_and_Tungabhadra_River.jpg
+  - src: ../../assets/photos/virupaksha.jpg
+    alt: Virupaksha temple and Hemakuta hill, Hampi
+    credit:
+      author: iMahesh
+      license: CC BY-SA 4.0
+      source: https://commons.wikimedia.org/wiki/File:Complex_of_Virupaksha_Temple,_Hampi_(04).jpg
+  - src: ../../assets/photos/om-beach.jpg
+    alt: Om Beach, Gokarna
+    credit:
+      author: Sourabh.biswas003
+      license: CC BY-SA 4.0
+      source: https://commons.wikimedia.org/wiki/File:PXL_20260103_101009613_People_and_Beach_Om_Beach_Gokarna,_Karnataka_43.jpg
 status: live
 sample: false
 ---

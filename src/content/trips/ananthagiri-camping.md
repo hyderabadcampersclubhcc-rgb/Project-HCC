@@ -1,7 +1,7 @@
 ---
 # Imported from HCC’s trip listings (Oct 2026). Review prices, dates and inclusions in the CMS before go-live.
-title: Ananthagiri Hills Night Camping
-tagline: Tents, a bonfire, dinner and a guided morning trek, about two hours from Hyderabad.
+title: Ananthagiri Hills Camping with Pool & Music Night
+tagline: Tents, pool, box cricket, a Saturday DJ night, campfire and hot buffet meals in the Vikarabad woods.
 tripTypes:
   - camping
   - couple
@@ -16,9 +16,16 @@ origins:
     label: Hyderabad
     pickupPoints:
       - name: Campsite, Ananthagiri Hills (Vikarabad)
-        time: 16:30
-        note: Check-in 4:30 pm, check-out 11:30 am
-    outbound: Reach the campsite by 4:30 pm
+        time: 16:00
+        note: Check-in 4:00 pm, check-out 11:00 am. About 9 km from Vikarabad station.
+      - name: Nampally station (train 12702 to Vikarabad)
+        time: 14:55
+        note: Reaches Vikarabad 4:02 pm; also stops at Begumpet 3:05 pm and Lingampalli 3:30 pm
+      - name: Secunderabad station (train 12732 to Vikarabad)
+        time: 16:00
+        note: Reaches Vikarabad 5:15 pm
+    outbound: Self-drive by car or bike, or train to Vikarabad and an auto or cab to the campsite (about 9 km)
+    return: Check out at 11:00 am and head back on your own
 transportOptions:
   - id: self
     label: Reach the campsite yourself
@@ -26,76 +33,138 @@ transportOptions:
     priceDelta: 0
 stayOptions:
   - id: tent
-    label: Shared tent
+    label: Tent, 2 or 3 sharing
     sharing: 3
     priceDelta: 0
-basePrice: 1800
-originalPrice: 2200
-advanceAmount: 1500
+basePrice: 1600
+advanceAmount: 500
 highlights:
-  - Tent stay in the hills
-  - Bonfire under the stars
-  - Guided morning trek
-  - Cricket, volleyball, badminton and table tennis
-  - Air-gun targeting and board games
+  - Comfortable tents with bedding and pillows
+  - Swimming pool access (5–10 pm)
+  - Box cricket, indoor and outdoor games
+  - Saturday DJ night under the stars
+  - Campfire and rain dance
+  - "Hot local buffet: bagara rice, chicken curry, veg curry"
 inclusions:
-  - text: Shared tent stay
+  - text: Tent stay, 2 or 3 sharing, with bedding and pillows
     icon: tent
     showOnCard: true
     cardLabel: Camping
-  - text: Tea and snacks, dinner (veg/non-veg) and breakfast
+  - text: Evening tea and snacks, dinner buffet and breakfast
     icon: food
     showOnCard: true
     cardLabel: Meals
-  - text: Guided trekking
-    icon: mountain
-  - text: Bonfire and indoor/outdoor games
+  - text: Swimming pool access
     icon: check
+  - text: Saturday DJ music session, campfire and rain dance
+    icon: check
+  - text: Box cricket and indoor/outdoor games
+    icon: mountain
 exclusions:
-  - Transport to the campsite
-  - Entry and parking tickets at the trekking point
+  - Transport to and from the campsite (self-drive, train + auto, or cab)
   - Personal expenses
+  - Transport to the trekking point (about 4 km from the campsite)
+  - Entry and parking tickets at the trekking point
+  - Anything not listed under inclusions
 itinerary:
   - day: 1
-    title: Check in and campfire
-    description: Arrive by 4:30 pm for tea and snacks. Games through the evening, dinner and a bonfire under the stars.
+    title: Check in, pool and music night
+    description: 4:00 pm check-in, tent allotment and setup. Tea and hot camp snacks 5–6 pm. The pool is open 5–10 pm and games run until 11:50 pm. Saturday DJ session from 8 pm, dinner buffet 8:30–10 pm (bagara rice, steamed rice, chicken curry, veg curry, sambar). The campsite gate closes at 10 pm.
     meals:
       - snacks
       - dinner
     stay: Tents, Ananthagiri Hills
+    image: ../../assets/photos/campfire.jpg
+    imageAlt: Tents and campfire under the stars
+    imageCredit:
+      author: Joshua Tree National Park
+      license: Public domain
+      source: https://commons.wikimedia.org/wiki/File:Campers_and_tent_underneath_a_night_sky_(49950611437).jpg
   - day: 2
-    title: Morning trek
-    description: A guided trek on the Ananthagiri trails, breakfast, and check-out by 11:30 am.
+    title: Breakfast and check-out
+    description: "Breakfast spread at 8:30 am: puri with curry, upma, idli or bonda with tea and coffee. Pack up and check out by 11 am."
     meals:
       - breakfast
+    image: ../../assets/photos/ananthagiri.jpg
+    imageAlt: Forest view from Ananthagiri Hills
+    imageCredit:
+      author: Praveen120
+      license: CC BY-SA 3.0
+      source: https://commons.wikimedia.org/wiki/File:Ananthagiri_Hills.JPG
+stays:
+  - type: Campsite tents
+    location: Ananthagiri Hills, Vikarabad
+    washroom: common
+    description: 2 or 3 sharing tents with bedding and pillows, beside a swimming pool and games area.
 thingsToCarry:
+  - Trekking or sports shoes (or comfortable footwear)
+  - Extra pair of clothes for the swimming pool
+  - Slippers (optional)
+  - Brush, paste, soap and towel
+  - Raincoat or poncho (optional)
+  - Hoodie (optional)
   - Government photo ID
-  - Comfortable clothes and trekking shoes
-  - Torch
-  - Personal medicines
-  - Light jacket
 importantInfo:
-  - Reach on time to enjoy the full programme; late arrivals may miss meals and activities.
-  - "Camp rules apply: no drugs or illegal activity, and anyone causing trouble is asked to leave without a refund."
-  - Parking is free but at the owner’s risk.
-  - Children aged 5–15 pay ₹800.
-cancellationPolicy: "Cancel before Saturday 4 pm: ₹400 fee, the rest refunded. No refund after that."
+  - "Always call or WhatsApp to check availability before booking. No walk-ins: spot entries are not allowed without a booking."
+  - Book with a ₹500 per head advance; the balance is paid at the campsite at check-in. Share every traveller’s name and age and one Aadhaar copy on WhatsApp to confirm.
+  - Arrive about 10 minutes before check-in; late arrivals may miss meals and activities.
+  - Keep valuables with you; don’t leave cash or gold in the tents.
+  - Other-state alcohol and hookah are not allowed in the campsite.
+  - Vehicles park away from the tents. Parking is free but at the owner’s risk.
+  - Damage to tents or campsite equipment is charged at actuals. Breaking camp rules can mean removal without a refund.
+  - Carpooling may be possible depending on group size; it’s confirmed on the day.
+  - "Nearby, on your own: Kotpalli Lake (boating and kayaking), Anantha Padmanabha Swamy Temple, Ananthagiri viewpoint and Damagundam Shiva Temple."
+suitableFor:
+  - Solo travellers
+  - Groups of friends
+  - Couples
+  - Families
+cancellationPolicy: The advance payment is non-refundable.
 faqs:
-  - q: Is the tent private?
-    a: Tents are shared. Couples can ask for a couple tent when booking.
   - q: Is transport included?
-    a: No, you reach the campsite yourself; it’s about two hours from Hyderabad.
+    a: No. Drive yourself, or take the 12702 from Nampally (2:55 pm) or the 12732 from Secunderabad (4:00 pm) to Vikarabad; autos and cabs cover the last 9 km.
+  - q: How do I book?
+    a: Message HCC on WhatsApp to check availability, pay the ₹500 per head advance, then send the payment screenshot with names, ages and one Aadhaar copy.
+  - q: Is the swimming pool included?
+    a: Yes, from 5 pm to 10 pm. Bring an extra pair of clothes.
+  - q: Is the DJ every night?
+    a: The DJ music session is on Saturdays.
 featured: true
-sortOrder: 8
-recurrence: Every Saturday
+sortOrder: 80
+recurrence: Call to check availability
 primaryKeyword: ananthagiri hills camping
 legacyPaths:
   - /ananthagiri-hills/
   - /ananthagiri/
+heroImage: ../../assets/photos/campfire.jpg
+heroAlt: Tents and campfire under the stars
+heroCredit:
+  author: Joshua Tree National Park
+  license: Public domain
+  source: https://commons.wikimedia.org/wiki/File:Campers_and_tent_underneath_a_night_sky_(49950611437).jpg
+gallery:
+  - src: ../../assets/photos/ananthagiri.jpg
+    alt: Forest view from Ananthagiri Hills
+    credit:
+      author: Praveen120
+      license: CC BY-SA 3.0
+      source: https://commons.wikimedia.org/wiki/File:Ananthagiri_Hills.JPG
+  - src: ../../assets/photos/tents.jpg
+    alt: Tents at a campsite
+    credit:
+      author: USFWSAlaska
+      license: Public domain
+      source: https://commons.wikimedia.org/wiki/File:Field_camp_tents_(53707969369).jpg
+  - src: ../../assets/photos/forest-trek.jpg
+    alt: Forest trail
+    credit:
+      author: Framesnlight
+      license: CC BY-SA 4.0
+      source: https://commons.wikimedia.org/wiki/File:Jungle_trek.jpg
 status: live
 sample: false
 ---
 
-The easiest night out of the city: drive to Ananthagiri Hills near Vikarabad, pitch up for an evening of games, food and a bonfire, and wake up to a guided forest trek.
+Escape the city to the woods of Vikarabad for an evening that has everything: a tent with proper bedding, a swimming pool, box cricket and games, a Saturday DJ session under the stars, and a hot local buffet. You check in at 4 pm and leave after breakfast; about 19 hours away from the city.
 
-Great for friends, couples and families with kids.
+Everyone is welcome: solo travellers, groups of friends and families. Drive down yourself, or catch the afternoon train to Vikarabad and take an auto for the last 9 km.
