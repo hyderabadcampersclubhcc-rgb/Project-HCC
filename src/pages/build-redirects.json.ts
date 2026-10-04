@@ -11,7 +11,8 @@ export const GET: APIRoute = async () => {
   const showSamples = import.meta.env.PUBLIC_SHOW_SAMPLES === 'true';
   const trips = await getTrips();
   const destinations = (await getCollection('destinations')).filter((d) => showSamples || !d.data.sample);
-  const published = new Set(destinations.map((d) => d.id));
+  // Only send old URLs to destination pages that are approved for Google (Phase A tiers).
+  const published = new Set(destinations.filter((d) => d.data.indexable && d.data.seoTier !== 'c').map((d) => d.id));
 
   const claimed = new Map<string, string>();
   for (const d of destinations) for (const p of d.data.legacyPaths) claimed.set(p, destinationUrl(d.id));

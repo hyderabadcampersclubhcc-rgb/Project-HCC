@@ -21,9 +21,12 @@ interface Props {
   tripCount: number;
   fromPrice?: number | null;
   preview?: boolean;
+  /** Departure-city hubs HCC actually runs to this place, e.g. ['Hyderabad', 'Bangalore']. */
+  cities?: string[];
 }
 
-const { name, summary, image, imageAlt, imageCredit, tone = 'hills', tripCount, fromPrice, preview = false } = Astro.props;
+const { name, summary, image, imageAlt, imageCredit, tone = 'hills', tripCount, fromPrice, preview = false, cities = [] } = Astro.props;
+const fromLine = cities.length ? cities.join(' & ') : 'Hyderabad';
 ---
 
 <section class="dhero" aria-labelledby="dhero-title">
@@ -31,7 +34,7 @@ const { name, summary, image, imageAlt, imageCredit, tone = 'hills', tripCount, 
   <PhotoCredit credit={imageCredit} placement="top" />
   <div class="container dhero__in">
     <Breadcrumbs items={[{ label: 'Destinations', href: '/destinations/' }, { label: name }]} onDark />
-    <h1 id="dhero-title" class="dhero__title">{name} Trips from Hyderabad</h1>
+    <h1 id="dhero-title" class="dhero__title">{name} Trips from {fromLine}</h1>
     <p class="dhero__sum">{summary}</p>
     <p class="dhero__meta">
       {tripCount > 0 ? `${tripCount} trip${tripCount > 1 ? 's' : ''}` : 'Custom trips on request'}

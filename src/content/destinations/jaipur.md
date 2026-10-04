@@ -22,4 +22,6 @@ heroCredit:
   license: CC BY-SA 4.0
   source: https://commons.wikimedia.org/wiki/File:East_facade_Hawa_Mahal_Jaipur_from_ground_level_(July_2022)_-_img_01.jpg
 sample: false
+seoTier: c
+indexable: false
 ---

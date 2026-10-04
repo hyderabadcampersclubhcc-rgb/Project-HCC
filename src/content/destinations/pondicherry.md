@@ -21,4 +21,6 @@ heroCredit:
   license: CC BY 3.0
   source: https://commons.wikimedia.org/wiki/File:Beach_Promenade,_Pondicherry,_India.jpg
 sample: false
+seoTier: a
+indexable: false
 ---

@@ -18,4 +18,6 @@ heroCredit:
   license: CC BY-SA 3.0
   source: https://commons.wikimedia.org/wiki/File:Gandikota_Gorge_(10882).jpg
 sample: false
+seoTier: b
+indexable: false
 ---

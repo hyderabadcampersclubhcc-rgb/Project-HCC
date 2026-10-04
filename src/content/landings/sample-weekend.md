@@ -11,7 +11,7 @@ faqs:
   - { q: 'Sample: when do weekend trips leave Hyderabad?', a: 'Sample answer. HCC to supply.' }
   - { q: 'Sample: can I join a weekend trip on my own?', a: 'Sample answer. HCC to supply.' }
   - { q: 'Sample: which weekend trip is best for first-timers?', a: 'Sample answer. HCC to supply.' }
-related: ['/camping/', '/treks/', '/long-trips/', '/customised-trips/']
+related: ['/camping-near-hyderabad/', '/treks/', '/long-trips/', '/customised-trips/']
 primaryKeyword: sample
 sample: true
 ---

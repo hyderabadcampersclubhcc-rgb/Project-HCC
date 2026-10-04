@@ -21,4 +21,6 @@ heroCredit:
   license: CC BY-SA 4.0
   source: https://commons.wikimedia.org/wiki/File:Harishchandragad_view_from_caves.jpg
 sample: false
+seoTier: c
+indexable: false
 ---

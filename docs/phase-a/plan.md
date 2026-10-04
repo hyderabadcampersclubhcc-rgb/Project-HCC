@@ -54,3 +54,15 @@ Agra, Jaipur, Delhi, Shimla, Kasol, Matheran, Lohagad, Harishchandragad, Tiruvan
 | **Not touched** | Homepage selector, dates, Bangalore hub, reviews, policies, guides, Search Console (later phases). |
 
 ⚑ You mentioned `/trips/ooty-coonoor-from-bangalore/`. **There is no Bangalore Ooty trip in HCC's data yet**, so that page doesn't exist. If HCC runs Ooty from Bangalore, send the details in Phase B.
+
+---
+
+## Status: implemented (Oct 2026)
+- `/weekend-trips-from-hyderabad/`: approved content live, `indexable: true`
+- `/camping/` → `/camping-near-hyderabad/` (301), new content, `indexable: true`
+- Destinations graded A/B/C (`seoTier`), all `indexable: false` except **Ooty** and **Gokarna** (enriched)
+- Breadcrumbs: category → destination → trip (Bangalore trips no longer link to the Hyderabad page)
+- Trip pages link "Plan your visit: {place} travel guide" for approved destinations
+- Destination pages group trips by departure city; H1 says "from Hyderabad & Bangalore" only where real
+- Fixed mobile overflow on category and destination pages (comparison table)
+- Next: remaining Grade A destinations, then Grade B (Kashmir, Manali, Goa, Alleppey)

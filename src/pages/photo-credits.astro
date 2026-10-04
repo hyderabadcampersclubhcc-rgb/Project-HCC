@@ -18,7 +18,10 @@ for (const t of await getCollection('trips', (t) => t.data.status === 'live' && 
   t.data.gallery.forEach((g) => add(g.credit, t.data.title));
   t.data.itinerary.forEach((d) => add(d.imageCredit, t.data.title));
 }
-for (const d of await getCollection('destinations', (d) => !d.data.sample)) add(d.data.heroCredit, d.data.name);
+for (const d of await getCollection('destinations', (d) => !d.data.sample)) {
+  add(d.data.heroCredit, d.data.name);
+  d.data.experiences.forEach((e) => add(e.imageCredit, d.data.name));
+}
 if (home.hero.image && home.hero.imageCredit.source) add(home.hero.imageCredit, 'Homepage');
 const rows = [...used.values()].sort((a, b) => a.credit.author.localeCompare(b.credit.author));
 const fileName = (url: string) => decodeURIComponent(url.split('File:')[1] ?? url).replace(/_/g, ' ').replace(/\.[a-z]+$/i, '');

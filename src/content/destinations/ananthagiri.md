@@ -23,4 +23,6 @@ heroCredit:
   license: CC BY-SA 3.0
   source: https://commons.wikimedia.org/wiki/File:Ananthagiri_Hills.JPG
 sample: false
+seoTier: a
+indexable: false
 ---

@@ -21,4 +21,6 @@ heroCredit:
   license: CC BY-SA 4.0
   source: https://commons.wikimedia.org/wiki/File:Visakhapatnam_beach_road_near_Kailasagiri.jpg
 sample: false
+seoTier: c
+indexable: false
 ---

@@ -20,4 +20,6 @@ heroCredit:
   license: CC BY-SA 4.0
   source: https://commons.wikimedia.org/wiki/File:Bastions_of_Lohagad_Fort_3.jpg
 sample: false
+seoTier: c
+indexable: false
 ---

@@ -11,13 +11,18 @@ export const words = (md?: string) =>
     .split(/\s+/)
     .filter((w) => /[a-z0-9]/i.test(w)).length;
 
-/** Category page: ≥3 live trips AND ≥150 words of HCC guidance copy AND inside its active window. */
-export function categoryIndexable(opts: { tripCount: number; body?: string; activeFrom?: Date; activeUntil?: Date; now?: Date }) {
+/** Category page: approved AND ≥3 live trips AND ≥150 words of HCC guidance copy AND inside its active window. */
+export function categoryIndexable(opts: { approved: boolean; tripCount: number; body?: string; activeFrom?: Date; activeUntil?: Date; now?: Date }) {
+  if (!opts.approved) return false;
   const now = opts.now ?? new Date();
   if (opts.activeFrom && now < opts.activeFrom) return false;
   if (opts.activeUntil && now > opts.activeUntil) return false;
   return opts.tripCount >= 3 && words(opts.body) >= 150;
 }
 
-/** Destination: ≥1 live trip OR ≥400 words of destination copy. */
-export const destinationIndexable = (opts: { tripCount: number; body?: string }) => opts.tripCount >= 1 || words(opts.body) >= 400;
+/**
+ * Destination: approved, not grade c, and genuinely useful: ≥1 live HCC trip plus ≥250 words of
+ * destination copy, or ≥400 words on their own. Thin pages stay live for visitors but noindex.
+ */
+export const destinationIndexable = (opts: { approved: boolean; tier: 'a' | 'b' | 'c'; tripCount: number; body?: string }) =>
+  opts.approved && opts.tier !== 'c' && ((opts.tripCount >= 1 && words(opts.body) >= 250) || words(opts.body) >= 400);

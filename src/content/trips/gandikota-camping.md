@@ -123,4 +123,4 @@ status: live
 sample: false
 ---
 
-Andhra’s answer to the Grand Canyon: red cliffs falling into the Pennar river below a 13th-century fort. Camp on the rim, eat around the fire and wake up to sunrise over the gorge.
+Andhra’s answer to the Grand Canyon: red cliffs falling into the Pennar river below the old Gandikota fort. Camp on the rim, eat around the fire and wake up to sunrise over the gorge.

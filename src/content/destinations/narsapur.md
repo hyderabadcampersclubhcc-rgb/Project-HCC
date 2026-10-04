@@ -23,4 +23,6 @@ heroCredit:
   license: CC0
   source: https://commons.wikimedia.org/wiki/File:Sunrise_over_paddy_fields_with_palm_trees_in_rural_Telangana,_India.jpg
 sample: false
+seoTier: c
+indexable: false
 ---

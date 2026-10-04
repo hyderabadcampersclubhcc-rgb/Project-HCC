@@ -7,6 +7,6 @@ intro: "Group treks and outdoor adventures from Hyderabad, from easy day hikes t
 rule:
   tripTypes: [trek]
   origin: hyderabad
-related: ['/camping/', '/weekend-trips-from-hyderabad/', '/backpacking-trips/']
+related: ['/camping-near-hyderabad/', '/weekend-trips-from-hyderabad/', '/backpacking-trips/']
 primaryKeyword: treks from hyderabad
 ---

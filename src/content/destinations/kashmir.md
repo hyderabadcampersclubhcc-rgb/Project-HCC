@@ -23,4 +23,6 @@ heroCredit:
   license: CC BY-SA 4.0
   source: https://commons.wikimedia.org/wiki/File:Dal_Lake_Hazratbal_Srinagar.jpg
 sample: false
+seoTier: b
+indexable: false
 ---

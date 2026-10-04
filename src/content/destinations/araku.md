@@ -21,4 +21,6 @@ heroCredit:
   license: CC0
   source: https://commons.wikimedia.org/wiki/File:Araku_Valley,_Visakhapatnam.jpg
 sample: false
+seoTier: a
+indexable: false
 ---

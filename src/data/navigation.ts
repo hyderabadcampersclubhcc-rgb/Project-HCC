@@ -14,7 +14,7 @@ export interface TripTypeLink {
 
 export const TRIP_TYPE_LINKS: TripTypeLink[] = [
   { type: 'weekend', label: 'Weekend Getaways', href: '/weekend-trips-from-hyderabad/', icon: 'compass', blurb: 'Leave Friday, back Monday' },
-  { type: 'camping', label: 'Camping', href: '/camping/', icon: 'tent', blurb: 'Campfires, stars, lakesides' },
+  { type: 'camping', label: 'Camping', href: '/camping-near-hyderabad/', icon: 'tent', blurb: 'Campfires, stars, lakesides' },
   { type: 'trek', label: 'Treks & Adventure', href: '/treks/', icon: 'mountain', blurb: 'Trails for every fitness level' },
   { type: 'backpacking', label: 'Backpacking', href: '/backpacking-trips/', icon: 'backpack', blurb: 'Longer, looser, more places' },
   { type: 'long', label: 'Long Trips', href: '/long-trips/', icon: 'route', blurb: 'Himalaya, North-East & beyond' },
@@ -35,7 +35,7 @@ export const MAIN_NAV: NavItem[] = [
   { label: 'Trips', href: '/trips/', menu: 'trips' },
   { label: 'Weekend Getaways', href: '/weekend-trips-from-hyderabad/' },
   { label: 'Treks', href: '/treks/' },
-  { label: 'Camping', href: '/camping/' },
+  { label: 'Camping near Hyderabad', href: '/camping-near-hyderabad/' },
   { label: 'Long Trips', href: '/long-trips/' },
   { label: 'Destinations', href: '/destinations/', menu: 'destinations' },
   { label: 'Guides', href: '/travel-guides/' },

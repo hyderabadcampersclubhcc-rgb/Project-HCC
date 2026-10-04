@@ -12,17 +12,31 @@ interface Props {
 
 const { id, name, catalog = {} } = Astro.props;
 const trips = await getTripsForDestination(id, catalog);
+// Group by departure city (Hyderabad first, then Bangalore, then the rest), one card per trip per city.
+const ORDER = ['hyderabad', 'bangalore'];
+const cities = [...new Map(trips.flatMap((t) => t.origins.map((o) => [o.city, o.label] as const))).entries()].sort(
+  (a, b) => (ORDER.indexOf(a[0]) + 1 || 99) - (ORDER.indexOf(b[0]) + 1 || 99),
+);
+const groups = cities.map(([city, label]) => ({ city, label, trips: trips.filter((t) => t.origins.some((o) => o.city === city)) }));
+const single = groups.length === 1;
 ---
 
 <section id="trips" class="dtrips" aria-labelledby="dtrips-title">
-  <h2 id="dtrips-title" class="dtrips__title">{trips.length ? `${name} trips from Hyderabad` : `Plan a trip to ${name}`}</h2>
+  <h2 id="dtrips-title" class="dtrips__title">
+    {trips.length ? (single ? `${name} trips from ${groups[0].label}` : `HCC trips to ${name}`) : `Plan a trip to ${name}`}
+  </h2>
   {
     trips.length > 0 ? (
-      <div class="rail rail--grid" style="--rail-cols:3">
-        {trips.map((t, i) => (
-          <TripCard trip={t} index={i} listName={`destination_${id}`} />
-        ))}
-      </div>
+      groups.map((g) => (
+        <>
+          {!single && <h3 class="dtrips__city">From {g.label}</h3>}
+          <div class="rail rail--grid" style="--rail-cols:3">
+            {g.trips.map((t, i) => (
+              <TripCard trip={t} origin={g.city} index={i} listName={`destination_${id}_${g.city}`} />
+            ))}
+          </div>
+        </>
+      ))
     ) : (
       <WhatsAppBand
         location="destination_no_trips"
@@ -36,6 +50,10 @@ const trips = await getTripsForDestination(id, catalog);
 </section>
 
 <style>
+  .dtrips__city {
+    margin: var(--s-6) 0 var(--s-3);
+    font-size: 1.125rem;
+  }
   .dtrips {
     scroll-margin-top: calc(var(--header-h) + 16px);
   }

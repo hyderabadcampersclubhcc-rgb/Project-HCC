@@ -2,10 +2,11 @@
 /** Top experiences at a destination: unique copy per place (never a template). */
 import type { ImageMetadata } from 'astro';
 import Photo, { type Tone } from '@/components/ui/Photo.astro';
+import PhotoCredit from '@/components/ui/PhotoCredit.astro';
 
 interface Props {
   name: string;
-  items: { title: string; text: string; image?: ImageMetadata; imageAlt?: string }[];
+  items: { title: string; text: string; image?: ImageMetadata; imageAlt?: string; imageCredit?: { author: string; license: string; source: string } }[];
   tone?: Tone;
 }
 
@@ -25,6 +26,7 @@ const tones: Tone[] = [tone, 'forest', 'dusk', 'coffee', 'beach', 'snow'];
             <div class="exp__img">
               <Photo src={it.image} alt={it.imageAlt ?? it.title} tone={tones[i % tones.length]} widths={[360, 540]} sizes="(min-width: 1024px) 30vw, 85vw" />
               <span class="exp__n">{String(i + 1).padStart(2, '0')}</span>
+              <PhotoCredit credit={it.imageCredit} />
             </div>
             <h3>{it.title}</h3>
             <p>{it.text}</p>

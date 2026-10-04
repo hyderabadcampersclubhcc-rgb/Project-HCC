@@ -8,8 +8,9 @@ import Breadcrumbs from '@/components/content/Breadcrumbs.astro';
 import Stub from '@/components/ui/Stub.astro';
 import RouteLine from '@/components/ui/RouteLine.astro';
 import Icon, { type IconName } from '@/components/ui/Icon.astro';
+import { getEntry } from 'astro:content';
 import { TRIP_TYPE_LINKS } from '@/data/navigation';
-import { type TripView, type TripOriginView } from '@/lib/catalog';
+import { destinationUrl, type TripView, type TripOriginView } from '@/lib/catalog';
 import { dateLong, inr } from '@/lib/format';
 import { visibleTrustItems } from '@/lib/settings';
 
@@ -20,11 +21,18 @@ interface Props {
 
 const { trip, origin } = Astro.props;
 const d = trip.data;
+// Hierarchy: category → destination → trip. The weekend and camping categories are Hyderabad
+// pages, so trips from other cities link to /trips/ until their own city hub exists (Phase B).
+const HYD_ONLY = new Set(['weekend', 'camping']);
 const typeLink = TRIP_TYPE_LINKS.find((t) => t.type === d.tripTypes[0]);
-const crumbs = [
-  ...(typeLink ? [{ label: typeLink.type === 'weekend' ? `Weekend Trips from ${origin.label}` : typeLink.label, href: typeLink.href }] : [{ label: 'Trips', href: '/trips/' }]),
-  { label: d.title },
-];
+const category =
+  typeLink && (!HYD_ONLY.has(typeLink.type) || origin.city === 'hyderabad')
+    ? { label: typeLink.type === 'weekend' ? 'Weekend Trips from Hyderabad' : typeLink.type === 'camping' ? 'Camping near Hyderabad' : typeLink.label, href: typeLink.href }
+    : { label: 'Trips', href: '/trips/' };
+// Only link destination pages that are approved for Google (Phase A tiers).
+const dest = d.destinations[0] ? await getEntry(d.destinations[0]) : undefined;
+const destCrumb = dest && dest.data.indexable && dest.data.seoTier !== 'c' ? [{ label: dest.data.name, href: destinationUrl(dest.id) }] : [];
+const crumbs = [category, ...destCrumb, { label: d.title }];
 
 const MODE_ICON: Record<string, IconName> = { train: 'train', bus: 'bus', tempo: 'bus', cab: 'bus', flight: 'route', self: 'route' };
 const transport = d.transportOptions.length > 1 ? `${d.transportOptions.map((t) => t.label).join(' or ')}` : d.transportOptions[0].label;

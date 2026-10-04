@@ -24,4 +24,6 @@ heroCredit:
   license: CC BY-SA 4.0
   source: https://commons.wikimedia.org/wiki/File:Matheran_point.jpg
 sample: false
+seoTier: c
+indexable: false
 ---

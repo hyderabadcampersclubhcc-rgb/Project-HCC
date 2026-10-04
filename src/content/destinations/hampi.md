@@ -20,4 +20,6 @@ heroCredit:
   license: CC BY-SA 3.0
   source: https://commons.wikimedia.org/wiki/File:Krishna_Pushkarani_-_Hampi_Ruins.jpg
 sample: false
+seoTier: a
+indexable: false
 ---

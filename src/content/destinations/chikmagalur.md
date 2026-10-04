@@ -22,4 +22,6 @@ heroCredit:
   license: CC BY-SA 4.0
   source: https://commons.wikimedia.org/wiki/File:Baba_Budangiri,_Chikmagalur_(2024)_74.jpg
 sample: false
+seoTier: a
+indexable: false
 ---

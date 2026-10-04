@@ -1,9 +1,9 @@
 ---
 /** Overview: the trip's unique story (markdown body) + highlights checklist. */
-import { render } from 'astro:content';
+import { getEntry, render } from 'astro:content';
 import TripSection from './TripSection.astro';
 import Icon from '@/components/ui/Icon.astro';
-import type { TripView } from '@/lib/catalog';
+import { destinationUrl, type TripView } from '@/lib/catalog';
 
 interface Props {
   trip: TripView;
@@ -12,6 +12,8 @@ interface Props {
 const { trip } = Astro.props;
 const { Content } = await render(trip.entry);
 const hasBody = !!trip.entry.body?.trim();
+// Link to destination guides that are approved for Google (Phase A internal linking).
+const guides = (await Promise.all(trip.data.destinations.map((r) => getEntry(r)))).filter((e) => e && e.data.indexable && e.data.seoTier !== 'c');
 ---
 
 <TripSection id="overview" title="Overview">
@@ -37,6 +39,19 @@ const hasBody = !!trip.entry.body?.trim();
       </>
     )
   }
+  {
+    guides.length > 0 && (
+      <p class="ov__guides">
+        Plan your visit:{' '}
+        {guides.map((g, i) => (
+          <>
+            {i > 0 && ' · '}
+            <a href={destinationUrl(g!.id)}>{g!.data.name} travel guide</a>
+          </>
+        ))}
+      </p>
+    )
+  }
 </TripSection>
 
 <style>
@@ -50,6 +65,11 @@ const hasBody = !!trip.entry.body?.trim();
   }
   .ov__body :global(strong) {
     color: var(--ink-900);
+  }
+  .ov__guides {
+    margin-top: var(--s-5);
+    font-size: 0.9375rem;
+    color: var(--text-2);
   }
   .ov__h3 {
     margin: var(--s-6) 0 var(--s-3);

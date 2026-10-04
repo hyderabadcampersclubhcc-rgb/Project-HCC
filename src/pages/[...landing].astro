@@ -23,7 +23,7 @@ interface Props {
 const { landing } = Astro.props;
 const l = landing.data;
 const trips = await getTripsForRule(l.rule);
-const indexable = categoryIndexable({ tripCount: trips.length, body: landing.body, activeFrom: l.activeFrom, activeUntil: l.activeUntil });
+const indexable = categoryIndexable({ approved: l.indexable, tripCount: trips.length, body: landing.body, activeFrom: l.activeFrom, activeUntil: l.activeUntil });
 const itemList = {
   '@context': 'https://schema.org',
   '@type': 'ItemList',

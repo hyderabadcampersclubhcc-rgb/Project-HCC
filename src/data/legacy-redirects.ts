@@ -57,8 +57,10 @@ export const LEGACY_REDIRECTS: LegacyRedirect[] = [
   { from: '/goa/', to: '/trips/', dest: 'goa' },
   { from: '/kerala/', to: '/long-trips/', dest: 'kerala' },
   { from: '/manali/', to: '/long-trips/', dest: 'manali' },
-  { from: '/ananthagiri-hills/', to: '/camping/', dest: 'ananthagiri' },
-  { from: '/ananthagiri/', to: '/camping/', dest: 'ananthagiri' },
+  { from: '/ananthagiri-hills/', to: '/camping-near-hyderabad/', dest: 'ananthagiri' },
+  { from: '/ananthagiri/', to: '/camping-near-hyderabad/', dest: 'ananthagiri' },
+  // Phase A (Oct 2026): the camping category moved to the search-intent URL.
+  { from: '/camping/', to: '/camping-near-hyderabad/' },
 
   // Old Maharashtra trek pages
   { from: '/ratangadfort/', to: '/treks/' },
@@ -73,5 +75,5 @@ export const LEGACY_REDIRECTS: LegacyRedirect[] = [
   { from: '/2024/10/24/sample-blog/', to: '/travel-guides/' },
   { from: '/2024/10/25/gokarna-and-dandeli/', to: '/travel-guides/', dest: 'gokarna' },
   { from: '/2024/10/29/munnar/', to: '/travel-guides/', dest: 'munnar' },
-  { from: '/2025/02/12/ananthagiri-hills-camping-the-ultimate-weekend-getaway-from-hyderabad/', to: '/camping/', dest: 'ananthagiri' },
+  { from: '/2025/02/12/ananthagiri-hills-camping-the-ultimate-weekend-getaway-from-hyderabad/', to: '/camping-near-hyderabad/', dest: 'ananthagiri' },
 ];

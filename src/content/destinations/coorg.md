@@ -26,4 +26,6 @@ heroCredit:
   license: Public domain
   source: https://commons.wikimedia.org/wiki/File:Abbey_falls_2010.jpg
 sample: false
+seoTier: a
+indexable: false
 ---

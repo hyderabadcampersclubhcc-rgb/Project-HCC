@@ -81,13 +81,17 @@ const destinations = defineCollection({
       bestMonths: z.array(z.number().int().min(1).max(12)).default([]),
       idealDuration: z.string().optional(),
       experiences: z
-        .array(z.object({ title: z.string(), text: z.string(), image: image().optional(), imageAlt: z.string().optional() }))
+        .array(z.object({ title: z.string(), text: z.string(), image: image().optional(), imageAlt: z.string().optional(), imageCredit: credit.optional() }))
         .default([]),
       faqs: z.array(faq).default([]),
       nearby: z.array(reference('destinations')).default([]),
       primaryKeyword: z.string().optional(),
       legacyPaths,
       seo,
+      /** SEO grade from the Phase A audit: a = core HCC destination, b = enrich case by case, c = hold. */
+      seoTier: z.enum(['a', 'b', 'c']).default('c'),
+      /** Human gate: only true once the page has real, reviewed content. Grade c is never indexed. */
+      indexable: z.boolean().default(false),
       sample: z.boolean().default(false),
     }),
 });
@@ -333,9 +337,11 @@ const landings = defineCollection({
     activeFrom: z.coerce.date().optional(),
     activeUntil: z.coerce.date().optional(),
     primaryKeyword: z.string().optional(),
-    /** Other category pages to cross-link (by path), e.g. ['/camping/', '/treks/']. */
+    /** Other category pages to cross-link (by path), e.g. ['/camping-near-hyderabad/', '/treks/']. */
     related: z.array(z.string()).default([]),
     seo,
+    /** Human gate: set true only after the guidance copy has been reviewed and approved. */
+    indexable: z.boolean().default(false),
     sample: z.boolean().default(false),
   }),
 });

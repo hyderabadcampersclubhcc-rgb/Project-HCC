@@ -1,5 +1,5 @@
 ---
-/** /destinations/{id}/: indexed with ≥1 live trip or ≥400 words of copy. */
+/** /destinations/{id}/: indexed only when approved, not grade c, and with real content (src/lib/indexing.ts). */
 import type { GetStaticPaths } from 'astro';
 import { getCollection, type CollectionEntry } from 'astro:content';
 import { getImage } from 'astro:assets';
@@ -23,6 +23,8 @@ interface Props {
 const { destination } = Astro.props;
 const d = destination.data;
 const trips = await getTripsForDestination(destination.id);
+const hubs = ['Hyderabad', 'Bangalore'].filter((c) => trips.some((t) => t.origins.some((o) => o.label === c)));
+const fromLine = hubs.length ? hubs.join(' & ') : 'Hyderabad';
 const og = d.heroImage ? await getImage({ src: d.heroImage, width: 1200, height: 630, fit: 'cover', format: 'jpg', quality: 80 }) : null;
 const ld = {
   '@context': 'https://schema.org',
@@ -37,10 +39,10 @@ const ld = {
 ---
 
 <BaseLayout
-  title={d.seo.title ?? `${d.name} Trips from Hyderabad: Packages, Best Time & How to Reach | HCC`}
+  title={d.seo.title ?? `${d.name} Trips from ${fromLine}: Best Time & How to Reach | HCC`}
   rawTitle
-  description={d.seo.description ?? `${d.summary} Group trips to ${d.name} from Hyderabad with dates and prices.`.slice(0, 165)}
-  noindex={!destinationIndexable({ tripCount: trips.length, body: destination.body })}
+  description={d.seo.description ?? `${d.summary} Group trips to ${d.name} from ${fromLine} with dates and prices.`.slice(0, 165)}
+  noindex={!destinationIndexable({ approved: d.indexable, tier: d.seoTier, tripCount: trips.length, body: destination.body })}
   headerOverlay
   ogImage={og?.src}
   ogImageAlt={d.heroAlt}

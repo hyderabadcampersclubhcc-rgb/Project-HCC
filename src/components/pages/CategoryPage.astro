@@ -1,6 +1,6 @@
 ---
 /**
- * Category landing page (e.g. /weekend-trips-from-hyderabad/, /camping/, /treks/).
+ * Category landing page (e.g. /weekend-trips-from-hyderabad/, /camping-near-hyderabad/, /treks/).
  * One template for every trip type; each page owns one search intent and is
  * differentiated by its trips, planner table, editorial copy and FAQs.
  * Indexable only with ≥3 trips AND real editorial copy (thin-content guard), set by the route.
@@ -121,6 +121,7 @@ const related = l.related.map((path) => TRIP_TYPE_LINKS.find((t) => t.href === p
 <style>
   .cat__sections {
     display: grid;
+    grid-template-columns: minmax(0, 1fr);
     gap: var(--s-12);
     padding-block: var(--s-12);
   }

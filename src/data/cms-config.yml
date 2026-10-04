@@ -297,6 +297,8 @@ collections:
       - { label: Nearby destinations, name: nearby, widget: relation, collection: destinations, value_field: '{{slug}}', search_fields: [name], display_fields: [name], multiple: true, required: false }
       - { label: Primary keyword, name: primaryKeyword, widget: string, required: false }
       - { label: Old website URLs, name: legacyPaths, widget: list, required: false, hint: 'Old WordPress URLs that should redirect here, e.g. /ooty-coonoor/ (one per line, with slashes).' }
+      - { label: SEO grade, name: seoTier, widget: select, options: [{ label: "A: core HCC destination", value: a }, { label: "B: enrich case by case", value: b }, { label: "C: keep out of Google", value: c }], default: c, required: false }
+      - { label: Ready for Google (approved content), name: indexable, widget: boolean, default: false, required: false, hint: 'Needs real content (≥250 words with a live trip). Grade C is never shown to Google.' }
       - label: SEO overrides
         name: seo
         widget: object
@@ -416,7 +418,7 @@ collections:
     summary: '{{path}}'
     fields:
       - { label: File id, name: slug, widget: string }
-      - { label: Page path, name: path, widget: string, hint: 'Starts and ends with /, e.g. /camping/' }
+      - { label: Page path, name: path, widget: string, hint: 'Starts and ends with /, e.g. /camping-near-hyderabad/' }
       - { label: H1, name: title, widget: string }
       - { label: Intro, name: intro, widget: text }
       - label: Trip rule
@@ -438,7 +440,8 @@ collections:
       - { label: Active from, name: activeFrom, widget: datetime, time_format: false, format: YYYY-MM-DD, required: false }
       - { label: Active until, name: activeUntil, widget: datetime, time_format: false, format: YYYY-MM-DD, required: false }
       - { label: Primary keyword, name: primaryKeyword, widget: string, required: false }
-      - { label: Related category paths, name: related, widget: list, required: false, hint: 'e.g. /camping/ (one per line)' }
+      - { label: Ready for Google (approved content), name: indexable, widget: boolean, default: false, required: false, hint: 'Turn on only after the guidance text has been reviewed. Off = page works for visitors but is hidden from Google and the sitemap.' }
+      - { label: Related category paths, name: related, widget: list, required: false, hint: 'e.g. /camping-near-hyderabad/ (one per line)' }
       - label: SEO overrides
         name: seo
         widget: object

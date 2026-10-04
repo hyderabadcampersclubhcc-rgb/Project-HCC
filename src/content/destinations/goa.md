@@ -20,4 +20,6 @@ heroCredit:
   license: CC BY-SA 4.0
   source: https://commons.wikimedia.org/wiki/File:Cola_Beach_Bay_South_Goa_Jan19_DSC06186.jpg
 sample: false
+seoTier: b
+indexable: false
 ---

@@ -25,4 +25,6 @@ heroCredit:
   license: CC BY-SA 3.0
   source: https://commons.wikimedia.org/wiki/File:Lonavla_view.jpg
 sample: false
+seoTier: b
+indexable: false
 ---

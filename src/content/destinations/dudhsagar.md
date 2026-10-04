@@ -21,4 +21,6 @@ heroCredit:
   license: CC BY-SA 2.0
   source: https://commons.wikimedia.org/wiki/File:Dudhsagar_falls_(4266264965).jpg
 sample: false
+seoTier: b
+indexable: false
 ---

@@ -22,4 +22,6 @@ heroCredit:
   license: CC BY-SA 4.0
   source: https://commons.wikimedia.org/wiki/File:Kasol_Bridge_at_Kasol_01.jpg
 sample: false
+seoTier: c
+indexable: false
 ---

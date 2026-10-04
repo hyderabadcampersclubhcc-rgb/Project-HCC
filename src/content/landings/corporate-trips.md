@@ -7,6 +7,6 @@ intro: "Offsites, team outings and company trips from Hyderabad, planned around 
 rule:
   tripTypes: [corporate]
   origin: hyderabad
-related: ['/customised-trips/', '/camping/', '/treks/']
+related: ['/customised-trips/', '/camping-near-hyderabad/', '/treks/']
 primaryKeyword: corporate trips from hyderabad
 ---

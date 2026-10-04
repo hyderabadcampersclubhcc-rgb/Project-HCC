@@ -25,4 +25,6 @@ heroCredit:
   license: CC BY-SA 4.0
   source: https://commons.wikimedia.org/wiki/File:Manali_8.jpg
 sample: false
+seoTier: b
+indexable: false
 ---

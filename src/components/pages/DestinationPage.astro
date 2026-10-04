@@ -26,6 +26,8 @@ interface Props {
 const { destination, catalog = {}, preview = false } = Astro.props;
 const d = destination.data;
 const trips = await getTripsForDestination(destination.id, catalog);
+// Only HCC's two departure hubs go in the H1 (other start points are listed with the trips).
+const hubCities = ['Hyderabad', 'Bangalore'].filter((c) => trips.some((t) => t.origins.some((o) => o.label === c)));
 const prices = trips.map((t) => t.primary.fromPrice).filter((p): p is number => p != null);
 const tone = trips[0] ? toneFor(trips[0].data) : 'hills';
 const { Content } = await render(destination);
@@ -38,7 +40,7 @@ const guides = (await getCollection('guides', (g) => !g.data.draft && (showSampl
 ---
 
 {preview && <SectionNote n={1} title="Hero" purpose="H1 '{Place} Trips from Hyderabad' owns the destination search ('ooty tour packages from hyderabad'); the trip page owns the trip-specific one. Trip count and from-price in the first screen." data="Destination record: name, summary, hero photo. Count and price computed from live trips." status="needs-data" />}
-<DestinationHero name={d.name} summary={d.summary} image={d.heroImage} imageAlt={d.heroAlt} imageCredit={d.heroCredit} tone={tone} tripCount={trips.length} fromPrice={prices.length ? Math.min(...prices) : null} preview={preview} />
+<DestinationHero name={d.name} summary={d.summary} image={d.heroImage} imageAlt={d.heroAlt} imageCredit={d.heroCredit} tone={tone} tripCount={trips.length} fromPrice={prices.length ? Math.min(...prices) : null} preview={preview} cities={hubCities} />
 
 <div class="container dest">
   {preview && <SectionNote n={2} title="Trips to this place" purpose="Commercial intent → product first. With no live trips it becomes a 'plan a custom trip' prompt instead of an empty grid." data="Every live trip that includes this destination." />}
@@ -95,6 +97,7 @@ const guides = (await getCollection('guides', (g) => !g.data.draft && (showSampl
 <style>
   .dest {
     display: grid;
+    grid-template-columns: minmax(0, 1fr);
     gap: var(--s-12);
     padding-block: var(--s-10) var(--s-12);
   }

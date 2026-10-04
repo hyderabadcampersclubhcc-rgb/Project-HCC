@@ -24,4 +24,6 @@ heroCredit:
   license: CC BY-SA 3.0
   source: https://commons.wikimedia.org/wiki/File:Munnar_Road_and_Tea_Plantations_(11223).jpg
 sample: false
+seoTier: a
+indexable: false
 ---

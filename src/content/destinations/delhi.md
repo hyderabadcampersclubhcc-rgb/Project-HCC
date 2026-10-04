@@ -22,4 +22,6 @@ heroCredit:
   license: CC BY-SA 4.0
   source: https://commons.wikimedia.org/wiki/File:India_Gate,_New_Delhi_from_West.jpg
 sample: false
+seoTier: c
+indexable: false
 ---

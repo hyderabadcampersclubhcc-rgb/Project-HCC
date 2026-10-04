@@ -24,4 +24,6 @@ heroCredit:
   license: CC BY-SA 4.0
   source: https://commons.wikimedia.org/wiki/File:Chembra_Peak_Heart_Lake.jpg
 sample: false
+seoTier: a
+indexable: false
 ---
