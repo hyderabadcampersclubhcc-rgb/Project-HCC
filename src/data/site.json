@@ -13,8 +13,8 @@
     "endsAt": ""
   },
   "contact": {
-    "whatsapp": "",
-    "phone": "",
+    "whatsapp": "+91 81793 21382",
+    "phone": "+91 81793 21382",
     "email": "",
     "hours": "",
     "address": {
@@ -34,11 +34,46 @@
     "googleBusiness": ""
   },
   "trust": [
-    { "icon": "star", "value": "", "label": "Google rating", "detail": "", "sourceUrl": "", "enabled": true },
-    { "icon": "users", "value": "", "label": "travellers", "detail": "", "sourceUrl": "", "enabled": true },
-    { "icon": "calendar", "value": "Weekly", "label": "departures", "detail": "", "sourceUrl": "", "enabled": false },
-    { "icon": "pin", "value": "Hyderabad", "label": "based team", "detail": "", "sourceUrl": "", "enabled": true },
-    { "icon": "whatsapp", "value": "WhatsApp", "label": "trip support", "detail": "", "sourceUrl": "", "enabled": true }
+    {
+      "icon": "star",
+      "value": "",
+      "label": "Google rating",
+      "detail": "",
+      "sourceUrl": "",
+      "enabled": true
+    },
+    {
+      "icon": "users",
+      "value": "",
+      "label": "travellers",
+      "detail": "",
+      "sourceUrl": "",
+      "enabled": true
+    },
+    {
+      "icon": "calendar",
+      "value": "Weekly",
+      "label": "departures",
+      "detail": "",
+      "sourceUrl": "",
+      "enabled": false
+    },
+    {
+      "icon": "pin",
+      "value": "Hyderabad",
+      "label": "based team",
+      "detail": "",
+      "sourceUrl": "",
+      "enabled": true
+    },
+    {
+      "icon": "whatsapp",
+      "value": "WhatsApp",
+      "label": "trip support",
+      "detail": "",
+      "sourceUrl": "",
+      "enabled": true
+    }
   ],
   "payments": {
     "enabled": false,
