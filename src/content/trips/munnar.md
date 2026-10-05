@@ -16,6 +16,10 @@ origins:
     return: Train from Coimbatore on day 3
   - city: bangalore
     label: Bangalore
+    incomplete:
+      - "Bangalore departure station"
+      - "Bangalore departure time"
+      - "Arrival time back in Bangalore (data says the next morning)"
     outbound: Train to Coimbatore
     return: Train from Coimbatore on day 3, back in Bangalore the next morning
   - city: vijayawada

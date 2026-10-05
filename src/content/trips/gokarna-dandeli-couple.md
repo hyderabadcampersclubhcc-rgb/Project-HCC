@@ -22,6 +22,8 @@ origins:
     return: 9:05 pm train from Hubballi, back 10–11 am
   - city: bangalore
     label: Bangalore
+    incomplete:
+      - "Arrival time back in Bangalore"
     pickupPoints:
       - name: KSR Bengaluru
         time: 23:00

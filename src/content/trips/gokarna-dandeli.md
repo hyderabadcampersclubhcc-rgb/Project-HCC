@@ -26,6 +26,9 @@ origins:
     recurrence: Every Friday from Hyderabad
   - city: bangalore
     label: Bangalore
+    incomplete:
+      - "Arrival time back in Bangalore"
+      - "Whether the 3AC upgrade price (+₹1,700) is the same from Bangalore"
     pickupPoints:
       - name: KSR Bengaluru
         time: 23:00

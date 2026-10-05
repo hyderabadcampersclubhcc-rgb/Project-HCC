@@ -134,6 +134,7 @@ collections:
           - { label: Own search page, name: indexable, widget: boolean, default: true }
           - { label: Outbound journey, name: outbound, widget: string, required: false }
           - { label: Return journey, name: return, widget: string, required: false }
+          - { label: Still to confirm (internal; not shown on the site), name: incomplete, widget: list, required: false }
           - label: Pickup points
             name: pickupPoints
             widget: list

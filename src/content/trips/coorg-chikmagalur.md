@@ -24,6 +24,11 @@ origins:
     return: Train from Mysore on Sunday 2:30 pm, back Monday 5:30 am
   - city: bangalore
     label: Bangalore
+    incomplete:
+      - "Pickup / meeting point in Bangalore (data only says the group meets at 6:00 am on Saturday)"
+      - "Transport from Bangalore: the page shows Sleeper train (the trip-wide option), but the Bangalore inclusions list only local transport. Data conflict, not assumed"
+      - "Friday-night departure time from Bangalore"
+      - "Arrival time back in Bangalore"
     outbound: Every Friday from Bangalore; the group meets at 6:00 am on Saturday
     return: Return train to Bangalore on day 3
     recurrence: Every Friday from Bangalore

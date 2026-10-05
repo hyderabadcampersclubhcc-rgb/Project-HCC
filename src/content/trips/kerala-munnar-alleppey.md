@@ -17,6 +17,10 @@ origins:
     return: Train from Kochi on day 4
   - city: bangalore
     label: Bangalore
+    incomplete:
+      - "Bangalore departure station"
+      - "Bangalore departure time"
+      - "Return time from Kochi and arrival time back in Bangalore"
     outbound: Sleeper train to Kochi
 transportOptions:
   - id: sl
