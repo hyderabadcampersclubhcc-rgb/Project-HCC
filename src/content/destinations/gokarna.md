@@ -101,7 +101,7 @@ seo:
 
 ## Why visit Gokarna
 
-Gokarna is two places in one: an old temple town built around the Mahabaleshwar Temple, and a string of beaches and headlands along the coast just outside it, Om Beach the most famous. It's quieter than Goa, and pairs perfectly with the forests and river camps of Dandeli, a few hours inland. That combination of beach, temple and river is HCC's most popular weekend.
+Gokarna is two places in one: an old temple town built around the Mahabaleshwar Temple, and a string of beaches and headlands along the coast just outside it, Om Beach the most famous. It's quieter than Goa, and pairs perfectly with the forests and river camps of Dandeli, a few hours inland.
 
 ## Getting to Gokarna from Hyderabad
 

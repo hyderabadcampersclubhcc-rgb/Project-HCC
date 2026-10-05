@@ -179,7 +179,7 @@ importantInfo:
 cancellationPolicy: "30+ days before departure: 25% cancellation fee. 15–30 days: 50%. Under 15 days: no refund. The booking amount is non-refundable."
 faqs:
   - q: Can I join if I’m travelling alone?
-    a: Yes. Most HCC travellers join solo or in twos; you’ll be in a group with a trip captain from the start.
+    a: Yes. Solo travellers are welcome, and you’ll be in a group with an HCC trip captain from the start.
   - q: Can I stay in a room instead of a tent?
     a: "Yes: quad (+₹1,500), triple (+₹2,000) or double (+₹3,000) per person, non-AC."
 featured: true
@@ -224,6 +224,6 @@ status: live
 sample: false
 ---
 
-HCC’s most popular weekend: waterfalls, a temple by the sea, a night on the beach and a night by the river. Leave Friday afternoon, and come back with sand in your bag and Kali-river stories.
+A full weekend of waterfalls, a temple by the sea, a night on the beach and a night by the river. Leave Friday afternoon, and come back with sand in your bag and Kali-river stories.
 
 Departures run every Friday from Hyderabad, Bangalore and Vijayawada, with tents by default and room upgrades if you prefer a bed.

@@ -65,4 +65,8 @@ Agra, Jaipur, Delhi, Shimla, Kasol, Matheran, Lohagad, Harishchandragad, Tiruvan
 - Trip pages link "Plan your visit: {place} travel guide" for approved destinations
 - Destination pages group trips by departure city; H1 says "from Hyderabad & Bangalore" only where real
 - Fixed mobile overflow on category and destination pages (comparison table)
-- Next: remaining Grade A destinations, then Grade B (Kashmir, Manali, Goa, Alleppey)
+- Grade A complete: Ooty, Gokarna, Coorg, Wayanad, Munnar, Hampi, Chikmagalur, Ananthagiri, Araku, Pondicherry, Dandeli
+- Grade B enriched and indexable: Kashmir, Manali, Goa, Alleppey (Kerala backwaters). Other Grade B stay noindex.
+- Destinations with no Hyderabad/Bangalore departure use "{Place} Group Trips" (Kashmir, Manali) instead of claiming a city
+- Removed unsupported popularity/solo claims ("most booked", "most HCC travellers join solo")
+- QA (Oct 2026): 17 pages, 0 broken links, 0 SEO errors, 375px no overflow, Lighthouse mobile 90–98 / 100 / 100 / 100, CLS 0

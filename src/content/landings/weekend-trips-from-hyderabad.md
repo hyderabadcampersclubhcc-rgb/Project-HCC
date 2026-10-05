@@ -15,7 +15,7 @@ seo:
 indexable: true
 faqs:
   - q: What are the best weekend trips from Hyderabad?
-    a: "HCC's most booked weekend trips are Gokarna–Dandeli–Murudeshwar, Ooty & Coonoor, Coorg & Chikmagalur, Wayanad and Araku Valley. For a beach weekend choose Gokarna or Goa; for hills and viewpoints choose Ooty, Coorg, Wayanad or Araku."
+    a: "It depends on the weekend you want. For beaches and camping, Gokarna–Dandeli–Murudeshwar or Goa; for hills and viewpoints, Ooty & Coonoor, Coorg & Chikmagalur, Wayanad or Araku Valley; for heritage, Hampi or Pondicherry. All are 2–3 day group trips from Hyderabad."
   - q: How do HCC weekend trips travel from Hyderabad?
     a: "Most go by overnight sleeper train from Kacheguda or Nampally station, with a vehicle for local sightseeing at the destination. The Hampi–Gokarna trip uses a sleeper bus, and some trips offer a 3AC upgrade."
   - q: How much does a weekend trip from Hyderabad cost?

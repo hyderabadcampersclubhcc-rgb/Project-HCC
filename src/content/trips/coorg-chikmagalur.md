@@ -132,7 +132,7 @@ importantInfo:
 cancellationPolicy: "30+ days before departure: 25% cancellation fee. 15–30 days: 50%. Under 15 days: no refund. The booking amount is non-refundable."
 faqs:
   - q: Can I join if I’m travelling alone?
-    a: Yes. Most HCC travellers join solo or in twos; you’ll be in a group with a trip captain from the start.
+    a: Yes. Solo travellers are welcome, and you’ll be in a group with an HCC trip captain from the start.
 featured: true
 sortOrder: 40
 recurrence: Every Friday from Hyderabad

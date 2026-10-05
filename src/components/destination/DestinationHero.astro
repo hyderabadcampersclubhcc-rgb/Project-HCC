@@ -26,7 +26,8 @@ interface Props {
 }
 
 const { name, summary, image, imageAlt, imageCredit, tone = 'hills', tripCount, fromPrice, preview = false, cities = [] } = Astro.props;
-const fromLine = cities.length ? cities.join(' & ') : 'Hyderabad';
+// Trips that start elsewhere (e.g. Kashmir from Srinagar) never claim a Hyderabad departure.
+const heading = cities.length ? `${name} Trips from ${cities.join(' & ')}` : `${name} Group Trips`;
 ---
 
 <section class="dhero" aria-labelledby="dhero-title">
@@ -34,7 +35,7 @@ const fromLine = cities.length ? cities.join(' & ') : 'Hyderabad';
   <PhotoCredit credit={imageCredit} placement="top" />
   <div class="container dhero__in">
     <Breadcrumbs items={[{ label: 'Destinations', href: '/destinations/' }, { label: name }]} onDark />
-    <h1 id="dhero-title" class="dhero__title">{name} Trips from {fromLine}</h1>
+    <h1 id="dhero-title" class="dhero__title">{heading}</h1>
     <p class="dhero__sum">{summary}</p>
     <p class="dhero__meta">
       {tripCount > 0 ? `${tripCount} trip${tripCount > 1 ? 's' : ''}` : 'Custom trips on request'}

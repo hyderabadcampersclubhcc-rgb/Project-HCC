@@ -104,7 +104,7 @@ seo:
 
 ## Why visit Ooty
 
-Ooty is the hill station most people from Hyderabad picture for a first weekend in the hills: tea slopes, pine forests, a lake, cool evenings and the toy train down to Coonoor. It's an easy place to enjoy as a group. Most sights are short drives apart, and the Ooty–Coonoor stretch fits comfortably into two days.
+Ooty is a classic first hill-station weekend from Hyderabad: tea slopes, pine forests, a lake, cool evenings and the toy train down to Coonoor. It's an easy place to enjoy as a group. Most sights are short drives apart, and the Ooty–Coonoor stretch fits comfortably into two days.
 
 ## Getting to Ooty from Hyderabad
 

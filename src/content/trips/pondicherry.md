@@ -73,7 +73,7 @@ importantInfo:
 cancellationPolicy: "Full refund up to 15 days before departure. 7–14 days: 50% fee. Under 7 days: no refund."
 faqs:
   - q: Can I join if I’m travelling alone?
-    a: Yes. Most HCC travellers join solo or in twos; you’ll be in a group with a trip captain from the start.
+    a: Yes. Solo travellers are welcome, and you’ll be in a group with an HCC trip captain from the start.
   - q: Are meals included?
     a: No, food is paid separately; Pondicherry has plenty of cafés for every budget.
   - q: Can children come?

@@ -123,7 +123,7 @@ importantInfo:
 cancellationPolicy: HCC cancellation policy applies; train ticket cancellations follow IRCTC rules.
 faqs:
   - q: Can I join if I’m travelling alone?
-    a: Yes. Most HCC travellers join solo or in twos; you’ll be in a group with a trip captain from the start.
+    a: Yes. Solo travellers are welcome, and you’ll be in a group with an HCC trip captain from the start.
   - q: Are the tents private?
     a: No, camping is on a sharing basis.
   - q: Is it beginner friendly?
