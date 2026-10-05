@@ -1,17 +1,29 @@
 ---
-/** Signature ticket-stub duration chip: "2N | 3D". */
+/** Signature ticket-stub duration chip: "2N | 3D", optionally "2N | 3D | + overnight train". */
 interface Props {
   nights: number;
   days: number;
   outlined?: boolean;
+  /** Extra travel note shown after the days, e.g. "+ overnight train". */
+  extra?: string;
   class?: string;
 }
 
-const { nights, days, outlined = false, class: className } = Astro.props;
+const { nights, days, outlined = false, extra, class: className } = Astro.props;
 ---
 
-<span class:list={['stub', outlined && 'stub--outlined', className]} role="img" aria-label={`${nights} nights, ${days} days`}>
+<span class:list={['stub', outlined && 'stub--outlined', className]} role="img" aria-label={`${nights} nights, ${days} days${extra ? `, ${extra.replace(/^\+ /, 'plus ')}` : ''}`}>
   <span aria-hidden="true">{nights}N</span>
   <span class="stub__sep" aria-hidden="true"></span>
   <span aria-hidden="true">{days}D</span>
+  {
+    extra && (
+      <>
+        <span class="stub__sep" aria-hidden="true" />
+        <span class="stub__extra" aria-hidden="true">
+          {extra}
+        </span>
+      </>
+    )
+  }
 </span>

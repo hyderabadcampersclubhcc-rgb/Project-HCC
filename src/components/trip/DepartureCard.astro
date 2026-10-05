@@ -4,7 +4,7 @@ import Photo from '@/components/ui/Photo.astro';
 import Badge from '@/components/ui/Badge.astro';
 import Icon from '@/components/ui/Icon.astro';
 import { toneFor, type UpcomingItem } from '@/lib/catalog';
-import { dayShort, dayNum, monShort, durationLabel, inr, dateRange } from '@/lib/format';
+import { dayShort, dayNum, monShort, durationLabel, travelSuffix, inr, dateRange } from '@/lib/format';
 import { itemParams, toAttr } from '@/lib/tracking';
 
 interface Props {
@@ -37,7 +37,7 @@ const track = toAttr(itemParams(trip, origin, { listName, index, departure: dep 
       </a>
     </H>
     <p class="dcard__meta">
-      <span><Icon name="clock" />{durationLabel(d.durationNights, d.durationDays)}</span>
+      <span><Icon name="clock" />{durationLabel(d.durationNights, d.durationDays)} {travelSuffix(origin, true)}</span>
       <span><Icon name="pin" />From {origin.label}</span>
     </p>
     <div class="dcard__row">

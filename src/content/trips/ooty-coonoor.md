@@ -17,6 +17,8 @@ groupSize:
 origins:
   - city: hyderabad
     label: Hyderabad
+    overnightTravel: train
+    travelWindow: Thu/Fri 7:00 PM → Mon/Tue 6:00 AM
     pickupPoints:
       - name: Kacheguda Railway Station
         time: 19:00

@@ -57,6 +57,9 @@ export interface TripOriginView {
   transportOptions: TripEntry['data']['transportOptions'];
   /** Destination names on this city's route (route line, schema). */
   destinationNames: string[];
+  /** City-specific duration messaging: overnight journeys and the door-to-door window. */
+  overnightTravel: 'train' | 'bus' | undefined;
+  travelWindow: string | undefined;
 }
 
 export interface TripView {
@@ -219,6 +222,8 @@ async function loadTrips(opts: Options): Promise<TripView[]> {
         exclusions: o.exclusions ?? entry.data.exclusions,
         transportOptions: o.transport ? entry.data.transportOptions.filter((x) => o.transport!.includes(x.id)) : entry.data.transportOptions,
         destinationNames: (o.stops ?? entry.data.destinations.map((d) => d.id)).map((id) => destNames.get(id) ?? id),
+        overnightTravel: o.overnightTravel,
+        travelWindow: o.travelWindow,
       };
     });
 

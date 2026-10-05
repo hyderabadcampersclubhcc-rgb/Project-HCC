@@ -17,7 +17,7 @@ import Badge from '@/components/ui/Badge.astro';
 import Price from '@/components/ui/Price.astro';
 import Icon from '@/components/ui/Icon.astro';
 import { toneFor, type TripView } from '@/lib/catalog';
-import { dateShort, dayShort } from '@/lib/format';
+import { dateShort, dayShort, travelSuffix } from '@/lib/format';
 import { itemParams, toAttr } from '@/lib/tracking';
 
 const TYPE_LABEL: Record<string, string> = {
@@ -58,7 +58,7 @@ const track = toAttr(itemParams(trip, o, { listName, index }));
   <div class="tcard__media">
     <Photo src={d.heroImage} alt={d.heroAlt ?? `${d.title} group trip from ${o.label}`} tone={toneFor(d)} eager={eager} label={showPhotoLabel ? d.title : undefined} />
     <div class="tcard__top">
-      <Stub nights={d.durationNights} days={d.durationDays} />
+      <Stub nights={d.durationNights} days={d.durationDays} extra={travelSuffix(o, true) || undefined} />
       {
         soldOut ? (
           <Badge tone="muted">Sold out</Badge>

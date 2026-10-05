@@ -16,6 +16,8 @@ groupSize:
 origins:
   - city: hyderabad
     label: Hyderabad
+    overnightTravel: train
+    travelWindow: Thu/Fri 7:00 PM → Mon/Tue 6:00 AM
     outbound: Overnight sleeper train to Mysore, Thursday or Friday 7:00 pm
     return: Overnight train from Mysore, back in Hyderabad around 6:00 am on Monday (Thursday batch) or Tuesday (Friday batch)
 transportOptions:

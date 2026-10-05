@@ -10,7 +10,7 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import Breadcrumbs from '@/components/content/Breadcrumbs.astro';
 import Button from '@/components/ui/Button.astro';
 import { getTrips, toneFor } from '@/lib/catalog';
-import { inr, dateLong, durationLabel, bestMonthsLabel } from '@/lib/format';
+import { inr, dateLong, durationLabel, travelSuffix, bestMonthsLabel } from '@/lib/format';
 
 const showSamples = import.meta.env.PUBLIC_SHOW_SAMPLES === 'true';
 const trips = await getTrips();
@@ -31,7 +31,7 @@ const data = await Promise.all(
       tone: toneFor(d),
       rows: {
         price: o.fromPrice != null ? `${inr(o.fromPrice)}${o.fromOriginalPrice ? ` (was ${inr(o.fromOriginalPrice)})` : ''}` : 'On request',
-        duration: durationLabel(d.durationNights, d.durationDays),
+        duration: `${durationLabel(d.durationNights, d.durationDays)} ${travelSuffix(o)}`.trim(),
         next: o.next ? `${dateLong(o.next.start)}${o.bookable.length > 1 ? ` · ${o.bookable.length} dates` : ''}` : (o.recurrence ?? 'Dates on request'),
         from: t.origins.map((x) => x.label).join(', '),
         route: t.destinationNames.join(' → '),

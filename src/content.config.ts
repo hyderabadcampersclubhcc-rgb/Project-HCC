@@ -143,6 +143,10 @@ const origin = (image: ImageFn) => z.object({
   transport: z.array(slug).optional(),
   /** Places this city's route actually visits (default: the trip's destinations), e.g. no Mysore stop from Bangalore. */
   stops: z.array(slug).optional(),
+  /** Overnight journeys both ways on top of the stay nights (shown as "2N/3D + overnight train travel"). The trip's duration stays the stay count. */
+  overnightTravel: z.enum(['train', 'bus']).optional(),
+  /** Door-to-door window for this city, e.g. "Thu/Fri 7:00 PM → Mon/Tue 6:00 AM". */
+  travelWindow: z.string().optional(),
   /** Details HCC still has to confirm for this city. Internal only: never shown on the site. */
   incomplete: z.array(z.string()).default([]),
 });

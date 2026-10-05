@@ -134,6 +134,8 @@ collections:
           - { label: Own search page, name: indexable, widget: boolean, default: true }
           - { label: Outbound journey, name: outbound, widget: string, required: false }
           - { label: Return journey, name: return, widget: string, required: false }
+          - { label: Overnight travel both ways (adds "+ overnight … travel" to the duration), name: overnightTravel, widget: select, options: [train, bus], required: false }
+          - { label: Door-to-door window (e.g. Thu/Fri 7:00 PM → Mon/Tue 6:00 AM), name: travelWindow, widget: string, required: false }
           - { label: Still to confirm (internal; not shown on the site), name: incomplete, widget: list, required: false }
           - label: Pickup points
             name: pickupPoints

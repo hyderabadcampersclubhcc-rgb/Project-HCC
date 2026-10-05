@@ -5,7 +5,7 @@
  */
 import { getCollection } from 'astro:content';
 import type { TripView } from '@/lib/catalog';
-import { inr, durationLabel, bestMonthsLabel } from '@/lib/format';
+import { inr, durationLabel, travelSuffix, bestMonthsLabel } from '@/lib/format';
 
 interface Props {
   trips: TripView[];
@@ -19,14 +19,17 @@ interface Props {
 const { trips, title = 'Trip planner', headingLevel = 'h2', max = 12, origin } = Astro.props;
 const H = headingLevel;
 const destinations = new Map((await getCollection('destinations')).map((d) => [d.id, d.data]));
-const rows = trips.slice(0, max).map((t) => ({
-  trip: t,
-  travel: t.data.transportOptions[0].label,
-  duration: durationLabel(t.data.durationNights, t.data.durationDays),
-  best: bestMonthsLabel(destinations.get(t.data.destinations[0].id)?.bestMonths ?? []),
-  from: ((origin && t.origins.find((o) => o.city === origin)) || t.primary).fromPrice,
-  url: ((origin && t.origins.find((o) => o.city === origin)) || t.primary).url,
-}));
+const rows = trips.slice(0, max).map((t) => {
+  const o = (origin && t.origins.find((x) => x.city === origin)) || t.primary;
+  return {
+    trip: t,
+    travel: t.data.transportOptions[0].label,
+    duration: `${durationLabel(t.data.durationNights, t.data.durationDays)} ${travelSuffix(o)}`.trim(),
+    best: bestMonthsLabel(destinations.get(t.data.destinations[0].id)?.bestMonths ?? []),
+    from: o.fromPrice,
+    url: o.url,
+  };
+});
 ---
 
 {

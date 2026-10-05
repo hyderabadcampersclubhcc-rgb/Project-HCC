@@ -34,6 +34,9 @@ export function dateRange(start: string, end: string) {
 
 /** "2N/3D" */
 export const durationLabel = (nights: number, days: number) => `${nights}N/${days}D`;
+/** "+ overnight train travel" for a city whose trip adds overnight journeys to the stay nights; "" otherwise. */
+export const travelSuffix = (o: { overnightTravel?: string }, short = false) =>
+  o.overnightTravel ? (short ? `+ overnight ${o.overnightTravel}` : `+ overnight ${o.overnightTravel} travel`) : '';
 
 /** Monday-based week helpers for "This weekend" / "Next weekend" chips. Weekend = Thu–Sun departures. */
 export function weekendWindow(todayIso: string, weeksAhead = 0): [string, string] {

@@ -90,7 +90,7 @@ faqs:
   - q: How do I get from Hyderabad to Ooty on an HCC trip?
     a: By the overnight Mysore Express from Kacheguda (7 pm), reaching Mysore by 10 am, then by HCC’s vehicle through Bandipur forest to Ooty. The return is the same way.
   - q: How many days do I need for Ooty?
-    a: "Two to three days. HCC’s Ooty & Coonoor trip is 2 nights / 3 days and fits in a weekend: you leave on Friday night."
+    a: "Two to three days. HCC’s Ooty & Coonoor trip from Hyderabad is 2 nights / 3 days plus overnight train travel: you leave on Thursday or Friday at 7:00 pm and are back around 6:00 am on Monday or Tuesday."
   - q: Is the toy train included?
     a: On the Ooty & Coonoor weekend trip the toy train ticket is extra (about ₹150, bought at the station). On the 5-day Wayanad, Ooty & Mysore trip it is included.
   - q: Which HCC Ooty trip should I choose?

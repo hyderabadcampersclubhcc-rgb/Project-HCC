@@ -18,6 +18,8 @@ groupSize:
 origins:
   - city: hyderabad
     label: Hyderabad
+    overnightTravel: train
+    travelWindow: Thu/Fri 3:00 PM → Mon/Tue 10:00 AM
     pickupPoints:
       - name: Nampally Railway Station
         time: 15:00

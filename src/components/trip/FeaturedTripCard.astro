@@ -7,6 +7,7 @@ import Button from '@/components/ui/Button.astro';
 import WhatsAppCTA from '@/components/cta/WhatsAppCTA.astro';
 import { toneFor, type TripView } from '@/lib/catalog';
 import { itemParams, toAttr } from '@/lib/tracking';
+import { travelSuffix } from '@/lib/format';
 
 interface Props {
   trip: TripView;
@@ -47,7 +48,7 @@ const H = headingLevel;
       )
     }
     <div class="fcard__foot">
-      <Stub nights={d.durationNights} days={d.durationDays} />
+      <Stub nights={d.durationNights} days={d.durationDays} extra={travelSuffix(o, true) || undefined} />
       {o.fromPrice != null && <Price amount={o.fromPrice} was={o.fromOriginalPrice} fromLabel="From" per="/person" onDark />}
     </div>
     <div class="fcard__cta">

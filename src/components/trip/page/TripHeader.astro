@@ -11,7 +11,7 @@ import Icon, { type IconName } from '@/components/ui/Icon.astro';
 import { getEntry } from 'astro:content';
 import { TRIP_TYPE_LINKS } from '@/data/navigation';
 import { destinationUrl, type TripView, type TripOriginView } from '@/lib/catalog';
-import { dateLong, inr } from '@/lib/format';
+import { dateLong, inr, travelSuffix } from '@/lib/format';
 import { visibleTrustItems } from '@/lib/settings';
 
 interface Props {
@@ -61,7 +61,15 @@ const rating = visibleTrustItems().find((t) => t.icon === 'star');
   </h1>
   <p class="thead__tag">{d.tagline}</p>
   <ul class="thead__facts" aria-label="Trip facts">
-    <li><Stub nights={d.durationNights} days={d.durationDays} outlined /></li>
+    <li><Stub nights={d.durationNights} days={d.durationDays} outlined extra={travelSuffix(origin) || undefined} /></li>
+    {
+      origin.travelWindow && (
+        <li class="badge badge--outline thead__fact">
+          <Icon name="clock" />
+          {origin.travelWindow}
+        </li>
+      )
+    }
     {
       facts.map((f) => (
         <li class="badge badge--outline thead__fact">
