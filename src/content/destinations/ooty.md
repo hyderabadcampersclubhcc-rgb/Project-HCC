@@ -118,8 +118,8 @@ HCC doesn't currently run a fixed Ooty departure from Bangalore. If you're in Ba
 
 ## Which HCC Ooty trip is right for you?
 
-- **[Ooty & Coonoor](/trips/ooty-coonoor-from-hyderabad/)** (2 nights / 3 days, from ₹7,999): the classic weekend. Mysore Palace, Pykara, the toy train, Dolphin's Nose, a tea factory and the Pine Forest. Leaves every Friday.
-- **[Isha, Ooty & Coonoor](/trips/isha-ooty-coonoor-from-hyderabad/)** (2 nights / 3 days, from ₹7,999): the same hills plus the Adiyogi light show at the Isha Yoga Center.
+- **[Ooty & Coonoor](/trips/ooty-coonoor-from-hyderabad/)** (2 nights / 3 days + overnight train travel, from ₹7,999): the classic weekend. Mysore Palace, Pykara, the toy train, Dolphin's Nose, a tea factory and the Pine Forest. Leaves every Friday.
+- **[Isha, Ooty & Coonoor](/trips/isha-ooty-coonoor-from-hyderabad/)** (2 nights / 3 days + overnight train travel, from ₹7,999): the same hills plus the Adiyogi light show at the Isha Yoga Center.
 - **[Wayanad, Ooty & Mysore](/trips/wayanad-ooty-mysore-from-hyderabad/)** (4 nights / 5 days, from ₹12,999): two days in Wayanad, a drive through Mudumalai, then Ooty and Coonoor with the toy train ticket included.
 - **[Ooty & Coonoor for couples](/trips/ooty-coonoor-couple-from-hyderabad/)** (₹37,000 per couple): the same itinerary with a private couple room.
 

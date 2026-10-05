@@ -95,7 +95,7 @@ September to March gives the clearest views from Mullayanagiri and pleasant walk
 
 ## Good to know
 
-- The trip is 2 nights / 3 days from ₹6,999, with sleeper-class train tickets, an AC vehicle and sharing stays.
+- The trip is 2 nights / 3 days from ₹6,999, plus overnight train travel from Hyderabad, with sleeper-class train tickets, an AC vehicle and sharing stays.
 - Food, entry tickets and jeep rides are paid locally.
 - The Mullayanagiri morning is early and cool: carry a light jacket and good shoes.
 

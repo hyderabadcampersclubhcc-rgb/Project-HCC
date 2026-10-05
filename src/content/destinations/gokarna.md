@@ -115,7 +115,7 @@ The same trip runs from Bangalore: the group leaves **KSR Bengaluru at 11 pm on 
 
 ## Which Gokarna trip to choose
 
-- **[Gokarna, Dandeli & Murudeshwar](/trips/gokarna-dandeli-from-hyderabad/)** (2 nights / 3 days, from ₹5,999): beach camp, river camp, Vibhuthi falls, the Murudeshwar temple, Om Beach and Kali river activities, with one breakfast, one lunch and one dinner. Every Friday.
+- **[Gokarna, Dandeli & Murudeshwar](/trips/gokarna-dandeli-from-hyderabad/)** (2 nights / 3 days + overnight train travel, from ₹5,999): beach camp, river camp, Vibhuthi falls, the Murudeshwar temple, Om Beach and Kali river activities, with one breakfast, one lunch and one dinner. Every Friday.
 - **[Hampi, Gokarna & Murudeshwar](/trips/hampi-gokarna-murudeshwar-from-hyderabad/)** (3 nights / 4 days, from ₹8,999): a full day in Hampi's ruins with a coracle ride, then Murudeshwar and Gokarna, by sleeper bus.
 - **[Gokarna & Dandeli for couples](/trips/gokarna-dandeli-couple-from-hyderabad/)** (₹37,000 per couple): the beach-and-river weekend with a couple tent.
 

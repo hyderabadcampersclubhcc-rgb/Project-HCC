@@ -99,7 +99,7 @@ The same trip runs **every Friday from Bangalore** (from ₹6,999). The group me
 
 ## Which Coorg trip to choose
 
-- **[Coorg & Chikmagalur from Hyderabad](/trips/coorg-chikmagalur-from-hyderabad/)** (2 nights / 3 days, from ₹6,999): both coffee districts, a plantation night and Mullayanagiri. Every Friday.
+- **[Coorg & Chikmagalur from Hyderabad](/trips/coorg-chikmagalur-from-hyderabad/)** (2 nights / 3 days + overnight train travel, from ₹6,999): both coffee districts, a plantation night and Mullayanagiri. Every Friday.
 - **[Coorg from Mysore](/trips/coorg-from-mysore/)** (2 nights / 3 days, from ₹6,499): for anyone already in Mysore or Bangalore. The Golden Temple, Nisargadhama, Dubare, Mandalpatti with a zipline, Abbey Falls, Madikeri Fort and a coffee-plantation walk.
 
 ## Best time to visit
