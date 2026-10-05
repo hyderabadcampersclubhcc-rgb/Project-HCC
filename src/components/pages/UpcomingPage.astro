@@ -18,8 +18,8 @@ const items = await getUpcoming(catalog);
 <div class="container">
   {preview && <SectionNote n={1} title="Upcoming dates" purpose="For people who know WHEN they're free: one card per departure, grouped by month. The page Instagram bio links and WhatsApp broadcasts point to." data="Every future bookable departure (sold-out and cancelled dates excluded). Weekend chips appear only when a departure falls that weekend." cta="Each card opens the trip with that date preselected (?d=)." />}
   <PageIntro
-    title="Upcoming Trips from Hyderabad"
-    intro="Pick a date. Pack your bags. We'll handle the rest. Every departure from Hyderabad, soonest first."
+    title="Upcoming Trips from Hyderabad & Bangalore"
+    intro="Pick a date. Pack your bags. We'll handle the rest. Every departure from Hyderabad and Bangalore, soonest first."
     crumbs={[{ label: 'Trips', href: '/trips/' }, { label: 'Upcoming dates' }]}
   />
   <DepartureListing items={items} today={catalog.today} />
