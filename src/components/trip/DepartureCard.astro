@@ -22,7 +22,7 @@ const href = `${origin.url}?d=${dep.start}`;
 const track = toAttr(itemParams(trip, origin, { listName, index, departure: dep }));
 ---
 
-<article class="dcard" data-start={dep.start} data-month={dep.start.slice(0, 7)} data-origin={origin.city}>
+<article class="dcard" data-start={dep.start} data-dep-start={dep.start} data-month={dep.start.slice(0, 7)} data-origin={origin.city}>
   <div class="dcard__media">
     <Photo src={d.heroImage} alt={d.heroAlt ?? `${d.title} trip`} tone={toneFor(d)} widths={[200, 300]} sizes="120px" />
     <p class="dcard__date" aria-hidden="true">

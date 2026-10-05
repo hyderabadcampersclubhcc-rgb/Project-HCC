@@ -33,6 +33,7 @@ const label = `${dateLong(date)}${flag ? `, ${flag}` : ''}`;
   aria-current={as === 'a' && selected ? 'true' : undefined}
   aria-disabled={disabled ? 'true' : undefined}
   aria-label={label}
+  data-dep-start={date}
   {...rest}
 >
   <span class="dstub__dow" aria-hidden="true">{dayShort(date)}</span>

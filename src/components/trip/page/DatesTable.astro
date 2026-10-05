@@ -23,7 +23,7 @@ const deps = origin.departures;
     deps.length > 0 ? (
       <ul class="dates">
         {deps.map((d) => (
-          <li class:list={['dates__row', !d.bookable && 'is-off']}>
+          <li class:list={['dates__row', !d.bookable && 'is-off']} data-dep-start={d.start}>
             <div class="dates__when">
               <b>{dateRange(d.start, d.end)}</b>
               <small>

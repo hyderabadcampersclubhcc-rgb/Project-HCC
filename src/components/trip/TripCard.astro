@@ -106,6 +106,7 @@ const track = toAttr(itemParams(trip, o, { listName, index }));
                 href={`${o.url}?d=${dep.start}`}
                 class:list={['tcard__date', !dep.bookable && 'is-full', dep.urgency === 'seats' && 'is-alert']}
                 aria-label={`${dateShort(dep.start)}${dep.bookable ? '' : ', sold out'}`}
+                data-dep-start={dep.start}
               >
                 {dateShort(dep.start)}
               </a>

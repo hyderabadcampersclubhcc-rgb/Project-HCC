@@ -1,14 +1,15 @@
 ---
 /**
  * "Upcoming trips": date-first rail, the highest-intent section on the page.
- * Chips: All · This weekend · Next weekend · months with departures · (city, only if >1).
+ * Chips: All · This weekend · Next weekend · months with departures. Cards follow the
+ * Hyderabad / Bangalore switch above (CitySwitch, <html data-city>); Hyderabad by default.
  * Weekend chips are evaluated in the browser against today's date (IST) and hide
  * themselves when nothing matches. Hidden entirely when there are no bookable departures.
  */
 import SectionHeader from '@/components/ui/SectionHeader.astro';
 import DepartureCard from '@/components/trip/DepartureCard.astro';
 import Button from '@/components/ui/Button.astro';
-import { getUpcoming, getActiveOrigins } from '@/lib/catalog';
+import { getUpcoming } from '@/lib/catalog';
 import { monthLong } from '@/lib/format';
 import { home } from '@/lib/home';
 
@@ -17,11 +18,17 @@ interface Props {
 }
 
 const { catalog = {} } = Astro.props;
-// Render a generous pool so date filters have complete results; the script caps what's visible.
-const items = await getUpcoming({ ...catalog, limit: 30 });
+// Up to 20 departures per switchable city, so each city has a full rail; the script caps what's visible.
+const PER_CITY = 20;
+const seen: Record<string, number> = {};
+const items = (await getUpcoming(catalog)).filter((i) => {
+  const c = i.origin.city;
+  if (c !== 'hyderabad' && c !== 'bangalore') return false;
+  seen[c] = (seen[c] ?? 0) + 1;
+  return seen[c] <= PER_CITY;
+});
 const cap = home.upcoming.limit;
 const months = [...new Set(items.map((i) => i.departure.start.slice(0, 7)))].slice(0, 4);
-const origins = await getActiveOrigins(catalog);
 ---
 
 {
@@ -49,12 +56,6 @@ const origins = await getActiveOrigins(catalog);
               {monthLong(m).split(' ')[0]}
             </button>
           ))}
-          {origins.length > 1 &&
-            origins.map((o) => (
-              <button type="button" class="chip" aria-pressed="false" data-f={`origin:${o.city}`}>
-                From {o.label}
-              </button>
-            ))}
         </div>
 
         <div class="rail rail--grid upcoming__rail" style="--rail-cols:3">
@@ -95,17 +96,21 @@ const origins = await getActiveOrigins(catalog);
     const chips = [...root.querySelectorAll<HTMLButtonElement>('[data-f]')];
     const empty = root.querySelector<HTMLElement>('[data-empty]');
 
+    const html = document.documentElement;
+    const inCity = (el: HTMLElement) => el.dataset.origin === (html.dataset.city ?? 'hyderabad') && el.dataset.start! >= today;
     const matches = (f: string, el: HTMLElement) => {
+      if (!inCity(el)) return false;
       if (f === 'all') return true;
       const [kind, val] = f.split(':');
       if (kind === 'month') return el.dataset.month === val;
-      if (kind === 'origin') return el.dataset.origin === val;
       const [from, to] = weekend(today, Number(val));
       return el.dataset.start! >= from && el.dataset.start! <= to;
     };
 
-    // Reveal weekend chips only when they have results.
-    chips.filter((c) => c.dataset.f!.startsWith('weekend')).forEach((c) => (c.hidden = !cards.some((el) => matches(c.dataset.f!, el))));
+    // Show date chips only when they have results for the chosen city.
+    const syncChips = () =>
+      chips.filter((c) => c.dataset.f !== 'all').forEach((c) => (c.hidden = !cards.some((el) => matches(c.dataset.f!, el))));
+    syncChips();
 
     // Desktop grid shows at most 6 results (two rows); the mobile swipe rail shows up to data-cap.
     const desktop = window.matchMedia('(min-width: 1024px)');
@@ -124,6 +129,12 @@ const origins = await getActiveOrigins(catalog);
     apply();
     root.querySelector('.upcoming__rail')?.setAttribute('data-ready', '');
     desktop.addEventListener('change', apply);
+    document.addEventListener('hcc:city', () => {
+      current = 'all';
+      chips.forEach((c) => c.setAttribute('aria-pressed', String(c.dataset.f === 'all')));
+      syncChips();
+      apply();
+    });
 
     root.addEventListener('click', (e) => {
       const chip = (e.target as Element).closest<HTMLButtonElement>('[data-f]');
@@ -137,6 +148,11 @@ const origins = await getActiveOrigins(catalog);
 </script>
 
 <style>
+  /* Same city rule as the CitySwitch panels, so the right cards show before (and without) JS */
+  :global(html:not([data-city='bangalore'])) .upcoming__rail > :global([data-origin='bangalore']),
+  :global(html[data-city='bangalore']) .upcoming__rail > :global([data-origin='hyderabad']) {
+    display: none;
+  }
   .upcoming__chips {
     margin-inline: calc(-1 * var(--gutter));
     padding-inline: var(--gutter);

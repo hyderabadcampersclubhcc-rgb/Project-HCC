@@ -76,7 +76,7 @@ const phone = settings.contact.phone.replace(/[^\d+]/g, '');
                           {upcoming.length ? (
                             <ul class="mega__up">
                               {upcoming.map(({ trip, origin, departure }) => (
-                                <li>
+                                <li data-dep-start={departure.start}>
                                   <a href={`${origin.url}?d=${departure.start}`}>
                                     <b>{trip.data.title}</b>
                                     <small>

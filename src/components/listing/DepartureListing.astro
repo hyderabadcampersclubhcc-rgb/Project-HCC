@@ -27,6 +27,7 @@ const attrs = (i: UpcomingItem) => ({
   'data-dates': i.departure.start,
   'data-months': i.departure.start.slice(0, 7),
   'data-start': i.departure.start,
+  'data-dep-start': i.departure.start,
   'data-style': i.trip.data.tripTypes.join(' '),
   'data-origin': i.origin.city,
   'data-price': String(i.departure.price),

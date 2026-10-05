@@ -36,7 +36,8 @@ body {
   }
 }
 
-[hidden] {
+[hidden],
+.is-past {
   display: none !important;
 }
 

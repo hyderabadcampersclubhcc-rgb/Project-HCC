@@ -81,6 +81,9 @@ function init(root: HTMLElement) {
   const $ = <T extends Element = HTMLElement>(sel: string) => root.querySelector<T>(sel);
   const $$ = <T extends Element = HTMLElement>(sel: string) => [...root.querySelectorAll<T>(sel)];
 
+  // Safety net if the nightly rebuild is late: departures that have already left are ignored.
+  const today = new Date().toLocaleDateString('en-CA', { timeZone: 'Asia/Kolkata' });
+  data.departures = data.departures.filter((d) => d.start >= today);
   const firstBookable = data.departures.find((d) => d.bookable) ?? null;
   const cheapest = (dep: Dep) => Object.entries(dep.prices).sort((a, b) => a[1] - b[1])[0][0].split('|');
 

@@ -51,6 +51,7 @@ const CITIES = [
         /* storage blocked: choice lasts for this page view */
       }
       sync();
+      document.dispatchEvent(new CustomEvent('hcc:city', { detail: city }));
       track('select_city', { city, cta_location: 'home_city_switch' });
     }),
   );
