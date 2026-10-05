@@ -141,6 +141,8 @@ const origin = (image: ImageFn) => z.object({
   exclusions: z.array(z.string()).optional(),
   /** Transport option ids offered from this city (default: all), e.g. ['sl', '3a']. */
   transport: z.array(slug).optional(),
+  /** Places this city's route actually visits (default: the trip's destinations), e.g. no Mysore stop from Bangalore. */
+  stops: z.array(slug).optional(),
 });
 
 const transportOption = z.object({

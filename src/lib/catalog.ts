@@ -55,6 +55,8 @@ export interface TripOriginView {
   inclusions: TripEntry['data']['inclusions'];
   exclusions: string[];
   transportOptions: TripEntry['data']['transportOptions'];
+  /** Destination names on this city's route (route line, schema). */
+  destinationNames: string[];
 }
 
 export interface TripView {
@@ -216,6 +218,7 @@ async function loadTrips(opts: Options): Promise<TripView[]> {
         inclusions: o.inclusions ?? entry.data.inclusions,
         exclusions: o.exclusions ?? entry.data.exclusions,
         transportOptions: o.transport ? entry.data.transportOptions.filter((x) => o.transport!.includes(x.id)) : entry.data.transportOptions,
+        destinationNames: (o.stops ?? entry.data.destinations.map((d) => d.id)).map((id) => destNames.get(id) ?? id),
       };
     });
 

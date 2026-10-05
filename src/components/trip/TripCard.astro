@@ -77,7 +77,7 @@ const track = toAttr(itemParams(trip, o, { listName, index }));
   </div>
 
   <div class="tcard__body">
-    <RouteLine stops={[o.label, d.destinations.length > 2 ? `${trip.destinationNames[0]} +${trip.destinationNames.length - 1}` : trip.destinationNames.join(' · ')]} />
+    <RouteLine stops={[o.label, o.destinationNames.length > 2 ? `${o.destinationNames[0]} +${o.destinationNames.length - 1}` : o.destinationNames.join(' · ')]} />
     <H class="tcard__title">
       <a href={o.url} data-track="select_item" data-track-params={track}>{d.title}</a>
     </H>

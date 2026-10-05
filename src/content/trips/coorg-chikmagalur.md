@@ -1,7 +1,7 @@
 ---
 # Imported from HCC’s trip listings (Oct 2026). Review prices, dates and inclusions in the CMS before go-live.
 title: Coorg & Chikmagalur
-tagline: Abbey Falls, Mandalpatti, a coffee-plantation night and sunrise at Mullayanagiri.
+tagline: Abbey Falls, Mandalpatti, Belur temple and sunrise at Mullayanagiri, across Karnataka’s coffee country.
 tripTypes:
   - weekend
 destinations:
@@ -80,6 +80,9 @@ origins:
       - Entry tickets
       - Jeep rides
       - Anything not listed under inclusions
+    stops:
+      - coorg
+      - chikmagalur
 transportOptions:
   - id: sl
     label: Sleeper train

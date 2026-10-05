@@ -61,15 +61,24 @@ export function touristTripLd(trip: TripView, origin: TripOriginView, site: URL,
     url,
     ...(imageUrl ? { image: imageUrl } : {}),
     touristType: d.tripTypes.map((t) => ({ weekend: 'Weekend travellers', trek: 'Trekkers', camping: 'Campers', backpacking: 'Backpackers', long: 'Long-trip travellers', couple: 'Couples', family: 'Families', corporate: 'Corporate groups' })[t]),
-    itinerary: {
-      '@type': 'ItemList',
-      numberOfItems: trip.destinationNames.length,
-      itemListElement: trip.destinationNames.map((name, i) => ({
-        '@type': 'ListItem',
-        position: i + 1,
-        item: { '@type': 'TouristDestination', name },
-      })),
-    },
+    // City-specific: the day-by-day plan for this departure city, else the places on its route.
+    itinerary: origin.itinerary.length
+      ? {
+          '@type': 'ItemList',
+          numberOfItems: origin.itinerary.length,
+          itemListElement: [...origin.itinerary]
+            .sort((a, b) => a.day - b.day)
+            .map((day, i) => ({ '@type': 'ListItem', position: i + 1, name: `Day ${day.day}: ${day.title}`, description: day.description })),
+        }
+      : {
+          '@type': 'ItemList',
+          numberOfItems: origin.destinationNames.length,
+          itemListElement: origin.destinationNames.map((name, i) => ({
+            '@type': 'ListItem',
+            position: i + 1,
+            item: { '@type': 'TouristDestination', name },
+          })),
+        },
     provider: { '@id': new URL('/#organization', site).href },
     ...(origin.departures.length
       ? {

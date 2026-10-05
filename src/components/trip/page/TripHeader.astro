@@ -71,7 +71,7 @@ const rating = visibleTrustItems().find((t) => t.icon === 'star');
       ))
     }
   </ul>
-  <RouteLine stops={[origin.label, ...trip.destinationNames]} />
+  <RouteLine stops={[origin.label, ...origin.destinationNames]} />
   <p class="thead__meta">
     {
       origin.next ? (
