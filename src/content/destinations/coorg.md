@@ -31,7 +31,7 @@ indexable: true
 howToReach:
   - mode: train
     duration: Overnight
-    note: From Hyderabad, HCC’s Coorg & Chikmagalur trip leaves Kacheguda at 7 pm on Friday for Mysore.
+    note: From Hyderabad, HCC’s Coorg & Chikmagalur trip leaves Kacheguda at 7 pm every Thursday and Friday for Mysore.
   - mode: tempo
     duration: Over 3 days
     note: From Mysore an AC vehicle covers Coorg and Chikmagalur and brings the group back to Mysore for the 2:30 pm train.
@@ -73,7 +73,7 @@ experiences:
       source: https://commons.wikimedia.org/wiki/File:Padinalkunad_riserve,_Coorg_2.jpg
 faqs:
   - q: How do I get to Coorg from Hyderabad with HCC?
-    a: By the overnight train from Kacheguda (7 pm Friday) to Mysore, then an AC vehicle for Coorg and Chikmagalur. The return train leaves Mysore at 2:30 pm on day 3 and reaches Hyderabad around 5:30 am.
+    a: By the overnight train from Kacheguda (7 pm, every Thursday and Friday) to Mysore, then an AC vehicle for Coorg and Chikmagalur. The return train leaves Mysore at 2:30 pm on day 3 and reaches Hyderabad around 6:00 am on Monday (Thursday batch) or Tuesday (Friday batch).
   - q: Does HCC run Coorg trips from Bangalore?
     a: Yes. The Coorg & Chikmagalur trip runs every Friday from Bangalore too, from ₹6,999; the group meets at 6 am on Saturday.
   - q: Can I join from Mysore?
@@ -91,7 +91,7 @@ Coorg (Kodagu) is Karnataka's coffee country: misty hills, waterfalls, plantatio
 
 ## Getting to Coorg from Hyderabad
 
-HCC's **Coorg & Chikmagalur** trip leaves **Kacheguda at 7 pm on Friday** on the overnight train to **Mysore**. A freshen-up room and breakfast in Mysore come first, then Mysore Palace, Abbey Falls, the Mandalpatti trek and Raja's Seat, with the first night at a coffee plantation. Day 2 moves to Chikmagalur via the Dubare elephant camp, Belur temple and water sports at Yagachi dam. On day 3 the group climbs Mullayanagiri at 5 am, heads back to Mysore for lunch, and catches the 2:30 pm train, reaching Hyderabad around 5:30 am.
+HCC's **Coorg & Chikmagalur** trip leaves **Kacheguda at 7 pm every Thursday and Friday** on the overnight train to **Mysore**. A freshen-up room and breakfast in Mysore come first, then Mysore Palace, Abbey Falls, the Mandalpatti trek and Raja's Seat, with the first night at a coffee plantation. Day 2 moves to Chikmagalur via the Dubare elephant camp, Belur temple and water sports at Yagachi dam. On day 3 the group climbs Mullayanagiri at 5 am, heads back to Mysore for lunch, and catches the 2:30 pm train, reaching Hyderabad around 6:00 am on Monday (Thursday batch) or Tuesday (Friday batch).
 
 ## From Bangalore
 

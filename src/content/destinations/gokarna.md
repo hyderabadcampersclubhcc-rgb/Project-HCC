@@ -27,7 +27,7 @@ indexable: true
 howToReach:
   - mode: train
     duration: Overnight (about 15 hours)
-    note: From Hyderabad, HCC trips leave Nampally at 3:45 pm on Friday and reach Hubballi by 6:30 am.
+    note: From Hyderabad, the Gokarna, Dandeli & Murudeshwar trip leaves Nampally at 3 pm every Thursday and Friday and reaches Hubballi by 6:30 am (the couples trip leaves on Friday at 3:45 pm).
   - mode: train
     duration: Overnight
     note: From Bangalore, the group leaves KSR Bengaluru at 11 pm on Friday for Hubballi.
@@ -85,7 +85,7 @@ experiences:
       source: https://commons.wikimedia.org/wiki/File:Hampi_-_Vittala_Temple_-_Entrance_Gopuram.jpg
 faqs:
   - q: How do I get to Gokarna from Hyderabad?
-    a: HCC’s Gokarna trips take the Friday 3:45 pm train from Nampally to Hubballi (arriving about 6:30 am), then a private vehicle for Vibhuthi falls, Murudeshwar and Gokarna.
+    a: The Gokarna, Dandeli & Murudeshwar trip takes the 3 pm train from Nampally to Hubballi every Thursday and Friday, arriving about 6:30 am (the couples trip takes the Friday 3:45 pm train), then a private vehicle for Vibhuthi falls, Murudeshwar and Gokarna.
   - q: Does HCC run Gokarna trips from Bangalore?
     a: Yes. The Gokarna, Dandeli & Murudeshwar trip also leaves from KSR Bengaluru at 11 pm on Fridays, and from Vijayawada at 2 pm.
   - q: Where do we stay?
@@ -105,7 +105,7 @@ Gokarna is two places in one: an old temple town built around the Mahabaleshwar 
 
 ## Getting to Gokarna from Hyderabad
 
-HCC's trips leave **Nampally station at 3:45 pm on Friday** on the overnight train to **Hubballi**, arriving about 6:30 am. From Hubballi a private vehicle takes the group to Vibhuthi falls for a short trek and a swim, then to Murudeshwar for the evening and a night camping at Nirvana Beach. Day 2 starts at the Mahabaleshwar Temple at 6 am, then Mirjan Fort and Om Beach, before the drive to Dandeli. The return train leaves Hubballi at 9:05 pm on day 3 and reaches Hyderabad between 10 and 11 am.
+HCC's Gokarna, Dandeli & Murudeshwar trip leaves **Nampally station at 3 pm every Thursday and Friday** on the overnight train to **Hubballi**, arriving about 6:30 am. From Hubballi a private vehicle takes the group to Vibhuthi falls for a short trek and a swim, then to Murudeshwar for the evening and a night camping at Nirvana Beach. Day 2 starts at the Mahabaleshwar Temple at 6 am, then Mirjan Fort and Om Beach, before the drive to Dandeli. The return train leaves Hubballi at 9:05 pm on day 3 and reaches Hyderabad around 10 am on Monday (Thursday batch) or Tuesday (Friday batch).
 
 Optional upgrades: 3AC train (+₹1,700) or a sleeper bus from Hyderabad (+₹3,500).
 

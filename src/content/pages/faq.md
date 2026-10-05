@@ -14,7 +14,7 @@ faqs:
   - q: Where do trips leave from?
     a: Most trips leave from Hyderabad by overnight train or bus, for example from Nampally or Kacheguda railway station. Several trips also run from Bangalore (from KSR Bengaluru for Gokarna). The boarding point and time for your city are on each trip page.
   - q: Which days do trips leave?
-    a: Most weekend trips leave on Friday evening and return early on Monday or Tuesday. Upcoming dates are on each trip page and on the upcoming trips page.
+    a: Most weekend trips leave on Thursday or Friday evening and return early on Monday or Tuesday. Upcoming dates are on each trip page and on the upcoming trips page.
   - q: What is included in the price?
     a: It varies by trip. Every trip page lists what's included and what isn't, the transport class and timings, and the type of stay and room sharing, so you can check before you pay.
   - q: What is the cancellation policy?

@@ -21,7 +21,7 @@ faqs:
   - q: How much does a weekend trip from Hyderabad cost?
     a: "HCC's 2-night weekend trips cost ₹5,999 to ₹8,999 per person, depending on the destination. One-night camping trips near Hyderabad start from ₹1,199. Each trip page shows exactly what the price includes."
   - q: Which day do the trips leave?
-    a: "Wayanad, Araku and Lonavala trips leave on Thursday evenings. Ooty, Coorg and Gokarna trips leave on Friday evenings. Each trip page shows its departure details."
+    a: "Wayanad, Araku and Lonavala trips leave on Thursday evenings. Ooty, Coorg and Gokarna trips leave on both Thursday and Friday evenings. Each trip page shows its departure details."
   - q: Can I join a group trip alone?
     a: "Yes. Solo travellers join HCC's group departures and travel with the group and an HCC trip captain from the start."
   - q: Is food included?
@@ -42,14 +42,14 @@ HCC weekend trips are small group departures that fit into a normal working week
 
 ### Beaches and the coast
 
-- **[Gokarna, Dandeli & Murudeshwar](/trips/gokarna-dandeli-from-hyderabad/)**: a night camping at Nirvana Beach and a night at a river camp in Dandeli, with Vibhuthi falls, the Murudeshwar temple, Om Beach and kayaking on the Kali river. Leaves Nampally on Friday at 3:45 pm. From ₹5,999.
+- **[Gokarna, Dandeli & Murudeshwar](/trips/gokarna-dandeli-from-hyderabad/)**: a night camping at Nirvana Beach and a night at a river camp in Dandeli, with Vibhuthi falls, the Murudeshwar temple, Om Beach and kayaking on the Kali river. Leaves Nampally every Thursday and Friday at 3 pm. From ₹5,999.
 - **[Goa](/trips/goa-from-hyderabad/)**: North Goa's beaches and forts, a water sports day and Old Goa, staying at a beachside resort. From ₹7,999.
 - **[Pondicherry](/trips/pondicherry-from-hyderabad/)**: the French Quarter, Auroville, the promenade and a boat ride through the Pichavaram mangroves. Leaves Nampally at 5 pm. From ₹7,199.
 
 ### Hills, tea and coffee country
 
-- **[Ooty & Coonoor](/trips/ooty-coonoor-from-hyderabad/)**: Mysore Palace, Pykara falls and the Nilgiri toy train to Coonoor. Leaves Kacheguda on Friday at 7 pm on the Mysore Express. From ₹7,999. More about [visiting Ooty](/destinations/ooty/).
-- **[Coorg & Chikmagalur](/trips/coorg-chikmagalur-from-hyderabad/)**: Abbey Falls, Mandalpatti, a night at a coffee plantation and sunrise on Mullayanagiri, Karnataka's highest peak. Leaves Kacheguda on Friday at 7 pm. From ₹6,999.
+- **[Ooty & Coonoor](/trips/ooty-coonoor-from-hyderabad/)**: Mysore Palace, Pykara falls and the Nilgiri toy train to Coonoor. Leaves Kacheguda every Thursday and Friday at 7 pm on the Mysore Express. From ₹7,999. More about [visiting Ooty](/destinations/ooty/).
+- **[Coorg & Chikmagalur](/trips/coorg-chikmagalur-from-hyderabad/)**: Abbey Falls, Mandalpatti, a night at a coffee plantation and sunrise on Mullayanagiri, Karnataka's highest peak. Leaves Kacheguda every Thursday and Friday at 7 pm. From ₹6,999.
 - **[Wayanad](/trips/wayanad-from-hyderabad/)**: the Chembra peak trek, the 900 Kandi glass bridge and Banasura Sagar dam. Leaves Kacheguda on Thursday at 7 pm. From ₹7,999.
 - **[Araku Valley, Vanajangi & Vizag](/trips/araku-vanajangi-vizag-from-hyderabad/)**: Borra Caves, waterfalls and coffee country, and a pre-dawn walk to watch the sun rise over a sea of clouds at Vanajangi. Leaves Kacheguda on Thursday at 5:30 pm. From ₹6,999.
 - **[Munnar](/trips/munnar-from-hyderabad/)**: tea estates, Top Station and Eravikulam National Park, with 3-star stays and breakfast. From ₹8,999.
@@ -69,8 +69,8 @@ Only have one night? See **[camping near Hyderabad](/camping-near-hyderabad/)**:
 
 - **By the kind of weekend you want:** beach and camping ([Gokarna](/destinations/gokarna/), Goa), green hills and viewpoints (Ooty, Coorg, Wayanad, Munnar, Araku), or heritage (Hampi, Pondicherry).
 - **By budget:** a 2-night weekend trip starts from ₹5,999 (Gokarna–Dandeli) and goes up to ₹8,999 (Munnar) per person, before any upgrades.
-- **By the day you can leave:** Wayanad, Araku and Lonavala leave on **Thursday** evenings; Ooty, Coorg and Gokarna leave on **Friday** evenings.
-- **By when you need to be back:** check the last day on each trip page. Coorg–Chikmagalur reaches Hyderabad around 5:30 am and Araku around 7 am; Gokarna–Dandeli arrives between 10 and 11 am.
+- **By the day you can leave:** Wayanad, Araku and Lonavala leave on **Thursday** evenings; Ooty, Coorg and Gokarna leave on both **Thursday** and **Friday** evenings.
+- **By when you need to be back:** check the last day on each trip page. Coorg–Chikmagalur and Ooty reach Hyderabad around 6 am and Gokarna–Dandeli around 10 am (Monday after a Thursday departure, Tuesday after a Friday one); Araku arrives around 7 am.
 - **By season:** Coorg, Wayanad and the Sahyadri treks are at their greenest in the monsoon; the beaches and Hampi are best from October to February.
 
 ## Before you book

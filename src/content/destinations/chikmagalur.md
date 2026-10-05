@@ -27,7 +27,7 @@ indexable: true
 howToReach:
   - mode: train
     duration: Overnight
-    note: HCC’s Coorg & Chikmagalur trip takes the Friday 7 pm train from Kacheguda to Mysore.
+    note: HCC’s Coorg & Chikmagalur trip takes the 7 pm train from Kacheguda to Mysore every Thursday and Friday.
   - mode: tempo
     duration: Day 2 of the trip
     note: From Coorg, the group drives to Chikmagalur via the Dubare elephant camp and Belur.
@@ -86,7 +86,7 @@ On the **[Coorg & Chikmagalur trip](/trips/coorg-chikmagalur-from-hyderabad/)**,
 
 ## Getting there
 
-- **From Hyderabad:** the overnight train from Kacheguda at 7 pm on Friday to Mysore, then by road. Back in Hyderabad around 5:30 am after day 3.
+- **From Hyderabad:** the overnight train from Kacheguda at 7 pm every Thursday and Friday to Mysore, then by road. Back in Hyderabad around 6:00 am on Monday (Thursday batch) or Tuesday (Friday batch).
 - **From Bangalore:** the same trip runs every Friday from Bangalore; the group meets at 6 am on Saturday. See [Coorg & Chikmagalur from Bangalore](/trips/coorg-chikmagalur-from-bangalore/).
 
 ## Best time to visit
