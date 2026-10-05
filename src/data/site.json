@@ -56,12 +56,12 @@
       "label": "departures",
       "detail": "",
       "sourceUrl": "",
-      "enabled": false
+      "enabled": true
     },
     {
       "icon": "pin",
-      "value": "Hyderabad",
-      "label": "based team",
+      "value": "Hyderabad & Bangalore",
+      "label": "departures",
       "detail": "",
       "sourceUrl": "",
       "enabled": true

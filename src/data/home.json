@@ -38,7 +38,7 @@
   },
   "featured": {
     "title": "Signature trips",
-    "subtitle": "The trips our travellers keep coming back for."
+    "subtitle": "Handpicked HCC itineraries, with the route, stays and transport on every trip page."
   },
   "why": {
     "overline": "Why HCC",
@@ -69,9 +69,9 @@
       },
       {
         "icon": "users",
-        "title": "A coordinator on every trip",
-        "text": "An HCC team member travels with the group from pickup to drop.",
-        "enabled": false
+        "title": "A trip captain with the group",
+        "text": "On HCC group trips, a trip captain travels with you and makes the on-the-day calls for everyone’s safety.",
+        "enabled": true
       },
       {
         "icon": "shield",
@@ -81,9 +81,9 @@
       },
       {
         "icon": "heart",
-        "title": "Solo-friendly",
-        "text": "Come on your own. Most groups are a mix of solo travellers and friends.",
-        "enabled": false
+        "title": "Solo travellers welcome",
+        "text": "Come on your own. You join the group from the departure point.",
+        "enabled": true
       }
     ]
   },
@@ -121,24 +121,24 @@
     "title": "Before your first trip",
     "items": [
       {
-        "q": "Can I join a group trip if I'm travelling alone?",
-        "a": ""
+        "q": "Can I join a group trip if I’m travelling alone?",
+        "a": "Yes. Solo travellers are welcome on HCC group trips. You join the group from the departure point, and a trip captain is with the group throughout."
       },
       {
         "q": "How do I reserve a seat, and how much is the advance?",
-        "a": ""
+        "a": "Send an enquiry or message HCC on WhatsApp to check seats, then pay the advance to confirm. The advance depends on the trip (for example ₹2,000 per person on several weekend trips, ₹500 for Ananthagiri camping) and is shown on the trip page."
       },
       {
-        "q": "Where do trips leave from in Hyderabad?",
-        "a": ""
+        "q": "Where do trips leave from?",
+        "a": "Most trips leave from Hyderabad by overnight train or bus, for example from Nampally or Kacheguda station. Several trips also run from Bangalore. Each trip page shows the boarding point and time for your city."
       },
       {
         "q": "What happens if I need to cancel?",
-        "a": ""
+        "a": "On most trips, cancelling 30+ days before departure costs 25%, 15–30 days costs 50%, and under 15 days there’s no refund. The booking amount is non-refundable. A few trips have their own rules, listed on the cancellation policy page."
       },
       {
-        "q": "Are your trips safe for women travelling alone?",
-        "a": ""
+        "q": "What’s included in the trip price?",
+        "a": "It varies by trip. Every trip page lists inclusions and exclusions, the transport class and timings, and the type of stay and room sharing, so you know before you pay."
       }
     ]
   }

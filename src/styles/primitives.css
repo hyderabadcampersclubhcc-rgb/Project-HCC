@@ -771,9 +771,11 @@ select.input {
   padding: 10px 12px;
   border-bottom: 1px solid var(--line);
   text-align: left;
-  white-space: nowrap;
+  vertical-align: top;
+  min-width: 9em;
 }
 .prose th {
+  white-space: nowrap;
   background: var(--surface-2);
   font-size: 0.75rem;
   letter-spacing: 0.06em;
