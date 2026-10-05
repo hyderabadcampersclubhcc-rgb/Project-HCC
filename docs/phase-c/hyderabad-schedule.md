@@ -1,18 +1,18 @@
 # Phase C: Hyderabad (and Vijayawada) working schedule, Oct–Dec 2026 (internal)
 
-**Source:** HCC's own trip data only (each trip's stated departure pattern in `src/content/trips/*.md`). Imported 5 Oct 2026 as `src/content/departures/{trip}-{city}-{date}.yml` (123 files).
+**Source:** HCC's own trip data only (each trip's stated departure pattern in `src/content/trips/*.md`). Imported 5 Oct 2026 as `src/content/departures/{trip}-{city}-{date}.yml` (123 files; 175 after the Thursday batches were added the same day).
 **Rule:** dates were created only where HCC's data names a weekday ("Every Friday", "Every Thursday", "Every Saturday"). HCC prices are unchanged. `endDate` is the last trip day, when the return journey starts (same rule as Bangalore).
 
 ## Dated departures added
 
 | Trip | City | Pattern (HCC data) | Dates added | Trip days |
 |---|---|---|---|---|
-| Coorg & Chikmagalur | Hyderabad | Every Friday, Kacheguda 7 pm | 12 Fridays, 9 Oct – 25 Dec | Fri → Mon |
-| Gokarna, Dandeli & Murudeshwar | Hyderabad | Every Friday, Nampally 3:45 pm | 12 Fridays | Fri → Mon (back Tue 10–11 am) |
+| Coorg & Chikmagalur | Hyderabad | **Confirmed 5 Oct: every Thursday & Friday, 7:00 pm** | 25 (13 Thu + 12 Fri) | Thu → Mon 6 am · Fri → Tue 6 am |
+| Gokarna, Dandeli & Murudeshwar | Hyderabad | **Confirmed 5 Oct: every Thursday & Friday, 3:00 pm** | 25 (13 Thu + 12 Fri) | Thu → Mon 10 am · Fri → Tue 10 am |
 | Gokarna, Dandeli & Murudeshwar | Vijayawada | Every Friday, 2 pm | 12 Fridays | Fri → Mon |
 | Gokarna & Dandeli for Couples | Hyderabad | Every Friday, 3:45 pm | 12 Fridays | Fri → Mon |
-| Isha, Ooty & Coonoor | Hyderabad | Every Friday | 12 Fridays | Fri → Mon |
-| Ooty & Coonoor | Hyderabad | Every Friday, Kacheguda 7 pm | 12 Fridays | Fri → Mon |
+| Isha, Ooty & Coonoor | Hyderabad | **Confirmed 5 Oct: every Thursday & Friday, 7:00 pm** | 25 (13 Thu + 12 Fri) | Thu → Mon 6 am · Fri → Tue 6 am |
+| Ooty & Coonoor | Hyderabad | **Confirmed 5 Oct: every Thursday & Friday, 7:00 pm** | 25 (13 Thu + 12 Fri) | Thu → Mon 6 am · Fri → Tue 6 am |
 | Araku, Vanajangi & Vizag | Hyderabad | Every Thursday, Kacheguda 5:30 pm | 13 Thursdays, 8 Oct – 31 Dec | Thu → Sun (back Mon 7 am) |
 | Wayanad | Hyderabad | Every Thursday, 7 pm | 13 Thursdays | Thu → Sun |
 | Lonavala & Matheran | Hyderabad | Every Thursday | 13 Thursdays | Thu → Sun |
@@ -36,10 +36,25 @@
 
 These pages keep showing their pattern ("Weekly departures", "Group dates on request") with a WhatsApp prompt.
 
-## Conflicts inside HCC's own data (flagged, not changed)
+## Confirmed schedules (5 Oct 2026)
 
-- **Coorg & Chikmagalur (Hyderabad):** the trip says "Friday 7 pm" out and "train from Mysore on Sunday 2:30 pm, back Monday 5:30 am", but the day-by-day plan has three days on the ground (the 2:30 pm train is on day 3, which is Monday if you leave Friday). Either the departure is Thursday or the return is Monday. Dates use Friday (the stated departure day).
-- **Ooty & Coonoor (Hyderabad):** "overnight train from Mysore on Sunday", but the plan's day 3 (the Mysore train day) is Monday if you leave Friday. Same question.
+The four trips above marked **Confirmed** run two weekly batches. They are generated from `tools/departure-schedules.json` with `npm run departures`; for these, `endDate` is the return morning. The earlier Friday/Sunday conflicts on Coorg & Chikmagalur and Ooty & Coonoor are resolved: the departure and return lines now read "Thursday or Friday 7:00 pm" and "back … Monday (Thursday batch) or Tuesday (Friday batch)". The day-by-day plans were unchanged, apart from the arrival times (Coorg 5:30 → 6:00 am, Gokarna 10–11 → 10 am).
+
+### Coorg & Chikmagalur (Hyderabad), 25 departures
+
+Thu 8 Oct → Mon 12 Oct · Fri 9 Oct → Tue 13 Oct · Thu 15 Oct → Mon 19 Oct · Fri 16 Oct → Tue 20 Oct · Thu 22 Oct → Mon 26 Oct · Fri 23 Oct → Tue 27 Oct · Thu 29 Oct → Mon 2 Nov · Fri 30 Oct → Tue 3 Nov · Thu 5 Nov → Mon 9 Nov · Fri 6 Nov → Tue 10 Nov · Thu 12 Nov → Mon 16 Nov · Fri 13 Nov → Tue 17 Nov · Thu 19 Nov → Mon 23 Nov · Fri 20 Nov → Tue 24 Nov · Thu 26 Nov → Mon 30 Nov · Fri 27 Nov → Tue 1 Dec · Thu 3 Dec → Mon 7 Dec · Fri 4 Dec → Tue 8 Dec · Thu 10 Dec → Mon 14 Dec · Fri 11 Dec → Tue 15 Dec · Thu 17 Dec → Mon 21 Dec · Fri 18 Dec → Tue 22 Dec · Thu 24 Dec → Mon 28 Dec · Fri 25 Dec → Tue 29 Dec · Thu 31 Dec → Mon 4 Jan
+
+### Ooty & Coonoor (Hyderabad), 25 departures
+
+Thu 8 Oct → Mon 12 Oct · Fri 9 Oct → Tue 13 Oct · Thu 15 Oct → Mon 19 Oct · Fri 16 Oct → Tue 20 Oct · Thu 22 Oct → Mon 26 Oct · Fri 23 Oct → Tue 27 Oct · Thu 29 Oct → Mon 2 Nov · Fri 30 Oct → Tue 3 Nov · Thu 5 Nov → Mon 9 Nov · Fri 6 Nov → Tue 10 Nov · Thu 12 Nov → Mon 16 Nov · Fri 13 Nov → Tue 17 Nov · Thu 19 Nov → Mon 23 Nov · Fri 20 Nov → Tue 24 Nov · Thu 26 Nov → Mon 30 Nov · Fri 27 Nov → Tue 1 Dec · Thu 3 Dec → Mon 7 Dec · Fri 4 Dec → Tue 8 Dec · Thu 10 Dec → Mon 14 Dec · Fri 11 Dec → Tue 15 Dec · Thu 17 Dec → Mon 21 Dec · Fri 18 Dec → Tue 22 Dec · Thu 24 Dec → Mon 28 Dec · Fri 25 Dec → Tue 29 Dec · Thu 31 Dec → Mon 4 Jan
+
+### Gokarna, Dandeli & Murudeshwar (Hyderabad), 25 departures
+
+Thu 8 Oct → Mon 12 Oct · Fri 9 Oct → Tue 13 Oct · Thu 15 Oct → Mon 19 Oct · Fri 16 Oct → Tue 20 Oct · Thu 22 Oct → Mon 26 Oct · Fri 23 Oct → Tue 27 Oct · Thu 29 Oct → Mon 2 Nov · Fri 30 Oct → Tue 3 Nov · Thu 5 Nov → Mon 9 Nov · Fri 6 Nov → Tue 10 Nov · Thu 12 Nov → Mon 16 Nov · Fri 13 Nov → Tue 17 Nov · Thu 19 Nov → Mon 23 Nov · Fri 20 Nov → Tue 24 Nov · Thu 26 Nov → Mon 30 Nov · Fri 27 Nov → Tue 1 Dec · Thu 3 Dec → Mon 7 Dec · Fri 4 Dec → Tue 8 Dec · Thu 10 Dec → Mon 14 Dec · Fri 11 Dec → Tue 15 Dec · Thu 17 Dec → Mon 21 Dec · Fri 18 Dec → Tue 22 Dec · Thu 24 Dec → Mon 28 Dec · Fri 25 Dec → Tue 29 Dec · Thu 31 Dec → Mon 4 Jan
+
+### Isha, Ooty & Coonoor (Hyderabad), 25 departures
+
+Thu 8 Oct → Mon 12 Oct · Fri 9 Oct → Tue 13 Oct · Thu 15 Oct → Mon 19 Oct · Fri 16 Oct → Tue 20 Oct · Thu 22 Oct → Mon 26 Oct · Fri 23 Oct → Tue 27 Oct · Thu 29 Oct → Mon 2 Nov · Fri 30 Oct → Tue 3 Nov · Thu 5 Nov → Mon 9 Nov · Fri 6 Nov → Tue 10 Nov · Thu 12 Nov → Mon 16 Nov · Fri 13 Nov → Tue 17 Nov · Thu 19 Nov → Mon 23 Nov · Fri 20 Nov → Tue 24 Nov · Thu 26 Nov → Mon 30 Nov · Fri 27 Nov → Tue 1 Dec · Thu 3 Dec → Mon 7 Dec · Fri 4 Dec → Tue 8 Dec · Thu 10 Dec → Mon 14 Dec · Fri 11 Dec → Tue 15 Dec · Thu 17 Dec → Mon 21 Dec · Fri 18 Dec → Tue 22 Dec · Thu 24 Dec → Mon 28 Dec · Fri 25 Dec → Tue 29 Dec · Thu 31 Dec → Mon 4 Jan
 
 ## How past dates are removed
 

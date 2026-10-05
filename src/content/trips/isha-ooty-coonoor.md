@@ -1,7 +1,7 @@
 ---
 # Imported from HCC’s trip listings (Oct 2026). Review prices, dates and inclusions in the CMS before go-live.
 title: Isha, Ooty & Coonoor
-tagline: Ooty and Coonoor plus the Adiyogi light show at the Isha Yoga Center, in one weekend.
+tagline: Ooty and Coonoor plus the Adiyogi light show at the Isha Yoga Center, in one long weekend.
 tripTypes:
   - weekend
 destinations:
@@ -16,8 +16,8 @@ groupSize:
 origins:
   - city: hyderabad
     label: Hyderabad
-    outbound: Overnight sleeper train to Mysore, Friday
-    return: Overnight train from Mysore
+    outbound: Overnight sleeper train to Mysore, Thursday or Friday 7:00 pm
+    return: Overnight train from Mysore, back in Hyderabad around 6:00 am on Monday (Thursday batch) or Tuesday (Friday batch)
 transportOptions:
   - id: sl
     label: Sleeper train
@@ -118,7 +118,7 @@ faqs:
   - q: Can I join if I’m travelling alone?
     a: Yes. Solo travellers are welcome, and you’ll be in a group with an HCC trip captain from the start.
 sortOrder: 90
-recurrence: Every Friday from Hyderabad
+recurrence: Every Thursday & Friday from Hyderabad
 primaryKeyword: isha ooty coonoor trip from hyderabad
 legacyPaths:
   - /isha-ooty-coonoor/

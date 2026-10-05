@@ -1,0 +1,49 @@
+{
+  "$comment": "Weekly departure batches confirmed by HCC. `npm run departures` regenerates src/content/departures/{trip}-{origin}-{date}.yml for each entry: one file per batch date, endDate = start + returnDays (the morning the group is back). Only the trip/origin pairs listed here are touched.",
+  "schedules": [
+    {
+      "trip": "coorg-chikmagalur",
+      "origin": "hyderabad",
+      "from": "2026-10-08",
+      "to": "2026-12-31",
+      "confirmed": "2026-10-05",
+      "batches": [
+        { "weekday": "thu", "departs": "19:00", "returnDays": 4, "returns": "Monday 06:00" },
+        { "weekday": "fri", "departs": "19:00", "returnDays": 4, "returns": "Tuesday 06:00" }
+      ]
+    },
+    {
+      "trip": "ooty-coonoor",
+      "origin": "hyderabad",
+      "from": "2026-10-08",
+      "to": "2026-12-31",
+      "confirmed": "2026-10-05",
+      "batches": [
+        { "weekday": "thu", "departs": "19:00", "returnDays": 4, "returns": "Monday 06:00" },
+        { "weekday": "fri", "departs": "19:00", "returnDays": 4, "returns": "Tuesday 06:00" }
+      ]
+    },
+    {
+      "trip": "gokarna-dandeli",
+      "origin": "hyderabad",
+      "from": "2026-10-08",
+      "to": "2026-12-31",
+      "confirmed": "2026-10-05",
+      "batches": [
+        { "weekday": "thu", "departs": "15:00", "returnDays": 4, "returns": "Monday 10:00" },
+        { "weekday": "fri", "departs": "15:00", "returnDays": 4, "returns": "Tuesday 10:00" }
+      ]
+    },
+    {
+      "trip": "isha-ooty-coonoor",
+      "origin": "hyderabad",
+      "from": "2026-10-08",
+      "to": "2026-12-31",
+      "confirmed": "2026-10-05",
+      "batches": [
+        { "weekday": "thu", "departs": "19:00", "returnDays": 4, "returns": "Monday 06:00" },
+        { "weekday": "fri", "departs": "19:00", "returnDays": 4, "returns": "Tuesday 06:00" }
+      ]
+    }
+  ]
+}

@@ -82,6 +82,9 @@ const heading = cities.length ? `${name} Trips from ${cities.join(' & ')}` : `${
     font-size: var(--fs-display);
     line-height: 1;
     letter-spacing: var(--tracking-display);
+    /* Very long place names (e.g. Tiruvannamalai) break instead of widening the page on phones */
+    overflow-wrap: anywhere;
+    hyphens: auto;
   }
   .dhero__sum {
     max-width: 52ch;
@@ -97,5 +100,9 @@ const heading = cities.length ? `${name} Trips from ${cities.join(' & ')}` : `${
     flex-wrap: wrap;
     gap: var(--s-2);
     margin-top: var(--s-2);
+  }
+  .dhero__cta :global(.btn) {
+    max-width: 100%;
+    white-space: normal;
   }
 </style>

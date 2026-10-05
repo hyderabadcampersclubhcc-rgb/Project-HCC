@@ -149,8 +149,12 @@ const rating = visibleTrustItems().find((t) => t.icon === 'star');
   }
   .thead__fact {
     min-height: 28px;
-    padding: 0 10px;
+    max-width: 100%;
+    padding: 4px 10px;
     font-size: 0.78rem;
+    line-height: 1.3;
+    /* Long transport lists ("Sleeper train or 3AC train or …") wrap instead of widening the page */
+    white-space: normal;
   }
   .thead__meta {
     display: flex;

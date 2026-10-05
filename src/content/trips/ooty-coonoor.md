@@ -20,8 +20,8 @@ origins:
     pickupPoints:
       - name: Kacheguda Railway Station
         time: 19:00
-    outbound: Overnight Mysore Express, Friday 7:00 pm
-    return: Overnight train from Mysore on Sunday
+    outbound: Overnight Mysore Express, Thursday or Friday 7:00 pm
+    return: Overnight train from Mysore, back in Hyderabad around 6:00 am on Monday (Thursday batch) or Tuesday (Friday batch)
 transportOptions:
   - id: sl
     label: Sleeper train
@@ -148,7 +148,7 @@ faqs:
     a: No. It’s bought at Ooty station on the day (about ₹150); your trip captain helps the group get tickets.
 featured: true
 sortOrder: 10
-recurrence: Every Friday from Hyderabad
+recurrence: Every Thursday & Friday from Hyderabad
 primaryKeyword: ooty trip from hyderabad
 legacyPaths:
   - /ooty-coonoor/
@@ -187,6 +187,6 @@ status: live
 sample: false
 ---
 
-Two days in the Nilgiris without taking leave: you board the Mysore Express on Friday night, wake up in Mysore, and spend the weekend between Ooty’s viewpoints and Coonoor’s tea estates.
+Two days in the Nilgiris: you board the Mysore Express on Thursday or Friday night, wake up in Mysore, and spend the trip between Ooty’s viewpoints and Coonoor’s tea estates.
 
 The highlight is the toy train from Ooty to Coonoor, the UNESCO-listed Nilgiri Mountain Railway. Your HCC trip captain handles trains, stays and the day plan, so all you do is turn up at Kacheguda with a backpack.

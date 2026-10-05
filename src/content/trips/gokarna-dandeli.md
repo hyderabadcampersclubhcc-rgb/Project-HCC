@@ -20,10 +20,10 @@ origins:
     label: Hyderabad
     pickupPoints:
       - name: Nampally Railway Station
-        time: 15:45
-    outbound: Overnight train to Hubballi, Friday 3:45 pm
-    return: Night train from Hubballi on Monday 9:05 pm, back Tuesday 10–11 am
-    recurrence: Every Friday from Hyderabad
+        time: 15:00
+    outbound: Overnight train to Hubballi, Thursday or Friday 3:00 pm
+    return: Night train from Hubballi at 9:05 pm, back in Hyderabad around 10:00 am on Monday (Thursday batch) or Tuesday (Friday batch)
+    recurrence: Every Thursday & Friday from Hyderabad
   - city: bangalore
     label: Bangalore
     incomplete:
@@ -193,7 +193,7 @@ itinerary:
       source: https://commons.wikimedia.org/wiki/File:Kayaking_nachani.jpg
   - day: 4
     title: Home
-    description: Arrive in Hyderabad between 10 and 11 am.
+    description: Arrive in Hyderabad around 10 am.
     image: ../../assets/photos/train.jpg
     imageAlt: View from an Indian train window
     imageCredit:
@@ -268,6 +268,6 @@ status: live
 sample: false
 ---
 
-A full weekend of waterfalls, a temple by the sea, a night on the beach and a night by the river. Leave on Friday, and come back with sand in your bag and Kali-river stories.
+A full weekend of waterfalls, a temple by the sea, a night on the beach and a night by the river. Leave on Thursday or Friday, and come back with sand in your bag and Kali-river stories.
 
-Departures run every Friday from Hyderabad, Bangalore and Vijayawada, with tents by default and room upgrades if you prefer a bed.
+Departures run every Thursday and Friday from Hyderabad, and every Friday from Bangalore and Vijayawada, with tents by default and room upgrades if you prefer a bed.

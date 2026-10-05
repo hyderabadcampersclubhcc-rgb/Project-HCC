@@ -20,8 +20,8 @@ origins:
     pickupPoints:
       - name: Kacheguda Railway Station
         time: 19:00
-    outbound: Overnight sleeper train to Mysore, Friday 7:00 pm
-    return: Train from Mysore on Sunday 2:30 pm, back Monday 5:30 am
+    outbound: Overnight sleeper train to Mysore, Thursday or Friday 7:00 pm
+    return: Back in Hyderabad around 6:00 am on Monday (Thursday batch) or Tuesday (Friday batch)
   - city: bangalore
     label: Bangalore
     incomplete:
@@ -171,7 +171,7 @@ itinerary:
       source: https://commons.wikimedia.org/wiki/File:Mullayanagiri_Peak1.jpg
   - day: 4
     title: Back in Hyderabad
-    description: Reach Hyderabad around 5:30 am.
+    description: Reach Hyderabad around 6:00 am.
     image: ../../assets/photos/train.jpg
     imageAlt: View from an Indian train window
     imageCredit:
@@ -197,7 +197,7 @@ faqs:
     a: Yes. Solo travellers are welcome, and you’ll be in a group with an HCC trip captain from the start.
 featured: true
 sortOrder: 40
-recurrence: Every Friday
+recurrence: Every Thursday & Friday
 primaryKeyword: coorg chikmagalur trip from hyderabad
 legacyPaths:
   - /coorg-chikmagalur/
@@ -237,6 +237,6 @@ status: live
 sample: false
 ---
 
-Karnataka’s two coffee districts in one weekend. Coorg brings waterfalls, Mandalpatti’s grassy ridges and a night among the coffee bushes; Chikmagalur adds Hoysala temples and a dawn climb to Mullayanagiri.
+Karnataka’s two coffee districts in one long weekend. Coorg brings waterfalls, Mandalpatti’s grassy ridges and a night among the coffee bushes; Chikmagalur adds Hoysala temples and a dawn climb to Mullayanagiri.
 
 Trains, stays and the day plan are handled by your HCC trip captain from the start of the trip.

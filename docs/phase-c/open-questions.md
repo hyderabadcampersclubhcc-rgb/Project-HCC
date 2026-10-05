@@ -2,7 +2,9 @@
 
 Nothing below has been changed in the site data. Each item waits for HCC's confirmation.
 
-## 1. Hyderabad itinerary contradictions
+## 1. Hyderabad itinerary contradictions: RESOLVED 5 Oct 2026
+
+HCC confirmed Thursday + Friday batches (see `docs/phase-c/hyderabad-schedule.md`). The table below is kept as a record of what was found.
 
 | Trip | Current statement | Source/location | Conflicting itinerary | What needs confirmation |
 |---|---|---|---|---|
