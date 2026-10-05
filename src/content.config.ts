@@ -25,6 +25,9 @@ const faq = z.object({ q: z.string().min(5), a: z.string().min(5) });
 /** Attribution for photos that need it (e.g. Wikimedia Commons CC BY / CC BY-SA). Omit for HCC's own photos. */
 const credit = z.object({ author: z.string(), license: z.string(), source: z.url() });
 
+/** The image() helper Astro passes to collection schemas. */
+type ImageFn = () => z.ZodType<import('astro').ImageMetadata>;
+
 /** Old WordPress URLs that should 301 to this page, e.g. "/ooty-coonoor/". */
 const legacyPaths = z.array(z.string().regex(/^\/[a-z0-9_\/-]*\/$/, 'Use a path like /ooty-coonoor/')).default([]);
 
@@ -98,7 +101,28 @@ const destinations = defineCollection({
 
 /* ---------- trips ---------- */
 
-const origin = z.object({
+const inclusion = z.object({
+  text: z.string(),
+  icon: z.enum(['train', 'bus', 'bed', 'food', 'compass', 'mountain', 'users', 'tent', 'shield', 'check']).default('check'),
+  showOnCard: z.boolean().default(false),
+  cardLabel: z.string().max(24).optional(), // short label on trip cards, e.g. "Train"
+  conditional: z.boolean().default(false),
+  fallback: z.string().optional(),
+});
+
+/** A day in a city-specific itinerary. Without its own photo it reuses the trip's day with the same number. */
+const originDay = (image: ImageFn) => z.object({
+  day: z.number().int().min(0),
+  title: z.string(),
+  description: z.string(),
+  meals: z.array(z.enum(['breakfast', 'lunch', 'dinner', 'snacks'])).default([]),
+  stay: z.string().optional(),
+  image: image().optional(),
+  imageAlt: z.string().optional(),
+  imageCredit: credit.optional(),
+});
+
+const origin = (image: ImageFn) => z.object({
   city: slug, // e.g. "hyderabad" → URL suffix "-from-hyderabad"
   label: z.string(), // "Hyderabad"
   indexable: z.boolean().default(true),
@@ -107,6 +131,16 @@ const origin = z.object({
     .default([]),
   outbound: z.string().optional(), // "Overnight sleeper train, Fri 6:30 pm"
   return: z.string().optional(),
+  // City-specific overrides (Phase B). Anything left empty falls back to the trip's own value,
+  // so a Bangalore departure never shows Hyderabad details once its overrides are filled in.
+  basePrice: z.number().int().positive().optional(),
+  originalPrice: z.number().int().positive().optional(),
+  recurrence: z.string().optional(), // "Every Friday from Bangalore"
+  itinerary: z.array(originDay(image)).optional(), // replaces the trip itinerary for this city
+  inclusions: z.array(inclusion).optional(),
+  exclusions: z.array(z.string()).optional(),
+  /** Transport option ids offered from this city (default: all), e.g. ['sl', '3a']. */
+  transport: z.array(slug).optional(),
 });
 
 const transportOption = z.object({
@@ -139,7 +173,7 @@ const trips = defineCollection({
         groupSize: z.object({ min: z.number().int(), max: z.number().int() }).optional(),
         ageRange: z.string().optional(),
 
-        origins: z.array(origin).min(1),
+        origins: z.array(origin(image)).min(1),
         transportOptions: z.array(transportOption).min(1),
         stayOptions: z.array(stayOption).min(1),
 
@@ -149,18 +183,7 @@ const trips = defineCollection({
         gstPercent: z.number().min(0).max(28).optional(),
 
         highlights: z.array(z.string()).default([]),
-        inclusions: z
-          .array(
-            z.object({
-              text: z.string(),
-              icon: z.enum(['train', 'bus', 'bed', 'food', 'compass', 'mountain', 'users', 'tent', 'shield', 'check']).default('check'),
-              showOnCard: z.boolean().default(false),
-              cardLabel: z.string().max(24).optional(), // short label on trip cards, e.g. "Train"
-              conditional: z.boolean().default(false),
-              fallback: z.string().optional(),
-            }),
-          )
-          .default([]),
+        inclusions: z.array(inclusion).default([]),
         exclusions: z.array(z.string()).default([]),
         itinerary: z
           .array(

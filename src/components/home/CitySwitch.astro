@@ -1,0 +1,104 @@
+---
+/**
+ * "Where are you travelling from?" Hyderabad / Bangalore. Sets <html data-city>, which shows
+ * the matching [data-city-panel] blocks below (weekend + featured trips). The choice is
+ * remembered (localStorage, with try/catch) and applied before the panels render, so there's no
+ * flash. Without JS, Hyderabad shows. Tracked as GA4 `select_city`.
+ */
+const CITIES = [
+  { id: 'hyderabad', label: 'Hyderabad' },
+  { id: 'bangalore', label: 'Bangalore' },
+];
+---
+
+<script is:inline>
+  try {
+    var c = localStorage.getItem('hcc_city');
+    if (c === 'bangalore' || c === 'hyderabad') document.documentElement.dataset.city = c;
+  } catch (e) {}
+</script>
+
+<section class="city" aria-labelledby="city-title">
+  <div class="container city__in">
+    <h2 id="city-title" class="city__title">Where are you travelling from?</h2>
+    <div class="city__opts" role="group" aria-labelledby="city-title">
+      {
+        CITIES.map((c) => (
+          <button type="button" class="city__btn" data-city-choice={c.id} aria-pressed={c.id === 'hyderabad' ? 'true' : 'false'}>
+            {c.label}
+          </button>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<script>
+  import { track } from '@/scripts/analytics';
+  const root = document.documentElement;
+  const buttons = [...document.querySelectorAll<HTMLButtonElement>('[data-city-choice]')];
+  const sync = () => {
+    const city = root.dataset.city ?? 'hyderabad';
+    buttons.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.cityChoice === city)));
+  };
+  buttons.forEach((b) =>
+    b.addEventListener('click', () => {
+      const city = b.dataset.cityChoice!;
+      root.dataset.city = city;
+      try {
+        localStorage.setItem('hcc_city', city);
+      } catch {
+        /* storage blocked: choice lasts for this page view */
+      }
+      sync();
+      track('select_city', { city, cta_location: 'home_city_switch' });
+    }),
+  );
+  sync();
+</script>
+
+<style>
+  .city {
+    padding-block: var(--s-6) 0;
+  }
+  .city__in {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--s-3);
+  }
+  .city__title {
+    font-size: 1.125rem;
+  }
+  .city__opts {
+    display: inline-flex;
+    padding: 4px;
+    border: 1px solid var(--line);
+    border-radius: var(--r-pill);
+    background: var(--surface);
+  }
+  .city__btn {
+    min-height: 44px;
+    padding: 0 var(--s-5);
+    border: 0;
+    border-radius: var(--r-pill);
+    background: none;
+    color: var(--text-2);
+    font: 600 0.9375rem / 1 var(--font-body);
+    cursor: pointer;
+  }
+  .city__btn[aria-pressed='true'] {
+    background: var(--brand);
+    color: var(--white);
+  }
+  .city__btn:focus-visible {
+    outline: 2px solid var(--marigold-500);
+    outline-offset: 2px;
+  }
+  /* City panels: Hyderabad shows by default (and without JS). */
+  :global(html[data-city='bangalore'] [data-city-panel='hyderabad']),
+  :global(html:not([data-city='bangalore']) [data-city-panel='bangalore']) {
+    display: none;
+  }
+</style>

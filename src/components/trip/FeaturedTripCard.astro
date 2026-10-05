@@ -14,11 +14,13 @@ interface Props {
   index?: number;
   headingLevel?: 'h2' | 'h3';
   showPhotoLabel?: boolean;
+  /** Departure city; defaults to the trip's first. */
+  origin?: string;
 }
 
-const { trip, overline, index, headingLevel = 'h3', showPhotoLabel = false } = Astro.props;
+const { trip, overline, index, headingLevel = 'h3', showPhotoLabel = false, origin } = Astro.props;
 const d = trip.data;
-const o = trip.primary;
+const o = trip.origins.find((x) => x.city === origin) ?? trip.primary;
 const H = headingLevel;
 ---
 

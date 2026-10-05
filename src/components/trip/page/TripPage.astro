@@ -55,9 +55,9 @@ const showReviews = preview || reviewCount > 0;
 const sections = [
   (d.highlights.length || trip.entry.body?.trim()) && { id: 'overview', label: 'Overview' },
   { id: 'dates', label: 'Dates' },
-  d.itinerary.length && { id: 'itinerary', label: 'Itinerary' },
+  o.itinerary.length && { id: 'itinerary', label: 'Itinerary' },
   { id: 'stays', label: 'Stays & travel' },
-  (d.inclusions.length || d.exclusions.length) && { id: 'inclusions', label: 'Inclusions' },
+  (o.inclusions.length || o.exclusions.length) && { id: 'inclusions', label: 'Inclusions' },
   (d.thingsToCarry.length || d.importantInfo.length || d.suitableFor.length || d.advanceAmount != null || d.cancellationPolicy) && {
     id: 'info',
     label: 'Good to know',
@@ -89,13 +89,13 @@ const sections = [
       {preview && <SectionNote n={4} title="Overview" purpose="The trip's unique story (2–3 short paragraphs) plus highlights. Unique copy per trip, never a template with the destination swapped, so every page earns its own ranking." data="Trip body (markdown) + highlights list." />}
       <TripOverview trip={trip} />
       {preview && <SectionNote n={5} title="Dates & prices" purpose="Every departure with honest status. Sold-out dates stay visible as proof of demand. 'Select' picks the date in the booking card." data="Departures for this city. Seat counts only when entered by the team and under the threshold." />}
-      <DatesTable origin={o} recurrence={d.recurrence} />
+      <DatesTable origin={o} recurrence={o.recurrence} />
       {preview && <SectionNote n={6} title="Day-wise itinerary" purpose="The #1 thing people check before booking. Native accordions (crawlable), first day open, 'Expand all'. Weekday labels follow the next departure." data="Itinerary days with meals and overnight stay." />}
       <Itinerary trip={trip} origin={o} />
       {preview && <SectionNote n={7} title="Stays, transport & pickup" purpose="Transparency that competitors skip: property type, washroom, 'or similar' stated honestly; every travel/room option with its price difference; pickup points with reporting time and map link." data="Stays, transport and stay options, and this city's pickup points and journey notes." />}
       <StaysTransport trip={trip} origin={o} />
       {preview && <SectionNote n={8} title="What's included" purpose="Side-by-side ✓/✗. Conditional items show 'Subject to availability' plus the fallback, turning a common complaint into a trust signal." data="Inclusions (each can also show a short label on trip cards) and exclusions." />}
-      <Inclusions trip={trip} />
+      <Inclusions trip={trip} origin={o} />
       {preview && <SectionNote n={9} title="Good to know" purpose="Pre-empts objections: who it's for and not for, what to pack, important notes, and a plain-language payment & cancellation summary." data="Suitable/not suitable, things to carry, important info, advance, GST, cancellation summary (links to the full policy page)." status="needs-data" />}
       <GoodToKnow trip={trip} />
       {
@@ -134,11 +134,11 @@ const sections = [
 </div>
 
 {preview && <SectionNote n={12} title="Related trips" purpose="Keeps undecided visitors browsing: same destination first, then same trip type, then similar length." data="Computed from live trips; hidden when nothing relates." />}
-<RelatedTrips trip={trip} catalog={catalog} />
+<RelatedTrips trip={trip} origin={o.city} catalog={catalog} />
 
 <StickyBar trip={trip} origin={o.city} />
 {!preview && <TrackView event="view_item" params={{ ...itemParams(trip, o), item_list_name: undefined, value: o.fromPrice ?? undefined }} />}
-<EnquirySheet tripId={trip.id} tripTitle={d.title} originLabel={o.label} transport={d.transportOptions} stay={d.stayOptions} advance={d.advanceAmount} gstPercent={d.gstPercent} />
+<EnquirySheet tripId={trip.id} tripTitle={d.title} originLabel={o.label} transport={o.transportOptions} stay={d.stayOptions} advance={d.advanceAmount} gstPercent={d.gstPercent} />
 
 <style>
   .tp {

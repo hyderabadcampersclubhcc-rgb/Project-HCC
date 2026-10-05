@@ -12,9 +12,11 @@ interface Props {
   title?: string;
   headingLevel?: 'h2' | 'h3';
   max?: number;
+  /** Departure city: price and link use that departure. */
+  origin?: string;
 }
 
-const { trips, title = 'Trip planner', headingLevel = 'h2', max = 12 } = Astro.props;
+const { trips, title = 'Trip planner', headingLevel = 'h2', max = 12, origin } = Astro.props;
 const H = headingLevel;
 const destinations = new Map((await getCollection('destinations')).map((d) => [d.id, d.data]));
 const rows = trips.slice(0, max).map((t) => ({
@@ -22,7 +24,8 @@ const rows = trips.slice(0, max).map((t) => ({
   travel: t.data.transportOptions[0].label,
   duration: durationLabel(t.data.durationNights, t.data.durationDays),
   best: bestMonthsLabel(destinations.get(t.data.destinations[0].id)?.bestMonths ?? []),
-  from: t.primary.fromPrice,
+  from: ((origin && t.origins.find((o) => o.city === origin)) || t.primary).fromPrice,
+  url: ((origin && t.origins.find((o) => o.city === origin)) || t.primary).url,
 }));
 ---
 
@@ -47,7 +50,7 @@ const rows = trips.slice(0, max).map((t) => ({
             {rows.map((r) => (
               <tr>
                 <th scope="row">
-                  <a href={r.trip.url}>{r.trip.data.title}</a>
+                  <a href={r.url}>{r.trip.data.title}</a>
                 </th>
                 <td>{r.travel}</td>
                 <td>{r.duration}</td>

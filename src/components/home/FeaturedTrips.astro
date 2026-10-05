@@ -12,22 +12,32 @@ interface Props {
 }
 
 const { catalog = {}, preview = false, max = 4 } = Astro.props;
-const featured = (await getTrips(catalog)).filter((t) => t.data.featured).slice(0, max);
+const trips = await getTrips(catalog);
+const featured = trips.filter((t) => t.data.featured);
+// One panel per departure city (switched by CitySwitch). A city with too few featured trips
+// falls back to its other trips so the panel is never near-empty.
+const panels = ['hyderabad', 'bangalore']
+  .map((city) => {
+    const own = featured.filter((t) => t.origins.some((o) => o.city === city));
+    const rest = trips.filter((t) => !own.includes(t) && t.origins.some((o) => o.city === city));
+    return { city, items: [...own, ...rest].slice(0, max) };
+  })
+  .filter((p) => p.items.length > 0);
 ---
 
 {
-  featured.length > 0 && (
-    <section class="section feat" aria-labelledby="feat-title">
+  panels.map((p, n) => (
+    <section class="section feat" aria-labelledby={`feat-title-${p.city}`} data-city-panel={p.city}>
       <div class="container">
-        <SectionHeader id="feat-title" title={home.featured.title} subtitle={home.featured.subtitle} />
-        <div class:list={['feat__grid', featured.length === 1 && 'feat__grid--one']}>
-          {featured.map((t, i) => (
-            <FeaturedTripCard trip={t} index={i} showPhotoLabel={preview} />
+        <SectionHeader id={`feat-title-${p.city}`} title={home.featured.title} subtitle={home.featured.subtitle} />
+        <div class:list={['feat__grid', p.items.length === 1 && 'feat__grid--one']}>
+          {p.items.map((t, i) => (
+            <FeaturedTripCard trip={t} origin={p.city} index={i} showPhotoLabel={preview} />
           ))}
         </div>
       </div>
     </section>
-  )
+  ))
 }
 
 <style>

@@ -65,7 +65,7 @@ const delta = (n: number) => (n === 0 ? 'Included' : n > 0 ? `+${inr(n)}` : `−
       </h3>
       <ul class="st__opts" aria-label="Travel options">
         {
-          d.transportOptions.map((t) => (
+          origin.transportOptions.map((t) => (
             <li>
               <span>
                 {t.label}

@@ -1,9 +1,9 @@
 ---
 /**
- * "Weekend trips from Hyderabad": the homepage's local-SEO block. Shows trips (not
- * dates, which Upcoming already covers), a planner table generated from trip data, and a
- * data-generated sentence that links each destination page. It hands authority to the
- * owner page /weekend-trips-from-hyderabad/ (intent map §9) instead of competing with it.
+ * Weekend trips by departure city: the homepage's local-SEO block. One panel per city
+ * ([data-city-panel], switched by CitySwitch): trips, a planner table and a sentence linking the
+ * destination pages. Each panel hands authority to its owner city page
+ * (/weekend-trips-from-hyderabad/, /weekend-trips-from-bangalore/) instead of competing with it.
  */
 import { getCollection } from 'astro:content';
 import SectionHeader from '@/components/ui/SectionHeader.astro';
@@ -19,59 +19,66 @@ interface Props {
 }
 
 const { catalog = {}, max = 6 } = Astro.props;
-const trips = (await getTrips(catalog)).filter((t) => t.data.tripTypes.includes('weekend')).slice(0, max);
+const all = (await getTrips(catalog)).filter((t) => t.data.tripTypes.includes('weekend'));
 const destinations = new Map((await getCollection('destinations')).map((d) => [d.id, d.data]));
 
-// Unique destinations across weekend trips, in trip order, for the linked intro sentence.
-const destIds = [...new Set(trips.flatMap((t) => t.data.destinations.map((d) => d.id)))];
-const linked = destIds.slice(0, 7).map((id) => ({ id, name: destinations.get(id)?.name ?? id }));
-
+const CITIES = [
+  { city: 'hyderabad', label: 'Hyderabad', title: home.weekend.title, intro: home.weekend.intro, href: '/weekend-trips-from-hyderabad/' },
+  { city: 'bangalore', label: 'Bangalore', title: 'Weekend trips from Bangalore', intro: 'Friday departures from Bangalore to the hills, the coast and tea country.', href: '/weekend-trips-from-bangalore/' },
+];
+const panels = CITIES.map((c) => {
+  const trips = all.filter((t) => t.origins.some((o) => o.city === c.city)).slice(0, max);
+  // Unique destinations in trip order, for the linked intro sentence.
+  const destIds = [...new Set(trips.flatMap((t) => t.data.destinations.map((d) => d.id)))];
+  const linked = destIds.slice(0, 7).map((id) => ({ id, name: destinations.get(id)?.name ?? id }));
+  return { ...c, trips, destIds, linked };
+}).filter((p) => p.trips.length > 0);
 ---
 
 {
-  trips.length > 0 && (
-    <section class="section wkd" aria-labelledby="wkd-title">
+  panels.map((p) => (
+    <section class="section wkd" aria-labelledby={`wkd-title-${p.city}`} data-city-panel={p.city}>
       <div class="container">
-        <SectionHeader id="wkd-title" title={home.weekend.title}>
-          <Button variant="text" href="/weekend-trips-from-hyderabad/" iconRight="arrow">
+        <SectionHeader id={`wkd-title-${p.city}`} title={p.title}>
+          <Button variant="text" href={p.href} iconRight="arrow">
             All weekend trips
           </Button>
         </SectionHeader>
 
         <p class="wkd__intro">
-          {home.weekend.intro}{' '}
-          {linked.length > 1 && (
+          {p.intro}{' '}
+          {p.linked.length > 1 && (
             <>
               Join our organised group trips to{' '}
-              {linked.map((d, i) => (
+              {p.linked.map((d, i) => (
                 <>
                   <a href={destinationUrl(d.id)}>{d.name}</a>
-                  {i < linked.length - 2 ? ', ' : i === linked.length - 2 ? ' and ' : ''}
+                  {i < p.linked.length - 2 ? ', ' : i === p.linked.length - 2 ? ' and ' : ''}
                 </>
               ))}
-              {destIds.length > linked.length ? ' and more.' : '.'}
+              {p.destIds.length > p.linked.length ? ' and more.' : '.'}
             </>
           )}
         </p>
 
         <div class="rail rail--grid wkd__rail" style="--rail-cols:3">
-          {trips.map((t, i) => (
-            <TripCard trip={t} index={i} listName="home_weekend" />
+          {p.trips.map((t, i) => (
+            <TripCard trip={t} origin={p.city} index={i} listName={`home_weekend_${p.city}`} />
           ))}
         </div>
 
         <div class="wkd__planner">
-          <PlannerTable trips={trips} title="Weekend getaway planner" headingLevel="h3" />
+          <PlannerTable trips={p.trips} origin={p.city} title={`Weekend getaway planner: from ${p.label}`} headingLevel="h3" />
         </div>
 
         <div class="wkd__cta">
-          <Button href="/weekend-trips-from-hyderabad/" variant="secondary" iconRight="arrow">
-            Explore Weekend Trips from Hyderabad
+          <Button href={p.href} variant="secondary" iconRight="arrow">
+            Explore Weekend Trips from {p.label}
           </Button>
         </div>
       </div>
     </section>
-  )
+  ))
 }
 
 <style>

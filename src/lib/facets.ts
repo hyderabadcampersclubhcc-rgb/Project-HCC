@@ -70,15 +70,15 @@ export function tripItemAttrs(trip: TripView, origin: TripOriginView = trip.prim
     'data-nights': String(d.durationNights),
     'data-budget': price != null ? (BUDGET.find((x) => x.test(price))?.value ?? '') : '',
     'data-price': price != null ? String(price) : '',
-    'data-travel': [...new Set(d.transportOptions.map((t) => TRAVEL[t.mode]?.value).filter(Boolean))].join(' '),
+    'data-travel': [...new Set(origin.transportOptions.map((t) => TRAVEL[t.mode]?.value).filter(Boolean))].join(' '),
     'data-origin': trip.origins.map((o) => o.city).join(' '),
     'data-text': [d.title, d.tagline, ...trip.destinationNames, ...d.tripTypes.map((t) => STYLE_LABEL[t] ?? t)].join(' ').toLowerCase(),
   };
 }
 
 /** Facet groups with counts for a set of trips (only options with ≥1 match). */
-export function tripFacets(trips: TripView[], keys: FacetKey[] = ['month', 'style', 'dur', 'budget', 'travel']): FacetGroup[] {
-  const items = trips.map((t) => tripItemAttrs(t));
+export function tripFacets(trips: TripView[], keys: FacetKey[] = ['month', 'style', 'dur', 'budget', 'travel'], city?: string): FacetGroup[] {
+  const items = trips.map((t) => tripItemAttrs(t, (city && t.origins.find((o) => o.city === city)) || t.primary));
   const count = (attr: keyof ReturnType<typeof tripItemAttrs>, value: string) => items.filter((i) => i[attr].split(' ').includes(value)).length;
 
   const months = [...new Set(items.flatMap((i) => i['data-months'].split(' ').filter(Boolean)))].sort().slice(0, 6);

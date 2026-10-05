@@ -49,6 +49,12 @@ export interface TripOriginView {
   next: ResolvedDeparture | null;
   fromPrice: number | null;
   fromOriginalPrice: number | null;
+  /** City-specific values, falling back to the trip's (Phase B). */
+  recurrence: string | undefined;
+  itinerary: TripEntry['data']['itinerary'];
+  inclusions: TripEntry['data']['inclusions'];
+  exclusions: string[];
+  transportOptions: TripEntry['data']['transportOptions'];
 }
 
 export interface TripView {
@@ -85,13 +91,15 @@ function resolvePrice(trip: TripEntry['data'], dep: DepartureEntry['data'], tran
 
   const t = trip.transportOptions.find((o) => o.id === transport)!;
   const s = trip.stayOptions.find((o) => o.id === stay)!;
-  return (dep.price ?? trip.basePrice) + t.priceDelta + s.priceDelta;
+  const cityBase = trip.origins.find((o) => o.city === dep.origin)?.basePrice;
+  return (dep.price ?? cityBase ?? trip.basePrice) + t.priceDelta + s.priceDelta;
 }
 
 function resolveDeparture(entry: DepartureEntry, trip: TripEntry): ResolvedDeparture {
   const d = entry.data;
   const t = trip.data;
-  const transport = d.availableOptions.transport ?? t.transportOptions.map((o) => o.id);
+  const cityTransport = t.origins.find((o) => o.city === d.origin)?.transport;
+  const transport = d.availableOptions.transport ?? cityTransport ?? t.transportOptions.map((o) => o.id);
   const stay = d.availableOptions.stay ?? t.stayOptions.map((o) => o.id);
 
   const prices: Record<string, number> = {};
@@ -183,6 +191,15 @@ async function loadTrips(opts: Options): Promise<TripView[]> {
       const departures = resolved.filter((d) => d.origin === o.city);
       const bookable = departures.filter((d) => d.bookable);
       const cheapest = bookable.reduce<ResolvedDeparture | null>((m, d) => (!m || d.price < m.price ? d : m), null);
+      const recurrence = o.recurrence ?? entry.data.recurrence;
+      // A city itinerary reuses the photo of the trip's day with the same number.
+      const itinerary = o.itinerary
+        ? o.itinerary.map((day) => {
+            if (day.image) return day;
+            const base = entry.data.itinerary.find((x) => x.day === day.day);
+            return { ...day, image: base?.image, imageAlt: base?.imageAlt, imageCredit: base?.imageCredit };
+          })
+        : entry.data.itinerary;
       return {
         city: o.city,
         label: o.label,
@@ -192,8 +209,13 @@ async function loadTrips(opts: Options): Promise<TripView[]> {
         bookable,
         next: bookable[0] ?? null,
         // No dated departure yet → fall back to the trip's base price (e.g. recurring trips).
-        fromPrice: cheapest?.price ?? (entry.data.recurrence ? entry.data.basePrice : null),
-        fromOriginalPrice: cheapest ? cheapest.originalPrice : entry.data.recurrence ? (entry.data.originalPrice ?? null) : null,
+        fromPrice: cheapest?.price ?? (recurrence ? (o.basePrice ?? entry.data.basePrice) : null),
+        fromOriginalPrice: cheapest ? cheapest.originalPrice : recurrence ? (o.originalPrice ?? entry.data.originalPrice ?? null) : null,
+        recurrence,
+        itinerary,
+        inclusions: o.inclusions ?? entry.data.inclusions,
+        exclusions: o.exclusions ?? entry.data.exclusions,
+        transportOptions: o.transport ? entry.data.transportOptions.filter((x) => o.transport!.includes(x.id)) : entry.data.transportOptions,
       };
     });
 

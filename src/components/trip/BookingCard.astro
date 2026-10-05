@@ -29,13 +29,13 @@ const d = trip.data;
 
 const deps = o.departures.slice(0, 12);
 const sel = o.next;
-const cheapestKey = sel ? Object.entries(sel.prices).sort((a, b) => a[1] - b[1])[0][0] : comboKey(d.transportOptions[0].id, d.stayOptions[0].id);
+const cheapestKey = sel ? Object.entries(sel.prices).sort((a, b) => a[1] - b[1])[0][0] : comboKey(o.transportOptions[0].id, d.stayOptions[0].id);
 const [selT, selS] = cheapestKey.split('|');
 // No bookable date and no recurrence → no price shown (matches TripCard's "Price on request").
 const price = sel?.prices[cheapestKey] ?? o.fromPrice ?? null;
 const allFull = deps.length > 0 && !sel;
 const stayLabel = d.stayOptions.find((s) => s.id === selS)?.label;
-const multiTransport = d.transportOptions.length > 1;
+const multiTransport = o.transportOptions.length > 1;
 const multiStay = d.stayOptions.length > 1;
 const optPrice = (t: string, s: string) => sel?.prices[comboKey(t, s)];
 
@@ -48,7 +48,7 @@ const payload = {
   advance: d.advanceAmount ?? null,
   payments: settings.payments.enabled,
   wa: whatsappNumber,
-  transport: d.transportOptions.map(({ id, label }) => ({ id, label })),
+  transport: o.transportOptions.map(({ id, label }) => ({ id, label })),
   stay: d.stayOptions.map(({ id, label }) => ({ id, label })),
   // All departures (the card shows the first 12 as stubs; the Dates list can select any).
   departures: o.departures.map((x) => ({
@@ -117,7 +117,7 @@ const flagFor = (x: (typeof deps)[number]) =>
               <span>2 · Travel</span>
             </legend>
             <div class="book__opts" role="radiogroup" aria-label="Travel option">
-              {d.transportOptions.map((t) => (
+              {o.transportOptions.map((t) => (
                 <button type="button" class="opt" role="radio" aria-checked={t.id === selT ? 'true' : 'false'} data-opt="transport" data-id={t.id}>
                   <span class="opt__radio" aria-hidden="true" />
                   <span class="opt__label">{t.label}</span>
@@ -179,7 +179,7 @@ const flagFor = (x: (typeof deps)[number]) =>
       <p class="book__nodates">
         <Icon name="calendar" />
         <span>
-          <b>{d.recurrence ?? 'New dates coming soon'}</b>
+          <b>{o.recurrence ?? 'New dates coming soon'}</b>
           <br />
           Ask us for the next departure. We'll reply on WhatsApp.
         </span>

@@ -21,13 +21,21 @@ interface Props {
 
 const { trip, origin } = Astro.props;
 const d = trip.data;
-// Hierarchy: category → destination → trip. The weekend and camping categories are Hyderabad
-// pages, so trips from other cities link to /trips/ until their own city hub exists (Phase B).
-const HYD_ONLY = new Set(['weekend', 'camping']);
+// Hierarchy: category → destination → trip. Weekend and camping are city pages; a trip links to
+// its own city's page, or to /trips/ when that city has no page yet.
+const CITY_PAGES: Record<string, Record<string, { label: string; href: string }>> = {
+  weekend: {
+    hyderabad: { label: 'Weekend Trips from Hyderabad', href: '/weekend-trips-from-hyderabad/' },
+    bangalore: { label: 'Weekend Trips from Bangalore', href: '/weekend-trips-from-bangalore/' },
+  },
+  camping: { hyderabad: { label: 'Camping near Hyderabad', href: '/camping-near-hyderabad/' } },
+};
 const typeLink = TRIP_TYPE_LINKS.find((t) => t.type === d.tripTypes[0]);
-const category =
-  typeLink && (!HYD_ONLY.has(typeLink.type) || origin.city === 'hyderabad')
-    ? { label: typeLink.type === 'weekend' ? 'Weekend Trips from Hyderabad' : typeLink.type === 'camping' ? 'Camping near Hyderabad' : typeLink.label, href: typeLink.href }
+const cityPages = typeLink && CITY_PAGES[typeLink.type];
+const category = cityPages
+  ? (cityPages[origin.city] ?? { label: 'Trips', href: '/trips/' })
+  : typeLink
+    ? { label: typeLink.label, href: typeLink.href }
     : { label: 'Trips', href: '/trips/' };
 // Only link destination pages that are approved for Google (Phase A tiers).
 const dest = d.destinations[0] ? await getEntry(d.destinations[0]) : undefined;
@@ -35,10 +43,10 @@ const destCrumb = dest && dest.data.indexable && dest.data.seoTier !== 'c' ? [{ 
 const crumbs = [category, ...destCrumb, { label: d.title }];
 
 const MODE_ICON: Record<string, IconName> = { train: 'train', bus: 'bus', tempo: 'bus', cab: 'bus', flight: 'route', self: 'route' };
-const transport = d.transportOptions.length > 1 ? `${d.transportOptions.map((t) => t.label).join(' or ')}` : d.transportOptions[0].label;
+const transport = origin.transportOptions.length > 1 ? `${origin.transportOptions.map((t) => t.label).join(' or ')}` : origin.transportOptions[0].label;
 const stayType = d.stays[0]?.type;
 const facts: { icon: IconName; label: string }[] = [
-  { icon: MODE_ICON[d.transportOptions[0].mode] ?? 'route', label: transport },
+  { icon: MODE_ICON[origin.transportOptions[0].mode] ?? 'route', label: transport },
   ...(stayType ? [{ icon: 'bed' as IconName, label: stayType }] : []),
   { icon: 'mountain', label: d.difficulty[0].toUpperCase() + d.difficulty.slice(1) },
   ...(d.groupSize ? [{ icon: 'users' as IconName, label: `${d.groupSize.min}–${d.groupSize.max} people` }] : []),
@@ -78,9 +86,9 @@ const rating = visibleTrustItems().find((t) => t.icon === 'star');
             </a>
           )}
         </span>
-      ) : d.recurrence ? (
+      ) : origin.recurrence ? (
         <span>
-          <Icon name="calendar" /> {d.recurrence}
+          <Icon name="calendar" /> {origin.recurrence}
         </span>
       ) : (
         <span>

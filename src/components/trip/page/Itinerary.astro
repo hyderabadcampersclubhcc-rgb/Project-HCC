@@ -16,7 +16,7 @@ interface Props {
 }
 
 const { trip, origin } = Astro.props;
-const days = [...trip.data.itinerary].sort((a, b) => a.day - b.day);
+const days = [...origin.itinerary].sort((a, b) => a.day - b.day);
 const start = origin.next?.start;
 const weekday = (offset: number) => {
   if (!start) return null;

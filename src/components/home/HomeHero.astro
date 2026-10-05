@@ -1,9 +1,12 @@
 ---
 /**
- * Homepage hero. LCP = the hero photo (eager, fetchpriority=high, AVIF/WebP).
+ * Homepage hero. LCP = the hero photo (eager, fetchpriority=high, WebP). With a background video,
+ * the photo is the video's poster frame, so the video plays in the same element and never
+ * becomes a later, slower LCP candidate.
  * The H1 contains the visible overline ("Group trips from Hyderabad") plus the brand
  * line, so the page's single H1 carries the primary keyword without hidden text.
  */
+import { getImage } from 'astro:assets';
 import Photo from '@/components/ui/Photo.astro';
 import PhotoCredit from '@/components/ui/PhotoCredit.astro';
 import Icon from '@/components/ui/Icon.astro';
@@ -19,34 +22,41 @@ const { preview = false, catalog = {} } = Astro.props;
 const h = home.hero;
 const image = uploadedImage(h.image);
 // "Your weekend. Your adventure. Your people." → one line per sentence (natural wrap if a line is too long).
+const hasVideo = !!(h.video.desktop || h.video.mobile);
+const alt = h.imageAlt || 'HCC travellers on a group trip from Hyderabad';
+const poster = hasVideo && image ? await getImage({ src: image, width: 828, format: 'webp', quality: 70 }) : null;
 const credit = h.imageCredit.source ? { author: h.imageCredit.author, license: h.imageCredit.license, source: h.imageCredit.source } : undefined;
 const lines = h.headline.split(/(?<=[.!?])\s+/).filter(Boolean);
 ---
 
 <section class="hero" aria-labelledby="hero-title">
-  <Photo
-    src={image}
-    alt={h.imageAlt || 'HCC travellers on a group trip from Hyderabad'}
-    tone="dusk"
-    eager
-    sizes="100vw"
-    widths={[480, 768, 1080, 1440, 1920]}
-    label={preview && !image ? 'Hero: real HCC group photo' : undefined}
-    class="hero__photo"
-  />
+  {poster && <link rel="preload" as="image" href={poster.src} fetchpriority="high" />}
   {
-    (h.video.desktop || h.video.mobile) && (
+    poster ? (
       <video
         class="hero__video"
+        poster={poster.src}
         muted
         loop
         playsinline
         preload="none"
-        aria-hidden="true"
+        role="img"
+        aria-label={alt}
         tabindex="-1"
         data-hero-video
         data-desktop={h.video.desktop || h.video.mobile}
         data-mobile={h.video.mobile || h.video.desktop}
+      />
+    ) : (
+      <Photo
+        src={image}
+        alt={alt}
+        tone="dusk"
+        eager
+        sizes="100vw"
+        widths={[480, 768, 1080, 1440, 1920]}
+        label={preview && !image ? 'Hero: real HCC group photo' : undefined}
+        class="hero__photo"
       />
     )
   }
@@ -92,7 +102,7 @@ const lines = h.headline.split(/(?<=[.!?])\s+/).filter(Boolean);
     inset: 0;
     z-index: -2;
   }
-  /* Background video fades in over the photo once it actually plays */
+  /* Background video: its poster is the hero photo, so photo and video are one element */
   .hero__video {
     position: absolute;
     inset: 0;
@@ -100,11 +110,7 @@ const lines = h.headline.split(/(?<=[.!?])\s+/).filter(Boolean);
     width: 100%;
     height: 100%;
     object-fit: cover;
-    opacity: 0;
-    transition: opacity 1.2s var(--ease);
-  }
-  .hero.is-video .hero__video {
-    opacity: 1;
+    background: var(--brand-deep);
   }
   .hero.is-video :global(.pcredit) {
     display: none;
@@ -190,7 +196,16 @@ const lines = h.headline.split(/(?<=[.!?])\s+/).filter(Boolean);
       // Pause when scrolled away to save battery and data
       new IntersectionObserver(([e]) => (e.isIntersecting ? video.play().catch(() => {}) : video.pause())).observe(hero);
     };
-    if (document.readyState === 'complete') setTimeout(start, 300);
-    else addEventListener('load', () => setTimeout(start, 300), { once: true });
+    // Start on the first scroll / tap / key press. Browsers stop measuring LCP at that point, so
+    // the video's first frame can never become a slow LCP (Core Web Vitals). Until then the
+    // poster photo shows, exactly as a still hero.
+    let started = false;
+    const once = () => {
+      if (started) return;
+      started = true;
+      ['scroll', 'wheel', 'pointerdown', 'touchstart', 'keydown'].forEach((t) => removeEventListener(t, once));
+      start();
+    };
+    ['scroll', 'wheel', 'pointerdown', 'touchstart', 'keydown'].forEach((t) => addEventListener(t, once, { passive: true }));
   }
 </script>

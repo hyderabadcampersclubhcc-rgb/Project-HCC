@@ -24,8 +24,62 @@ origins:
     return: Train from Mysore on Sunday 2:30 pm, back Monday 5:30 am
   - city: bangalore
     label: Bangalore
-    outbound: Every Friday from Bangalore; group meets 6:00 am Saturday for breakfast
-    return: Return train on Monday from the end of the trip
+    outbound: Every Friday from Bangalore; the group meets at 6:00 am on Saturday
+    return: Return train to Bangalore on day 3
+    recurrence: Every Friday from Bangalore
+    itinerary:
+      - day: 1
+        title: Golden Temple and Coorg
+        description: Meet at 6 am on Saturday and freshen up over breakfast. Visit the Golden Temple (Namdroling Monastery) and the elephant camp, then Raja’s Seat for the evening views and some shopping.
+        meals: []
+        stay: Coorg
+        image: ../../assets/photos/golden-temple.jpg
+        imageAlt: Golden Temple (Namdroling Monastery), Bylakuppe
+        imageCredit:
+          author: Nandini
+          license: CC BY-SA 4.0
+          source: https://commons.wikimedia.org/wiki/File:Namdroling_monastery_kushalnagar.jpg
+      - day: 2
+        title: Mandalpatti to Chikmagalur
+        description: Up at 5 am for a jeep ride to Mandalpatti peak, then Abbey Falls. Drive on to Chikmagalur via the Belur temple, with water sports at Yagachi dam.
+        meals: []
+        stay: Chikmagalur
+        image: ../../assets/photos/abbey-falls.jpg
+        imageAlt: Abbey Falls, Coorg
+        imageCredit:
+          author: "User: (WT-shared) Rohithrajjc at wts wikivoyage"
+          license: Public domain
+          source: https://commons.wikimedia.org/wiki/File:Abbey_falls_2010.jpg
+      - day: 3
+        title: Mullayanagiri and home
+        description: A jeep ride and trek up Mullayanagiri, Karnataka’s highest peak, then Jhari Falls before the return train to Bangalore.
+        meals: []
+        image: ../../assets/photos/mullayanagiri.jpg
+        imageAlt: Mullayanagiri peak, Chikmagalur
+        imageCredit:
+          author: రవిచంద్ర
+          license: CC BY-SA 4.0
+          source: https://commons.wikimedia.org/wiki/File:Mullayanagiri_Peak1.jpg
+    inclusions:
+      - text: 2 nights’ accommodation (4-sharing rooms)
+        icon: bed
+        showOnCard: true
+        cardLabel: Stays
+      - text: Local transport for all 3 days
+        icon: compass
+        showOnCard: true
+        cardLabel: Sightseeing
+      - text: Tolls, taxes, parking and driver allowances
+        icon: check
+      - text: HCC trip guide
+        icon: users
+      - text: First aid
+        icon: shield
+    exclusions:
+      - Food
+      - Entry tickets
+      - Jeep rides
+      - Anything not listed under inclusions
 transportOptions:
   - id: sl
     label: Sleeper train
@@ -135,7 +189,7 @@ faqs:
     a: Yes. Solo travellers are welcome, and you’ll be in a group with an HCC trip captain from the start.
 featured: true
 sortOrder: 40
-recurrence: Every Friday from Hyderabad
+recurrence: Every Friday
 primaryKeyword: coorg chikmagalur trip from hyderabad
 legacyPaths:
   - /coorg-chikmagalur/
@@ -177,4 +231,4 @@ sample: false
 
 Karnataka’s two coffee districts in one weekend. Coorg brings waterfalls, Mandalpatti’s grassy ridges and a night among the coffee bushes; Chikmagalur adds Hoysala temples and a dawn climb to Mullayanagiri.
 
-Trains, stays and the day plan are handled by your HCC trip captain from Kacheguda onwards.
+Trains, stays and the day plan are handled by your HCC trip captain from the start of the trip.

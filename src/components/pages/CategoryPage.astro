@@ -30,8 +30,10 @@ const trips = await getTripsForRule(l.rule, catalog);
 const { Content } = await render(landing);
 const hasBody = !!landing.body?.trim();
 
-const prices = trips.map((t) => t.primary.fromPrice).filter((p): p is number => p != null);
-const next = trips.map((t) => t.primary.next?.start).filter((d): d is string => !!d).sort()[0];
+// City pages (rule.origin) show that city's prices and dates.
+const cityView = (t: (typeof trips)[number]) => (l.rule.origin && t.origins.find((o) => o.city === l.rule.origin)) || t.primary;
+const prices = trips.map((t) => cityView(t).fromPrice).filter((p): p is number => p != null);
+const next = trips.map((t) => cityView(t).next?.start).filter((d): d is string => !!d).sort()[0];
 const facts = [trips.length ? `${trips.length} trip${trips.length > 1 ? 's' : ''}` : '', prices.length ? `From ${inr(Math.min(...prices))}` : '', next ? `Next: ${dateLong(next)}` : ''].filter(Boolean);
 
 // Guides that mention these trips or their destinations.
@@ -50,11 +52,11 @@ const related = l.related.map((path) => TRIP_TYPE_LINKS.find((t) => t.href === p
   <PageIntro title={l.title} intro={l.intro} crumbs={[{ label: 'Trips', href: '/trips/' }, { label: l.title }]} facts={facts} />
 
   {preview && <SectionNote n={2} title="Trips in this category" purpose="The product first. Same filters and compare as /trips/, scoped to this category." data="Trips matching the page's rule (trip types / destinations / max nights / departure city). Add a trip in the CMS and it appears here automatically." />}
-  <TripListing trips={trips} listName={`category_${landing.id}`} today={catalog.today} chipKeys={['month', 'style']} />
+  <TripListing trips={trips} origin={l.rule.origin} listName={`category_${landing.id}`} today={catalog.today} chipKeys={['month', 'style']} />
 
   <div class="cat__sections">
     {preview && <SectionNote n={3} title="Planner table" purpose="Genuinely useful comparison (travel, length, best time, price) that also earns rankings, generated from data so it never goes stale." data="Trips + destination best months. Shown when there are ≥2 trips." />}
-    <PlannerTable trips={trips} title={`${l.title}: at a glance`} />
+    <PlannerTable trips={trips} origin={l.rule.origin} title={`${l.title}: at a glance`} />
 
     {
       hasBody && (

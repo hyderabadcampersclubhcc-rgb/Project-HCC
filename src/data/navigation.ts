@@ -13,7 +13,7 @@ export interface TripTypeLink {
 }
 
 export const TRIP_TYPE_LINKS: TripTypeLink[] = [
-  { type: 'weekend', label: 'Weekend Getaways', href: '/weekend-trips-from-hyderabad/', icon: 'compass', blurb: 'Leave Friday, back Monday' },
+  { type: 'weekend', label: 'Weekend Getaways', href: '/weekend-trips-from-hyderabad/', icon: 'compass', blurb: 'From Hyderabad, every week' },
   { type: 'camping', label: 'Camping', href: '/camping-near-hyderabad/', icon: 'tent', blurb: 'Campfires, stars, lakesides' },
   { type: 'trek', label: 'Treks & Adventure', href: '/treks/', icon: 'mountain', blurb: 'Trails for every fitness level' },
   { type: 'backpacking', label: 'Backpacking', href: '/backpacking-trips/', icon: 'backpack', blurb: 'Longer, looser, more places' },
@@ -22,6 +22,11 @@ export const TRIP_TYPE_LINKS: TripTypeLink[] = [
   { type: 'family', label: 'Family Trips', href: '/family-trips/', icon: 'family', blurb: 'Easy pace, all ages' },
   { type: 'corporate', label: 'Corporate Trips', href: '/corporate-trips/', icon: 'briefcase', blurb: 'Offsites & team outings' },
   { type: 'custom', label: 'Customised Trips', href: '/customised-trips/', icon: 'sparkles', blurb: 'Built around your group' },
+];
+
+/** Departure-city pages shown in the Trips menus (Phase B). */
+export const CITY_LINKS = [
+  { label: 'Weekend Trips from Bangalore', href: '/weekend-trips-from-bangalore/', icon: 'route' as const, blurb: 'Coorg, Gokarna, Munnar' },
 ];
 
 export interface NavItem {
@@ -35,7 +40,7 @@ export const MAIN_NAV: NavItem[] = [
   { label: 'Trips', href: '/trips/', menu: 'trips' },
   { label: 'Weekend Getaways', href: '/weekend-trips-from-hyderabad/' },
   { label: 'Treks', href: '/treks/' },
-  { label: 'Camping near Hyderabad', href: '/camping-near-hyderabad/' },
+  { label: 'Camping', href: '/camping-near-hyderabad/' },
   { label: 'Long Trips', href: '/long-trips/' },
   { label: 'Destinations', href: '/destinations/', menu: 'destinations' },
   { label: 'Guides', href: '/travel-guides/' },

@@ -48,3 +48,12 @@ For each of the 5 Bangalore trips:
 - [ ] Return arrival time in Bangalore
 - [ ] Bangalore price, if different from Hyderabad
 - [ ] Seats per departure (optional; only shown when you set it)
+
+---
+
+## Phase B progress (no dates published)
+- City-specific trip data: each departure city can set its own price, departure pattern, day-by-day plan, inclusions/exclusions and transport options (falls back to the trip's values).
+- Bangalore pages no longer show Hyderabad details: Coorg & Chikmagalur (own 3-day plan and inclusions from HCC's Bangalore listing), Gokarna (KSR 11 pm departure, sleeper/3AC only), Gokarna couples. Related trips come from the same city.
+- `/weekend-trips-from-bangalore/` built (3 trips + Kerala), **noindex until HCC approves the copy and confirms dates**.
+- Homepage: "Where are you travelling from?" Hyderabad / Bangalore switch (remembered, no flash, works without JS), with city panels for weekend and featured trips.
+- Hero video now starts on the first scroll/tap and the photo is its poster, keeping homepage mobile speed at 97 (it had dropped to 75).

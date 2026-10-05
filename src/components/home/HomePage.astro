@@ -7,6 +7,7 @@
  */
 import HomeHero from './HomeHero.astro';
 import UpcomingSection from './UpcomingSection.astro';
+import CitySwitch from './CitySwitch.astro';
 import DestinationDiscovery from './DestinationDiscovery.astro';
 import WeekendSection from './WeekendSection.astro';
 import TripTypes from './TripTypes.astro';
@@ -63,6 +64,8 @@ const demoReviews = [1, 2, 3].map((i) => ({
 }
 
 {preview && <SectionNote {...({ n: 3, title: 'Upcoming trips', purpose: 'The highest-intent section: date-first, so visitors who already know WHEN can act. Placed above destinations on purpose.', data: 'All future bookable departures, sorted by date (max 10). Chips: This/Next weekend (only if matches), months with departures, city (only if >1 city).', empty: 'Section hidden if there are no bookable departures.', cta: 'Each card deep-links to the trip with that date preselected (?d=). GA4 select_item.' })} />}
+<CitySwitch />
+
 <UpcomingSection catalog={catalog} />
 
 {preview && <SectionNote {...({ n: 4, title: 'Where are you going next?', purpose: 'Destination-led discovery for visitors who know WHERE but not when.', data: 'Destinations that have ≥1 live trip; count, from-price, duration and best months are computed. Style chips appear only if they have destinations.', empty: 'Hidden when no destination has live trips.', cta: 'Card → destination page (owner of "X trip packages" searches).' })} />}

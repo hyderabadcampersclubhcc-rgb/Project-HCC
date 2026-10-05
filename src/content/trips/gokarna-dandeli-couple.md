@@ -26,6 +26,24 @@ origins:
       - name: KSR Bengaluru
         time: 23:00
     outbound: Overnight train to Hubballi, Friday 11:00 pm
+    recurrence: Every Friday from Bangalore
+    return: Train from Hubballi on day 3 (9:05 pm)
+    itinerary:
+      - day: 0
+        title: Overnight to Hubballi
+        description: Board the overnight train to Hubballi from KSR Bengaluru at 11 pm on Friday.
+        meals: []
+      - day: 1
+        title: Falls and Murudeshwar
+        description: Vibhuthi falls trek and swim, Honnavar boating, and Murudeshwar temple and beach by evening.
+        stay: Beach camp, Nirvana Beach
+      - day: 2
+        title: Gokarna to Dandeli
+        description: Mahabaleshwar temple at 6 am, Mirjan Fort, Om Beach if time permits, then Dandeli for a rain dance, bonfire and dinner.
+        stay: Riverside camp, Dandeli
+      - day: 3
+        title: Kali river
+        description: Kayaking, zorbing and river boating, then the 9:05 pm train from Hubballi.
 transportOptions:
   - id: sl
     label: Sleeper train

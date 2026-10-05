@@ -5,15 +5,17 @@
  */
 import TripSection from './TripSection.astro';
 import Icon from '@/components/ui/Icon.astro';
-import type { TripView } from '@/lib/catalog';
+import type { TripView, TripOriginView } from '@/lib/catalog';
 
 interface Props {
   trip: TripView;
+  /** Departure city: uses its own inclusions/exclusions when set. */
+  origin?: TripOriginView;
 }
 
-const { trip } = Astro.props;
-const inc = trip.data.inclusions;
-const exc = trip.data.exclusions;
+const { trip, origin } = Astro.props;
+const inc = origin?.inclusions ?? trip.data.inclusions;
+const exc = origin?.exclusions ?? trip.data.exclusions;
 ---
 
 {

@@ -10,9 +10,11 @@ interface Props {
   trip: TripView;
   catalog?: { samples?: boolean; today?: string };
   max?: number;
+  /** Departure city of the current page: related trips come from the same city. */
+  origin?: string;
 }
 
-const { trip, catalog = {}, max = 3 } = Astro.props;
+const { trip, catalog = {}, max = 3, origin = trip.primary.city } = Astro.props;
 const dests = new Set(trip.data.destinations.map((d) => d.id));
 const score = (t: TripView) =>
   (t.data.destinations.some((d) => dests.has(d.id)) ? 4 : 0) +
@@ -21,7 +23,7 @@ const score = (t: TripView) =>
   (t.primary.next ? 0.5 : 0);
 
 const related = (await getTrips(catalog))
-  .filter((t) => t.id !== trip.id)
+  .filter((t) => t.id !== trip.id && t.origins.some((o) => o.city === origin))
   .map((t) => ({ t, s: score(t) }))
   .filter((x) => x.s >= 2)
   .sort((a, b) => b.s - a.s)
@@ -36,7 +38,7 @@ const related = (await getTrips(catalog))
         <h2 id="rel-title" class="rel__title">You might also like</h2>
         <div class="rail rail--grid" style="--rail-cols:3">
           {related.map((t, i) => (
-            <TripCard trip={t} index={i} listName="related_trips" />
+            <TripCard trip={t} origin={origin} index={i} listName="related_trips" />
           ))}
         </div>
       </div>

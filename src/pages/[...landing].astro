@@ -28,7 +28,12 @@ const itemList = {
   '@context': 'https://schema.org',
   '@type': 'ItemList',
   name: l.title,
-  itemListElement: trips.map((t, i) => ({ '@type': 'ListItem', position: i + 1, url: new URL(t.url, Astro.site).href, name: t.data.title })),
+  itemListElement: trips.map((t, i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    url: new URL(((l.rule.origin && t.origins.find((o) => o.city === l.rule.origin)) || t.primary).url, Astro.site).href,
+    name: t.data.title,
+  })),
 };
 ---
 

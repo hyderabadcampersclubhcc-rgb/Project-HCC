@@ -9,7 +9,7 @@ import Logo from '@/components/ui/Logo.astro';
 import Icon from '@/components/ui/Icon.astro';
 import Button from '@/components/ui/Button.astro';
 import WhatsAppCTA from '@/components/cta/WhatsAppCTA.astro';
-import { MAIN_NAV, TRIP_TYPE_LINKS, REGION_LABELS } from '@/data/navigation';
+import { MAIN_NAV, TRIP_TYPE_LINKS, CITY_LINKS, REGION_LABELS } from '@/data/navigation';
 import { getUpcoming, destinationUrl } from '@/lib/catalog';
 import { dateShort, inr } from '@/lib/format';
 import { settings } from '@/lib/settings';
@@ -56,7 +56,7 @@ const phone = settings.contact.phone.replace(/[^\d+]/g, '');
                         <div>
                           <p class="overline mega__title">Travel your way</p>
                           <ul class="mega__types">
-                            {TRIP_TYPE_LINKS.map((t) => (
+                            {[...TRIP_TYPE_LINKS.slice(0, 1), ...CITY_LINKS, ...TRIP_TYPE_LINKS.slice(1)].map((t) => (
                               <li>
                                 <a href={t.href} class="mega__type">
                                   <span class="mega__ico">
@@ -160,7 +160,7 @@ const phone = settings.contact.phone.replace(/[^\d+]/g, '');
     <p class="overline">Travel your way</p>
     <ul class="sheet__types">
       {
-        TRIP_TYPE_LINKS.map((t) => (
+        [...TRIP_TYPE_LINKS.slice(0, 1), ...CITY_LINKS, ...TRIP_TYPE_LINKS.slice(1)].map((t) => (
           <li>
             <a href={t.href}>
               <Icon name={t.icon} />

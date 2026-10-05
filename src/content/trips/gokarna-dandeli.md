@@ -23,15 +23,59 @@ origins:
         time: 15:45
     outbound: Overnight train to Hubballi, Friday 3:45 pm
     return: Night train from Hubballi on Monday 9:05 pm, back Tuesday 10–11 am
+    recurrence: Every Friday from Hyderabad
   - city: bangalore
     label: Bangalore
     pickupPoints:
       - name: KSR Bengaluru
         time: 23:00
     outbound: Overnight train to Hubballi, Friday 11:00 pm
+    recurrence: Every Friday from Bangalore
+    return: Train from Hubballi on day 3 (9:05 pm)
+    itinerary:
+      - day: 0
+        title: Overnight to Hubballi
+        description: Board the overnight train to Hubballi from KSR Bengaluru at 11 pm on Friday.
+        meals: []
+      - &a1
+        day: 1
+        title: Vibhuthi falls and Murudeshwar
+        description: Reach Hubballi by 6:30 am and drive to Vibhuthi falls for a short trek and a swim. Honnavar boardwalk if time permits, then the Murudeshwar temple and beach by evening.
+        meals: &a4
+          - dinner
+        stay: Beach camp, Nirvana Beach
+      - &a2
+        day: 2
+        title: Gokarna to Dandeli
+        description: Mahabaleshwar temple at 6 am, Mirjan Fort, and Om Beach if time permits. Afternoon drive to Dandeli for a rain dance, dinner and bonfire.
+        meals: &a5
+          - lunch
+        stay: Riverside camp, Dandeli
+      - &a3
+        day: 3
+        title: Kali river activities
+        description: Kayaking, zorbing and river boating on the Kali, lunch, then back to Hubballi for the 9:05 pm train.
+        meals: &a6
+          - breakfast
+    transport:
+      - sl
+      - 3a
   - city: vijayawada
     label: Vijayawada
     outbound: Train to Hubballi, Friday 2:00 pm
+    recurrence: Every Friday from Vijayawada
+    return: Train from Hubballi on day 3
+    itinerary:
+      - day: 0
+        title: To Hubballi
+        description: Board the train to Hubballi from Vijayawada at 2 pm on Friday.
+        meals: []
+      - *a1
+      - *a2
+      - *a3
+    transport:
+      - sl
+      - 3a
 transportOptions:
   - id: sl
     label: Sleeper train
@@ -115,8 +159,7 @@ itinerary:
   - day: 1
     title: Vibhuthi falls and Murudeshwar
     description: Reach Hubballi by 6:30 am and drive to Vibhuthi falls for a short trek and a swim. Honnavar boardwalk if time permits, then the Murudeshwar temple and beach by evening.
-    meals:
-      - dinner
+    meals: *a4
     stay: Beach camp, Nirvana Beach
     image: ../../assets/photos/murudeshwar.jpg
     imageAlt: Murudeshwar coast
@@ -127,8 +170,7 @@ itinerary:
   - day: 2
     title: Gokarna to Dandeli
     description: Mahabaleshwar temple at 6 am, Mirjan Fort, and Om Beach if time permits. Afternoon drive to Dandeli for a rain dance, dinner and bonfire.
-    meals:
-      - lunch
+    meals: *a5
     stay: Riverside camp, Dandeli
     image: ../../assets/photos/om-beach.jpg
     imageAlt: Om Beach, Gokarna
@@ -139,8 +181,7 @@ itinerary:
   - day: 3
     title: Kali river activities
     description: Kayaking, zorbing and river boating on the Kali, lunch, then back to Hubballi for the 9:05 pm train.
-    meals:
-      - breakfast
+    meals: *a6
     image: ../../assets/photos/kayak.jpg
     imageAlt: Kayaking on a river
     imageCredit:
@@ -224,6 +265,6 @@ status: live
 sample: false
 ---
 
-A full weekend of waterfalls, a temple by the sea, a night on the beach and a night by the river. Leave Friday afternoon, and come back with sand in your bag and Kali-river stories.
+A full weekend of waterfalls, a temple by the sea, a night on the beach and a night by the river. Leave on Friday, and come back with sand in your bag and Kali-river stories.
 
 Departures run every Friday from Hyderabad, Bangalore and Vijayawada, with tents by default and room upgrades if you prefer a bed.

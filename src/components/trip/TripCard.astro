@@ -50,7 +50,7 @@ const shown = o.departures.slice(0, 3);
 const more = o.departures.length - shown.length;
 const next = o.next;
 const soldOut = o.departures.length > 0 && o.bookable.length === 0;
-const cardInclusions = d.inclusions.filter((i) => i.showOnCard).slice(0, 4);
+const cardInclusions = o.inclusions.filter((i) => i.showOnCard).slice(0, 4);
 const track = toAttr(itemParams(trip, o, { listName, index }));
 ---
 
@@ -118,7 +118,7 @@ const track = toAttr(itemParams(trip, o, { listName, index }));
           </>
         ) : (
           <span class="tcard__dates-label">
-            <Icon name="calendar" /> {d.recurrence ?? 'Dates on request'}
+            <Icon name="calendar" /> {o.recurrence ?? 'Dates on request'}
           </span>
         )
       }
