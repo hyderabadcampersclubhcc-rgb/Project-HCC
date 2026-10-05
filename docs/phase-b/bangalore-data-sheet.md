@@ -1,7 +1,7 @@
 # Bangalore data sheet (what HCC's data has today)
 
 Source of truth: `src/content/trips/*.md` (the Bangalore `origins` entry of each trip). Read 5 Oct 2026.
-**Confirmed HCC dates: none yet.** `src/content/departures/` is empty; the site shows the departure pattern ("Every Friday from Bangalore") until real dates are added.
+**HCC dates:** Oct–Dec 2026 Bangalore working schedule added in Phase C. See `docs/phase-c/bangalore-schedule.md` (44 departures).
 
 ## HCC Bangalore trips
 

@@ -17,6 +17,7 @@ origins:
   - city: bangalore
     label: Bangalore
     outbound: Train to Coimbatore
+    return: Train from Coimbatore on day 3, back in Bangalore the next morning
   - city: vijayawada
     label: Vijayawada
     outbound: Train to Coimbatore

@@ -80,7 +80,7 @@ const phone = settings.contact.phone.replace(/[^\d+]/g, '');
                                   <a href={`${origin.url}?d=${departure.start}`}>
                                     <b>{trip.data.title}</b>
                                     <small>
-                                      {dateShort(departure.start)} · from {inr(departure.price)}
+                                      {dateShort(departure.start)} · {origin.label} · from {inr(departure.price)}
                                     </small>
                                   </a>
                                 </li>
