@@ -154,25 +154,32 @@ recurrence: Every Thursday & Friday from Hyderabad
 primaryKeyword: ooty trip from hyderabad
 legacyPaths:
   - /ooty-coonoor/
-heroImage: ../../assets/photos/toy-train.jpg
-heroAlt: Nilgiri Mountain Railway toy train crossing a bridge
+# Hero: AI-generated illustration (labelled). The real toy-train photo stays on day 2 of the itinerary.
+heroImage: ../../assets/photos/ooty-tea-hills-mountain-valley.webp
+heroAlt: Tea plantations and mountain valley in Ooty
 heroCredit:
-  author: Stephan Niewolik
-  license: CC BY 3.0
-  source: https://commons.wikimedia.org/wiki/File:Nilgiri_Mountain_Railway_on_Bridge,_May_2010.JPG
+  author: HCC
+  license: AI-generated illustration
+  ai: true
 gallery:
-  - src: ../../assets/photos/ooty-hills.jpg
-    alt: Tea estates in the Nilgiri hills
+  - src: ../../assets/photos/coonoor-tea-hills-viewpoint.webp
+    alt: Coonoor tea estates and mountain valley
     credit:
-      author: This Photo was taken by Timothy A. Gonsalves. Feel free to u
-      license: CC BY-SA 4.0
-      source: https://commons.wikimedia.org/wiki/File:Vegetables_Tea_Fields_Nilgiris_Nov25_A7CR_09820-4_HDR1.jpg
+      author: HCC
+      license: AI-generated illustration
+      ai: true
   - src: ../../assets/photos/ooty-lake.jpg
     alt: Ooty Lake
     credit:
       author: Hellowikidoc
       license: CC BY-SA 4.0
       source: https://commons.wikimedia.org/wiki/File:Ooty_lake(1).jpg
+  - src: ../../assets/photos/ooty-tea-estate-scenic-road.webp
+    alt: Scenic road through Ooty tea plantations
+    credit:
+      author: HCC
+      license: AI-generated illustration
+      ai: true
   - src: ../../assets/photos/mysore-palace.jpg
     alt: Mysore Palace
     credit:

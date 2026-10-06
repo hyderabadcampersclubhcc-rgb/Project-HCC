@@ -6,7 +6,7 @@ import PhotoCredit from '@/components/ui/PhotoCredit.astro';
 
 interface Props {
   name: string;
-  items: { title: string; text: string; image?: ImageMetadata; imageAlt?: string; imageCredit?: { author: string; license: string; source: string } }[];
+  items: { title: string; text: string; image?: ImageMetadata; imageAlt?: string; imageCredit?: { author: string; license: string; source?: string; ai?: boolean } }[];
   tone?: Tone;
 }
 

@@ -18,13 +18,13 @@
     "email": "",
     "hours": "",
     "address": {
-      "street": "",
-      "locality": "",
+      "street": "9-4-30A/1, Hasmathpet",
+      "locality": "Secunderabad",
       "city": "Hyderabad",
       "region": "Telangana",
       "postalCode": "",
       "country": "IN",
-      "mapUrl": ""
+      "mapUrl": "https://maps.app.goo.gl/4vGNiVUasQwJs35A8"
     }
   },
   "social": {

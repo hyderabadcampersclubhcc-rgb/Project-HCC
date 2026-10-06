@@ -20,7 +20,7 @@ interface Props {
 const { trip, originLabel, preview = false } = Astro.props;
 const d = trip.data;
 
-type Credit = { author: string; license: string; source: string };
+type Credit = { author: string; license: string; source?: string; ai?: boolean };
 type Item = { src?: ImageMetadata; alt: string; tone: Tone; credit?: Credit };
 const real: Item[] = [
   ...(d.heroImage ? [{ src: d.heroImage, alt: d.heroAlt ?? `${d.title} group trip from ${originLabel}`, tone: toneFor(d), credit: d.heroCredit }] : []),

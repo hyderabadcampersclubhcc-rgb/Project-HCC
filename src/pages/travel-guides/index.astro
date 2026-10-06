@@ -19,7 +19,7 @@ const categories = Object.entries(GUIDE_CATEGORY_LABEL).filter(([id]) => guides.
 <BaseLayout
   title="Travel Guides: Trips, Treks & Weekend Getaways from Hyderabad"
   description="Honest travel guides for getting out of Hyderabad: how to reach, best time to visit, itineraries and comparisons."
-  noindex={guides.length === 0}
+  noindex={!guides.some((g) => g.data.indexable)}
 >
   <div class="container">
     <PageIntro title="Travel Guides" intro="Honest guides to getting out of Hyderabad: how to get there, when to go and what to do." crumbs={[{ label: 'Travel guides' }]} />

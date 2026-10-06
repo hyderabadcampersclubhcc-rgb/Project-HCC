@@ -2,9 +2,10 @@
 /**
  * Small attribution overlay for licensed photos (e.g. Wikimedia Commons).
  * Place inside a positioned container (the photo's figure). Links to the source page.
+ * AI-generated illustrations (`ai: true`) get the same small tag, reading "AI-generated illustration".
  */
 interface Props {
-  credit?: { author: string; license: string; source: string };
+  credit?: { author: string; license: string; source?: string; ai?: boolean };
   /** 'top' for heroes whose text sits at the bottom. */
   placement?: 'bottom' | 'top';
 }
@@ -13,11 +14,14 @@ const { credit, placement = 'bottom' } = Astro.props;
 ---
 
 {
-  credit && (
-    <a class:list={['pcredit', placement === 'top' && 'pcredit--top']} href={credit.source} target="_blank" rel="noopener nofollow">
-      Photo: {credit.author} · {credit.license}
-    </a>
-  )
+  credit &&
+    (credit.ai || !credit.source ? (
+      <span class:list={['pcredit', placement === 'top' && 'pcredit--top']}>AI-generated illustration</span>
+    ) : (
+      <a class:list={['pcredit', placement === 'top' && 'pcredit--top']} href={credit.source} target="_blank" rel="noopener nofollow">
+        Photo: {credit.author} · {credit.license}
+      </a>
+    ))
 }
 
 <style>

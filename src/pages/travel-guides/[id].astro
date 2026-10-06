@@ -1,5 +1,5 @@
 ---
-/** /travel-guides/{id}/: published guides only (drafts and samples never build). */
+/** /travel-guides/{id}/: published guides only (drafts and samples never build). Noindex until `indexable: true`. */
 import type { GetStaticPaths } from 'astro';
 import { getCollection, getEntry, type CollectionEntry } from 'astro:content';
 import { getImage } from 'astro:assets';
@@ -7,6 +7,7 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import GuidePage from '@/components/pages/GuidePage.astro';
 import { isoDate } from '@/lib/format';
 import { settings } from '@/lib/settings';
+import { faqLd } from '@/lib/schema';
 
 export const getStaticPaths = (async () => {
   const showSamples = import.meta.env.PUBLIC_SHOW_SAMPLES === 'true';
@@ -36,6 +37,14 @@ const article = {
 };
 ---
 
-<BaseLayout title={g.seo.title ?? g.title} description={g.seo.description ?? g.description} ogType="article" ogImage={og?.src} ogImageAlt={g.heroAlt} jsonLd={article}>
+<BaseLayout
+  title={g.seo.title ?? g.title}
+  description={g.seo.description ?? g.description}
+  noindex={!g.indexable}
+  ogType="article"
+  ogImage={og?.src}
+  ogImageAlt={g.heroAlt}
+  jsonLd={g.faqs.length ? [article, faqLd(g.faqs)] : article}
+>
   <GuidePage guide={guide} />
 </BaseLayout>

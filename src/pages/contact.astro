@@ -11,8 +11,9 @@ import { organizationLd } from '@/lib/schema';
 const c = settings.contact;
 const a = c.address;
 const phone = c.phone.replace(/[^\d+]/g, '');
-const addressLine = [a.street, a.locality, a.city, a.postalCode].filter(Boolean).join(', ');
-const hasAddress = !!(a.street && a.postalCode);
+// e.g. "9-4-30A/1, Hasmathpet, Secunderabad, Hyderabad, Telangana, India" (postal code only when HCC provides one)
+const addressLine = [a.street, a.locality, a.city, a.region, a.postalCode, 'India'].filter(Boolean).join(', ');
+const hasAddress = !!a.street;
 ---
 
 <BaseLayout

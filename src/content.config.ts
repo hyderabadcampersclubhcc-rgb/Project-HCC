@@ -23,7 +23,8 @@ const slug = z.string().regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/, 'Use lowercase-words
 const faq = z.object({ q: z.string().min(5), a: z.string().min(5) });
 
 /** Attribution for photos that need it (e.g. Wikimedia Commons CC BY / CC BY-SA). Omit for HCC's own photos. */
-const credit = z.object({ author: z.string(), license: z.string(), source: z.url() });
+/** `ai: true` marks an AI-generated illustration (no source page); it is labelled as such wherever credits show. */
+const credit = z.object({ author: z.string(), license: z.string(), source: z.url().optional(), ai: z.boolean().optional() });
 
 /** The image() helper Astro passes to collection schemas. */
 type ImageFn = () => z.ZodType<import('astro').ImageMetadata>;
@@ -349,6 +350,8 @@ const guides = defineCollection({
       faqs: z.array(faq).default([]),
       primaryKeyword: z.string().optional(),
       draft: z.boolean().default(true),
+      /** Human approval for Google. Published (draft: false) guides stay noindex and out of the sitemap until this is true. */
+      indexable: z.boolean().default(false),
       sample: z.boolean().default(false),
       seo,
     }),

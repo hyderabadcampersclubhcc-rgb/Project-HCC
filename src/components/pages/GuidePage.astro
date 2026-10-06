@@ -10,6 +10,7 @@ import GuideHeader from '@/components/guide/GuideHeader.astro';
 import QuickAnswer from '@/components/guide/QuickAnswer.astro';
 import TableOfContents from '@/components/guide/TableOfContents.astro';
 import TripCallout from '@/components/guide/TripCallout.astro';
+import TripTable from '@/components/guide/TripTable.astro';
 import TripCalloutSample from '@/components/guide/TripCalloutSample.astro';
 import AuthorBox from '@/components/guide/AuthorBox.astro';
 import TripCard from '@/components/trip/TripCard.astro';
@@ -78,7 +79,7 @@ const moreGuides = (await getCollection('guides', (x) => !x.data.draft && x.id !
 
     {preview && <SectionNote n={3} title="Article body with live trip cards" purpose="The article itself. Writers drop a live trip card anywhere with <TripCallout trip=…/>; it always shows the current price and next date, so guides never go stale and readers are one tap from booking." data="Guide body (MDX, CMS)." status="needs-data" />}
     <article class="prose guide__body">
-      <Content components={{ TripCallout: preview ? TripCalloutSample : TripCallout }} />
+      <Content components={{ TripCallout: preview ? TripCalloutSample : TripCallout, TripTable }} />
     </article>
 
     {
@@ -139,11 +140,13 @@ const moreGuides = (await getCollection('guides', (x) => !x.data.draft && x.id !
 <style>
   .guide {
     display: grid;
+    grid-template-columns: minmax(0, 1fr); /* wide tables scroll inside the article instead of widening the page */
     gap: var(--s-6);
     padding-block: var(--s-6) var(--s-8);
   }
   .guide__main {
     display: grid;
+    grid-template-columns: minmax(0, 1fr);
     gap: var(--s-6);
     min-width: 0;
   }

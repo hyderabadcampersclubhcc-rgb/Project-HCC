@@ -1,0 +1,67 @@
+---
+/**
+ * Comparison table for guides (MDX): <TripTable trips={['ooty-coonoor', 'wayanad']} />
+ * Every value comes from the live catalog (price, length, departure pattern, travel), so a guide
+ * never shows a stale price or date. Trips that aren't live, or don't leave from `city`, are skipped.
+ */
+import { getTrips } from '@/lib/catalog';
+import { inr, durationLabel, travelSuffix, dayShort } from '@/lib/format';
+
+interface Props {
+  trips: string[];
+  /** Departure city (default Hyderabad). */
+  city?: string;
+  caption?: string;
+}
+
+const { trips: ids, city = 'hyderabad', caption } = Astro.props;
+const all = await getTrips();
+const rows = ids
+  .map((id) => all.find((t) => t.id === id))
+  .flatMap((t) => {
+    const o = t?.origins.find((x) => x.city === city);
+    if (!t || !o) return [];
+    // Weekdays of the next few departures ("Thu & Fri"), else the trip's stated pattern.
+    const days = [...new Set(o.bookable.slice(0, 6).map((d) => dayShort(d.start)))];
+    return [
+      {
+        title: t.data.title,
+        url: o.url,
+        length: `${durationLabel(t.data.durationNights, t.data.durationDays)} ${travelSuffix(o, true)}`.trim(),
+        leaves: days.length ? `Every ${days.join(' & ')}` : (o.recurrence ?? 'Dates on request'),
+        travel: o.transportOptions[0].label,
+        from: o.fromPrice != null ? inr(o.fromPrice) : 'On request',
+      },
+    ];
+  });
+---
+
+{
+  rows.length > 0 && (
+    <table>
+      {caption && <caption>{caption}</caption>}
+      <thead>
+        <tr>
+          <th scope="col">Trip</th>
+          <th scope="col">Length</th>
+          <th scope="col">Leaves</th>
+          <th scope="col">Travel</th>
+          <th scope="col">From (per person)</th>
+        </tr>
+      </thead>
+      <tbody>
+        {rows.map((r) => (
+          <tr>
+            <td>
+              <a href={r.url}>{r.title}</a>
+            </td>
+            <td>{r.length}</td>
+            <td>{r.leaves}</td>
+            <td>{r.travel}</td>
+            <td>{r.from}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  )
+}

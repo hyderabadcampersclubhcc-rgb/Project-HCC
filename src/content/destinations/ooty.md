@@ -19,12 +19,12 @@ idealDuration: 2–3 days
 nearby:
   - coonoor
   - mysore
-heroImage: ../../assets/photos/ooty-hills.jpg
-heroAlt: Tea estates in the Nilgiri hills
+heroImage: ../../assets/photos/ooty-tea-hills-mountain-valley.webp
+heroAlt: Tea plantations and mountain valley in Ooty
 heroCredit:
-  author: This Photo was taken by Timothy A. Gonsalves. Feel free to u
-  license: CC BY-SA 4.0
-  source: https://commons.wikimedia.org/wiki/File:Vegetables_Tea_Fields_Nilgiris_Nov25_A7CR_09820-4_HDR1.jpg
+  author: HCC
+  license: AI-generated illustration
+  ai: true
 sample: false
 seoTier: a
 indexable: true
@@ -49,12 +49,12 @@ experiences:
       source: https://commons.wikimedia.org/wiki/File:Nilgiri_Mountain_Railway_on_Bridge,_May_2010.JPG
   - title: Tea gardens and a tea factory
     text: Coonoor’s tea estates, Dolphin’s Nose viewpoint and a factory visit to see how Nilgiri tea is made.
-    image: ../../assets/photos/ooty-hills.jpg
-    imageAlt: Tea estates in the Nilgiri hills
+    image: ../../assets/photos/coonoor-tea-hills-viewpoint.webp
+    imageAlt: Coonoor tea estates and mountain valley
     imageCredit:
-      author: This Photo was taken by Timothy A. Gonsalves. Feel free to u
-      license: CC BY-SA 4.0
-      source: https://commons.wikimedia.org/wiki/File:Vegetables_Tea_Fields_Nilgiris_Nov25_A7CR_09820-4_HDR1.jpg
+      author: HCC
+      license: AI-generated illustration
+      ai: true
   - title: Pykara falls and Shooting Point
     text: The drive up from Mysore takes in Needle Rock viewpoint, Pykara falls and the film-famous Shooting Point.
     image: ../../assets/photos/ooty-lake.jpg

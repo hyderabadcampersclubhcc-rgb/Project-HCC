@@ -5,10 +5,15 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import PageIntro from '@/components/listing/PageIntro.astro';
 import { home } from '@/lib/home';
 
-type Credit = { author: string; license: string; source: string };
+type Credit = { author: string; license: string; source?: string; ai?: boolean };
 const used = new Map<string, { credit: Credit; where: Set<string> }>();
+let aiUsed = false;
 const add = (credit: Credit | undefined, where: string) => {
   if (!credit) return;
+  if (credit.ai || !credit.source) {
+    aiUsed = true; // AI illustrations have no photographer to credit; noted below the list
+    return;
+  }
   const e = used.get(credit.source) ?? { credit, where: new Set<string>() };
   e.where.add(where);
   used.set(credit.source, e);
@@ -24,7 +29,7 @@ for (const d of await getCollection('destinations', (d) => !d.data.sample)) {
 }
 if (home.hero.image && home.hero.imageCredit.source) add(home.hero.imageCredit, 'Homepage');
 const rows = [...used.values()].sort((a, b) => a.credit.author.localeCompare(b.credit.author));
-const fileName = (url: string) => decodeURIComponent(url.split('File:')[1] ?? url).replace(/_/g, ' ').replace(/\.[a-z]+$/i, '');
+const fileName = (url = '') => decodeURIComponent(url.split('File:')[1] ?? url).replace(/_/g, ' ').replace(/\.[a-z]+$/i, '');
 ---
 
 <BaseLayout title="Photo Credits" description="Credits for the photographs used on the Hyderabad Campers Club website." noindex>
@@ -43,6 +48,7 @@ const fileName = (url: string) => decodeURIComponent(url.split('File:')[1] ?? ur
         ))
       }
     </ul>
+    {aiUsed && <p class="pc__ai">Some destination images are AI-generated illustrations, not photographs of HCC trips. They are labelled "AI-generated illustration" where they appear.</p>}
   </div>
 </BaseLayout>
 
