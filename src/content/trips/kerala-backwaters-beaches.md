@@ -1,6 +1,7 @@
 ---
 # Imported from HCC’s trip listings (Oct 2026). Review prices, dates and inclusions in the CMS before go-live.
 title: "Kerala: Munnar, Alleppey, Varkala & Trivandrum"
+seoName: "Kerala: Munnar, Alleppey & Varkala"
 tagline: Six days from tea hills to houseboat to Varkala’s cliffs, with Kathakali and Jatayu Earth Centre.
 tripTypes:
   - long

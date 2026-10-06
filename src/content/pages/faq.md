@@ -31,4 +31,4 @@ faqs:
     a: Yes. HCC plans private and customised versions of its trips for friends, families and teams. Send your dates, group size and destination through the customised trips page or on WhatsApp.
 ---
 
-Can't find your answer? Message HCC on WhatsApp at [+91 81793 21382](https://wa.me/918179321382) or see the [cancellation policy](/cancellation-policy/).
+Can't find your answer? Message HCC on WhatsApp at [+91 81793 21382](https://wa.me/918179321382) or see the [cancellation policy](/cancellation-policy/). You can also read [how HCC trips work](/about/).

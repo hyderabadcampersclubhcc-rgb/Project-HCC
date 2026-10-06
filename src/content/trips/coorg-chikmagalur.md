@@ -23,21 +23,24 @@ origins:
       - name: Kacheguda Railway Station
         time: 19:00
     outbound: Overnight sleeper train to Mysore, Thursday or Friday 7:00 pm
+    transport:
+      - sl
     return: Back in Hyderabad around 6:00 am on Monday (Thursday batch) or Tuesday (Friday batch)
   - city: bangalore
     label: Bangalore
-    incomplete:
-      - "Pickup / meeting point in Bangalore (data only says the group meets at 6:00 am on Saturday)"
-      - "Transport from Bangalore: the page shows Sleeper train (the trip-wide option), but the Bangalore inclusions list only local transport. Data conflict, not assumed"
-      - "Friday-night departure time from Bangalore"
-      - "Arrival time back in Bangalore"
-    outbound: Every Friday from Bangalore; the group meets at 6:00 am on Saturday
-    return: Return train to Bangalore on day 3
-    recurrence: Every Friday from Bangalore
+    pickupPoints:
+      - name: Around KSR Railway Station (SBC) / Majestic Bus Stand
+        time: 06:00
+    outbound: Tempo Traveller from around KSR Railway Station (SBC) / Majestic Bus Stand at 6:00 am, every Friday and Saturday
+    return: Tempo Traveller back to KSR Railway Station (SBC) / Majestic Bus Stand on Sunday (Friday batch) or Monday around 6:00 pm (Saturday batch)
+    travelWindow: Fri 6:00 AM → Sun · Sat 6:00 AM → Mon ~6:00 PM
+    transport:
+      - tt
+    recurrence: Every Friday & Saturday from Bangalore
     itinerary:
       - day: 1
         title: Golden Temple and Coorg
-        description: Meet at 6 am on Saturday and freshen up over breakfast. Visit the Golden Temple (Namdroling Monastery) and the elephant camp, then Raja’s Seat for the evening views and some shopping.
+        description: Pickup at 6 am (Friday or Saturday, depending on your batch) around KSR Railway Station (SBC) / Majestic Bus Stand, then by Tempo Traveller to Coorg. Visit the Golden Temple (Namdroling Monastery) and the elephant camp, then Raja’s Seat for the evening views and some shopping.
         meals: []
         stay: Coorg
         image: ../../assets/photos/golden-temple.jpg
@@ -59,7 +62,7 @@ origins:
           source: https://commons.wikimedia.org/wiki/File:Abbey_falls_2010.jpg
       - day: 3
         title: Mullayanagiri and home
-        description: A jeep ride and trek up Mullayanagiri, Karnataka’s highest peak, then Jhari Falls before the return train to Bangalore.
+        description: A jeep ride and trek up Mullayanagiri, Karnataka’s highest peak, then Jhari Falls before the Tempo Traveller ride back to Bangalore.
         meals: []
         image: ../../assets/photos/mullayanagiri.jpg
         imageAlt: Mullayanagiri peak, Chikmagalur
@@ -72,7 +75,7 @@ origins:
         icon: bed
         showOnCard: true
         cardLabel: Stays
-      - text: Local transport for all 3 days
+      - text: Tempo Traveller from Bangalore and back, and for all sightseeing
         icon: compass
         showOnCard: true
         cardLabel: Sightseeing
@@ -90,11 +93,29 @@ origins:
     stops:
       - coorg
       - chikmagalur
+    thingsToCarry:
+      - Government photo ID
+      - Comfortable walking shoes
+      - Power bank
+      - Personal medicines
+      - Reusable water bottle
+      - Light jacket or hoodie (hill evenings get cool)
+      - Rain gear in the monsoon
+    importantInfo:
+      - "This is a budget group trip: comfortable and well run, not a luxury tour."
+      - Sightseeing order can change with weather, traffic or local restrictions; your trip captain decides on the day for everyone’s safety.
+      - If a departure doesn’t reach the minimum group size, HCC may merge it with another batch or move you to the next date.
+      - Please reach the pickup point on time; a missed pickup can’t be refunded.
 transportOptions:
   - id: sl
     label: Sleeper train
     mode: train
     class: Sleeper
+    priceDelta: 0
+  # Bangalore departures only (confirmed 5 Oct 2026): road pickup at KSR / Majestic, no train
+  - id: tt
+    label: Tempo Traveller
+    mode: tempo
     priceDelta: 0
 stayOptions:
   - id: sharing
@@ -241,4 +262,4 @@ sample: false
 
 Karnataka’s two coffee districts in one long weekend. Coorg brings waterfalls, Mandalpatti’s grassy ridges and a night among the coffee bushes; Chikmagalur adds Hoysala temples and a dawn climb to Mullayanagiri.
 
-Trains, stays and the day plan are handled by your HCC trip captain from the start of the trip.
+Transport, stays and the day plan are handled by your HCC trip captain from the start of the trip.

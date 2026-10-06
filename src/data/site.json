@@ -2,7 +2,7 @@
   "brand": {
     "name": "Hyderabad Campers Club",
     "short": "HCC",
-    "tagline": "Group trips, weekend getaways, treks & escapes from Hyderabad."
+    "tagline": "Group trips, weekend getaways, treks & camping from Hyderabad & Bangalore."
   },
   "announcement": {
     "enabled": true,
@@ -28,10 +28,10 @@
     }
   },
   "social": {
-    "instagram": "",
-    "facebook": "",
+    "instagram": "https://www.instagram.com/hyderabadcampersclubhcc/",
+    "facebook": "https://www.facebook.com/hyderabadcampersclubhcc",
     "youtube": "",
-    "googleBusiness": ""
+    "googleBusiness": "https://maps.app.goo.gl/4vGNiVUasQwJs35A8"
   },
   "trust": [
     {

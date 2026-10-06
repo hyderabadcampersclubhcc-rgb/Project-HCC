@@ -5,18 +5,22 @@
  */
 import TripSection from './TripSection.astro';
 import Icon from '@/components/ui/Icon.astro';
-import type { TripView } from '@/lib/catalog';
+import type { TripView, TripOriginView } from '@/lib/catalog';
 import { inr } from '@/lib/format';
 import { settings } from '@/lib/settings';
 
 interface Props {
   trip: TripView;
+  /** Departure city: its own packing list and notes, falling back to the trip's. */
+  origin?: TripOriginView;
 }
 
-const { trip } = Astro.props;
+const { trip, origin } = Astro.props;
 const d = trip.data;
+const thingsToCarry = origin?.thingsToCarry ?? d.thingsToCarry;
+const importantInfo = origin?.importantInfo ?? d.importantInfo;
 const hasPayment = d.advanceAmount != null || d.cancellationPolicy;
-const any = d.suitableFor.length || d.notSuitableFor.length || d.thingsToCarry.length || d.importantInfo.length || hasPayment;
+const any = d.suitableFor.length || d.notSuitableFor.length || thingsToCarry.length || importantInfo.length || hasPayment;
 ---
 
 {
@@ -49,25 +53,25 @@ const any = d.suitableFor.length || d.notSuitableFor.length || d.thingsToCarry.l
             </div>
           </div>
         )}
-        {d.thingsToCarry.length > 0 && (
+        {thingsToCarry.length > 0 && (
           <div class="gtk__card">
             <h3>
               <Icon name="backpack" /> Things to carry
             </h3>
             <ul class="gtk__list">
-              {d.thingsToCarry.map((t) => (
+              {thingsToCarry.map((t) => (
                 <li>{t}</li>
               ))}
             </ul>
           </div>
         )}
-        {d.importantInfo.length > 0 && (
+        {importantInfo.length > 0 && (
           <div class="gtk__card">
             <h3>
               <Icon name="info" /> Important
             </h3>
             <ul class="gtk__list">
-              {d.importantInfo.map((t) => (
+              {importantInfo.map((t) => (
                 <li>{t}</li>
               ))}
             </ul>

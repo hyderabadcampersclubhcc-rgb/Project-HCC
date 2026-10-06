@@ -2,7 +2,8 @@
 /**
  * Review section. Pulls genuine reviews from the `reviews` collection (consent required
  * by schema). With fewer than `min` reviews the section collapses to a single
- * "Read our reviews on Google" link, or renders nothing if no profile URL exists.
+ * "Read our reviews on Google" link to HCC's official Google profile (confirmed to have genuine
+ * reviews, 5 Oct 2026), or renders nothing if no profile URL exists.
  * No AggregateRating schema is emitted for Google-sourced ratings (Google policy).
  */
 import { getCollection } from 'astro:content';

@@ -1,6 +1,7 @@
 ---
 # Imported from HCC’s trip listings (Oct 2026). Review prices, dates and inclusions in the CMS before go-live.
 title: Ananthagiri Hills Camping with Pool & Music Night
+seoName: Ananthagiri Hills Camping
 tagline: Tents, pool, box cricket, a Saturday DJ night, campfire and hot buffet meals in the Vikarabad woods.
 tripTypes:
   - camping

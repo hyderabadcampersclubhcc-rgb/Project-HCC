@@ -3,7 +3,7 @@
 # and confirms Bangalore dates/pickups (docs/phase-b/bangalore-date-comparison.md).
 path: /weekend-trips-from-bangalore/
 title: Weekend Trips from Bangalore
-intro: "Group weekend trips from Bangalore to the coffee hills of Coorg and Chikmagalur, the beaches of Gokarna and the tea country of Munnar. Departures leave on Friday, with travel, stays and sightseeing arranged by HCC."
+intro: "Group weekend trips from Bangalore to the coffee hills of Coorg and Chikmagalur, the beaches of Gokarna and the tea country of Munnar. Departures leave on Friday (Coorg & Chikmagalur also on Saturday), with travel, stays and sightseeing arranged by HCC."
 rule:
   tripTypes: [weekend]
   origin: bangalore
@@ -17,7 +17,7 @@ faqs:
   - q: Which weekend trips does HCC run from Bangalore?
     a: "Coorg & Chikmagalur, Gokarna–Dandeli–Murudeshwar and Munnar are 2-night weekend trips from Bangalore. For longer breaks, the Kerala: Munnar & Alleppey trip also leaves from Bangalore."
   - q: When do Bangalore departures leave?
-    a: "Bangalore trips run on Fridays. The Gokarna trip leaves KSR Bengaluru at 11 pm on Friday; the Coorg & Chikmagalur group meets at 6 am on Saturday. Ask HCC on WhatsApp for the next confirmed date."
+    a: "Bangalore trips run on Fridays, and Coorg & Chikmagalur also on Saturdays. The Gokarna trip leaves KSR Bengaluru at 11 pm on Friday; Coorg & Chikmagalur leaves by Tempo Traveller from around KSR Railway Station (SBC) / Majestic Bus Stand at 6 am every Friday and Saturday (no train on this trip). Ask HCC on WhatsApp for the next confirmed date."
   - q: How much does a weekend trip from Bangalore cost?
     a: "From ₹5,999 per person for Gokarna–Dandeli–Murudeshwar, ₹6,999 for Coorg & Chikmagalur and ₹8,999 for Munnar. Each trip page shows exactly what's included."
   - q: Can I join alone?
@@ -30,7 +30,7 @@ HCC's Bangalore departures cover three very different weekends: coffee estates a
 
 ### Coorg & Chikmagalur
 
-The **[Coorg & Chikmagalur trip from Bangalore](/trips/coorg-chikmagalur-from-bangalore/)** runs every Friday. The group meets at 6 am on Saturday for breakfast, then visits the Golden Temple (Namdroling Monastery), the elephant camp and Raja's Seat. Day 2 starts at 5 am with a jeep ride to Mandalpatti and Abbey Falls, then on to Chikmagalur via the Belur temple and water sports at Yagachi dam. Day 3 is Mullayanagiri, Karnataka's highest peak, and Jhari Falls before heading home. From ₹6,999, with stays, local transport and a trip guide; food, entry tickets and jeep rides are extra. More about [Coorg](/destinations/coorg/).
+The **[Coorg & Chikmagalur trip from Bangalore](/trips/coorg-chikmagalur-from-bangalore/)** runs every Friday and Saturday, entirely by Tempo Traveller (no train): pickup around KSR Railway Station (SBC) / Majestic Bus Stand at 6 am, back on Sunday (Friday batch) or Monday around 6 pm (Saturday batch). The group visits the Golden Temple (Namdroling Monastery), the elephant camp and Raja's Seat. Day 2 starts at 5 am with a jeep ride to Mandalpatti and Abbey Falls, then on to Chikmagalur via the Belur temple and water sports at Yagachi dam. Day 3 is Mullayanagiri, Karnataka's highest peak, and Jhari Falls before heading home. From ₹6,999, with stays, a Tempo Traveller for sightseeing and a trip guide; food, entry tickets and jeep rides are extra. More about [Coorg](/destinations/coorg/).
 
 ### Gokarna, Dandeli & Murudeshwar
 

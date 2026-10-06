@@ -109,6 +109,7 @@ collections:
       - { label: URL id, name: slug, widget: string, hint: 'lowercase-with-dashes, e.g. ooty-coonoor. Page URL becomes /trips/ooty-coonoor-from-hyderabad/. Do not change after launch.', pattern: ['^[a-z0-9]+(?:-[a-z0-9]+)*$', 'Use lowercase words separated by dashes'] }
       - { label: Status, name: status, widget: select, options: [draft, live, archived], default: draft }
       - { label: Title, name: title, widget: string, hint: 'e.g. Ooty & Coonoor' }
+      - { label: Short name for Google titles, name: seoName, widget: string, required: false, hint: 'Only if the title is long, e.g. Ananthagiri Hills Camping' }
       - { label: Card tagline, name: tagline, widget: string, hint: 'One line, max 110 characters' }
       - { label: Trip types, name: tripTypes, widget: select, multiple: true, options: [weekend, trek, camping, backpacking, long, couple, family, corporate] }
       - { label: Destinations, name: destinations, widget: relation, collection: destinations, value_field: '{{slug}}', search_fields: [name], display_fields: [name], multiple: true }
@@ -262,6 +263,7 @@ collections:
     fields:
       - { label: URL id, name: slug, widget: string, hint: 'e.g. ooty → /destinations/ooty/' }
       - { label: Name, name: name, widget: string }
+      - { label: Page heading (H1) override, name: heading, widget: string, required: false, hint: 'e.g. Ooty Travel Guide from Hyderabad. Leave empty for the default.' }
       - { label: Region, name: region, widget: select, options: [karnataka, kerala, tamil-nadu, goa, andhra-telangana, himalaya, north-east, rajasthan, other] }
       - { label: State, name: state, widget: string }
       - { label: Summary, name: summary, widget: text }

@@ -30,7 +30,7 @@ faqs:
 
 ## How HCC weekend trips work
 
-HCC weekend trips are small group departures that fit into a normal working week. You leave Hyderabad on a Thursday or Friday evening, travel overnight, spend two or three days at the destination with an HCC trip captain, and travel back overnight.
+HCC weekend trips are small group departures that fit into a normal working week. You leave Hyderabad on a Thursday or Friday evening, travel overnight, spend two or three days at the destination with an HCC trip captain, and travel back overnight. More on [how HCC runs its trips](/about/).
 
 - **Getting there:** most trips use overnight sleeper-class trains from Kacheguda or Nampally. Some offer a 3AC upgrade (Ooty & Coonoor and Isha: +₹1,400; Gokarna: +₹1,700). The Hampi–Gokarna trip runs by sleeper bus.
 - **On the ground:** a tempo traveller or similar vehicle for all the sightseeing in the itinerary.
@@ -44,20 +44,20 @@ HCC weekend trips are small group departures that fit into a normal working week
 
 - **[Gokarna, Dandeli & Murudeshwar](/trips/gokarna-dandeli-from-hyderabad/)**: a night camping at Nirvana Beach and a night at a river camp in Dandeli, with Vibhuthi falls, the Murudeshwar temple, Om Beach and kayaking on the Kali river. Leaves Nampally every Thursday and Friday at 3 pm. From ₹5,999.
 - **[Goa](/trips/goa-from-hyderabad/)**: North Goa's beaches and forts, a water sports day and Old Goa, staying at a beachside resort. From ₹7,999.
-- **[Pondicherry](/trips/pondicherry-from-hyderabad/)**: the French Quarter, Auroville, the promenade and a boat ride through the Pichavaram mangroves. Leaves Nampally at 5 pm. From ₹7,199.
+- **[Pondicherry](/trips/pondicherry-from-hyderabad/)**: the French Quarter, Auroville, the promenade and a boat ride through the Pichavaram mangroves. Leaves Nampally at 5 pm. From ₹7,199. More about [visiting Pondicherry](/destinations/pondicherry/).
 
 ### Hills, tea and coffee country
 
 - **[Ooty & Coonoor](/trips/ooty-coonoor-from-hyderabad/)**: Mysore Palace, Pykara falls and the Nilgiri toy train to Coonoor. Leaves Kacheguda every Thursday and Friday at 7 pm on the Mysore Express. From ₹7,999. More about [visiting Ooty](/destinations/ooty/).
 - **[Coorg & Chikmagalur](/trips/coorg-chikmagalur-from-hyderabad/)**: Abbey Falls, Mandalpatti, a night at a coffee plantation and sunrise on Mullayanagiri, Karnataka's highest peak. Leaves Kacheguda every Thursday and Friday at 7 pm. From ₹6,999.
 - **[Wayanad](/trips/wayanad-from-hyderabad/)**: the Chembra peak trek, the 900 Kandi glass bridge and Banasura Sagar dam. Leaves Kacheguda on Thursday at 7 pm. From ₹7,999.
-- **[Araku Valley, Vanajangi & Vizag](/trips/araku-vanajangi-vizag-from-hyderabad/)**: Borra Caves, waterfalls and coffee country, and a pre-dawn walk to watch the sun rise over a sea of clouds at Vanajangi. Leaves Kacheguda on Thursday at 5:30 pm. From ₹6,999.
+- **[Araku Valley, Vanajangi & Vizag](/trips/araku-vanajangi-vizag-from-hyderabad/)**: Borra Caves, waterfalls and coffee country, and a pre-dawn walk to watch the sun rise over a sea of clouds at Vanajangi. Leaves Kacheguda on Thursday at 5:30 pm. From ₹6,999. More about [visiting Araku](/destinations/araku/).
 - **[Munnar](/trips/munnar-from-hyderabad/)**: tea estates, Top Station and Eravikulam National Park, with 3-star stays and breakfast. From ₹8,999.
 - **[Lonavala & Matheran](/trips/lonavala-matheran-from-hyderabad/)**: car-free Matheran, Lonavala's viewpoints, a night by Pawna Lake and the Lohagad Fort trek. Leaves on Thursday. From ₹7,999.
 
 ### Heritage and spiritual
 
-- **[Hampi, Gokarna & Murudeshwar](/trips/hampi-gokarna-murudeshwar-from-hyderabad/)**: a full day in Hampi's ruins with a coracle ride, then the coast. 3 nights / 4 days by sleeper bus. From ₹8,999.
+- **[Hampi, Gokarna & Murudeshwar](/trips/hampi-gokarna-murudeshwar-from-hyderabad/)**: a full day in Hampi's ruins with a coracle ride, then the coast. 3 nights / 4 days by sleeper bus. From ₹8,999. More about [visiting Hampi](/destinations/hampi/).
 - **[Isha, Ooty & Coonoor](/trips/isha-ooty-coonoor-from-hyderabad/)**: the Ooty weekend plus the Adiyogi light show at the Isha Yoga Center. From ₹7,999.
 - **[Arunachalam, Pondicherry & Mahabalipuram](/trips/arunachalam-pondicherry-from-hyderabad/)**: Arunachaleswara Temple, Ramana Ashram, the mangroves and the shore temples. From ₹7,499.
 

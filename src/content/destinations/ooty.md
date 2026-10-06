@@ -1,5 +1,6 @@
 ---
 # Imported from HCC’s trip listings (Oct 2026). Review prices, dates and inclusions in the CMS before go-live.
+heading: Ooty Travel Guide from Hyderabad
 name: Ooty
 region: tamil-nadu
 state: Tamil Nadu
@@ -98,7 +99,7 @@ faqs:
   - q: Does HCC run Ooty trips from Bangalore?
     a: Not as a fixed departure right now. HCC’s Ooty trips leave from Hyderabad. For a group from Bangalore, message HCC on WhatsApp for a custom plan.
 seo:
-  title: "Ooty Trips from Hyderabad: Toy Train, Best Time & How to Reach | HCC"
+  title: "Ooty Travel Guide from Hyderabad: Toy Train & Best Time | HCC"
   description: "Plan an Ooty trip from Hyderabad: the overnight train to Mysore, the drive through Bandipur, the toy train to Coonoor, and HCC group trips from ₹7,999."
 ---
 

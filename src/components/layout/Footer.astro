@@ -106,7 +106,7 @@ const year = new Date().getFullYear();
     </div>
 
     <div class="ftr__bottom">
-      <p>© {year} {settings.brand.name}</p>
+      <p>© {year} {settings.brand.name} ({settings.brand.short})</p>
       <ul>
         {FOOTER_LEGAL.map((l) => <li><a href={l.href}>{l.label}</a></li>)}
         <li><button type="button" class="ftr__consent" data-consent-open>Privacy choices</button></li>

@@ -8,8 +8,18 @@
       "to": "2026-12-31",
       "confirmed": "2026-10-05",
       "batches": [
-        { "weekday": "thu", "departs": "19:00", "returnDays": 4, "returns": "Monday 06:00" },
-        { "weekday": "fri", "departs": "19:00", "returnDays": 4, "returns": "Tuesday 06:00" }
+        {
+          "weekday": "thu",
+          "departs": "19:00",
+          "returnDays": 4,
+          "returns": "Monday 06:00"
+        },
+        {
+          "weekday": "fri",
+          "departs": "19:00",
+          "returnDays": 4,
+          "returns": "Tuesday 06:00"
+        }
       ]
     },
     {
@@ -19,8 +29,18 @@
       "to": "2026-12-31",
       "confirmed": "2026-10-05",
       "batches": [
-        { "weekday": "thu", "departs": "19:00", "returnDays": 4, "returns": "Monday 06:00" },
-        { "weekday": "fri", "departs": "19:00", "returnDays": 4, "returns": "Tuesday 06:00" }
+        {
+          "weekday": "thu",
+          "departs": "19:00",
+          "returnDays": 4,
+          "returns": "Monday 06:00"
+        },
+        {
+          "weekday": "fri",
+          "departs": "19:00",
+          "returnDays": 4,
+          "returns": "Tuesday 06:00"
+        }
       ]
     },
     {
@@ -30,8 +50,18 @@
       "to": "2026-12-31",
       "confirmed": "2026-10-05",
       "batches": [
-        { "weekday": "thu", "departs": "15:00", "returnDays": 4, "returns": "Monday 10:00" },
-        { "weekday": "fri", "departs": "15:00", "returnDays": 4, "returns": "Tuesday 10:00" }
+        {
+          "weekday": "thu",
+          "departs": "15:00",
+          "returnDays": 4,
+          "returns": "Monday 10:00"
+        },
+        {
+          "weekday": "fri",
+          "departs": "15:00",
+          "returnDays": 4,
+          "returns": "Tuesday 10:00"
+        }
       ]
     },
     {
@@ -41,8 +71,39 @@
       "to": "2026-12-31",
       "confirmed": "2026-10-05",
       "batches": [
-        { "weekday": "thu", "departs": "19:00", "returnDays": 4, "returns": "Monday 06:00" },
-        { "weekday": "fri", "departs": "19:00", "returnDays": 4, "returns": "Tuesday 06:00" }
+        {
+          "weekday": "thu",
+          "departs": "19:00",
+          "returnDays": 4,
+          "returns": "Monday 06:00"
+        },
+        {
+          "weekday": "fri",
+          "departs": "19:00",
+          "returnDays": 4,
+          "returns": "Tuesday 06:00"
+        }
+      ]
+    },
+    {
+      "trip": "coorg-chikmagalur",
+      "origin": "bangalore",
+      "from": "2026-10-09",
+      "to": "2026-12-19",
+      "confirmed": "2026-10-05",
+      "batches": [
+        {
+          "weekday": "fri",
+          "departs": "06:00",
+          "returnDays": 2,
+          "returns": "Sunday (no fixed time shown)"
+        },
+        {
+          "weekday": "sat",
+          "departs": "06:00",
+          "returnDays": 2,
+          "returns": "Monday ~18:00"
+        }
       ]
     }
   ]

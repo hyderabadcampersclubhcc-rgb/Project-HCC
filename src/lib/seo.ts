@@ -10,13 +10,30 @@ export function tripSeo(trip: TripView, origin: TripOriginView) {
   const from = origin.fromPrice != null ? ` from ${inr(origin.fromPrice)}` : '';
   // A city with overnight journeys both ways says so ("2N/3D + Train"); the price moves to the description to keep the title short.
   const mode = origin.overnightTravel;
-  const title =
-    d.seo.title ??
-    (mode
-      ? `${d.title} Trip from ${origin.label} · ${dur} + ${mode[0].toUpperCase()}${mode.slice(1)} | HCC`
-      : `${d.title} Trip from ${origin.label} · ${dur}${from} | HCC`);
+  const extra = mode ? ` + ${mode[0].toUpperCase()}${mode.slice(1)}` : from;
+  // Longest version that fits Google's ~65 characters: drop the price, then "Trip", then use the short name.
+  // "+ Train" is never dropped: it is the overnight-travel clarification, not an optional extra.
+  const name = d.seoName ?? d.title;
+  const kind = (n: string) => (/\bTrek$/.test(n) ? '' : ' Trip'); // no "Trek Trip"
+  const candidates = mode
+    ? [
+        `${d.title}${kind(d.title)} from ${origin.label} · ${dur}${extra} | HCC`,
+        `${d.title} from ${origin.label} · ${dur}${extra} | HCC`,
+        `${name}${kind(name)} from ${origin.label} · ${dur}${extra} | HCC`,
+        `${name} from ${origin.label} · ${dur}${extra} | HCC`,
+      ]
+    : [
+        `${d.title}${kind(d.title)} from ${origin.label} · ${dur}${extra} | HCC`,
+        `${d.title}${kind(d.title)} from ${origin.label} · ${dur} | HCC`,
+        `${name}${kind(name)} from ${origin.label} · ${dur}${extra} | HCC`,
+        `${name}${kind(name)} from ${origin.label} · ${dur} | HCC`,
+        `${name} from ${origin.label} · ${dur} | HCC`,
+      ];
+  const shortest = candidates.reduce((a, b) => (b.length < a.length ? b : a));
+  const title = d.seo.title ?? candidates.find((t) => t.length <= 65) ?? shortest;
 
-  const travel = d.transportOptions[0].label.toLowerCase();
+  const t0 = origin.transportOptions[0];
+  const travel = t0.mode === 'tempo' ? t0.label : t0.label.toLowerCase(); // "Tempo Traveller" is a vehicle name
   // Most persuasive facts first: Google truncates around 155–160 characters.
   const price = origin.fromPrice != null ? `From ${inr(origin.fromPrice)}/person.` : '';
   const next = origin.next ? `Next departure ${dateLong(origin.next.start)}.` : '';

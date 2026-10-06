@@ -1,5 +1,6 @@
 ---
 # Imported from HCC’s trip listings (Oct 2026). Review prices, dates and inclusions in the CMS before go-live.
+heading: Pondicherry Travel Guide from Hyderabad
 name: Pondicherry
 region: tamil-nadu
 state: Puducherry
@@ -81,7 +82,7 @@ faqs:
   - q: Can I add Arunachalam?
     a: Yes. The Arunachalam, Pondicherry & Mahabalipuram trip (from ₹7,499) adds Tiruvannamalai, the Pichavaram mangroves and Mahabalipuram, with AC stays and an AC vehicle.
 seo:
-  title: "Pondicherry Trips from Hyderabad: Auroville & Pichavaram | HCC"
+  title: "Pondicherry Guide from Hyderabad: Auroville & Pichavaram | HCC"
   description: "Plan a Pondicherry trip from Hyderabad: the French Quarter, Auroville, the promenade and the Pichavaram mangroves. HCC group trips from ₹7,199."
 ---
 

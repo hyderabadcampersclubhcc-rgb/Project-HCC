@@ -60,6 +60,8 @@ export interface TripOriginView {
   /** City-specific duration messaging: overnight journeys and the door-to-door window. */
   overnightTravel: 'train' | 'bus' | undefined;
   travelWindow: string | undefined;
+  thingsToCarry: string[];
+  importantInfo: string[];
 }
 
 export interface TripView {
@@ -224,6 +226,8 @@ async function loadTrips(opts: Options): Promise<TripView[]> {
         destinationNames: (o.stops ?? entry.data.destinations.map((d) => d.id)).map((id) => destNames.get(id) ?? id),
         overnightTravel: o.overnightTravel,
         travelWindow: o.travelWindow,
+        thingsToCarry: o.thingsToCarry ?? entry.data.thingsToCarry,
+        importantInfo: o.importantInfo ?? entry.data.importantInfo,
       };
     });
 

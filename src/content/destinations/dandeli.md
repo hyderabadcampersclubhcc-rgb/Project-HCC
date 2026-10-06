@@ -84,7 +84,7 @@ Dandeli is forest-and-river country inland from the Karnataka coast. The Kali ri
 
 ## HCC trips with a Dandeli camp
 
-- **[Gokarna, Dandeli & Murudeshwar](/trips/gokarna-dandeli-from-hyderabad/)** (2 nights / 3 days + overnight train travel, from ₹5,999): a beach camp at Nirvana Beach, then a riverside camp in Dandeli with a rain dance, bonfire and dinner, and **kayaking, zorbing and river boating** on the last day. Leaves Nampally at 3 pm every Thursday and Friday; also from [Bangalore](/trips/gokarna-dandeli-from-bangalore/) (KSR Bengaluru, 11 pm) and Vijayawada.
+- **[Gokarna, Dandeli & Murudeshwar](/trips/gokarna-dandeli-from-hyderabad/)** (2 nights / 3 days + overnight train travel, from ₹5,999): a beach camp at Nirvana Beach, then a riverside camp in Dandeli with a rain dance, bonfire and dinner, and **kayaking, zorbing and river boating** on the last day. Leaves Nampally at 3 pm every Thursday and Friday; also from [Bangalore](/trips/gokarna-dandeli-from-bangalore/) (KSR Bengaluru, 11 pm) and [Vijayawada](/trips/gokarna-dandeli-from-vijayawada/).
 - **[Dudhsagar & Dandeli](/trips/dudhsagar-dandeli-from-hyderabad/)** (1 night / 2 days, from ₹6,999): reach Hubballi by 6 am and Dandeli by 9:20 am for boating, kayaking, zorbing, a river swim, cycling, archery, badminton and a rain dance, then a campfire night in tents. Day 2 continues to **Dudhsagar falls** by jeep or on foot. Includes 2 breakfasts, a lunch and a dinner.
 - **[Gokarna & Dandeli for couples](/trips/gokarna-dandeli-couple-from-hyderabad/)** (₹37,000 per couple).
 

@@ -1,6 +1,7 @@
 ---
 # Imported from HCC’s trip listings (Oct 2026). Review prices, dates and inclusions in the CMS before go-live.
 title: Arunachalam, Pondicherry & Mahabalipuram
+seoName: Arunachalam & Pondicherry
 tagline: Arunachaleswara Temple, Ramana Ashram, Pichavaram mangroves, Pondicherry and Mahabalipuram.
 tripTypes:
   - weekend

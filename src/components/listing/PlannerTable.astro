@@ -23,7 +23,7 @@ const rows = trips.slice(0, max).map((t) => {
   const o = (origin && t.origins.find((x) => x.city === origin)) || t.primary;
   return {
     trip: t,
-    travel: t.data.transportOptions[0].label,
+    travel: o.transportOptions[0].label,
     duration: `${durationLabel(t.data.durationNights, t.data.durationDays)} ${travelSuffix(o)}`.trim(),
     best: bestMonthsLabel(destinations.get(t.data.destinations[0].id)?.bestMonths ?? []),
     from: o.fromPrice,

@@ -79,7 +79,17 @@ const hasAddress = !!(a.street && a.postalCode);
                 )}
               </p>
             ) : (
-              <p>Based in {a.city || 'Hyderabad'}, {a.region || 'Telangana'}. Trips leave from pickup points across the city.</p>
+              <p>
+                Based in {a.city || 'Hyderabad'}, {a.region || 'Telangana'}. Trips leave from pickup points across the city.
+                {settings.social.googleBusiness && (
+                  <>
+                    <br />
+                    <a href={settings.social.googleBusiness} target="_blank" rel="noopener">
+                      Find HCC on Google Maps
+                    </a>
+                  </>
+                )}
+              </p>
             )}
           </div>
         </li>

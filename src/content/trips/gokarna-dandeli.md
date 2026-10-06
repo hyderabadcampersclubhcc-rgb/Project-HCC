@@ -1,6 +1,7 @@
 ---
 # Imported from HCC’s trip listings (Oct 2026). Review prices, dates and inclusions in the CMS before go-live.
 title: Gokarna, Dandeli & Murudeshwar
+seoName: Gokarna & Dandeli
 tagline: Beach camping, the Murudeshwar Shiva, Om Beach and Kali-river kayaking, every weekend.
 tripTypes:
   - weekend

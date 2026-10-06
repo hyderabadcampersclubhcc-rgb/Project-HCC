@@ -63,13 +63,21 @@ export const LEGACY_REDIRECTS: LegacyRedirect[] = [
   { from: '/camping/', to: '/camping-near-hyderabad/' },
 
   // Old Maharashtra trek pages
-  { from: '/ratangadfort/', to: '/treks/' },
+  // Retired treks go to the nearest live HCC trek (/treks/ is hidden from Google until it has enough trips).
+  // Ratangad and Sandhan Valley sit in the Bhandardara range beside Harishchandragad.
+  { from: '/ratangadfort/', to: '/trips/harishchandragad-kalu-trek-from-hyderabad/' },
   { from: '/devkund/', to: '/treks/' },
   { from: '/dudhsagar-tambdi-waterfalls/', to: '/treks/' },
-  { from: '/sandhanvalley/', to: '/treks/' },
-  { from: '/hariharfort-triambakeshwar-and-brahmagirihill/', to: '/treks/' },
+  { from: '/sandhanvalley/', to: '/trips/harishchandragad-kalu-trek-from-hyderabad/' },
+  // Harihar (Nashik): no comparable live HCC trek, so the full trip list.
+  { from: '/hariharfort-triambakeshwar-and-brahmagirihill/', to: '/trips/' },
   { from: '/harishchandragad/', to: '/treks/' },
-  { from: '/kalavantin-durg/', to: '/treks/' },
+  // Kalavantin Durg: a Sahyadri monsoon fort trek like Andharban–Devkund–Lohagad.
+  { from: '/kalavantin-durg/', to: '/trips/andharban-devkund-lohagad-trek-from-hyderabad/' },
+
+  // Old blog index: /travel-guides/ is hidden until guides are published, so the live destination guides.
+  // Switch to /travel-guides/ once it is indexable.
+  { from: '/category/blog/', to: '/destinations/' },
 
   // Old blog posts (date-based URLs)
   { from: '/2024/10/24/sample-blog/', to: '/travel-guides/' },

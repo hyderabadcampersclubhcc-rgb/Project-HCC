@@ -1,5 +1,6 @@
 ---
 # Imported from HCC’s trip listings (Oct 2026). Review prices, dates and inclusions in the CMS before go-live.
+heading: Araku Valley Travel Guide from Hyderabad
 name: Araku Valley
 region: andhra-telangana
 state: Andhra Pradesh
@@ -71,7 +72,7 @@ faqs:
   - q: What does the trip include?
     a: Non-AC sleeper train tickets, a tempo traveller for 3 days, 2 nights on 3/4 sharing, a bonfire with music, and a trip coordinator. Food, entry fees and jeep rides are extra.
 seo:
-  title: "Araku Valley Trips from Hyderabad: Vanajangi & Borra Caves | HCC"
+  title: "Araku Valley Guide from Hyderabad: Vanajangi & Borra Caves | HCC"
   description: "Plan an Araku trip from Hyderabad: Thursday train to Vizag, Borra Caves, Araku viewpoints and the Vanajangi sunrise above the clouds. From ₹6,999."
 ---
 

@@ -1,5 +1,6 @@
 ---
 # Imported from HCC’s trip listings (Oct 2026). Review prices, dates and inclusions in the CMS before go-live.
+heading: Ananthagiri Hills Travel Guide
 name: Ananthagiri Hills
 region: andhra-telangana
 state: Telangana
@@ -78,8 +79,8 @@ faqs:
   - q: What is there to see nearby?
     a: Kotpalli Lake (boating and kayaking), Anantha Padmanabha Swamy Temple, the Ananthagiri viewpoint and Damagundam Shiva Temple, all on your own transport.
 seo:
-  title: "Ananthagiri Hills Camping near Hyderabad: Pool & Campfire | HCC"
-  description: "Overnight camping at Ananthagiri Hills, Vikarabad: tents with bedding, pool, games, Saturday DJ and buffet meals. Train or drive from Hyderabad. ₹1,600."
+  title: "Ananthagiri Hills from Hyderabad: Best Time & How to Reach | HCC"
+  description: "Ananthagiri Hills near Vikarabad: how to reach from Hyderabad by train or road, the best time to go, what to see nearby, and how HCC's overnight camp works."
 ---
 
 ## Why visit Ananthagiri Hills

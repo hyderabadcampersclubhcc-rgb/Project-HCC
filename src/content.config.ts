@@ -71,6 +71,8 @@ const destinations = defineCollection({
   schema: ({ image }) =>
     z.object({
       name: z.string(),
+      /** H1 override, e.g. an informational "Ooty Travel Guide from Hyderabad" where the default "Ooty Trips from Hyderabad" would compete with the trip page. */
+      heading: z.string().optional(),
       region: z.enum(REGIONS),
       state: z.string(),
       summary: z.string().max(220),
@@ -144,6 +146,8 @@ const origin = (image: ImageFn) => z.object({
   /** Places this city's route actually visits (default: the trip's destinations), e.g. no Mysore stop from Bangalore. */
   stops: z.array(slug).optional(),
   /** Overnight journeys both ways on top of the stay nights (shown as "2N/3D + overnight train travel"). The trip's duration stays the stay count. */
+  thingsToCarry: z.array(z.string()).optional(),
+  importantInfo: z.array(z.string()).optional(),
   overnightTravel: z.enum(['train', 'bus']).optional(),
   /** Door-to-door window for this city, e.g. "Thu/Fri 7:00 PM → Mon/Tue 6:00 AM". */
   travelWindow: z.string().optional(),
@@ -172,6 +176,8 @@ const trips = defineCollection({
     z
       .object({
         title: z.string(), // "Ooty & Coonoor"
+        /** Shorter name for Google titles when the full title is too long (e.g. "Ananthagiri Hills Camping"). */
+        seoName: z.string().optional(),
         tagline: z.string().max(110), // one-line hook used on cards
         tripTypes: z.array(z.enum(TRIP_TYPES)).min(1),
         destinations: z.array(reference('destinations')).min(1),

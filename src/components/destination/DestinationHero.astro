@@ -1,7 +1,8 @@
 ---
 /**
- * Destination hero. H1 "{Name} Trips from Hyderabad" owns the commercial destination
- * search ("ooty tour packages from hyderabad"); the trip page owns the trip-specific one.
+ * Destination hero. Default H1 "{Name} Trips from Hyderabad" (a hub for several trips). Guides whose
+ * one or two trips would compete with that wording set `heading` to an informational H1
+ * ("Ooty Travel Guide from Hyderabad"); the trip page owns the bookable-trip search.
  */
 import type { ImageMetadata } from 'astro';
 import Photo, { type Tone } from '@/components/ui/Photo.astro';
@@ -23,11 +24,13 @@ interface Props {
   preview?: boolean;
   /** Departure-city hubs HCC actually runs to this place, e.g. ['Hyderabad', 'Bangalore']. */
   cities?: string[];
+  /** H1 override from the destination's `heading` field. */
+  heading?: string;
 }
 
-const { name, summary, image, imageAlt, imageCredit, tone = 'hills', tripCount, fromPrice, preview = false, cities = [] } = Astro.props;
+const { name, summary, image, imageAlt, imageCredit, tone = 'hills', tripCount, fromPrice, preview = false, cities = [], heading: headingOverride } = Astro.props;
 // Trips that start elsewhere (e.g. Kashmir from Srinagar) never claim a Hyderabad departure.
-const heading = cities.length ? `${name} Trips from ${cities.join(' & ')}` : `${name} Group Trips`;
+const heading = headingOverride ?? (cities.length ? `${name} Trips from ${cities.join(' & ')}` : `${name} Group Trips`);
 ---
 
 <section class="dhero" aria-labelledby="dhero-title">

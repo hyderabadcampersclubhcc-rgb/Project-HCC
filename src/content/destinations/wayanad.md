@@ -1,5 +1,6 @@
 ---
 # Imported from HCC’s trip listings (Oct 2026). Review prices, dates and inclusions in the CMS before go-live.
+heading: Wayanad Travel Guide from Hyderabad
 name: Wayanad
 region: kerala
 state: Kerala
@@ -76,7 +77,7 @@ faqs:
   - q: What isn’t included?
     a: Food, entry tickets and jeep rides are paid locally.
 seo:
-  title: "Wayanad Trips from Hyderabad: Chembra, Best Time & Route | HCC"
+  title: "Wayanad Travel Guide from Hyderabad: Chembra & Best Time | HCC"
   description: "Plan a Wayanad trip from Hyderabad: Thursday train to Mysore, Chembra Peak, the glass bridge and Banasura Sagar. HCC group trips from ₹7,999."
 ---
 

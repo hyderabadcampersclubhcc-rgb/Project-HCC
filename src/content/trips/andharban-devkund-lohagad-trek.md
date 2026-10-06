@@ -1,6 +1,7 @@
 ---
 # Imported from HCC’s trip listings (Oct 2026). Review prices, dates and inclusions in the CMS before go-live.
 title: Andharban, Devkund Waterfall & Lohagad Trek
+seoName: Andharban, Devkund & Lohagad Trek
 tagline: Lohagad Fort, the misty Andharban forest trail and the Devkund plunge pool, from Hyderabad.
 tripTypes:
   - trek

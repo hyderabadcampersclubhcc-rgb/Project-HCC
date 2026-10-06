@@ -1,6 +1,7 @@
 ---
 # Imported from HCC’s trip listings (Oct 2026). Review prices, dates and inclusions in the CMS before go-live.
 title: Harishchandragad, Kalu Waterfall & Aadrai Jungle Trek
+seoName: Harishchandragad Trek
 tagline: "Three Sahyadri monsoon treks: Kalu waterfall, Harishchandragad’s Konkan Kada and the Aadrai jungle."
 tripTypes:
   - trek

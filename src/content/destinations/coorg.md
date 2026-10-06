@@ -37,7 +37,7 @@ howToReach:
     note: From Mysore an AC vehicle covers Coorg and Chikmagalur and brings the group back to Mysore for the 2:30 pm train.
   - mode: train
     duration: Overnight
-    note: From Bangalore the trip also runs every Friday; the group meets at 6 am on Saturday for breakfast.
+    note: From Bangalore the trip runs every Friday and Saturday by Tempo Traveller (no train), with pickup around KSR Railway Station (SBC) / Majestic Bus Stand at 6 am.
 experiences:
   - title: Abbey Falls
     text: Coorg’s best-known waterfall, on day 1 of HCC’s Coorg trips.
@@ -75,14 +75,14 @@ faqs:
   - q: How do I get to Coorg from Hyderabad with HCC?
     a: By the overnight train from Kacheguda (7 pm, every Thursday and Friday) to Mysore, then an AC vehicle for Coorg and Chikmagalur. The return train leaves Mysore at 2:30 pm on day 3 and reaches Hyderabad around 6:00 am on Monday (Thursday batch) or Tuesday (Friday batch).
   - q: Does HCC run Coorg trips from Bangalore?
-    a: Yes. The Coorg & Chikmagalur trip runs every Friday from Bangalore too, from ₹6,999; the group meets at 6 am on Saturday.
+    a: "Yes. The Coorg & Chikmagalur trip runs every Friday and Saturday from Bangalore too, from ₹6,999, entirely by Tempo Traveller (no train), with pickup around KSR Railway Station (SBC) / Majestic Bus Stand at 6 am."
   - q: Can I join from Mysore?
     a: Yes. The Coorg from Mysore trip starts and ends in Mysore (meet by 10 am), from ₹6,499.
   - q: Are jeep rides included?
     a: No. Entry tickets and jeep rides (for example up to Mandalpatti) are paid locally.
 seo:
   title: "Coorg Trips from Hyderabad & Bangalore: Best Time & Route | HCC"
-  description: "Plan a Coorg trip from Hyderabad or Bangalore: overnight train to Mysore, Abbey Falls, Mandalpatti and a coffee-plantation night. HCC trips from ₹6,499."
+  description: "Plan a Coorg trip: overnight train to Mysore from Hyderabad or a 6 am pickup in Bangalore, then Abbey Falls, Mandalpatti and a coffee-plantation night. From ₹6,499."
 ---
 
 ## Why visit Coorg
@@ -95,7 +95,7 @@ HCC's **Coorg & Chikmagalur** trip leaves **Kacheguda at 7 pm every Thursday and
 
 ## From Bangalore
 
-The same trip runs **every Friday from Bangalore** (from ₹6,999). The group meets at 6 am on Saturday for breakfast and follows the Coorg and Chikmagalur itinerary. See [Coorg & Chikmagalur from Bangalore](/trips/coorg-chikmagalur-from-bangalore/).
+The same trip runs **every Friday and Saturday from Bangalore** (from ₹6,999), entirely by Tempo Traveller with no train. Pickup is around KSR Railway Station (SBC) / Majestic Bus Stand at 6 am; the Friday batch is back on Sunday and the Saturday batch on Monday around 6 pm. See [Coorg & Chikmagalur from Bangalore](/trips/coorg-chikmagalur-from-bangalore/).
 
 ## Which Coorg trip to choose
 

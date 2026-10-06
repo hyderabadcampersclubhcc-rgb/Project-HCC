@@ -1,5 +1,6 @@
 ---
 # Imported from HCC’s trip listings (Oct 2026). Review prices, dates and inclusions in the CMS before go-live.
+heading: Hampi Travel Guide from Hyderabad
 name: Hampi
 region: karnataka
 state: Karnataka
@@ -70,7 +71,7 @@ faqs:
   - q: When is the best time to visit Hampi?
     a: October to February, when the days are cooler. March to May is very hot for walking among the ruins.
 seo:
-  title: "Hampi Trips from Hyderabad: Ruins, Coracle & Best Time | HCC"
+  title: "Hampi Travel Guide from Hyderabad: Ruins & Best Time | HCC"
   description: "Plan a Hampi trip from Hyderabad: overnight sleeper bus, Virupaksha and Vitthala temples, a coracle ride, then Gokarna and Murudeshwar. From ₹8,999."
 ---
 

@@ -81,7 +81,7 @@ faqs:
   - q: When is the best time for the backwaters?
     a: September to March, after the monsoon, when the weather is pleasant for cruising.
 seo:
-  title: Alleppey & Kerala Backwaters Trips from Hyderabad & Bangalore | HCC
+  title: "Alleppey Backwaters Trips from Hyderabad & Bangalore | HCC"
   description: "Kerala backwaters with HCC: a night on an Alleppey houseboat with Munnar, Varkala or a honeymoon plan. From Hyderabad or Bangalore, from ₹12,999."
 ---
 

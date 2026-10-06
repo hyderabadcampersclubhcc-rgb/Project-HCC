@@ -99,8 +99,9 @@ RewriteRule ^(wp-admin|wp-login\\.php|xmlrpc\\.php|wp-json)(/.*)?$ - [R=410,L]
   <FilesMatch "\\.(html|xml|txt|json)$">
     Header set Cache-Control "public, max-age=0, must-revalidate"
   </FilesMatch>
+  # Images outside /_astro/ keep their file names when replaced, so 30 days (not immutable).
   <FilesMatch "\\.(svg|ico|png|jpg|jpeg|webp|avif)$">
-    Header set Cache-Control "public, max-age=604800"
+    Header set Cache-Control "public, max-age=2592000"
   </FilesMatch>
 </IfModule>
 
@@ -110,11 +111,12 @@ RewriteRule ^(wp-admin|wp-login\\.php|xmlrpc\\.php|wp-json)(/.*)?$ - [R=410,L]
 `;
         await writeFile(path.join(out, '.htaccess'), htaccess);
 
-        // Hashed build assets never change: cache for a year.
+        // Hashed build assets never change: cache for a year. Wrapped in <FilesMatch> so it is applied
+        // after (and wins over) the root image rule above, which Apache also applies to this folder.
         await mkdir(path.join(out, '_astro'), { recursive: true });
         await writeFile(
           path.join(out, '_astro', '.htaccess'),
-          '<IfModule mod_headers.c>\n  Header set Cache-Control "public, max-age=31536000, immutable"\n</IfModule>\n',
+          '<IfModule mod_headers.c>\n  <FilesMatch ".">\n    Header set Cache-Control "public, max-age=31536000, immutable"\n  </FilesMatch>\n</IfModule>\n',
         );
         logger.info(`.htaccess written for ${host} (${legacy.length} legacy redirects)`);
 

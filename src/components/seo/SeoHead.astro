@@ -31,7 +31,7 @@ const fullTitle = rawTitle || title.length + suffix.length > 65 ? title : title 
 const canonical = new URL(canonicalPath ?? Astro.url.pathname, Astro.site).href;
 // Every page gets a share image (WhatsApp / Instagram / Facebook previews): its own photo, or the brand card.
 const image = new URL(ogImage ?? '/og-default.png', Astro.site).href;
-const imageAlt = ogImage ? ogImageAlt : `${settings.brand.name}: group trips from Hyderabad`;
+const imageAlt = ogImage ? ogImageAlt : `${settings.brand.name} (${settings.brand.short}): group trips from Hyderabad & Bangalore`;
 const ld = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
 ---
 
@@ -40,7 +40,7 @@ const ld = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
 <link rel="canonical" href={canonical} />
 {robotsNoindex && <meta name="robots" content="noindex, follow" />}
 
-<meta property="og:site_name" content={settings.brand.name} />
+<meta property="og:site_name" content={`${settings.brand.name} (${settings.brand.short})`} />
 <meta property="og:locale" content="en_IN" />
 <meta property="og:type" content={ogType} />
 <meta property="og:title" content={fullTitle} />

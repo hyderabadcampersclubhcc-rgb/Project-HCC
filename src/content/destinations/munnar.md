@@ -97,7 +97,7 @@ Munnar is Kerala's tea capital: hills covered edge to edge in tea gardens, cool 
 
 ## Getting to Munnar from Hyderabad and Bangalore
 
-HCC's **[Munnar trip](/trips/munnar-from-hyderabad/)** goes by train to **Coimbatore, arriving at 8 am**, and runs from **Hyderabad, Bangalore and Vijayawada**. Day 1 drives up through the **Chinnar Wildlife Sanctuary** to Lakkom falls, the botanical garden and a zipline and swing. Day 2 starts at 5 am for **Top Station and Echo Point**, then Mattupetty Dam, a tea factory and rose garden, the elephant camp and a spice plantation. Day 3 covers Gap Road, Idli Hills and **Eravikulam National Park** before the drive back to Coimbatore for the train.
+HCC's **[Munnar trip](/trips/munnar-from-hyderabad/)** goes by train to **Coimbatore, arriving at 8 am**, and runs from **Hyderabad, [Bangalore](/trips/munnar-from-bangalore/) and [Vijayawada](/trips/munnar-from-vijayawada/)**. Day 1 drives up through the **Chinnar Wildlife Sanctuary** to Lakkom falls, the botanical garden and a zipline and swing. Day 2 starts at 5 am for **Top Station and Echo Point**, then Mattupetty Dam, a tea factory and rose garden, the elephant camp and a spice plantation. Day 3 covers Gap Road, Idli Hills and **Eravikulam National Park** before the drive back to Coimbatore for the train.
 
 From Bangalore, see [Munnar from Bangalore](/trips/munnar-from-bangalore/).
 

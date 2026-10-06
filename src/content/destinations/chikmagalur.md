@@ -87,7 +87,7 @@ On the **[Coorg & Chikmagalur trip](/trips/coorg-chikmagalur-from-hyderabad/)**,
 ## Getting there
 
 - **From Hyderabad:** the overnight train from Kacheguda at 7 pm every Thursday and Friday to Mysore, then by road. Back in Hyderabad around 6:00 am on Monday (Thursday batch) or Tuesday (Friday batch).
-- **From Bangalore:** the same trip runs every Friday from Bangalore; the group meets at 6 am on Saturday. See [Coorg & Chikmagalur from Bangalore](/trips/coorg-chikmagalur-from-bangalore/).
+- **From Bangalore:** the same trip runs every Friday and Saturday from Bangalore, entirely by Tempo Traveller (no train), with a 6 am pickup around KSR Railway Station (SBC) / Majestic Bus Stand. See [Coorg & Chikmagalur from Bangalore](/trips/coorg-chikmagalur-from-bangalore/).
 
 ## Best time to visit
 

@@ -17,10 +17,11 @@ export function organizationLd(site: URL) {
     '@type': hasAddress ? 'TravelAgency' : 'Organization',
     '@id': new URL('/#organization', site).href,
     name: settings.brand.name,
-    alternateName: settings.brand.short,
+    // "HCC" and the full "Hyderabad Campers Club (HCC)" form, so the brand isn't confused with similarly named businesses.
+    alternateName: [settings.brand.short, `${settings.brand.name} (${settings.brand.short})`],
     url: new URL('/', site).href,
-    logo: new URL('/favicon.svg', site).href,
-    description: settings.brand.tagline,
+    logo: new URL('/logo-512.png', site).href, // square PNG of the logo mark (Google needs a raster logo, 112px+)
+    description: `${settings.brand.name} (${settings.brand.short}): ${settings.brand.tagline}`,
     ...(sameAs.length ? { sameAs } : {}),
     ...(c.email ? { email: c.email } : {}),
     ...(phone ? { telephone: phone } : {}),
@@ -94,6 +95,15 @@ export function touristTripLd(trip: TripView, origin: TripOriginView, site: URL,
           })),
         }
       : {}),
+  };
+}
+
+/** FAQPage from Q&As already published on the page (never extra text). */
+export function faqLd(items: { q: string; a: string }[]) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: items.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
   };
 }
 

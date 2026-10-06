@@ -1,6 +1,7 @@
 ---
 # Imported from HCC’s trip listings (Oct 2026). Review prices, dates and inclusions in the CMS before go-live.
 title: "Golden Triangle: Agra, Jaipur & Delhi"
+seoName: Golden Triangle
 tagline: Taj Mahal at sunrise, Jaipur’s forts and palaces, and Delhi’s landmarks, by train from Hyderabad.
 tripTypes:
   - long

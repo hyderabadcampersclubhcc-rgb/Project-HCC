@@ -7,6 +7,7 @@ import type { GetStaticPaths } from 'astro';
 import { getCollection, type CollectionEntry } from 'astro:content';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import StaticPage from '@/components/pages/StaticPage.astro';
+import { faqLd } from '@/lib/schema';
 
 export const getStaticPaths = (async () => (await getCollection('pages')).map((page) => ({ params: { page: page.id }, props: { page } }))) satisfies GetStaticPaths;
 
@@ -17,6 +18,11 @@ interface Props {
 const { page } = Astro.props;
 ---
 
-<BaseLayout title={page.data.seo.title ?? page.data.title} description={page.data.seo.description ?? page.data.description} noindex={page.data.draft}>
+<BaseLayout
+  title={page.data.seo.title ?? page.data.title}
+  description={page.data.seo.description ?? page.data.description}
+  noindex={page.data.draft}
+  jsonLd={!page.data.draft && page.data.faqs.length ? faqLd(page.data.faqs) : undefined}
+>
   <StaticPage page={page} />
 </BaseLayout>

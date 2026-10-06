@@ -58,7 +58,7 @@ const sections = [
   o.itinerary.length && { id: 'itinerary', label: 'Itinerary' },
   { id: 'stays', label: 'Stays & travel' },
   (o.inclusions.length || o.exclusions.length) && { id: 'inclusions', label: 'Inclusions' },
-  (d.thingsToCarry.length || d.importantInfo.length || d.suitableFor.length || d.advanceAmount != null || d.cancellationPolicy) && {
+  (o.thingsToCarry.length || o.importantInfo.length || d.suitableFor.length || d.advanceAmount != null || d.cancellationPolicy) && {
     id: 'info',
     label: 'Good to know',
   },
@@ -97,7 +97,7 @@ const sections = [
       {preview && <SectionNote n={8} title="What's included" purpose="Side-by-side ✓/✗. Conditional items show 'Subject to availability' plus the fallback, turning a common complaint into a trust signal." data="Inclusions (each can also show a short label on trip cards) and exclusions." />}
       <Inclusions trip={trip} origin={o} />
       {preview && <SectionNote n={9} title="Good to know" purpose="Pre-empts objections: who it's for and not for, what to pack, important notes, and a plain-language payment & cancellation summary." data="Suitable/not suitable, things to carry, important info, advance, GST, cancellation summary (links to the full policy page)." status="needs-data" />}
-      <GoodToKnow trip={trip} />
+      <GoodToKnow trip={trip} origin={o} />
       {
         d.faqs.length > 0 && (
           <>
