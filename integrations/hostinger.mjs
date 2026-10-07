@@ -85,8 +85,8 @@ ${legacy.join('\n')}
 RewriteRule ^(wp-admin|wp-login\\.php|xmlrpc\\.php|wp-json)(/.*)?$ - [R=410,L]
 </IfModule>
 
-# Never serve secrets, lead backups or source maps
-<FilesMatch "^(config\\.php|config\\.sample\\.php|.*\\.jsonl|.*\\.map)$">
+# Never serve secrets, lead backups, source maps or the FTP deploy sync-state files (served files only; FTP is unaffected)
+<FilesMatch "^(config\\.php|config\\.sample\\.php|.*\\.jsonl|.*\\.map|\\.ftp-deploy-sync-state.*\\.json)$">
   Require all denied
 </FilesMatch>
 

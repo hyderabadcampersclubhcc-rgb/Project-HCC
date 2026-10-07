@@ -79,6 +79,9 @@ jobs:
           protocol: ${{ vars.FTP_PROTOCOL || 'ftps' }}
           local-dir: ./dist/
           server-dir: ${{ vars.STAGING_DIR }}
+          # Fresh sync state (Oct 2026): the old .ftp-deploy-sync-state.json still listed the removed
+          # /camping/ folder, so every run failed with "550 /staging/camping" before saving its state.
+          state-name: .ftp-deploy-sync-state-v2.json
           exclude: |
             **/.git*
             **/.git*/**
