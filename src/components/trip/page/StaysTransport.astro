@@ -7,7 +7,6 @@
 import TripSection from './TripSection.astro';
 import Icon from '@/components/ui/Icon.astro';
 import type { TripView, TripOriginView } from '@/lib/catalog';
-import { inr } from '@/lib/format';
 
 interface Props {
   trip: TripView;
@@ -18,7 +17,8 @@ const { trip, origin } = Astro.props;
 const d = trip.data;
 const o = d.origins.find((x) => x.city === origin.city)!;
 const WASH: Record<string, string> = { attached: 'Attached washroom', shared: 'Shared washroom', common: 'Common washroom' };
-const delta = (n: number) => (n === 0 ? 'Included' : n > 0 ? `+${inr(n)}` : `−${inr(-n)}`);
+// One trip price per person: options show what the base price includes, never an add-on price.
+const delta = (n: number) => (n === 0 ? 'Included' : 'On request');
 ---
 
 <TripSection id="stays" title="Stays, transport & pickup">

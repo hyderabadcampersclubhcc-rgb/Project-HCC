@@ -20,7 +20,7 @@ export function organizationLd(site: URL) {
     // "HCC" and the full "Hyderabad Campers Club (HCC)" form, so the brand isn't confused with similarly named businesses.
     alternateName: [settings.brand.short, `${settings.brand.name} (${settings.brand.short})`],
     url: new URL('/', site).href,
-    logo: new URL('/logo-512.png', site).href, // square PNG of the logo mark (Google needs a raster logo, 112px+)
+    logo: new URL('/hcc-logo.png', site).href, // official HCC badge, 512×512 PNG from src/assets/brand/hcc-logo.png (Google needs a raster logo, 112px+)
     description: `${settings.brand.name} (${settings.brand.short}): ${settings.brand.tagline}`,
     ...(sameAs.length ? { sameAs } : {}),
     ...(c.email ? { email: c.email } : {}),

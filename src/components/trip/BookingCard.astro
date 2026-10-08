@@ -1,6 +1,8 @@
 ---
 /**
- * BookingCard: date → options → travellers → summary → Book / WhatsApp / Itinerary.
+ * BookingCard: date → travellers → summary → Book / WhatsApp / Itinerary.
+ * One trip price per person (HCC, Oct 2026): travel and room options are information on the trip
+ * page, never separate prices here. The card always uses the base (cheapest) combination.
  *
  * Server-renders the correct default state (works without JS); src/scripts/booking.ts
  * enhances it: selection, live price, ?d= / ?opt= / ?view= campaign deep links, and
@@ -35,8 +37,8 @@ const [selT, selS] = cheapestKey.split('|');
 const price = sel?.prices[cheapestKey] ?? o.fromPrice ?? null;
 const allFull = deps.length > 0 && !sel;
 const stayLabel = d.stayOptions.find((s) => s.id === selS)?.label;
-const multiTransport = o.transportOptions.length > 1;
-const multiStay = d.stayOptions.length > 1;
+const multiTransport = false; // single-price model: no travel-option selector
+const multiStay = false; // single-price model: no room-sharing selector
 const optPrice = (t: string, s: string) => sel?.prices[comboKey(t, s)];
 
 const payload = {
@@ -147,7 +149,7 @@ const flagFor = (x: (typeof deps)[number]) =>
 
         {sel && (<>
         <div class="book__trav">
-          <span class="book__label" id={`${id}-trav`}>Travellers</span>
+          <span class="book__label" id={`${id}-trav`}>2 · Travellers</span>
           <div class="stepper" role="group" aria-labelledby={`${id}-trav`}>
             <button type="button" aria-label="Fewer travellers" data-trav="-1" disabled>−</button>
             <output data-trav-count aria-live="polite">1</output>

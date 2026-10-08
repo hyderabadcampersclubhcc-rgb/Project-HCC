@@ -1,7 +1,7 @@
 /**
  * BookingCard enhancement (no framework). Responsibilities:
- *  - date / transport / stay / traveller selection with live pricing
- *  - campaign deep links: ?d=YYYY-MM-DD, ?opt=<transport|stay id>, ?view=dates|itinerary|book
+ *  - date / traveller selection with live pricing (one trip price per person)
+ *  - campaign deep links: ?d=YYYY-MM-DD, ?view=dates|itinerary|book (?opt= is ignored: single price)
  *  - keep the WhatsApp CTA message in sync with the selected date
  *  - broadcast `hcc:selection` (StickyBar listens) and `hcc:book` / `hcc:itinerary`
  *    (EnquirySheet listens; that's where BookingIntents and, later, Razorpay plug in)
@@ -112,11 +112,7 @@ function init(root: HTMLElement) {
       }
     }
   }
-  const wantOpt = qs.get('opt');
-  if (wantOpt) {
-    if (data.transport.some((t) => t.id === wantOpt)) state.transport = wantOpt;
-    if (data.stay.some((s) => s.id === wantOpt)) state.stay = wantOpt;
-  }
+  // ?opt= deep links no longer switch the price: one trip price per person (base combination).
   ensureComboAvailable();
 
   function showNote(html: string) {

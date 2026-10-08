@@ -37,7 +37,7 @@ const phone = settings.contact.phone.replace(/[^\d+]/g, '');
 
 <header class="hdr" data-overlay={overlay ? '' : undefined} data-header>
   <div class="hdr__in container">
-    <Logo tone={overlay ? 'light' : 'dark'} class="hdr__logo" />
+    <Logo tone={overlay ? 'light' : 'dark'} class="hdr__logo" size={52} eager />
 
     <nav class="hdr__nav" aria-label="Main">
       <ul class="hdr__links">
@@ -147,7 +147,7 @@ const phone = settings.contact.phone.replace(/[^\d+]/g, '');
 
 <dialog class="sheet" id="site-menu" aria-label="Menu">
   <div class="sheet__top">
-    <Logo />
+    <Logo size={48} />
     <button class="btn btn--sm btn--icon btn--whatsapp" type="button" aria-label="Close menu" data-menu-close autofocus>
       <Icon name="x" />
     </button>
@@ -242,13 +242,6 @@ const phone = settings.contact.phone.replace(/[^\d+]/g, '');
     background: transparent;
     border-color: transparent;
     color: var(--white);
-  }
-  .hdr[data-overlay][data-scrolled] :global(.logo) {
-    color: var(--ink-900);
-  }
-  .hdr[data-overlay][data-scrolled] :global(.logo__mark) {
-    background: var(--brand);
-    box-shadow: none;
   }
   .hdr[data-overlay][data-scrolled] :global(.btn--ghost) {
     background: var(--surface);

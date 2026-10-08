@@ -399,6 +399,8 @@ const pages = defineCollection({
     /** Draft pages still render (so links and redirects work) but show an
         "being updated" notice instead of the body and are never indexed. */
     draft: z.boolean().default(true),
+    /** Published but kept out of Google and the sitemap (e.g. a policy awaiting final approval). */
+    noindex: z.boolean().default(false),
     seo,
   }),
 });

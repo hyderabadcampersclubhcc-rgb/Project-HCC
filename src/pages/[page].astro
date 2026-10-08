@@ -21,7 +21,7 @@ const { page } = Astro.props;
 <BaseLayout
   title={page.data.seo.title ?? page.data.title}
   description={page.data.seo.description ?? page.data.description}
-  noindex={page.data.draft}
+  noindex={page.data.draft || page.data.noindex}
   jsonLd={!page.data.draft && page.data.faqs.length ? faqLd(page.data.faqs) : undefined}
 >
   <StaticPage page={page} />
