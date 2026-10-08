@@ -515,9 +515,19 @@ collections:
             name: hero
             widget: object
             fields:
-              - { label: Overline (part of the H1, keep the keyword), name: overline, widget: string }
-              - { label: Headline, name: headline, widget: string, hint: 'Each sentence goes on its own line.' }
-              - { label: Subline, name: subline, widget: text }
+              - { label: Overline (small line above the H1, optional), name: overline, widget: string, required: false }
+              - { label: Headline (the page's H1), name: headline, widget: string }
+              - { label: Supporting line, name: subline, widget: string, required: false, hint: 'e.g. Weekend Trips from Hyderabad & Bangalore' }
+              - { label: Destinations line, name: destinations, widget: string, required: false, hint: 'Only places HCC runs trips to, e.g. Ooty • Coorg • Gokarna' }
+              - label: Main button
+                name: primaryCta
+                widget: object
+                fields:
+                  - { label: Label, name: label, widget: string, default: Explore Trips }
+                  - { label: Link, name: href, widget: string, default: /trips/ }
+              - { label: WhatsApp button label, name: whatsappLabel, widget: string, default: WhatsApp Us }
+              - { label: Trust line (facts only, no numbers you can't prove), name: trustLine, widget: string, required: false }
+              - { label: Photo focal point (CSS, e.g. 30% 45%), name: focalPoint, widget: string, required: false, hint: 'Where the subject is; phones crop around this point.' }
               - { label: Hero photo (real HCC group photo, landscape, min 1920px wide), name: image, widget: image, required: false }
               - { label: Hero photo alt text, name: imageAlt, widget: string, required: false }
               - label: Photo credit (only for stock photos; clear all three when you upload your own)

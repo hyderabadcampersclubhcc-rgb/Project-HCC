@@ -12,6 +12,7 @@ import Header from '@/components/layout/Header.astro';
 import Footer from '@/components/layout/Footer.astro';
 import MobileNav from '@/components/layout/MobileNav.astro';
 import CompareTray from '@/components/trip/CompareTray.astro';
+import WhatsAppFloat, { type WaFloatContext } from '@/components/cta/WhatsAppFloat.astro';
 import '@/styles/tokens.css';
 import '@/styles/base.css';
 import '@/styles/primitives.css';
@@ -25,9 +26,11 @@ type Props = SeoProps & {
   bodyClass?: string;
   /** Keep the cookie banner open (consent preview page only). */
   consentPreview?: boolean;
+  /** Pre-filled message + tracking for the floating WhatsApp button (trip / destination pages); false hides it. */
+  whatsapp?: WaFloatContext | false;
 };
 
-const { headerOverlay = false, mobileBar = 'nav', chrome = true, bodyClass, consentPreview = false, ...seo } = Astro.props;
+const { headerOverlay = false, mobileBar = 'nav', chrome = true, bodyClass, consentPreview = false, whatsapp = {}, ...seo } = Astro.props;
 ---
 
 <!doctype html>
@@ -60,6 +63,7 @@ const { headerOverlay = false, mobileBar = 'nav', chrome = true, bodyClass, cons
     {chrome && <Footer />}
     {chrome && mobileBar === 'nav' && <MobileNav />}
     {chrome && <CompareTray />}
+    {chrome && whatsapp !== false && <WhatsAppFloat context={whatsapp} />}
     <slot name="end" />
     <ConsentBanner forceOpen={consentPreview} />
     <script>

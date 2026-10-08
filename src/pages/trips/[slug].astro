@@ -45,6 +45,11 @@ const og = trip.data.heroImage ? await getImage({ src: trip.data.heroImage, widt
   ogImage={og?.src}
   ogImageAlt={trip.data.heroAlt}
   mobileBar="none"
+  whatsapp={{
+    message: `Hi HCC, I'm interested in the ${trip.data.title} trip from ${origin.label}. Please share the available dates and booking details.`,
+    tripId: trip.id,
+    tripName: trip.data.title,
+  }}
   jsonLd={[
     organizationLd(Astro.site!),
     touristTripLd(trip, origin, Astro.site!, og ? new URL(og.src, Astro.site).href : undefined),

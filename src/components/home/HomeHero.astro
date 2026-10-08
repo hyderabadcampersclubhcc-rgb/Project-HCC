@@ -1,16 +1,22 @@
 ---
 /**
- * Homepage hero. LCP = the hero photo (eager, fetchpriority=high, WebP). With a background video,
- * the photo is the video's poster frame, so the video plays in the same element and never
- * becomes a later, slower LCP candidate.
- * The H1 contains the visible overline ("Group trips from Hyderabad") plus the brand
- * line, so the page's single H1 carries the primary keyword without hidden text.
+ * Homepage hero: one full-width photo with a soft dark gradient, the page's single H1, a short
+ * supporting line, the main destinations, two CTAs and a small trust line. All copy is real
+ * HTML text from src/data/home.json (CMS → Homepage), never text inside the image.
+ *
+ * Performance: the photo is the LCP image (WebP, responsive widths, eager, fetchpriority=high).
+ * Its box is sized by CSS before it loads, so there's no layout shift. The only motion is a
+ * slow CSS zoom on the photo, desktop only (off on phones for performance, and for reduced motion). No JS, no video by
+ * default; an optional background video still works if one is set in the CMS (it starts only
+ * after the first scroll/tap, so it never becomes the LCP).
+ *
+ * Height is capped so the city selector below stays in view on phones and laptops.
  */
 import { getImage } from 'astro:assets';
 import Photo from '@/components/ui/Photo.astro';
 import PhotoCredit from '@/components/ui/PhotoCredit.astro';
-import Icon from '@/components/ui/Icon.astro';
-import TripFinder from '@/components/search/TripFinder.astro';
+import Button from '@/components/ui/Button.astro';
+import WhatsAppCTA from '@/components/cta/WhatsAppCTA.astro';
 import { home, uploadedImage } from '@/lib/home';
 
 interface Props {
@@ -18,18 +24,16 @@ interface Props {
   catalog?: { samples?: boolean; today?: string };
 }
 
-const { preview = false, catalog = {} } = Astro.props;
+const { preview = false } = Astro.props;
 const h = home.hero;
 const image = uploadedImage(h.image);
-// "Your weekend. Your adventure. Your people." → one line per sentence (natural wrap if a line is too long).
 const hasVideo = !!(h.video.desktop || h.video.mobile);
 const alt = h.imageAlt || 'HCC travellers on a group trip from Hyderabad';
 const poster = hasVideo && image ? await getImage({ src: image, width: 828, format: 'webp', quality: 70 }) : null;
 const credit = h.imageCredit.source ? { author: h.imageCredit.author, license: h.imageCredit.license, source: h.imageCredit.source } : undefined;
-const lines = h.headline.split(/(?<=[.!?])\s+/).filter(Boolean);
 ---
 
-<section class="hero" aria-labelledby="hero-title">
+<section class="hero" aria-labelledby="hero-title" style={h.focalPoint ? `--hero-focus:${h.focalPoint}` : undefined}>
   {poster && <link rel="preload" as="image" href={poster.src} fetchpriority="high" />}
   {
     poster ? (
@@ -62,22 +66,24 @@ const lines = h.headline.split(/(?<=[.!?])\s+/).filter(Boolean);
   }
   {image && <PhotoCredit credit={credit} placement="top" />}
   <div class="container hero__in">
-    <h1 id="hero-title" class="hero__title">
-      {h.overline && <span class="hero__over">{h.overline}</span>}{' '}
-      <span class="hero__headline">
-        {lines.map((l, i) => (
-          <>
-            {i > 0 && ' '}
-            <span class="hero__line">{l}</span>
-          </>
-        ))}
-      </span>
-    </h1>
+    {h.overline && <p class="hero__over">{h.overline}</p>}
+    <h1 id="hero-title" class="hero__title">{h.headline}</h1>
     {h.subline && <p class="hero__sub">{h.subline}</p>}
-    <TripFinder id="hero-finder" layout="row" class="hero__finder" catalog={catalog} />
-    <a class="hero__custom" href="/customised-trips/" data-track="select_content" data-track-params='{"content_type":"custom_trip","cta_location":"hero"}'>
-      Or plan a custom trip <Icon name="arrow" />
-    </a>
+    {h.destinations && <p class="hero__dest">{h.destinations}</p>}
+    <div class="hero__ctas">
+      <Button
+        href={h.primaryCta.href}
+        size="lg"
+        iconRight="arrow"
+        class="hero__cta"
+        data-track="select_content"
+        data-track-params='{"content_type":"explore_trips","cta_location":"hero"}'
+      >
+        {h.primaryCta.label}
+      </Button>
+      <WhatsAppCTA location="hero" label={h.whatsappLabel} size="lg" class="hero__cta" />
+    </div>
+    {h.trustLine && <p class="hero__trust">{h.trustLine}</p>}
   </div>
 </section>
 
@@ -85,9 +91,11 @@ const lines = h.headline.split(/(?<=[.!?])\s+/).filter(Boolean);
   .hero {
     position: relative;
     isolation: isolate;
+    overflow: hidden;
     display: flex;
     align-items: flex-end;
-    min-height: min(100svh, 760px);
+    /* Phones: tall enough to feel cinematic, short enough that the next section peeks in. */
+    min-height: min(76svh, 640px);
     /* Slide under the transparent overlay header */
     margin-top: calc(-1 * var(--header-h));
     padding-top: calc(var(--header-h) + var(--s-8));
@@ -102,7 +110,28 @@ const lines = h.headline.split(/(?<=[.!?])\s+/).filter(Boolean);
     inset: 0;
     z-index: -2;
   }
-  /* Background video: its poster is the hero photo, so photo and video are one element */
+  .hero :global(img.hero__photo) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: var(--hero-focus, 50% 50%);
+    transform-origin: var(--hero-focus, 50% 50%);
+  }
+  /* Subtle, slow push-in on desktop only: transform only (no layout shift), once, then rests.
+     Not on phones/tablets: on throttled mobile CPUs it added ~100 ms of rendering work (Lighthouse). */
+  @media (prefers-reduced-motion: no-preference) and (min-width: 1024px) {
+    .hero :global(img.hero__photo) {
+      animation: hero-drift 18s ease-out both;
+    }
+  }
+  @keyframes hero-drift {
+    from {
+      transform: scale(1.08);
+    }
+    to {
+      transform: scale(1);
+    }
+  }
   .hero__video {
     position: absolute;
     inset: 0;
@@ -115,22 +144,20 @@ const lines = h.headline.split(/(?<=[.!?])\s+/).filter(Boolean);
   .hero.is-video :global(.pcredit) {
     display: none;
   }
+  /* Readability: darker at the top (header) and bottom-left (copy), the photo stays bright elsewhere. */
   .hero::after {
     content: '';
     position: absolute;
     inset: 0;
     z-index: -1;
     background:
-      linear-gradient(180deg, rgb(10 20 16 / 0.55) 0%, rgb(10 20 16 / 0) 28%),
-      linear-gradient(0deg, rgb(10 20 16 / 0.82) 0%, rgb(10 20 16 / 0.35) 45%, rgb(10 20 16 / 0) 70%);
+      linear-gradient(180deg, rgb(8 18 14 / 0.6) 0%, rgb(8 18 14 / 0) 26%),
+      linear-gradient(0deg, rgb(8 18 14 / 0.88) 0%, rgb(8 18 14 / 0.5) 38%, rgb(8 18 14 / 0) 68%);
   }
   .hero__in {
     display: grid;
-    gap: var(--s-4);
-  }
-  .hero__title {
-    display: grid;
     gap: var(--s-3);
+    justify-items: start;
   }
   .hero__over {
     font: 600 var(--fs-xs) / 1.2 var(--font-body);
@@ -138,50 +165,65 @@ const lines = h.headline.split(/(?<=[.!?])\s+/).filter(Boolean);
     text-transform: uppercase;
     color: rgb(255 255 255 / 0.9);
   }
-  .hero__headline {
-    font: 800 var(--fs-display) / 0.98 var(--font-display);
+  .hero__title {
+    max-width: 14ch;
+    font: 800 clamp(2.25rem, 1.35rem + 4.6vw, 4.5rem) / 1.02 var(--font-display);
     letter-spacing: var(--tracking-display);
-  }
-  .hero__line {
-    display: block;
+    text-wrap: balance;
+    overflow-wrap: break-word;
+    text-shadow: 0 2px 24px rgb(0 0 0 / 0.25);
   }
   .hero__sub {
-    max-width: 46ch;
-    font-size: var(--fs-lg);
-    color: rgb(255 255 255 / 0.9);
-  }
-  .hero :global(.hero__finder) {
-    margin-top: var(--s-2);
-    max-width: 960px;
-  }
-  .hero__custom {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    justify-self: start;
-    min-height: 44px;
-    font-weight: 600;
-    text-decoration: none;
+    font: 700 clamp(1.0625rem, 0.95rem + 0.6vw, 1.375rem) / 1.3 var(--font-body);
     color: var(--white);
   }
-  .hero__custom:hover {
-    text-decoration: underline;
-    text-underline-offset: 3px;
+  .hero__dest {
+    margin-top: calc(-1 * var(--s-2));
+    font-size: var(--fs-base, 1rem);
+    color: rgb(255 255 255 / 0.88);
+  }
+  .hero__ctas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-3);
+    margin-top: var(--s-2);
+  }
+  .hero__trust {
+    font-size: var(--fs-sm, 0.875rem);
+    color: rgb(255 255 255 / 0.82);
+  }
+  /* Phones: two equal, full-width-friendly buttons side by side. */
+  @media (max-width: 479px) {
+    .hero__ctas {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      width: 100%;
+    }
+    .hero__ctas :global(.hero__cta) {
+      width: 100%;
+      justify-content: center;
+      padding-inline: var(--s-3);
+    }
   }
   @media (min-width: 1024px) {
     .hero {
-      min-height: 720px;
-      padding-bottom: var(--s-16);
+      min-height: min(82vh, 680px);
+      padding-bottom: var(--s-12);
+    }
+    /* Wide screens: a left-side scrim so the copy sits on calm negative space. */
+    .hero::after {
+      background:
+        linear-gradient(180deg, rgb(8 18 14 / 0.55) 0%, rgb(8 18 14 / 0) 24%),
+        linear-gradient(90deg, rgb(8 18 14 / 0.72) 0%, rgb(8 18 14 / 0.4) 40%, rgb(8 18 14 / 0) 68%),
+        linear-gradient(0deg, rgb(8 18 14 / 0.55) 0%, rgb(8 18 14 / 0) 45%);
     }
   }
 </style>
 
 <script>
   /**
-   * Hero background video: loads only after the page has finished loading, never when the
-   * visitor prefers reduced motion or has data saver / a 2G connection on. The photo stays
-   * visible underneath, so a slow or blocked video never leaves a blank hero.
-   * Clips: Mixkit (free licence, no attribution required).
+   * Optional background video (only when one is set in the CMS): loads after the first scroll /
+   * tap / key press, never with reduced motion, data saver or 2G. The photo stays underneath.
    */
   const video = document.querySelector<HTMLVideoElement>('[data-hero-video]');
   const hero = video?.closest<HTMLElement>('.hero');
@@ -193,12 +235,8 @@ const lines = h.headline.split(/(?<=[.!?])\s+/).filter(Boolean);
       video.src = matchMedia('(min-width: 768px)').matches ? video.dataset.desktop! : video.dataset.mobile!;
       video.addEventListener('playing', () => hero.classList.add('is-video'), { once: true });
       video.play().catch(() => {});
-      // Pause when scrolled away to save battery and data
       new IntersectionObserver(([e]) => (e.isIntersecting ? video.play().catch(() => {}) : video.pause())).observe(hero);
     };
-    // Start on the first scroll / tap / key press. Browsers stop measuring LCP at that point, so
-    // the video's first frame can never become a slow LCP (Core Web Vitals). Until then the
-    // poster photo shows, exactly as a still hero.
     let started = false;
     const once = () => {
       if (started) return;

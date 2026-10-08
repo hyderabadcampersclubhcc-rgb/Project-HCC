@@ -30,6 +30,8 @@ export function initWhatsApp() {
         trip_id: a.dataset.tripId,
         trip_name: a.dataset.tripName,
         departure_date: a.dataset.departureDate,
+        destination: a.dataset.destination,
+        page_path: location.pathname,
       });
     },
     { capture: true },

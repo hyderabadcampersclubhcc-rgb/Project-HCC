@@ -48,6 +48,10 @@ const ld = {
   ogImage={og?.src}
   ogImageAlt={d.heroAlt}
   jsonLd={ld}
+  whatsapp={{
+    message: `Hi HCC, I'm interested in ${d.name} trips${hubs.length ? ` from ${hubs.join(' or ')}` : ''}. Please share the available dates and booking details.`,
+    destination: d.name,
+  }}
 >
   <DestinationPage destination={destination} />
 </BaseLayout>

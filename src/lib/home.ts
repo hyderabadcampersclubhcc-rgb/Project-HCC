@@ -22,6 +22,14 @@ const HomeSchema = z.object({
     imageCredit: z.object({ author: text, license: text, source: text }).default({ author: '', license: '', source: '' }),
     // Optional background video (muted loop). The photo stays as the poster and fallback.
     video: z.object({ desktop: text, mobile: text }).default({ desktop: '', mobile: '' }),
+    /** The photo's focal point as CSS object-position ("30% 40%"), so phones crop around it. */
+    focalPoint: text,
+    /** Short line of real destinations under the supporting text. */
+    destinations: text,
+    primaryCta: z.object({ label: z.string(), href: z.string() }).default({ label: 'Explore Trips', href: '/trips/' }),
+    whatsappLabel: z.string().default('WhatsApp Us'),
+    /** Small factual trust line under the buttons (no numbers HCC can't back up). */
+    trustLine: text,
   }),
   upcoming: section.extend({ limit: z.number().int().min(3).max(20) }),
   destinations: section,

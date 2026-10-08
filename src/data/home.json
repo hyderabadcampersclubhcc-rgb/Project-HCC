@@ -4,9 +4,16 @@
     "description": "Weekend getaways, treks, camping and group trips from Hyderabad. Clear itineraries with transport and stays listed. See upcoming dates and enquire on WhatsApp."
   },
   "hero": {
-    "overline": "Group trips from Hyderabad & Bangalore",
-    "headline": "Your weekend. Your adventure. Your people.",
-    "subline": "Group trips, weekend getaways, treks & unforgettable escapes from Hyderabad & Bangalore.",
+    "overline": "",
+    "headline": "Where Will You Escape This Weekend?",
+    "subline": "Weekend Trips from Hyderabad & Bangalore",
+    "destinations": "Ooty • Coorg • Gokarna • Wayanad • Araku & more",
+    "primaryCta": {
+      "label": "Explore Trips",
+      "href": "/trips/"
+    },
+    "whatsappLabel": "WhatsApp Us",
+    "trustLine": "Weekly departures · Group trips · Solo travellers welcome",
     "image": "/src/assets/uploads/hero-hills-sunrise.jpg",
     "imageAlt": "Sunrise over a sea of clouds in the hills",
     "imageCredit": {
@@ -14,9 +21,10 @@
       "license": "CC BY-SA 4.0",
       "source": "https://commons.wikimedia.org/wiki/File:Early_sunrise_above_clouds_Nandi_hills_Bangalore.jpg"
     },
+    "focalPoint": "30% 45%",
     "video": {
-      "desktop": "/video/hero-1280.mp4",
-      "mobile": "/video/hero-854.mp4"
+      "desktop": "",
+      "mobile": ""
     }
   },
   "upcoming": {

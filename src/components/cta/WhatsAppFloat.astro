@@ -1,0 +1,179 @@
+---
+/**
+ * The one floating WhatsApp button (bottom-right, every page with site chrome).
+ * A plain wa.me link: the whole circle is the link, it works without JS, and the existing
+ * WhatsApp click handler (src/scripts/whatsapp.ts) adds the attribution ref and fires
+ * click_whatsapp with cta_location "floating_button". No chat widget, popup or status.
+ *
+ * Placement: above the mobile bottom bar / trip sticky bar on phones, 24px from the corner
+ * on desktop. A few lines of JS hide it while it would sit on top of the booking card,
+ * the cookie banner or the compare tray, so it never covers Book Seat or other controls.
+ */
+import Icon from '@/components/ui/Icon.astro';
+import { waHref, waRef } from '@/lib/whatsapp';
+
+export interface WaFloatContext {
+  /** Full pre-filled message built from real page data (trip / destination). */
+  message?: string;
+  tripId?: string;
+  tripName?: string;
+  destination?: string;
+}
+
+interface Props {
+  context?: WaFloatContext;
+}
+
+const { context = {} } = Astro.props;
+const href = waHref({ custom: context.message ?? 'Hi HCC, I would like to know more about your trips.' });
+---
+
+{
+  href && (
+    <a
+      href={href}
+      class="waf"
+      target="_blank"
+      rel="noopener"
+      aria-label="Chat with HCC on WhatsApp"
+      data-wa
+      data-wa-ref={waRef(context.tripId)}
+      data-cta-location="floating_button"
+      data-trip-id={context.tripId}
+      data-trip-name={context.tripName}
+      data-destination={context.destination}
+      data-wa-float
+    >
+      <Icon name="whatsapp" />
+      <span class="waf__tip" aria-hidden="true">Chat with HCC</span>
+    </a>
+  )
+}
+
+<style>
+  .waf {
+    position: fixed;
+    right: 16px;
+    bottom: calc(var(--mobile-bar-h) + env(safe-area-inset-bottom) + 16px);
+    z-index: 32; /* above the bottom bars (30), below the compare tray (35) and cookie banner (45) */
+    display: grid;
+    place-items: center;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: var(--brand-deep);
+    border: 1px solid rgb(255 255 255 / 0.22);
+    color: #25d366;
+    box-shadow:
+      0 8px 24px -6px rgb(10 36 28 / 0.45),
+      0 2px 6px rgb(10 36 28 / 0.2);
+    text-decoration: none;
+    transition:
+      transform var(--t) var(--ease),
+      box-shadow var(--t) var(--ease),
+      opacity var(--t) var(--ease),
+      visibility var(--t);
+    -webkit-tap-highlight-color: transparent;
+  }
+  .waf :global(.icon) {
+    width: 30px;
+    height: 30px;
+  }
+  .waf:hover {
+    transform: translateY(-2px);
+    box-shadow:
+      0 12px 28px -6px rgb(10 36 28 / 0.5),
+      0 3px 8px rgb(10 36 28 / 0.22);
+  }
+  .waf:active {
+    transform: scale(0.94);
+  }
+  .waf:focus-visible {
+    outline: 3px solid var(--marigold-500);
+    outline-offset: 3px;
+  }
+  /* Out of the way of the booking card / cookie banner / compare tray (set by the script). */
+  .waf[data-covered] {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+  /* Hidden while typing (the mobile bars do the same) so it never sits on the keyboard. */
+  .waf[data-hidden] {
+    opacity: 0;
+    visibility: hidden;
+  }
+
+  /* Desktop tooltip on hover or keyboard focus; the accessible name doesn't depend on it. */
+  .waf__tip {
+    position: absolute;
+    right: calc(100% + 12px);
+    top: 50%;
+    padding: 7px 12px;
+    border-radius: var(--r-md);
+    background: var(--ink-900);
+    color: var(--white);
+    font: 600 0.875rem / 1.2 var(--font-body);
+    white-space: nowrap;
+    opacity: 0;
+    transform: translate(6px, -50%);
+    transition:
+      opacity var(--t) var(--ease),
+      transform var(--t) var(--ease);
+    pointer-events: none;
+  }
+  @media (hover: hover) {
+    .waf:hover .waf__tip {
+      opacity: 1;
+      transform: translate(0, -50%);
+    }
+  }
+  .waf:focus-visible .waf__tip {
+    opacity: 1;
+    transform: translate(0, -50%);
+  }
+
+  @media (min-width: 1024px) {
+    .waf {
+      right: 24px;
+      bottom: 24px;
+      width: 58px;
+      height: 58px;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .waf,
+    .waf__tip {
+      transition: none;
+    }
+    .waf:hover {
+      transform: none;
+    }
+  }
+</style>
+
+<script>
+  // Hide the button while it overlaps something the visitor needs to tap. Cheap: a few rect reads
+  // on scroll/resize (scroll fires at most once per frame), only for elements on the page.
+  const fab = document.querySelector<HTMLElement>('[data-wa-float]');
+  const AVOID = '[data-booking-card], [data-compare-tray]:not([hidden]), [data-consent-banner]:not([hidden])';
+  if (fab) {
+    const check = () => {
+      const f = fab.getBoundingClientRect();
+      const covered = [...document.querySelectorAll<HTMLElement>(AVOID)].some((el) => {
+        const r = el.getBoundingClientRect();
+        return r.width > 0 && r.left < f.right + 8 && r.right > f.left - 8 && r.top < f.bottom + 8 && r.bottom > f.top - 8;
+      });
+      if (fab.hasAttribute('data-covered') !== covered) fab.toggleAttribute('data-covered', covered);
+    };
+    addEventListener('scroll', check, { passive: true });
+    addEventListener('resize', check);
+    // The cookie banner and compare tray open/close without scrolling.
+    new MutationObserver(check).observe(document.body, { subtree: true, attributes: true, attributeFilter: ['hidden'] });
+    check();
+    // Typing: hide like the bottom bars do.
+    const isField = (t: EventTarget | null) => t instanceof HTMLElement && t.matches('input, textarea, select, [contenteditable]');
+    document.addEventListener('focusin', (e) => isField(e.target) && fab.setAttribute('data-hidden', ''));
+    document.addEventListener('focusout', (e) => isField(e.target) && fab.removeAttribute('data-hidden'));
+  }
+</script>
