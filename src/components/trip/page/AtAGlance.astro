@@ -1,0 +1,69 @@
+---
+/**
+ * "At a glance": the trip's key facts as a definition list, near the top of the page body.
+ * Built from trip data only (src/lib/trip-facts.ts), so people, search engines and AI
+ * assistants get the same answer as the booking card, dates table and FAQs.
+ */
+import TripSection from './TripSection.astro';
+import type { TripView, TripOriginView } from '@/lib/catalog';
+import { tripFacts } from '@/lib/trip-facts';
+
+interface Props {
+  trip: TripView;
+  origin: TripOriginView;
+}
+
+const { trip, origin } = Astro.props;
+const facts = tripFacts(trip, origin);
+---
+
+<TripSection id="glance" title="At a glance">
+  <dl class="aag">
+    {
+      facts.map((f) => (
+        <div class="aag__row">
+          <dt>{f.label}</dt>
+          <dd>{f.href ? <a href={f.href}>{f.value}</a> : f.value}</dd>
+        </div>
+      ))
+    }
+  </dl>
+</TripSection>
+
+<style>
+  .aag {
+    display: grid;
+    margin: 0;
+    border: 1px solid var(--line);
+    border-radius: var(--r-lg);
+    overflow: hidden;
+  }
+  .aag__row {
+    display: grid;
+    grid-template-columns: minmax(0, 9.5rem) minmax(0, 1fr);
+    gap: var(--s-3);
+    padding: 10px var(--s-4);
+    font-size: 0.9375rem;
+    line-height: 1.45;
+  }
+  .aag__row + .aag__row {
+    border-top: 1px solid var(--line);
+  }
+  .aag dt {
+    color: var(--text-2);
+  }
+  .aag dd {
+    margin: 0;
+    color: var(--ink-900);
+    overflow-wrap: anywhere;
+  }
+  /* Phones: keep label | value side by side (compact), just a narrower label column. */
+  @media (max-width: 480px) {
+    .aag__row {
+      grid-template-columns: minmax(0, 6.75rem) minmax(0, 1fr);
+      gap: var(--s-2);
+      padding: 8px var(--s-3);
+      font-size: 0.875rem;
+    }
+  }
+</style>

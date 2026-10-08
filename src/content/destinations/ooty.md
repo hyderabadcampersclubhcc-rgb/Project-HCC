@@ -111,7 +111,7 @@ Ooty is a classic first hill-station weekend from Hyderabad: tea slopes, pine fo
 
 HCC's Ooty trips are built around the overnight **Mysore Express from Kacheguda at 7 pm**. You reach Mysore by about 10 am, freshen up, and see Mysore Palace before the drive up to Ooty through **Bandipur forest**, stopping at Needle Rock viewpoint, Pykara falls and Shooting Point on the way. The return is the same route: the drive back down to Mysore on day 3 and the overnight train home.
 
-Sleeper class is standard; some departures offer a 3AC upgrade (+₹1,400).
+Travel is by sleeper class.
 
 ## From Bangalore
 
@@ -130,6 +130,6 @@ Ooty is pleasant for most of the year. From October to June the weather is gener
 
 ## Good to know
 
-- Stays on HCC's Ooty trips are on a sharing basis (3–4 per room), with couple rooms available at extra cost.
+- Stays on HCC's Ooty trips are on a sharing basis (3–4 per room). Couple rooms may be possible on request; ask HCC on WhatsApp.
 - Food and entry tickets (Mysore Palace, Pykara, the toy train) are paid locally unless the trip lists them as included.
 - Carry a government photo ID for the train.

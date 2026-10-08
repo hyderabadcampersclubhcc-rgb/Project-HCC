@@ -31,9 +31,14 @@
 | Each trip page | its destination guide(s) | destination name | Sideways and up | automatic (trip template) |
 | Each trip page | 2–3 related trips | trip names | Sideways | automatic (related trips) |
 | `/destinations/ananthagiri/` | `/camping-near-hyderabad/` | "other camps near Hyderabad" | Guide → pillar | ✅ present |
-| `/weekend-trips-from-hyderabad/` | `/trips/narsapur-camping-from-hyderabad/`, `/trips/ananthagiri-camping-from-hyderabad/` | "Narsapur forest camping", "Ananthagiri Hills camping" | Hub reaches these only via the camping pillar | ❌ missing (low priority; proposal) |
+| `/weekend-trips-from-hyderabad/` | `/trips/narsapur-camping-from-hyderabad/`, `/trips/ananthagiri-camping-from-hyderabad/` | "Narsapur forest camping", "Ananthagiri Hills camping" | Hub reaches these only via the camping pillar | ✅ added in the hub's "Only have one night?" paragraph (8 Oct 2026, uncommitted) |
 
 Checked against the `6ba66f8` build on 8 Oct 2026 by grepping the built HTML. **Don't edit pages without approval.**
+
+**Implemented 8 Oct 2026 (uncommitted, awaiting owner review):**
+- Every trip page's Overview ends with "Plan your visit": its indexable destination guide(s) plus an up-link to its city hub ("More weekend trips from Hyderabad" or "More camping near Hyderabad"). Bangalore trips get no hub link while that hub is on hold.
+- Indexable category and destination pages now list only **indexable** guides, so they don't send link value to noindex drafts. The guide sections reappear automatically once a guide is approved for indexing.
+- `npm run check:integrity` warns about every remaining link from an indexable page to a noindex page. Most remaining ones are breadcrumbs to held category pages (`/treks/`, `/long-trips/`, `/couple-trips/`), cross-links to thin destination pages, and Bangalore breadcrumbs to the held hub. These wait for the thin-page decision.
 
 ## 3. Links to add WHEN a guide is made indexable (owner approval)
 
@@ -42,7 +47,7 @@ Checked against the `6ba66f8` build on 8 Oct 2026 by grepping the built HTML. **
 | Winter weekend trips | the Hyderabad hub (a winter section), the Araku guide, the Ooty trip page FAQ "When is the best time?" |
 | Long weekend trips 2027 | the Hyderabad hub ("Planning around a long weekend?"), `/upcoming-trips/` intro |
 | Ooty vs Coorg vs Wayanad | the Ooty, Coorg and Wayanad destination guides (a "comparing?" line) |
-| Under ₹8,000 | the Hyderabad hub (a budget section), the Gokarna trip page |
+| Under ₹8,000 | the Hyderabad hub (a budget section), the Gokarna trip page. **The Gokarna → Under ₹8,000 link waits until the guide is fully aligned with the single-price model** (re-check its tables for upgrade prices first) |
 | Solo trips | the Hyderabad hub, the `/faq/` solo question, trip pages that mention solo travellers |
 
 ## 4. Orphan and weak-link checks (monthly)

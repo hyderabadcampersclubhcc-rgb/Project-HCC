@@ -50,7 +50,7 @@ highlights:
   - Adiyogi laser light show at Isha Yoga Center
   - Pine Forest, Ooty Lake and Valley View
 inclusions:
-  - text: Return sleeper train tickets (3AC upgrade ₹1,400)
+  - text: Return sleeper train tickets
     icon: train
     showOnCard: true
     cardLabel: Train

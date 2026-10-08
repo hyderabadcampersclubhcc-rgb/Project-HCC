@@ -40,6 +40,7 @@
 ## Data-integrity check (every month)
 
 - [ ] Every price, date and schedule mentioned in guides matches the current trip data.
+- [ ] No page shows an upgrade or variant price (search for +₹, 3AC, upgrade, double sharing).
 - [ ] Every trip promoted this month has future departures in `src/content/departures/`.
 - [ ] No noindex page was indexed by mistake, and no indexable page was dropped (sitemap vs GSC).
 - [ ] `npm run check:links` and `npm run check:seo` both pass.

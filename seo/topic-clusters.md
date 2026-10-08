@@ -66,7 +66,7 @@ Legend:
 | Destination guide | `/destinations/dandeli/` | ✅ | — |
 | Destination guide | `/destinations/murudeshwar/` | 🔒 thin | — |
 
-**Blocker:** written add-on prices in the Gokarna FAQ, the header transport line and the Gokarna guide contradict the single-price model. **Resolve these before promoting this cluster** (owner decision pending).
+**Single-price rule (approved 8 Oct 2026):** any remaining upgrade-price wording (3AC, sleeper bus, room types) must be removed before this cluster is promoted. The known instances in the Gokarna FAQ, header transport line and Gokarna guide were cleaned up on 8 Oct 2026. Re-check with the search in `monthly-report-template.md` before promoting.
 
 ## Cluster 5: Camping near Hyderabad (brand-defining)
 
@@ -125,6 +125,8 @@ Pages: `/`, `/about/`, `/reviews/`, `/contact/`, `/faq/`, `/cancellation-policy/
 ---
 
 ## AI-search layer (applies to every cluster)
+
+**Implemented on all trip pages (8 Oct 2026, uncommitted):** an "At a glance" block (`src/components/trip/page/AtAGlance.astro`) and data-driven FAQs (`src/lib/trip-facts.ts`), both built only from trip data, with the same Q&As marked up as FAQPage. A field with no data is left out.
 
 AI answer engines (Google AI Overviews / AI Mode, ChatGPT search, Perplexity, Gemini) favour pages that state facts plainly. For each **commercial owner** page, make sure these facts appear once, in plain text, consistent with trip data:
 

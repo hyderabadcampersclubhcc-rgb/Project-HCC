@@ -17,7 +17,7 @@ faqs:
   - q: What are the best weekend trips from Hyderabad?
     a: "It depends on the weekend you want. For beaches and camping, Gokarna–Dandeli–Murudeshwar or Goa; for hills and viewpoints, Ooty & Coonoor, Coorg & Chikmagalur, Wayanad or Araku Valley; for heritage, Hampi or Pondicherry. All are 2–3 day group trips from Hyderabad."
   - q: How do HCC weekend trips travel from Hyderabad?
-    a: "Most go by overnight sleeper train from Kacheguda or Nampally station, with a vehicle for local sightseeing at the destination. The Hampi–Gokarna trip uses a sleeper bus, and some trips offer a 3AC upgrade."
+    a: "Most go by overnight sleeper train from Kacheguda or Nampally station, with a vehicle for local sightseeing at the destination. The Hampi–Gokarna trip uses a sleeper bus."
   - q: How much does a weekend trip from Hyderabad cost?
     a: "HCC's 2-night weekend trips cost ₹5,999 to ₹8,999 per person, depending on the destination. One-night camping trips near Hyderabad start from ₹1,199. Each trip page shows exactly what the price includes."
   - q: Which day do the trips leave?
@@ -32,9 +32,9 @@ faqs:
 
 HCC weekend trips are small group departures that fit into a normal working week. You leave Hyderabad on a Thursday or Friday evening, travel overnight, spend two or three days at the destination with an HCC trip captain, and travel back overnight. More on [how HCC runs its trips](/about/).
 
-- **Getting there:** most trips use overnight sleeper-class trains from Kacheguda or Nampally. Some offer a 3AC upgrade (Ooty & Coonoor and Isha: +₹1,400; Gokarna: +₹1,700). The Hampi–Gokarna trip runs by sleeper bus.
+- **Getting there:** most trips use overnight sleeper-class trains from Kacheguda or Nampally. The Hampi–Gokarna trip runs by sleeper bus.
 - **On the ground:** a tempo traveller or similar vehicle for all the sightseeing in the itinerary.
-- **Stays:** homestays, hotels or camps on a sharing basis, usually 3–4 people a room. Several trips offer double or triple rooms at extra cost.
+- **Stays:** homestays, hotels or camps on a sharing basis, usually 3–4 people a room. Other room arrangements may be possible on request; ask HCC on WhatsApp.
 - **Meals:** these vary by trip. Some include camp meals or breakfasts (Gokarna–Dandeli, Munnar, Lonavala); many budget trips don't. Each trip page lists exactly what's included.
 - **Booking:** enquire on WhatsApp and the HCC team confirms your seat. Several trips take a booking amount of ₹2,000 per person, with the balance before departure.
 
@@ -63,12 +63,12 @@ HCC weekend trips are small group departures that fit into a normal working week
 
 ### Short camping nights
 
-Only have one night? See **[camping near Hyderabad](/camping-near-hyderabad/)**: Ananthagiri Hills near Vikarabad (from ₹1,600), Narsapur (from ₹1,199) and the Gandikota canyon (from ₹1,800). The **[Dudhsagar & Dandeli](/trips/dudhsagar-dandeli-from-hyderabad/)** trip packs a river camp and one of India's tallest waterfalls into a single night (from ₹6,999).
+Only have one night? See **[camping near Hyderabad](/camping-near-hyderabad/)**: [Ananthagiri Hills](/trips/ananthagiri-camping-from-hyderabad/) near Vikarabad (from ₹1,600), [Narsapur](/trips/narsapur-camping-from-hyderabad/) (from ₹1,199) and the Gandikota canyon (from ₹1,800). The **[Dudhsagar & Dandeli](/trips/dudhsagar-dandeli-from-hyderabad/)** trip packs a river camp and one of India's tallest waterfalls into a single night (from ₹6,999).
 
 ## How to choose your weekend trip
 
 - **By the kind of weekend you want:** beach and camping ([Gokarna](/destinations/gokarna/), Goa), green hills and viewpoints (Ooty, Coorg, Wayanad, Munnar, Araku), or heritage (Hampi, Pondicherry).
-- **By budget:** a 2-night weekend trip starts from ₹5,999 (Gokarna–Dandeli) and goes up to ₹8,999 (Munnar) per person, before any upgrades.
+- **By budget:** a 2-night weekend trip starts from ₹5,999 (Gokarna–Dandeli) and goes up to ₹8,999 (Munnar) per person.
 - **By the day you can leave:** Wayanad, Araku and Lonavala leave on **Thursday** evenings; Ooty, Coorg and Gokarna leave on both **Thursday** and **Friday** evenings.
 - **By when you need to be back:** check the last day on each trip page. Coorg–Chikmagalur and Ooty reach Hyderabad around 6 am and Gokarna–Dandeli around 10 am (Monday after a Thursday departure, Tuesday after a Friday one); Araku arrives around 7 am.
 - **By season:** Coorg, Wayanad and the Sahyadri treks are at their greenest in the monsoon; the beaches and Hampi are best from October to February.

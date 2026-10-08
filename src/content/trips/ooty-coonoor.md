@@ -63,7 +63,7 @@ inclusions:
     icon: train
     showOnCard: true
     cardLabel: Train
-  - text: 2 nights in Ooty on 3/4 sharing (couple rooms at extra cost)
+  - text: 2 nights in Ooty on 3/4 sharing (couple rooms may be possible on request)
     icon: bed
     showOnCard: true
     cardLabel: Stays
@@ -125,7 +125,7 @@ itinerary:
 stays:
   - type: Hotel / homestay
     location: Ooty
-    description: 3–4 sharing rooms; couple rooms available at extra cost.
+    description: 3–4 sharing rooms. Couple rooms may be possible on request; ask HCC on WhatsApp.
 thingsToCarry:
   - Government photo ID (needed on trains)
   - Comfortable walking shoes

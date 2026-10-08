@@ -79,7 +79,7 @@ faqs:
   - q: Where do HCC’s Manali trips start?
     a: In Delhi, by overnight Volvo bus (leaving between 6 pm and 11 pm). Getting to Delhi is booked separately.
   - q: Which Manali trip should I choose?
-    a: Manali & Kasol (3 nights / 4 days, from ₹12,000) adds a riverside camp in Kasol. Shimla & Manali (4 nights / 5 days, from ₹11,999 on triple sharing) adds Kullu and Shimla.
+    a: Manali & Kasol (3 nights / 4 days, from ₹12,000) adds a riverside camp in Kasol. Shimla & Manali (4 nights / 5 days, from ₹11,999 per person) adds Kullu and Shimla.
   - q: Are meals included?
     a: "Breakfast and dinner: 3 of each on Manali & Kasol, 4 of each on Shimla & Manali."
   - q: What isn’t included?
@@ -98,7 +98,7 @@ Manali is the classic Himalayan escape: deodar forests, the wooden Hadimba Templ
 Both trips start in **Delhi** with an overnight **Volvo semi-sleeper** (leaving between 6 pm and 11 pm, about 12 hours) and return the same way. Travellers from Hyderabad or Bangalore reach Delhi first.
 
 - **[Manali & Kasol](/trips/manali-kasol-from-delhi/)** (3 nights / 4 days, from ₹12,000): Hadimba Temple, Old Manali and Mall Road; Solang Valley and the Atal Tunnel to Sissu; Kullu (rafting and paragliding optional) and a **riverside camp night in Kasol** with a bonfire and music; then the Chalal walk and Manikaran's hot springs. 3 breakfasts and 3 dinners.
-- **[Shimla & Manali](/trips/shimla-manali-from-delhi/)** (4 nights / 5 days, from ₹11,999 on triple sharing, ₹14,000 on double): Manali's sights, Solang and Sissu, then via Kullu to **Shimla** for Kufri, the Ridge, Christ Church, Lakkar Bazaar and Jakhu Temple. 4 breakfasts and 4 dinners.
+- **[Shimla & Manali](/trips/shimla-manali-from-delhi/)** (4 nights / 5 days, from ₹11,999 per person, triple sharing): Manali's sights, Solang and Sissu, then via Kullu to **Shimla** for Kufri, the Ridge, Christ Church, Lakkar Bazaar and Jakhu Temple. 4 breakfasts and 4 dinners.
 
 ## Best time to visit
 

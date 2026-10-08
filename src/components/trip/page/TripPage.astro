@@ -12,6 +12,7 @@ import TripGallery from './TripGallery.astro';
 import TripHeader from './TripHeader.astro';
 import SectionTabs from './SectionTabs.astro';
 import TripOverview from './TripOverview.astro';
+import AtAGlance from './AtAGlance.astro';
 import DatesTable from './DatesTable.astro';
 import Itinerary from './Itinerary.astro';
 import StaysTransport from './StaysTransport.astro';
@@ -30,6 +31,7 @@ import TrackView from '@/components/seo/TrackView.astro';
 import { itemParams } from '@/lib/tracking';
 import type { ReviewView } from '@/components/trust/ReviewCard.astro';
 import type { TripView } from '@/lib/catalog';
+import { tripFaqs } from '@/lib/trip-facts';
 
 interface Props {
   trip: TripView;
@@ -51,8 +53,11 @@ const demoReviews: ReviewView[] = [1, 2].map((i) => ({
   source: 'google',
 }));
 const showReviews = preview || reviewCount > 0;
+// The trip's own FAQs plus data-driven answers (price, dates, start point, booking…); the route marks up the same list.
+const faqs = tripFaqs(trip, o);
 
 const sections = [
+  { id: 'glance', label: 'At a glance' },
   (d.highlights.length || trip.entry.body?.trim()) && { id: 'overview', label: 'Overview' },
   { id: 'dates', label: 'Dates' },
   o.itinerary.length && { id: 'itinerary', label: 'Itinerary' },
@@ -62,7 +67,7 @@ const sections = [
     id: 'info',
     label: 'Good to know',
   },
-  d.faqs.length && { id: 'faqs', label: 'FAQs' },
+  faqs.length && { id: 'faqs', label: 'FAQs' },
   showReviews && { id: 'reviews', label: 'Reviews' },
 ].filter((s): s is { id: string; label: string } => !!s);
 ---
@@ -87,7 +92,8 @@ const sections = [
     <div class="tp__body">
       <SectionTabs sections={sections} />
       {preview && <SectionNote n={4} title="Overview" purpose="The trip's unique story (2–3 short paragraphs) plus highlights. Unique copy per trip, never a template with the destination swapped, so every page earns its own ranking." data="Trip body (markdown) + highlights list." />}
-      <TripOverview trip={trip} />
+      <AtAGlance trip={trip} origin={o} />
+      <TripOverview trip={trip} origin={o} />
       {preview && <SectionNote n={5} title="Dates & prices" purpose="Every departure with honest status. Sold-out dates stay visible as proof of demand. 'Select' picks the date in the booking card." data="Departures for this city. Seat counts only when entered by the team and under the threshold." />}
       <DatesTable origin={o} recurrence={o.recurrence} />
       {preview && <SectionNote n={6} title="Day-wise itinerary" purpose="The #1 thing people check before booking. Native accordions (crawlable), first day open, 'Expand all'. Weekday labels follow the next departure." data="Itinerary days with meals and overnight stay." />}
@@ -99,11 +105,11 @@ const sections = [
       {preview && <SectionNote n={9} title="Good to know" purpose="Pre-empts objections: who it's for and not for, what to pack, important notes, and a plain-language payment & cancellation summary." data="Suitable/not suitable, things to carry, important info, advance, GST, cancellation summary (links to the full policy page)." status="needs-data" />}
       <GoodToKnow trip={trip} origin={o} />
       {
-        d.faqs.length > 0 && (
+        faqs.length > 0 && (
           <>
             {preview && <SectionNote n={10} title="Trip FAQs" purpose="Trip-specific questions only (general ones live on /faq/), so there's no duplicate content across pages." data="Trip FAQs (CMS)." status="needs-data" />}
             <TripSection id="faqs" title="Questions about this trip">
-              <FAQ items={d.faqs} />
+              <FAQ items={faqs} />
             </TripSection>
           </>
         )

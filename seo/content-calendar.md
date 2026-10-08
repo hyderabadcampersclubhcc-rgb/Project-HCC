@@ -19,10 +19,10 @@ Status values:
 |---|---|---|---|---|---|---|
 | Oct 2026 | Production launch, then Search Console + Bing set-up and sitemap submission | technical | site | all | owner go-live | proposed |
 | Oct 2026 | Decide on indexing the **Winter weekend trips** guide | index decision | `/travel-guides/winter-weekend-trips-from-hyderabad/` | I2, I3 | owner review | proposed |
-| Oct 2026 | Remove written add-on prices (Gokarna FAQ/header/guide, Isha, Ooty guide, Hyderabad hub, Under ₹8,000 table) | fix | several | B6, G2 | owner decision | blocked (owner decision) |
+| Oct 2026 | Single-price cleanup: remove all customer-facing upgrade and variant prices (Gokarna FAQ/header/guide, Isha, Ooty guide, Manali guide, Hyderabad hub, About, FAQ, Kerala, and the Under ₹8,000, Solo and comparison guides). One price per person (approved rule, 8 Oct 2026) | fix | several | B6, G2, G3, J1 | — | done (8 Oct 2026, follow-up to `ae2e6ae`) |
 | Oct 2026 | Araku: add a Vanajangi winter section to the destination guide | improve | `/destinations/araku/` | K3, B9 | HCC facts on Vanajangi timing | proposed |
 | Nov 2026 | Camping pillar: add a three-camp comparison table and "what to carry" | improve | `/camping-near-hyderabad/` | D1, D5 | none (trip data) | proposed |
-| Nov 2026 | Ooty trip page: batch summary near the top, extra FAQs from real WhatsApp questions | improve | `/trips/ooty-coonoor-from-hyderabad/` | B1, B2, G1 | HCC list of real questions | proposed |
+| Nov 2026 | Ooty trip page: batch summary near the top, extra FAQs from real WhatsApp questions | improve | `/trips/ooty-coonoor-from-hyderabad/` | B1, B2, G1 | HCC list of real questions | partly done: an "At a glance" block and data-driven FAQs (price, dates, start point, booking, solo, cancellation) on all trip pages (8 Oct 2026, uncommitted); real WhatsApp questions still needed |
 | Nov 2026 | Decide on indexing **Ooty vs Coorg vs Wayanad** | index decision | guide | J1 | owner review | proposed |
 | Dec 2026 | Decide on indexing **Long weekend trips 2027** (Republic Day falls on Tue 26 Jan 2027) | index decision | guide | I1 | official 2027 holiday list check | proposed |
 | Dec 2026 | Coorg trip page improvements (same pattern as Ooty) | improve | `/trips/coorg-chikmagalur-from-hyderabad/` | B4, B5 | — | proposed |
@@ -31,7 +31,7 @@ Status values:
 
 | Month | Item | Type | Page | Keywords | Depends on | Status |
 |---|---|---|---|---|---|---|
-| Jan 2027 | Gokarna trip page improvements | improve | `/trips/gokarna-dandeli-from-hyderabad/` | B6, B7, G2 | add-on price decision | blocked (owner decision) |
+| Jan 2027 | Gokarna trip page improvements | improve | `/trips/gokarna-dandeli-from-hyderabad/` | B6, B7, G2 | single-price cleanup complete | proposed |
 | Jan 2027 | Gandikota destination guide: improve until it passes indexing rules | improve | `/destinations/gandikota/` | D4 | HCC facts and photos | proposed |
 | Jan 2027 | Decide on indexing **Under ₹8,000** and **Solo** guides (use the first Search Console data) | index decision | guides | G3, H1 | Search Console data | proposed |
 | Feb 2027 | **NEW:** Summer trips from Hyderabad (draft) | new article | ➕ | I5 | summer departures confirmed in trip data | proposed |

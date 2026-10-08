@@ -28,7 +28,7 @@ Hyderabad Campers Club (HCC) runs group trips for people who want to get out of 
 - **Everything is on the trip page.** Each trip lists the day-by-day plan, the transport (train or bus, with the class and timings), the type of stay and room sharing, and what's included and what isn't.
 - **A trip captain is with the group.** On HCC group trips (camping stays and couples packages work differently), the trip captain travels with the group and makes the on-the-day calls (sightseeing order, weather changes) with everyone's safety in mind.
 - **Solo travellers are welcome.** You join the group from the departure point.
-- **Budget group travel.** Most trips are comfortable, well-run budget trips with sharing stays, not luxury tours. Upgrades are available on some trips.
+- **Budget group travel.** Most trips are comfortable, well-run budget trips with sharing stays, not luxury tours.
 - **Clear policies.** The advance, the balance and the [cancellation policy](/cancellation-policy/) are stated before you pay.
 
 ## Talk to us

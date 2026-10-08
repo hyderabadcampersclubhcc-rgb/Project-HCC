@@ -89,9 +89,9 @@ faqs:
   - q: Does HCC run Gokarna trips from Bangalore?
     a: Yes. The Gokarna, Dandeli & Murudeshwar trip also leaves from KSR Bengaluru at 11 pm on Fridays, and from Vijayawada at 2 pm.
   - q: Where do we stay?
-    a: "In tents: one night at a beach camp at Nirvana Beach and one at a riverside camp in Dandeli, on 2/3 sharing. Room upgrades are available (quad +₹1,500, triple +₹2,000, double +₹3,000 per person)."
+    a: "In tents: one night at a beach camp at Nirvana Beach and one at a riverside camp in Dandeli, on 2/3 sharing. Other room arrangements may be possible on request; ask HCC on WhatsApp."
   - q: What does the Gokarna trip cost?
-    a: The Gokarna, Dandeli & Murudeshwar weekend is from ₹5,999 per person with sleeper train, two camp nights, three meals and the Kali river activities. 3AC (+₹1,700) and a sleeper bus from Hyderabad (+₹3,500) are optional.
+    a: The Gokarna, Dandeli & Murudeshwar weekend is from ₹5,999 per person with sleeper train, two camp nights, three meals and the Kali river activities.
   - q: When is the best time to visit Gokarna?
     a: October to March, when the sea is calmer and the weather is pleasant for the beaches. The monsoon (June to September) brings rough seas.
 seo:
@@ -106,8 +106,6 @@ Gokarna is two places in one: an old temple town built around the Mahabaleshwar 
 ## Getting to Gokarna from Hyderabad
 
 HCC's Gokarna, Dandeli & Murudeshwar trip leaves **Nampally station at 3 pm every Thursday and Friday** on the overnight train to **Hubballi**, arriving about 6:30 am. From Hubballi a private vehicle takes the group to Vibhuthi falls for a short trek and a swim, then to Murudeshwar for the evening and a night camping at Nirvana Beach. Day 2 starts at the Mahabaleshwar Temple at 6 am, then Mirjan Fort and Om Beach, before the drive to Dandeli. The return train leaves Hubballi at 9:05 pm on day 3 and reaches Hyderabad around 10 am on Monday (Thursday batch) or Tuesday (Friday batch).
-
-Optional upgrades: 3AC train (+₹1,700) or a sleeper bus from Hyderabad (+₹3,500).
 
 ## From Bangalore
 
@@ -125,7 +123,7 @@ October to March is the best time for Gokarna's beaches, with calmer seas and pl
 
 ## Good to know
 
-- Camping is on a 2/3 sharing basis; room upgrades are available.
+- Camping is on a 2/3 sharing basis.
 - Children under 4 travel free; from 5 years they pay the adult price.
 - Food in coastal Karnataka may not be Telugu style; carry snacks if you're particular.
 - A booking amount of ₹2,000 holds your seat, with the balance due a week before departure.

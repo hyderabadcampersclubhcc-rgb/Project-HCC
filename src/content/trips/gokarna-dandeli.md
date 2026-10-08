@@ -155,7 +155,7 @@ exclusions:
 itinerary:
   - day: 0
     title: Overnight to Hubballi
-    description: Board the overnight train from Nampally (Hyderabad), KSR Bengaluru or Vijayawada.
+    description: Board the overnight train to Hubballi from Nampally at 3 pm on Thursday or Friday.
     image: ../../assets/photos/train.jpg
     imageAlt: View from an Indian train window
     imageCredit:
@@ -228,7 +228,7 @@ faqs:
   - q: Can I join if I’m travelling alone?
     a: Yes. Solo travellers are welcome, and you’ll be in a group with an HCC trip captain from the start.
   - q: Can I stay in a room instead of a tent?
-    a: "Yes: quad (+₹1,500), triple (+₹2,000) or double (+₹3,000) per person, non-AC."
+    a: Tents (2/3 sharing) are included. Ask HCC on WhatsApp if you need a room.
 featured: true
 sortOrder: 30
 recurrence: Every Friday
@@ -273,4 +273,4 @@ sample: false
 
 A full weekend of waterfalls, a temple by the sea, a night on the beach and a night by the river. Leave on Thursday or Friday, and come back with sand in your bag and Kali-river stories.
 
-Departures run every Thursday and Friday from Hyderabad, and every Friday from Bangalore and Vijayawada, with tents by default and room upgrades if you prefer a bed.
+Departures run every Thursday and Friday from Hyderabad, and every Friday from Bangalore and Vijayawada, with tents by default.

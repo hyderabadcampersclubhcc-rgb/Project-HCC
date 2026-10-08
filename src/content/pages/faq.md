@@ -24,7 +24,7 @@ faqs:
   - q: Can the plan change during the trip?
     a: Yes, the sightseeing order can change with weather, traffic or local restrictions. Your trip captain decides on the day, for everyone's safety.
   - q: Are these luxury tours?
-    a: No. Most HCC trips are budget group trips, comfortable and well run, with sharing stays. Some trips offer private rooms or train upgrades at extra cost, and there are separate couples trips.
+    a: No. Most HCC trips are budget group trips, comfortable and well run, with sharing stays. Trips generally use shared stays. Separate couples trips are available with private rooms.
   - q: Can children come?
     a: On many trips, yes. Child rates differ by trip, and some treks have an age range, so ask HCC when you enquire.
   - q: Can HCC plan a private trip for our group?

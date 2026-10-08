@@ -3,17 +3,29 @@
 import { getEntry, render } from 'astro:content';
 import TripSection from './TripSection.astro';
 import Icon from '@/components/ui/Icon.astro';
-import { destinationUrl, type TripView } from '@/lib/catalog';
+import { destinationUrl, type TripView, type TripOriginView } from '@/lib/catalog';
 
 interface Props {
   trip: TripView;
+  origin?: TripOriginView;
 }
 
-const { trip } = Astro.props;
+const { trip, origin } = Astro.props;
 const { Content } = await render(trip.entry);
 const hasBody = !!trip.entry.body?.trim();
 // Link to destination guides that are approved for Google (Phase A internal linking).
 const guides = (await Promise.all(trip.data.destinations.map((r) => getEntry(r)))).filter((e) => e && e.data.indexable && e.data.seoTier !== 'c');
+// Up-link to this city's indexable hub (Bangalore's hub is on hold, so it isn't linked here).
+const HUBS: Record<string, Record<string, { label: string; href: string }>> = {
+  hyderabad: {
+    camping: { label: 'More camping near Hyderabad', href: '/camping-near-hyderabad/' },
+    weekend: { label: 'More weekend trips from Hyderabad', href: '/weekend-trips-from-hyderabad/' },
+  },
+};
+const cityHubs = origin ? HUBS[origin.city] : undefined;
+// The trip's main type decides the hub (same rule as the breadcrumb): Gokarna–Dandeli is a weekend trip with camp nights.
+const hubType = trip.data.tripTypes.find((t) => cityHubs?.[t]);
+const hub = hubType ? cityHubs![hubType] : undefined;
 ---
 
 <TripSection id="overview" title="Overview">
@@ -40,7 +52,7 @@ const guides = (await Promise.all(trip.data.destinations.map((r) => getEntry(r))
     )
   }
   {
-    guides.length > 0 && (
+    (guides.length > 0 || hub) && (
       <p class="ov__guides">
         Plan your visit:{' '}
         {guides.map((g, i) => (
@@ -49,6 +61,12 @@ const guides = (await Promise.all(trip.data.destinations.map((r) => getEntry(r))
             <a href={destinationUrl(g!.id)}>{g!.data.name} travel guide</a>
           </>
         ))}
+        {hub && (
+          <>
+            {guides.length > 0 && ' · '}
+            <a href={hub.href}>{hub.label}</a>
+          </>
+        )}
       </p>
     )
   }

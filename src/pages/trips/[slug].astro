@@ -11,7 +11,8 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import TripPage from '@/components/trip/page/TripPage.astro';
 import { getTrips, type TripView } from '@/lib/catalog';
 import { tripSeo } from '@/lib/seo';
-import { organizationLd, touristTripLd } from '@/lib/schema';
+import { faqLd, organizationLd, touristTripLd } from '@/lib/schema';
+import { tripFaqs } from '@/lib/trip-facts';
 
 export const getStaticPaths = (async () => {
   const trips = await getTrips();
@@ -30,6 +31,8 @@ interface Props {
 const { trip, city } = Astro.props;
 const origin = trip.origins.find((o) => o.city === city)!;
 const seo = tripSeo(trip, origin);
+// Same Q&As the page shows (trip FAQs + data-driven answers), never extra text.
+const faqs = tripFaqs(trip, origin);
 
 // 1200×630 share image (Instagram/WhatsApp/Facebook previews) from the hero photo.
 const og = trip.data.heroImage ? await getImage({ src: trip.data.heroImage, width: 1200, height: 630, fit: 'cover', format: 'jpg', quality: 80 }) : null;
@@ -42,7 +45,11 @@ const og = trip.data.heroImage ? await getImage({ src: trip.data.heroImage, widt
   ogImage={og?.src}
   ogImageAlt={trip.data.heroAlt}
   mobileBar="none"
-  jsonLd={[organizationLd(Astro.site!), touristTripLd(trip, origin, Astro.site!, og ? new URL(og.src, Astro.site).href : undefined)]}
+  jsonLd={[
+    organizationLd(Astro.site!),
+    touristTripLd(trip, origin, Astro.site!, og ? new URL(og.src, Astro.site).href : undefined),
+    ...(faqs.length ? [faqLd(faqs)] : []),
+  ]}
 >
   <TripPage trip={trip} origin={city} />
 </BaseLayout>

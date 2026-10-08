@@ -34,7 +34,8 @@ const { Content } = await render(destination);
 const hasBody = !!destination.body?.trim();
 
 const showSamples = catalog.samples ?? import.meta.env.PUBLIC_SHOW_SAMPLES === 'true';
-const guides = (await getCollection('guides', (g) => !g.data.draft && (showSamples || !g.data.sample)))
+// Only guides approved for Google, so an indexable destination page doesn't link to noindex drafts.
+const guides = (await getCollection('guides', (g) => !g.data.draft && (showSamples || !g.data.sample) && (preview || g.data.indexable)))
   .filter((g) => g.data.relatedDestinations.some((r) => r.id === destination.id))
   .slice(0, 3);
 ---

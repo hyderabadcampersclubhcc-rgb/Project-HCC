@@ -43,7 +43,11 @@ const destCrumb = dest && dest.data.indexable && dest.data.seoTier !== 'c' ? [{ 
 const crumbs = [category, ...destCrumb, { label: d.title }];
 
 const MODE_ICON: Record<string, IconName> = { train: 'train', bus: 'bus', tempo: 'bus', cab: 'bus', flight: 'route', self: 'route' };
-const transport = origin.transportOptions.length > 1 ? `${origin.transportOptions.map((t) => t.label).join(' or ')}` : origin.transportOptions[0].label;
+// One trip price per person: the header lists only the transport the base price includes (priceDelta 0),
+// never paid alternatives. The underlying options stay in trip data.
+const includedTransport = origin.transportOptions.filter((t) => t.priceDelta === 0);
+const headerTransport = includedTransport.length ? includedTransport : [origin.transportOptions[0]];
+const transport = headerTransport.map((t) => t.label).join(' or ');
 const stayType = d.stays[0]?.type;
 const facts: { icon: IconName; label: string }[] = [
   { icon: MODE_ICON[origin.transportOptions[0].mode] ?? 'route', label: transport },
@@ -161,7 +165,7 @@ const rating = visibleTrustItems().find((t) => t.icon === 'star');
     padding: 4px 10px;
     font-size: 0.78rem;
     line-height: 1.3;
-    /* Long transport lists ("Sleeper train or 3AC train or …") wrap instead of widening the page */
+    /* Long transport lists ("Sleeper train or semi-sleeper bus") wrap instead of widening the page */
     white-space: normal;
   }
   .thead__meta {

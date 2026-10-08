@@ -112,7 +112,7 @@ In place:
 
 Goal: make HCC's **real facts** easy to extract, not to "game" AI. See the "AI-search layer" section in `topic-clusters.md`.
 - Keep each trip's facts consistent everywhere: departure days and times, return, price, transport, stay, inclusions, difficulty. The trip data is the single source of truth.
-- Prefer clear tables and short factual sections, such as the comparison and Included/Extra tables already used in the guides.
+- Prefer clear tables and short factual sections. Use Included / Not included tables (one price per person, never upgrade prices).
 - Keep Organization identity consistent: name, logo, address, phone, sameAs links (Instagram, Facebook, Google Maps).
 - Google AI Overviews reduce clicks on informational travel queries. Industry studies report steep CTR drops on queries that show an Overview (e.g. a Seer Interactive study cited by TravelTalk, late 2025). *These are global or US figures; India-specific data wasn't found.* So **weight effort toward booking-intent pages**, and treat informational content as support for those pages, not as a traffic goal in itself.
 
@@ -137,6 +137,7 @@ Short, real trip videos (Reels/Shorts) per Tier 1 destination, linked to the tri
 5. No "best", "most popular" or "No. 1" claims without evidence.
 6. AI-generated images are labelled "AI-generated illustration" and are never presented as HCC or customer photos.
 7. Original wording only. Competitors are used for strategy, never copied.
+8. **One customer-facing price per person.** Never show separate prices for train class (sleeper/3AC), sleeper bus, room type or sharing (quad/triple/double/twin), or any other transport or stay variation, unless the owner approves a trip-specific exception. Transport and stay may be described as facts. If HCC can arrange an alternative when asked, describe it only as "May be possible on request — ask HCC on WhatsApp", with no price. Never create SEO content that treats an upgrade price as a product (approved 8 Oct 2026).
 
 ## 16. Anti-duplicate rules
 

@@ -40,7 +40,8 @@ const facts = [trips.length ? `${trips.length} trip${trips.length > 1 ? 's' : ''
 const showSamples = catalog.samples ?? import.meta.env.PUBLIC_SHOW_SAMPLES === 'true';
 const tripIds = new Set(trips.map((t) => t.id));
 const destIds = new Set(trips.flatMap((t) => t.data.destinations.map((d) => d.id)));
-const guides = (await getCollection('guides', (g) => !g.data.draft && (showSamples || !g.data.sample)))
+// Only guides approved for Google: an indexable category page shouldn't send visitors and link value to noindex drafts.
+const guides = (await getCollection('guides', (g) => !g.data.draft && (showSamples || !g.data.sample) && (preview || g.data.indexable)))
   .filter((g) => g.data.relatedTrips.some((r) => tripIds.has(r.id)) || g.data.relatedDestinations.some((d) => destIds.has(d.id)))
   .slice(0, 3);
 
@@ -75,7 +76,7 @@ const related = l.related.map((path) => TRIP_TYPE_LINKS.find((t) => t.href === p
           {preview && <SectionNote n={5} title="FAQs" purpose="Category-level questions only (trip-specific ones live on trip pages), so there's no duplicate content." data="Category page FAQs (CMS)." status="needs-data" />}
           <section aria-labelledby="cat-faq">
             <h2 id="cat-faq" class="cat__h2">
-              Questions about {l.title.toLowerCase()}
+              Questions about {l.title}
             </h2>
             <FAQ items={l.faqs} />
           </section>
