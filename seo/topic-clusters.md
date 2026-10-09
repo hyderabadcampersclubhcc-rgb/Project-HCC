@@ -70,6 +70,8 @@ Legend:
 
 ## Cluster 5: Camping near Hyderabad (brand-defining)
 
+> **Updated 9 Oct 2026:** Narsapur retired (301 to the hub); the hub lists the four Ananthagiri Hills campsites; the comparison page is `/camping-near-hyderabad/ananthagiri-hills/`. Current research, keyword map and 30/60/90 plan: `seo/camping-seo.md`. The table below is the original plan.
+
 | Role | Page | Status | Keywords |
 |---|---|---|---|
 | **Pillar** | `/camping-near-hyderabad/` | ✅ | D1, D5 |

@@ -24,6 +24,18 @@ export function includedTransport(origin: TripOriginView) {
   return inc.length ? inc : [origin.transportOptions[0]];
 }
 
+/**
+ * A reach-it-yourself overnight camp (Ananthagiri campsites): camping, and every included transport is
+ * "reach the campsite yourself". Its pages say "… near Hyderabad", never "group trip from Hyderabad".
+ */
+export function isSelfCamp(trip: TripView, origin: TripOriginView) {
+  return trip.data.tripTypes.includes('camping') && includedTransport(origin).every((t) => t.mode === 'self');
+}
+
+/** Page heading / schema name: "{Title} near {City}" for self-reach camps, else "{Title} Group Trip from {City}". */
+export const tripHeading = (trip: TripView, origin: TripOriginView) =>
+  isSelfCamp(trip, origin) ? `${trip.data.title} near ${origin.label}` : `${trip.data.title} Group Trip from ${origin.label}`;
+
 function rawOrigin(trip: TripView, origin: TripOriginView) {
   return trip.data.origins.find((o) => o.city === origin.city);
 }
@@ -85,7 +97,7 @@ export function quickFaqs(trip: TripView, origin: TripOriginView): { q: string; 
   if (price && !has('cost')) {
     const inc = origin.inclusions.slice(0, 3).map((i) => lower(i.text));
     out.push({
-      q: `How much does the ${name} trip from ${origin.label} cost?`,
+      q: isSelfCamp(trip, origin) ? `How much does ${name} cost?` : `How much does the ${name} trip from ${origin.label} cost?`,
       a: `${price}.` + (inc.length ? ` It includes ${inc.join('; ')}. The full list is under What's included.` : ''),
     });
   }
@@ -94,7 +106,7 @@ export function quickFaqs(trip: TripView, origin: TripOriginView): { q: string; 
     if (origin.recurrence) parts.push(`${origin.recurrence.replace(/\.$/, '')}.`);
     if (origin.travelWindow) parts.push(`You leave and return: ${origin.travelWindow}.`);
     else if (raw?.outbound) parts.push(`Outbound: ${raw.outbound.replace(/\.$/, '')}.`);
-    out.push({ q: `When does it leave ${origin.label}, and how long is it?`, a: parts.join(' ') });
+    out.push({ q: isSelfCamp(trip, origin) ? 'When does the camp run, and how long is it?' : `When does it leave ${origin.label}, and how long is it?`, a: parts.join(' ') });
   }
   if (raw?.pickupPoints.length && !has('start')) {
     const pts = raw.pickupPoints.map((p) => (p.time ? `${p.name} at ${p.time}` : p.name));

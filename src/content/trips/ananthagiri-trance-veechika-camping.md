@@ -3,7 +3,7 @@
 # Details rewritten from travloger.in reference pages (owner-approved working reference). Open items: origins[].incomplete
 # and catalog/verification.json. Not indexable in production until the owner approves it (publishApproved).
 title: Premium Camping at Trance Veechika Resort, Ananthagiri Hills
-seoName: Trance Veechika Premium Camping
+seoName: "Trance Veechika Premium Camping, Ananthagiri"
 whatsappSubject: "premium camping at Trance Veechika Resort, Ananthagiri Hills"
 tagline: Premium tents with a pool, rain dance, sports, bonfire and a guided sunrise trek in the Ananthagiri forest.
 tripTypes:

@@ -4,6 +4,7 @@
  */
 import { settings } from './settings';
 import type { TripView, TripOriginView } from './catalog';
+import { tripHeading } from './trip-facts';
 
 export function organizationLd(site: URL) {
   const c = settings.contact;
@@ -57,7 +58,7 @@ export function touristTripLd(trip: TripView, origin: TripOriginView, site: URL,
     '@context': 'https://schema.org',
     '@type': 'TouristTrip',
     '@id': `${url}#trip`,
-    name: `${d.title} Group Trip from ${origin.label}`,
+    name: tripHeading(trip, origin),
     description: d.seo.description ?? d.tagline,
     url,
     ...(imageUrl ? { image: imageUrl } : {}),

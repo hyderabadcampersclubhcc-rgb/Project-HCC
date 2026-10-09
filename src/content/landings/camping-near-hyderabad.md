@@ -26,38 +26,48 @@ faqs:
     a: "No. You reach the campsite yourself: drive (about 2 to 2.5 hours), or take a train or bus to Vikarabad and an auto or cab from there."
   - q: Are the tents shared?
     a: "Yes. Tents are for 2 or 3 people, depending on the campsite. Ask HCC on WhatsApp if you have a specific request."
+  - q: What is included in a camping night?
+    a: "At all four campsites: a tent for the night, evening tea, dinner and breakfast, and a bonfire or campfire. Activities differ by campsite, from a pool and DJ night to a rope course, lakeside games or a sunrise trek."
+  - q: When is the best time to camp near Hyderabad?
+    a: "July to February is the best time for the Ananthagiri Hills: green after the monsoon, with cooler nights. Harivillu, Sarpanpally Lake and Trance Veechika run on Saturdays; check availability for any date with HCC on WhatsApp."
+  - q: Can I go camping near Hyderabad without a car?
+    a: "Yes. Take the 12702 from Nampally or the 12732 from Secunderabad to Vikarabad, or a TSRTC bus, then an auto or cab to the campsite."
   - q: Is camping suitable for families and first-timers?
-    a: "Yes. These are organised campsites with meals, games and washrooms, not wild camping."
+    a: "Yes. These are organised campsites with tents, meals and washrooms, not wild camping."
 ---
 
 ## Four campsites in the Ananthagiri Hills
 
-- **[Heaven's Resort (Lakeview)](/trips/ananthagiri-camping-from-hyderabad/)**: tents for 2 or 3 with bedding, a swimming pool (5–10 pm), box cricket and games, a Saturday DJ night, a campfire, and a hot buffet dinner and breakfast. Check in at 4 pm, check out at 11 am. From ₹1,600.
-- **[Harivillu Resort](/trips/ananthagiri-harivillu-camping-from-hyderabad/)**: two-person tents with a rope adventure course of about ten activities, cycling, a short trek, sports, a bonfire and a movie night (weather permitting). From ₹2,000.
-- **[Lakeside camping at Sarpanpally Lake](/trips/ananthagiri-sarpanpally-lake-camping-from-hyderabad/)**: tents on the bank of the lake, high tea, a bonfire hour, outdoor and indoor games, and a live-kitchen dinner and breakfast. From ₹2,000.
-- **[Premium camping at Trance Veechika](/trips/ananthagiri-trance-veechika-camping-from-hyderabad/)**: a pool and rain dance, sports, a bonfire, and a guided 6 am sunrise trek. From ₹2,999.
+- **[Heaven's Resort (Lakeview)](/trips/ananthagiri-camping-from-hyderabad/)**: a pool, games, a Saturday DJ night and a campfire. From ₹1,600.
+- **[Harivillu Resort](/trips/ananthagiri-harivillu-camping-from-hyderabad/)**: a rope course of about ten activities, cycling, a short trek and a movie night. From ₹2,000.
+- **[Sarpanpally Lake](/trips/ananthagiri-sarpanpally-lake-camping-from-hyderabad/)**: lakeside tents, a bonfire hour, games and live-kitchen meals. From ₹2,000.
+- **[Trance Veechika](/trips/ananthagiri-trance-veechika-camping-from-hyderabad/)**: premium camping with a pool, rain dance and a guided sunrise trek. From ₹2,999.
 
-To see them side by side, [compare all four Ananthagiri campsites](/camping-near-hyderabad/ananthagiri-hills/).
+Each campsite has one price per person. To see check-in times, meals and activities side by side, [compare the Ananthagiri campsites](/camping-near-hyderabad/ananthagiri-hills/).
 
-## Which camp should I choose?
+## How a camping night works
 
-- **Lowest price, pool and music:** Heaven's Resort.
-- **Keep busy all afternoon:** Harivillu Resort, with the rope course and cycling.
-- **Wake up by the water:** Sarpanpally Lake.
-- **More comfort and a sunrise trek:** Trance Veechika.
+- **Arrive in the afternoon.** Check-in is at 3 pm or 4 pm, depending on the campsite. You reach the campsite yourself.
+- **Evening:** tea and snacks, the campsite's activities, a bonfire or campfire after dark, then dinner.
+- **Night:** tents for 2 or 3 people, depending on the campsite.
+- **Morning:** breakfast (and a sunrise trek at Trance Veechika), then check-out at 11 am.
+
+## When to go
+
+July to February is the best time for the Ananthagiri Hills: green after the monsoon, with cooler nights. Most of the camps run on Saturdays, so you need no leave. Check availability for your date on WhatsApp before you travel.
 
 ## Getting there
 
-Ananthagiri Hills is near Vikarabad, about 80 km from Hyderabad, roughly 2 to 2.5 hours by road. Without a car, take train 12702 from Nampally (2:55 pm, also stopping at Begumpet and Lingampalli) or train 12732 from Secunderabad (4:00 pm) to Vikarabad, or a TSRTC bus, then an auto or cab to your campsite.
+Ananthagiri Hills is near Vikarabad, about 80 km from Hyderabad, roughly 2 to 2.5 hours by road. Without a car, take train 12702 from Nampally (2:55 pm, also stopping at Begumpet and Lingampalli) or train 12732 from Secunderabad (4:00 pm) to Vikarabad, or a TSRTC bus, then an auto or cab to your campsite. For the area itself (viewpoints, temples and nearby lakes), read the [Ananthagiri Hills travel guide](/destinations/ananthagiri/).
 
 For two- and three-night trips, some with beach and river camps, see [weekend trips from Hyderabad](/weekend-trips-from-hyderabad/).
 
 ## What to carry
 
-- A government photo ID
+- A government photo ID for every guest
 - Comfortable clothes and trekking or sports shoes
 - A torch, and a light jacket or hoodie for the night
-- Swimwear or an extra pair of clothes for the pool
+- Swimwear or an extra set of clothes if your camp has a pool
 - Personal medicines and toiletries
 
 ## Camp rules to know

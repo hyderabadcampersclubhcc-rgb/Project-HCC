@@ -3,7 +3,7 @@
 # Details rewritten from travloger.in reference pages (owner-approved working reference). Open items: origins[].incomplete
 # and catalog/verification.json. Not indexable in production until the owner approves it (publishApproved).
 title: Lakeside Camping at Sarpanpally Lake, Ananthagiri Hills
-seoName: Sarpanpally Lake Camping, Ananthagiri
+seoName: "Sarpanpally Lake Camping, Ananthagiri Hills"
 whatsappSubject: "lakeside camping at Sarpanpally Lake, Ananthagiri Hills"
 tagline: "Lakeside tents at Sarpanpally Lake near Ananthagiri: bonfire, games, live-kitchen meals and a farm visit."
 tripTypes:

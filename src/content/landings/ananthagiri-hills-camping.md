@@ -29,7 +29,17 @@ faqs:
   - q: What do all four camps include?
     a: "A tent for the night, evening tea, dinner and breakfast, and a bonfire or campfire. Each camp's activities differ; see the comparison and the camp pages."
   - q: When do the camps run?
-    a: "The camping nights run on Saturdays with check-out on Sunday morning. Message HCC on WhatsApp to check availability for your date before you travel."
+    a: "Harivillu, Sarpanpally Lake and Trance Veechika run on Saturday nights with check-out on Sunday at 11 am. For Heaven's Resort, check availability with HCC. Message HCC on WhatsApp for your date before you travel."
+  - q: Which Ananthagiri campsites have a swimming pool?
+    a: "Heaven's Resort (pool open 5 to 10 pm) and Trance Veechika (pool and rain dance, 4 to 6 pm)."
+  - q: Is there lakeside camping near Hyderabad?
+    a: "Yes. The Sarpanpally Lake campsite at Godamguda village, near Vikarabad, has tents on the bank of the lake, about 80 to 90 km from Hyderabad."
+  - q: What time is check-in and check-out?
+    a: "Check-in is at 4 pm at Heaven's Resort and Harivillu, and 3 pm at Sarpanpally Lake and Trance Veechika. Check-out is at 11 am the next morning at all four."
+  - q: Are there extra charges at the campsites?
+    a: "The price covers what each campsite page lists as included. At Sarpanpally Lake, ATV and dirt-bike rides, paintball, archery and similar activities are optional and paid at the campsite. Food and drinks beyond the included meals are extra everywhere."
+  - q: What else is there to see near the campsites?
+    a: "On your own transport: Kotpalli Lake (boating and kayaking), the Anantha Padmanabha Swamy Temple, the Ananthagiri viewpoint and the Damagundam Shiva Temple."
 ---
 
 ## Compare the four campsites

@@ -1,6 +1,7 @@
 /** Page-title and meta-description templates generated from content (CMS overrides win). */
 import type { TripView, TripOriginView } from './catalog';
 import { inr, dateLong } from './format';
+import { isSelfCamp } from './trip-facts';
 
 const clip = (s: string, max: number) => (s.length <= max ? s : `${s.slice(0, max - 1).replace(/\s+\S*$/, '')}…`);
 
@@ -15,7 +16,18 @@ export function tripSeo(trip: TripView, origin: TripOriginView) {
   // "+ Train" is never dropped: it is the overnight-travel clarification, not an optional extra.
   const name = d.seoName ?? d.title;
   const kind = (n: string) => (/\bTrek$/.test(n) ? '' : ' Trip'); // no "Trek Trip"
-  const candidates = mode
+  const camp = isSelfCamp(trip, origin);
+  const price0 = origin.fromPrice != null ? `from ${inr(origin.fromPrice)}` : '';
+  // Self-reach camps: campsite name + price, no "Trip from Hyderabad" (the camping hub owns "camping near Hyderabad").
+  const campCandidates = [
+    `${d.title} · ${dur}${price0 ? `, ${price0}` : ''} | HCC`,
+    `${name} · ${dur}${price0 ? `, ${price0}` : ''} | HCC`,
+    `${name}${price0 ? ` · ${price0}` : ''} | HCC`,
+    `${name} · ${dur} | HCC`,
+  ];
+  const candidates = camp
+    ? campCandidates
+    : mode
     ? [
         `${d.title}${kind(d.title)} from ${origin.label} · ${dur}${extra} | HCC`,
         `${d.title} from ${origin.label} · ${dur}${extra} | HCC`,
@@ -40,7 +52,10 @@ export function tripSeo(trip: TripView, origin: TripOriginView) {
   const parts = mode
     ? // Overnight-travel trips lead with the schedule and price, so neither is cut off.
       [`${dur} + overnight ${mode} travel from ${origin.label}${origin.travelWindow ? ` (${origin.travelWindow})` : ''}.`, price, d.tagline.replace(/\.?$/, '.')]
-    : [d.tagline.replace(/\.?$/, '.'), `${dur} group trip from ${origin.label} by ${travel}.`, price, next];
+    : camp
+      ? // Camp + price first so Google's ~160-character cut never drops the price.
+        [`${dur} camp near ${origin.label}${origin.fromPrice != null ? `, ${inr(origin.fromPrice)}/person` : ''}.`, d.tagline.replace(/\.?$/, '.')]
+      : [d.tagline.replace(/\.?$/, '.'), `${dur} group trip from ${origin.label} by ${travel}.`, price, next];
   const description = d.seo.description ?? clip(parts.filter(Boolean).join(' '), 165);
   return { title, description };
 }

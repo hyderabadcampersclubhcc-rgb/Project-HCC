@@ -3,7 +3,7 @@
 # Details rewritten from travloger.in reference pages (owner-approved working reference). Open items: origins[].incomplete
 # and catalog/verification.json. Not indexable in production until the owner approves it (publishApproved).
 title: Harivillu Resort Camping, Ananthagiri Hills
-seoName: Harivillu Resort Camping, Ananthagiri
+seoName: "Harivillu Resort Camping, Ananthagiri Hills"
 whatsappSubject: "Harivillu Resort camping in Ananthagiri Hills"
 tagline: Tents, a 10-activity rope course, cycling, sports and a movie night at Harivillu Resort, Ananthagiri Hills.
 tripTypes:

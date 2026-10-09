@@ -1,6 +1,6 @@
 ---
 /** Overview: the trip's unique story (markdown body) + highlights checklist. */
-import { getEntry, render } from 'astro:content';
+import { getCollection, getEntry, render } from 'astro:content';
 import TripSection from './TripSection.astro';
 import Icon from '@/components/ui/Icon.astro';
 import { destinationUrl, type TripView, type TripOriginView } from '@/lib/catalog';
@@ -26,6 +26,17 @@ const cityHubs = origin ? HUBS[origin.city] : undefined;
 // The trip's main type decides the hub (same rule as the breadcrumb): Gokarna–Dandeli is a weekend trip with camp nights.
 const hubType = trip.data.tripTypes.find((t) => cityHubs?.[t]);
 const hub = hubType ? cityHubs![hubType] : undefined;
+// A more specific landing for this trip's destination and type (e.g. the Ananthagiri Hills campsite comparison).
+const destIds = trip.data.destinations.map((x) => x.id);
+const compare = origin
+  ? (await getCollection('landings', (l) => !l.data.sample)).find(
+      (l) =>
+        l.data.path !== hub?.href &&
+        l.data.rule.destinations?.some((x) => destIds.includes(x.id)) &&
+        (!l.data.rule.tripTypes?.length || l.data.rule.tripTypes.some((t) => trip.data.tripTypes.includes(t))) &&
+        (!l.data.rule.origin || l.data.rule.origin === origin.city),
+    )
+  : undefined;
 ---
 
 <TripSection id="overview" title="Overview">
@@ -52,7 +63,7 @@ const hub = hubType ? cityHubs![hubType] : undefined;
     )
   }
   {
-    (guides.length > 0 || hub) && (
+    (guides.length > 0 || hub || compare) && (
       <p class="ov__guides">
         Plan your visit:{' '}
         {guides.map((g, i) => (
@@ -61,9 +72,15 @@ const hub = hubType ? cityHubs![hubType] : undefined;
             <a href={destinationUrl(g!.id)}>{g!.data.name} travel guide</a>
           </>
         ))}
-        {hub && (
+        {compare && (
           <>
             {guides.length > 0 && ' · '}
+            <a href={compare.data.path}>Compare: {compare.data.title}</a>
+          </>
+        )}
+        {hub && (
+          <>
+            {(guides.length > 0 || compare) && ' · '}
             <a href={hub.href}>{hub.label}</a>
           </>
         )}
