@@ -3,7 +3,7 @@
  * Signature boarding-pass date. Renders a link (deep-link to ?d=), a radio-style
  * button (booking card), or static span.
  */
-import { dayShort, dayNum, monShort, dateLong } from '@/lib/format';
+import { dayShort, dayNum, monShort } from '@/lib/format';
 
 interface Props {
   date: string; // YYYY-MM-DD
@@ -21,7 +21,6 @@ const { date, flag, flagTone = 'muted', href, as = href ? 'a' : 'span', selected
   Astro.props;
 
 const Tag = as;
-const label = `${dateLong(date)}${flag ? `, ${flag}` : ''}`;
 ---
 
 <Tag
@@ -32,12 +31,12 @@ const label = `${dateLong(date)}${flag ? `, ${flag}` : ''}`;
   aria-checked={as === 'button' ? (selected ? 'true' : 'false') : undefined}
   aria-current={as === 'a' && selected ? 'true' : undefined}
   aria-disabled={disabled ? 'true' : undefined}
-  aria-label={label}
   data-dep-start={date}
   {...rest}
 >
-  <span class="dstub__dow" aria-hidden="true">{dayShort(date)}</span>
-  <span class="dstub__day" aria-hidden="true">{dayNum(date)}</span>
-  <span class="dstub__mon" aria-hidden="true">{monShort(date)}</span>
-  {flag && <span class:list={['dstub__flag', flagTone === 'alert' && 'dstub__flag--alert']} aria-hidden="true">{flag}</span>}
+  {/* The visible text is the accessible name ("Fri 09 Oct, 5 left"), so voice control and screen readers agree (WCAG 2.5.3). */}
+  <span class="dstub__dow">{dayShort(date)}</span>{' '}
+  <span class="dstub__day">{dayNum(date)}</span>{' '}
+  <span class="dstub__mon">{monShort(date)}</span>
+  {flag && <span class:list={['dstub__flag', flagTone === 'alert' && 'dstub__flag--alert']}><span class="sr-only">, </span>{flag}</span>}
 </Tag>

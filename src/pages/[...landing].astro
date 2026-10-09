@@ -10,6 +10,7 @@ import CategoryPage from '@/components/pages/CategoryPage.astro';
 import { getTripsForRule } from '@/lib/catalog';
 import { categoryIndexable } from '@/lib/indexing';
 import { faqLd } from '@/lib/schema';
+import { subjectMessage } from '@/lib/wa-message';
 
 export const getStaticPaths = (async () => {
   const showSamples = import.meta.env.PUBLIC_SHOW_SAMPLES === 'true';
@@ -43,6 +44,7 @@ const itemList = {
   rawTitle
   description={l.seo.description ?? l.intro.slice(0, 160)}
   noindex={!indexable}
+  whatsapp={l.whatsappSubject ? { message: subjectMessage(l.whatsappSubject) } : {}}
   jsonLd={[...(trips.length ? [itemList] : []), ...(l.faqs.length ? [faqLd(l.faqs)] : [])]}
 >
   <CategoryPage landing={landing} />

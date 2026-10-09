@@ -1,0 +1,1122 @@
+{
+  "_about": "Data status of every trip × departure city. Sources: owner confirmation, the official HCC WhatsApp Business Catalog, and the weekendyaari.in import, which the owner approved as HCC working reference data (9 Oct 2026). Never overwrite trip files automatically. Only a specific field is flagged when missing or conflicting; a page is blocked from indexing only by a CONFLICT in an essential field, or when the owner has not approved it (publishApproved). Report: npm run catalog:audit",
+  "statusValues": {
+    "OWNER CONFIRMED <date>: …": "confirmed explicitly by the owner (usable)",
+    "VERIFIED (catalog <WA-id>)": "matches the HCC WhatsApp Business Catalog (usable)",
+    "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)": "working reference data (usable)",
+    "NEEDS CONFIRMATION: …": "missing; flagged for the owner, does not block the page",
+    "CONFLICT: …": "sources disagree; blocks the page until resolved (essential fields)",
+    "UNVERIFIED: competitor reference (travloger.in …)": "draft-only reference for pending records; never published"
+  },
+  "trips": {
+    "ananthagiri-camping": {
+      "title": "Ananthagiri Hills Camping with Pool & Music Night",
+      "source": "weekendyaari.in import (4 Oct 2026), owner-approved as HCC working reference (9 Oct 2026)",
+      "publishApproved": [
+        "hyderabad"
+      ],
+      "catalogItems": [],
+      "cities": {
+        "hyderabad": {
+          "fields": {
+            "price": "OWNER CONFIRMED 2026-10-04: ₹1,600 per person [source: HCC Ananthagiri PDF supplied by the owner, 4 Oct 2026]",
+            "departureDays": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "departureDates": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "departureTime": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "returnTime": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "transport": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "accommodation": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "itinerary": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "inclusions": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "exclusions": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "food": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "advance": "OWNER CONFIRMED 2026-10-04: ₹500 advance [source: HCC Ananthagiri PDF supplied by the owner, 4 Oct 2026]",
+            "cancellation": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "difficulty": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)"
+          }
+        }
+      },
+      "campsite": "OWNER CONFIRMED 2026-10-09: Heaven's Resort / Lakeview Camping (owner table); price stays ₹1,600",
+      "referenceDiscrepancies": [
+        "Check-in: HCC PDF 4 PM · reference 3 PM",
+        "Rain dance: HCC page includes it · reference says rain dance is for cottage stays only",
+        "Payment: HCC PDF ₹500 advance, balance at check-in · reference: full payment online or ₹2,000 hold (inconsistent)",
+        "GST: not mentioned on the HCC page · reference adds 5% GST",
+        "Cancellation: HCC \"advance is non-refundable\" · reference 75%/50%/0 by notice period",
+        "Children: not stated on the HCC page · reference: under 5 free, 6–10 ₹750 + GST",
+        "Single tent: not on the HCC page · reference +₹500 (one-price rule: not shown as a price option)",
+        "Dates: HCC \"Call to check availability\" · reference: every Saturday",
+        "Price: HCC ₹1,600 (owner PDF) = reference ₹1,600 (keep HCC price; no change)"
+      ]
+    },
+    "andharban-devkund-lohagad-trek": {
+      "title": "Andharban, Devkund Waterfall & Lohagad Trek",
+      "source": "weekendyaari.in import (4 Oct 2026), owner-approved as HCC working reference (9 Oct 2026)",
+      "publishApproved": [
+        "hyderabad"
+      ],
+      "catalogItems": [],
+      "cities": {
+        "hyderabad": {
+          "fields": {
+            "price": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "departureDays": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "departureDates": "NEEDS CONFIRMATION: no upcoming dated departures",
+            "departureTime": "NEEDS CONFIRMATION: no departure time / pickup time",
+            "returnTime": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "transport": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "accommodation": "NEEDS CONFIRMATION: stay type not stated",
+            "itinerary": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "inclusions": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "exclusions": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "food": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "advance": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "cancellation": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "difficulty": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)"
+          }
+        }
+      }
+    },
+    "araku-vanajangi-vizag": {
+      "title": "Araku Valley, Vanajangi & Vizag",
+      "source": "weekendyaari.in import (4 Oct 2026), owner-approved as HCC working reference (9 Oct 2026)",
+      "publishApproved": [
+        "hyderabad"
+      ],
+      "catalogItems": [],
+      "cities": {
+        "hyderabad": {
+          "fields": {
+            "price": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "departureDays": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "departureDates": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "departureTime": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "returnTime": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "transport": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "accommodation": "NEEDS CONFIRMATION: stay type not stated",
+            "itinerary": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "inclusions": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "exclusions": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "food": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "advance": "NEEDS CONFIRMATION: no advance amount",
+            "cancellation": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "difficulty": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)"
+          }
+        }
+      }
+    },
+    "arunachalam-pondicherry": {
+      "title": "Arunachalam, Pondicherry & Mahabalipuram",
+      "source": "weekendyaari.in import (4 Oct 2026), owner-approved as HCC working reference (9 Oct 2026)",
+      "publishApproved": [
+        "hyderabad"
+      ],
+      "catalogItems": [],
+      "cities": {
+        "hyderabad": {
+          "fields": {
+            "price": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "departureDays": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "departureDates": "NEEDS CONFIRMATION: no upcoming dated departures",
+            "departureTime": "NEEDS CONFIRMATION: no departure time / pickup time",
+            "returnTime": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "transport": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "accommodation": "NEEDS CONFIRMATION: stay type not stated",
+            "itinerary": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "inclusions": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "exclusions": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "food": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "advance": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "cancellation": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "difficulty": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)"
+          }
+        }
+      }
+    },
+    "coorg-chikmagalur": {
+      "title": "Coorg & Chikmagalur",
+      "source": "weekendyaari.in import (4 Oct 2026), owner-approved as HCC working reference (9 Oct 2026)",
+      "publishApproved": [
+        "hyderabad",
+        "bangalore"
+      ],
+      "catalogItems": [],
+      "cities": {
+        "hyderabad": {
+          "fields": {
+            "price": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "departureDays": "OWNER CONFIRMED 2026-10-05: every Thursday & Friday [source: owner messages 5 Oct 2026 06:54 + 07:06 UTC (\"confirmed correct\" Thu/Fri schedules)]",
+            "departureDates": "OWNER CONFIRMED 2026-10-05: weekly Thu & Fri batches; dates generated from this pattern (owner approved the dates the same day) [source: owner messages 5 Oct 2026 06:54 + 07:06 UTC (\"confirmed correct\" Thu/Fri schedules)]",
+            "departureTime": "OWNER CONFIRMED 2026-10-05: 7 PM [source: owner messages 5 Oct 2026 06:54 + 07:06 UTC (\"confirmed correct\" Thu/Fri schedules)]",
+            "returnTime": "OWNER CONFIRMED 2026-10-05: Mon/Tue ~6 AM [source: owner messages 5 Oct 2026 06:54 + 07:06 UTC (\"confirmed correct\" Thu/Fri schedules)]",
+            "transport": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "accommodation": "NEEDS CONFIRMATION: stay type not stated",
+            "itinerary": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "inclusions": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "exclusions": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "food": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "advance": "NEEDS CONFIRMATION: no advance amount",
+            "cancellation": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "difficulty": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)"
+          }
+        },
+        "bangalore": {
+          "fields": {
+            "price": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "departureDays": "OWNER CONFIRMED 2026-10-05: every Friday & Saturday [source: owner messages 5 Oct 2026 13:18 + 13:41 UTC (\"confirmed HCC business data\", Coorg & Chikmagalur from Bangalore)]",
+            "departureDates": "OWNER CONFIRMED 2026-10-05: two departures every week (Fri, Sat); dates generated from this pattern [source: owner messages 5 Oct 2026 13:18 + 13:41 UTC (\"confirmed HCC business data\", Coorg & Chikmagalur from Bangalore)]",
+            "departureTime": "OWNER CONFIRMED 2026-10-05: 6 AM, around KSR Railway Station (SBC) / Majestic Bus Stand [source: owner messages 5 Oct 2026 13:18 + 13:41 UTC (\"confirmed HCC business data\", Coorg & Chikmagalur from Bangalore)]",
+            "returnTime": "OWNER CONFIRMED 2026-10-05: Friday batch: Sunday (no fixed time); Saturday batch: Monday around 6 PM [source: owner messages 5 Oct 2026 13:18 + 13:41 UTC (\"confirmed HCC business data\", Coorg & Chikmagalur from Bangalore)]",
+            "transport": "OWNER CONFIRMED 2026-10-05: Tempo Traveller for the whole trip, no train [source: owner messages 5 Oct 2026 13:18 + 13:41 UTC (\"confirmed HCC business data\", Coorg & Chikmagalur from Bangalore)]",
+            "accommodation": "NEEDS CONFIRMATION: stay type not stated",
+            "itinerary": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "inclusions": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "exclusions": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "food": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "advance": "NEEDS CONFIRMATION: no advance amount",
+            "cancellation": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "difficulty": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)"
+          }
+        }
+      }
+    },
+    "coorg": {
+      "title": "Coorg from Mysore",
+      "source": "weekendyaari.in import (4 Oct 2026), owner-approved as HCC working reference (9 Oct 2026)",
+      "publishApproved": [
+        "mysore"
+      ],
+      "catalogItems": [],
+      "cities": {
+        "mysore": {
+          "fields": {
+            "price": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "departureDays": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "departureDates": "NEEDS CONFIRMATION: no upcoming dated departures",
+            "departureTime": "NEEDS CONFIRMATION: no departure time / pickup time",
+            "returnTime": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "transport": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "accommodation": "NEEDS CONFIRMATION: stay type not stated",
+            "itinerary": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "inclusions": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "exclusions": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "food": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "advance": "NEEDS CONFIRMATION: no advance amount",
+            "cancellation": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "difficulty": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)"
+          }
+        }
+      }
+    },
+    "dudhsagar-dandeli": {
+      "title": "Dudhsagar & Dandeli",
+      "source": "weekendyaari.in import (4 Oct 2026), owner-approved as HCC working reference (9 Oct 2026)",
+      "publishApproved": [
+        "hyderabad"
+      ],
+      "catalogItems": [],
+      "cities": {
+        "hyderabad": {
+          "fields": {
+            "price": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "departureDays": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "departureDates": "NEEDS CONFIRMATION: no upcoming dated departures",
+            "departureTime": "NEEDS CONFIRMATION: no departure time / pickup time",
+            "returnTime": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "transport": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "accommodation": "NEEDS CONFIRMATION: stay type not stated",
+            "itinerary": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "inclusions": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "exclusions": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "food": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "advance": "NEEDS CONFIRMATION: no advance amount",
+            "cancellation": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "difficulty": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)"
+          }
+        }
+      }
+    },
+    "gandikota-camping": {
+      "title": "Gandikota Canyon Camping",
+      "source": "weekendyaari.in import (4 Oct 2026), owner-approved as HCC working reference (9 Oct 2026)",
+      "publishApproved": [
+        "hyderabad"
+      ],
+      "catalogItems": [],
+      "cities": {
+        "hyderabad": {
+          "fields": {
+            "price": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "departureDays": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "departureDates": "NEEDS CONFIRMATION: no upcoming dated departures",
+            "departureTime": "NEEDS CONFIRMATION: no departure time / pickup time",
+            "returnTime": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "transport": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "accommodation": "NEEDS CONFIRMATION: stay type not stated",
+            "itinerary": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "inclusions": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "exclusions": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "food": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "advance": "NEEDS CONFIRMATION: no advance amount",
+            "cancellation": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "difficulty": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)"
+          }
+        }
+      }
+    },
+    "goa": {
+      "title": "Goa",
+      "source": "weekendyaari.in import (4 Oct 2026), owner-approved as HCC working reference (9 Oct 2026)",
+      "publishApproved": [
+        "hyderabad"
+      ],
+      "catalogItems": [],
+      "cities": {
+        "hyderabad": {
+          "fields": {
+            "price": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "departureDays": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "departureDates": "NEEDS CONFIRMATION: no upcoming dated departures",
+            "departureTime": "NEEDS CONFIRMATION: no departure time / pickup time",
+            "returnTime": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "transport": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "accommodation": "NEEDS CONFIRMATION: stay type not stated",
+            "itinerary": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "inclusions": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "exclusions": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "food": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "advance": "NEEDS CONFIRMATION: no advance amount",
+            "cancellation": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "difficulty": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)"
+          }
+        }
+      }
+    },
+    "gokarna-dandeli-couple": {
+      "title": "Gokarna & Dandeli for Couples",
+      "source": "weekendyaari.in import (4 Oct 2026), owner-approved as HCC working reference (9 Oct 2026)",
+      "publishApproved": [
+        "hyderabad",
+        "bangalore"
+      ],
+      "catalogItems": [],
+      "cities": {
+        "hyderabad": {
+          "fields": {
+            "price": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "departureDays": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "departureDates": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "departureTime": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "returnTime": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "transport": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "accommodation": "NEEDS CONFIRMATION: stay type not stated",
+            "itinerary": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "inclusions": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "exclusions": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "food": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "advance": "NEEDS CONFIRMATION: no advance amount",
+            "cancellation": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "difficulty": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)"
+          }
+        },
+        "bangalore": {
+          "fields": {
+            "price": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "departureDays": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "departureDates": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026); Bangalore dates from the owner-approved working schedule of 5 Oct 2026",
+            "departureTime": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "returnTime": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "transport": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "accommodation": "NEEDS CONFIRMATION: stay type not stated",
+            "itinerary": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "inclusions": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "exclusions": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "food": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "advance": "NEEDS CONFIRMATION: no advance amount",
+            "cancellation": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "difficulty": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)"
+          }
+        }
+      }
+    },
+    "gokarna-dandeli": {
+      "title": "Gokarna, Dandeli & Murudeshwar",
+      "source": "weekendyaari.in import (4 Oct 2026), owner-approved as HCC working reference (9 Oct 2026)",
+      "publishApproved": [
+        "hyderabad",
+        "bangalore",
+        "vijayawada"
+      ],
+      "catalogItems": [],
+      "cities": {
+        "hyderabad": {
+          "fields": {
+            "price": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "departureDays": "OWNER CONFIRMED 2026-10-05: every Thursday & Friday [source: owner messages 5 Oct 2026 06:54 + 07:06 UTC (\"confirmed correct\" Thu/Fri schedules)]",
+            "departureDates": "OWNER CONFIRMED 2026-10-05: weekly Thu & Fri batches; dates generated from this pattern (owner approved the dates the same day) [source: owner messages 5 Oct 2026 06:54 + 07:06 UTC (\"confirmed correct\" Thu/Fri schedules)]",
+            "departureTime": "OWNER CONFIRMED 2026-10-05: 3 PM [source: owner messages 5 Oct 2026 06:54 + 07:06 UTC (\"confirmed correct\" Thu/Fri schedules)]",
+            "returnTime": "OWNER CONFIRMED 2026-10-05: Mon/Tue ~10 AM [source: owner messages 5 Oct 2026 06:54 + 07:06 UTC (\"confirmed correct\" Thu/Fri schedules)]",
+            "transport": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "accommodation": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "itinerary": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "inclusions": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "exclusions": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "food": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "advance": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "cancellation": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "difficulty": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)"
+          }
+        },
+        "bangalore": {
+          "fields": {
+            "price": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "departureDays": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "departureDates": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026); Bangalore dates from the owner-approved working schedule of 5 Oct 2026",
+            "departureTime": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "returnTime": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "transport": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "accommodation": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "itinerary": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "inclusions": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "exclusions": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "food": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "advance": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "cancellation": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "difficulty": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)"
+          }
+        },
+        "vijayawada": {
+          "fields": {
+            "price": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "departureDays": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "departureDates": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "departureTime": "NEEDS CONFIRMATION: no departure time / pickup time",
+            "returnTime": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "transport": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "accommodation": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "itinerary": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "inclusions": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "exclusions": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "food": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "advance": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "cancellation": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "difficulty": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)"
+          }
+        }
+      }
+    },
+    "golden-triangle": {
+      "title": "Golden Triangle: Agra, Jaipur & Delhi",
+      "source": "weekendyaari.in import (4 Oct 2026), owner-approved as HCC working reference (9 Oct 2026)",
+      "publishApproved": [
+        "hyderabad"
+      ],
+      "catalogItems": [],
+      "cities": {
+        "hyderabad": {
+          "fields": {
+            "price": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "departureDays": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "departureDates": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "departureTime": "NEEDS CONFIRMATION: no departure time / pickup time",
+            "returnTime": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "transport": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "accommodation": "NEEDS CONFIRMATION: stay type not stated",
+            "itinerary": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "inclusions": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "exclusions": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "food": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "advance": "NEEDS CONFIRMATION: no advance amount",
+            "cancellation": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "difficulty": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)"
+          }
+        }
+      }
+    },
+    "hampi-gokarna-murudeshwar": {
+      "title": "Hampi, Gokarna & Murudeshwar",
+      "source": "weekendyaari.in import (4 Oct 2026), owner-approved as HCC working reference (9 Oct 2026)",
+      "publishApproved": [
+        "hyderabad"
+      ],
+      "catalogItems": [],
+      "cities": {
+        "hyderabad": {
+          "fields": {
+            "price": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "departureDays": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "departureDates": "NEEDS CONFIRMATION: no upcoming dated departures",
+            "departureTime": "NEEDS CONFIRMATION: no departure time / pickup time",
+            "returnTime": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "transport": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "accommodation": "NEEDS CONFIRMATION: stay type not stated",
+            "itinerary": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "inclusions": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "exclusions": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "food": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "advance": "NEEDS CONFIRMATION: no advance amount",
+            "cancellation": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "difficulty": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)"
+          }
+        }
+      }
+    },
+    "harishchandragad-kalu-trek": {
+      "title": "Harishchandragad, Kalu Waterfall & Aadrai Jungle Trek",
+      "source": "weekendyaari.in import (4 Oct 2026), owner-approved as HCC working reference (9 Oct 2026)",
+      "publishApproved": [
+        "hyderabad"
+      ],
+      "catalogItems": [],
+      "cities": {
+        "hyderabad": {
+          "fields": {
+            "price": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "departureDays": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "departureDates": "NEEDS CONFIRMATION: no upcoming dated departures",
+            "departureTime": "NEEDS CONFIRMATION: no departure time / pickup time",
+            "returnTime": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "transport": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "accommodation": "NEEDS CONFIRMATION: stay type not stated",
+            "itinerary": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "inclusions": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "exclusions": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "food": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "advance": "NEEDS CONFIRMATION: no advance amount",
+            "cancellation": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "difficulty": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)"
+          }
+        }
+      }
+    },
+    "isha-ooty-coonoor": {
+      "title": "Isha, Ooty & Coonoor",
+      "source": "weekendyaari.in import (4 Oct 2026), owner-approved as HCC working reference (9 Oct 2026)",
+      "publishApproved": [
+        "hyderabad"
+      ],
+      "catalogItems": [],
+      "cities": {
+        "hyderabad": {
+          "fields": {
+            "price": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "departureDays": "OWNER CONFIRMED 2026-10-05: every Thursday & Friday [source: owner messages 5 Oct 2026 06:54 + 07:06 UTC (\"confirmed correct\" Thu/Fri schedules)]",
+            "departureDates": "OWNER CONFIRMED 2026-10-05: weekly Thu & Fri batches; dates generated from this pattern (owner approved the dates the same day) [source: owner messages 5 Oct 2026 06:54 + 07:06 UTC (\"confirmed correct\" Thu/Fri schedules)]",
+            "departureTime": "OWNER CONFIRMED 2026-10-05: 7 PM [source: owner messages 5 Oct 2026 06:54 + 07:06 UTC (\"confirmed correct\" Thu/Fri schedules)]",
+            "returnTime": "OWNER CONFIRMED 2026-10-05: Mon/Tue ~6 AM [source: owner messages 5 Oct 2026 06:54 + 07:06 UTC (\"confirmed correct\" Thu/Fri schedules)]",
+            "transport": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "accommodation": "NEEDS CONFIRMATION: stay type not stated",
+            "itinerary": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "inclusions": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "exclusions": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "food": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "advance": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "cancellation": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "difficulty": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)"
+          }
+        }
+      }
+    },
+    "kashmir": {
+      "title": "Kashmir",
+      "source": "weekendyaari.in import (4 Oct 2026), owner-approved as HCC working reference (9 Oct 2026)",
+      "publishApproved": [
+        "srinagar"
+      ],
+      "catalogItems": [],
+      "cities": {
+        "srinagar": {
+          "fields": {
+            "price": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "departureDays": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "departureDates": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "departureTime": "NEEDS CONFIRMATION: no departure time / pickup time",
+            "returnTime": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "transport": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "accommodation": "NEEDS CONFIRMATION: stay type not stated",
+            "itinerary": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "inclusions": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "exclusions": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "food": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "advance": "NEEDS CONFIRMATION: no advance amount",
+            "cancellation": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "difficulty": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)"
+          }
+        }
+      }
+    },
+    "kerala-backwaters-beaches": {
+      "title": "Kerala: Munnar, Alleppey, Varkala & Trivandrum",
+      "source": "weekendyaari.in import (4 Oct 2026), owner-approved as HCC working reference (9 Oct 2026)",
+      "publishApproved": [
+        "hyderabad"
+      ],
+      "catalogItems": [],
+      "cities": {
+        "hyderabad": {
+          "fields": {
+            "price": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "departureDays": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "departureDates": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "departureTime": "NEEDS CONFIRMATION: no departure time / pickup time",
+            "returnTime": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "transport": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "accommodation": "NEEDS CONFIRMATION: stay type not stated",
+            "itinerary": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "inclusions": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "exclusions": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "food": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "advance": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "cancellation": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "difficulty": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)"
+          }
+        }
+      }
+    },
+    "kerala-honeymoon": {
+      "title": "Kerala Honeymoon",
+      "source": "weekendyaari.in import (4 Oct 2026), owner-approved as HCC working reference (9 Oct 2026)",
+      "publishApproved": [
+        "kochi"
+      ],
+      "catalogItems": [],
+      "cities": {
+        "kochi": {
+          "fields": {
+            "price": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "departureDays": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "departureDates": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "departureTime": "NEEDS CONFIRMATION: no departure time / pickup time",
+            "returnTime": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "transport": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "accommodation": "NEEDS CONFIRMATION: stay type not stated",
+            "itinerary": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "inclusions": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "exclusions": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "food": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "advance": "NEEDS CONFIRMATION: no advance amount",
+            "cancellation": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "difficulty": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)"
+          }
+        }
+      }
+    },
+    "kerala-munnar-alleppey": {
+      "title": "Kerala: Munnar & Alleppey",
+      "source": "weekendyaari.in import (4 Oct 2026), owner-approved as HCC working reference (9 Oct 2026)",
+      "publishApproved": [
+        "hyderabad",
+        "bangalore"
+      ],
+      "catalogItems": [],
+      "cities": {
+        "hyderabad": {
+          "fields": {
+            "price": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "departureDays": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "departureDates": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "departureTime": "NEEDS CONFIRMATION: no departure time / pickup time",
+            "returnTime": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "transport": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "accommodation": "NEEDS CONFIRMATION: stay type not stated",
+            "itinerary": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "inclusions": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "exclusions": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "food": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "advance": "NEEDS CONFIRMATION: no advance amount",
+            "cancellation": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "difficulty": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)"
+          }
+        },
+        "bangalore": {
+          "fields": {
+            "price": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "departureDays": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "departureDates": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026); Bangalore dates from the owner-approved working schedule of 5 Oct 2026",
+            "departureTime": "NEEDS CONFIRMATION: no departure time / pickup time",
+            "returnTime": "NEEDS CONFIRMATION: no return time",
+            "transport": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "accommodation": "NEEDS CONFIRMATION: stay type not stated",
+            "itinerary": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "inclusions": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "exclusions": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "food": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "advance": "NEEDS CONFIRMATION: no advance amount",
+            "cancellation": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "difficulty": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)"
+          }
+        }
+      }
+    },
+    "lonavala-matheran": {
+      "title": "Lonavala & Matheran",
+      "source": "weekendyaari.in import (4 Oct 2026), owner-approved as HCC working reference (9 Oct 2026)",
+      "publishApproved": [
+        "hyderabad"
+      ],
+      "catalogItems": [],
+      "cities": {
+        "hyderabad": {
+          "fields": {
+            "price": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "departureDays": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "departureDates": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "departureTime": "NEEDS CONFIRMATION: no departure time / pickup time",
+            "returnTime": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "transport": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "accommodation": "NEEDS CONFIRMATION: stay type not stated",
+            "itinerary": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "inclusions": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "exclusions": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "food": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "advance": "NEEDS CONFIRMATION: no advance amount",
+            "cancellation": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "difficulty": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)"
+          }
+        }
+      }
+    },
+    "manali-kasol": {
+      "title": "Manali & Kasol",
+      "source": "weekendyaari.in import (4 Oct 2026), owner-approved as HCC working reference (9 Oct 2026)",
+      "publishApproved": [
+        "delhi"
+      ],
+      "catalogItems": [],
+      "cities": {
+        "delhi": {
+          "fields": {
+            "price": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "departureDays": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "departureDates": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "departureTime": "NEEDS CONFIRMATION: no departure time / pickup time",
+            "returnTime": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "transport": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "accommodation": "NEEDS CONFIRMATION: stay type not stated",
+            "itinerary": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "inclusions": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "exclusions": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "food": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "advance": "NEEDS CONFIRMATION: no advance amount",
+            "cancellation": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "difficulty": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)"
+          }
+        }
+      }
+    },
+    "munnar": {
+      "title": "Munnar",
+      "source": "weekendyaari.in import (4 Oct 2026), owner-approved as HCC working reference (9 Oct 2026)",
+      "publishApproved": [
+        "hyderabad",
+        "bangalore",
+        "vijayawada"
+      ],
+      "catalogItems": [],
+      "cities": {
+        "hyderabad": {
+          "fields": {
+            "price": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "departureDays": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "departureDates": "NEEDS CONFIRMATION: no upcoming dated departures",
+            "departureTime": "NEEDS CONFIRMATION: no departure time / pickup time",
+            "returnTime": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "transport": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "accommodation": "NEEDS CONFIRMATION: stay type not stated",
+            "itinerary": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "inclusions": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "exclusions": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "food": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "advance": "NEEDS CONFIRMATION: no advance amount",
+            "cancellation": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "difficulty": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)"
+          }
+        },
+        "bangalore": {
+          "fields": {
+            "price": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "departureDays": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "departureDates": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026); Bangalore dates from the owner-approved working schedule of 5 Oct 2026",
+            "departureTime": "NEEDS CONFIRMATION: no departure time / pickup time",
+            "returnTime": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "transport": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "accommodation": "NEEDS CONFIRMATION: stay type not stated",
+            "itinerary": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "inclusions": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "exclusions": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "food": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "advance": "NEEDS CONFIRMATION: no advance amount",
+            "cancellation": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "difficulty": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)"
+          }
+        },
+        "vijayawada": {
+          "fields": {
+            "price": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "departureDays": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "departureDates": "NEEDS CONFIRMATION: no upcoming dated departures",
+            "departureTime": "NEEDS CONFIRMATION: no departure time / pickup time",
+            "returnTime": "NEEDS CONFIRMATION: no return time",
+            "transport": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "accommodation": "NEEDS CONFIRMATION: stay type not stated",
+            "itinerary": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "inclusions": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "exclusions": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "food": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "advance": "NEEDS CONFIRMATION: no advance amount",
+            "cancellation": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "difficulty": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)"
+          }
+        }
+      }
+    },
+    "narsapur-camping": {
+      "title": "Narsapur Forest Camping",
+      "source": "weekendyaari.in import (4 Oct 2026), owner-approved as HCC working reference (9 Oct 2026)",
+      "publishApproved": [
+        "hyderabad"
+      ],
+      "catalogItems": [],
+      "cities": {
+        "hyderabad": {
+          "fields": {
+            "price": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "departureDays": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "departureDates": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "departureTime": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "returnTime": "NEEDS CONFIRMATION: no return time",
+            "transport": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "accommodation": "NEEDS CONFIRMATION: stay type not stated",
+            "itinerary": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "inclusions": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "exclusions": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "food": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "advance": "NEEDS CONFIRMATION: no advance amount",
+            "cancellation": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "difficulty": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)"
+          }
+        }
+      }
+    },
+    "ooty-coonoor-couple": {
+      "title": "Ooty & Coonoor for Couples",
+      "source": "weekendyaari.in import (4 Oct 2026), owner-approved as HCC working reference (9 Oct 2026)",
+      "publishApproved": [
+        "hyderabad"
+      ],
+      "catalogItems": [],
+      "cities": {
+        "hyderabad": {
+          "fields": {
+            "price": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "departureDays": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "departureDates": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "departureTime": "NEEDS CONFIRMATION: no departure time / pickup time",
+            "returnTime": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "transport": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "accommodation": "NEEDS CONFIRMATION: stay type not stated",
+            "itinerary": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "inclusions": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "exclusions": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "food": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "advance": "NEEDS CONFIRMATION: no advance amount",
+            "cancellation": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "difficulty": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)"
+          }
+        }
+      }
+    },
+    "ooty-coonoor": {
+      "title": "Ooty & Coonoor",
+      "source": "weekendyaari.in import (4 Oct 2026), owner-approved as HCC working reference (9 Oct 2026)",
+      "publishApproved": [
+        "hyderabad"
+      ],
+      "catalogItems": [],
+      "cities": {
+        "hyderabad": {
+          "fields": {
+            "price": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "departureDays": "OWNER CONFIRMED 2026-10-05: every Thursday & Friday [source: owner messages 5 Oct 2026 06:54 + 07:06 UTC (\"confirmed correct\" Thu/Fri schedules)]",
+            "departureDates": "OWNER CONFIRMED 2026-10-05: weekly Thu & Fri batches; dates generated from this pattern (owner approved the dates the same day) [source: owner messages 5 Oct 2026 06:54 + 07:06 UTC (\"confirmed correct\" Thu/Fri schedules)]",
+            "departureTime": "OWNER CONFIRMED 2026-10-05: 7 PM [source: owner messages 5 Oct 2026 06:54 + 07:06 UTC (\"confirmed correct\" Thu/Fri schedules)]",
+            "returnTime": "OWNER CONFIRMED 2026-10-05: Mon/Tue ~6 AM [source: owner messages 5 Oct 2026 06:54 + 07:06 UTC (\"confirmed correct\" Thu/Fri schedules)]",
+            "transport": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "accommodation": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "itinerary": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "inclusions": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "exclusions": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "food": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "advance": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "cancellation": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "difficulty": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)"
+          }
+        }
+      }
+    },
+    "pondicherry": {
+      "title": "Pondicherry",
+      "source": "weekendyaari.in import (4 Oct 2026), owner-approved as HCC working reference (9 Oct 2026)",
+      "publishApproved": [
+        "hyderabad"
+      ],
+      "catalogItems": [],
+      "cities": {
+        "hyderabad": {
+          "fields": {
+            "price": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "departureDays": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "departureDates": "NEEDS CONFIRMATION: no upcoming dated departures",
+            "departureTime": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "returnTime": "NEEDS CONFIRMATION: no return time",
+            "transport": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "accommodation": "NEEDS CONFIRMATION: stay type not stated",
+            "itinerary": "NEEDS CONFIRMATION: no itinerary",
+            "inclusions": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "exclusions": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "food": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "advance": "NEEDS CONFIRMATION: no advance amount",
+            "cancellation": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "difficulty": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)"
+          }
+        }
+      }
+    },
+    "shimla-manali": {
+      "title": "Shimla & Manali",
+      "source": "weekendyaari.in import (4 Oct 2026), owner-approved as HCC working reference (9 Oct 2026)",
+      "publishApproved": [
+        "delhi"
+      ],
+      "catalogItems": [],
+      "cities": {
+        "delhi": {
+          "fields": {
+            "price": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "departureDays": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "departureDates": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "departureTime": "NEEDS CONFIRMATION: no departure time / pickup time",
+            "returnTime": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "transport": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "accommodation": "NEEDS CONFIRMATION: stay type not stated",
+            "itinerary": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "inclusions": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "exclusions": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "food": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "advance": "NEEDS CONFIRMATION: no advance amount",
+            "cancellation": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "difficulty": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)"
+          }
+        }
+      }
+    },
+    "wayanad-ooty-mysore": {
+      "title": "Wayanad, Ooty & Mysore",
+      "source": "weekendyaari.in import (4 Oct 2026), owner-approved as HCC working reference (9 Oct 2026)",
+      "publishApproved": [
+        "hyderabad"
+      ],
+      "catalogItems": [],
+      "cities": {
+        "hyderabad": {
+          "fields": {
+            "price": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "departureDays": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "departureDates": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "departureTime": "NEEDS CONFIRMATION: no departure time / pickup time",
+            "returnTime": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "transport": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "accommodation": "NEEDS CONFIRMATION: stay type not stated",
+            "itinerary": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "inclusions": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "exclusions": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "food": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "advance": "NEEDS CONFIRMATION: no advance amount",
+            "cancellation": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "difficulty": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)"
+          }
+        }
+      }
+    },
+    "wayanad": {
+      "title": "Wayanad",
+      "source": "weekendyaari.in import (4 Oct 2026), owner-approved as HCC working reference (9 Oct 2026)",
+      "publishApproved": [
+        "hyderabad"
+      ],
+      "catalogItems": [],
+      "cities": {
+        "hyderabad": {
+          "fields": {
+            "price": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "departureDays": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "departureDates": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "departureTime": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "returnTime": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "transport": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "accommodation": "NEEDS CONFIRMATION: stay type not stated",
+            "itinerary": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "inclusions": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "exclusions": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "food": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "advance": "NEEDS CONFIRMATION: no advance amount",
+            "cancellation": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "difficulty": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)"
+          }
+        }
+      }
+    },
+    "ananthagiri-harivillu-camping": {
+      "title": "Harivillu Resort Camping, Ananthagiri Hills",
+      "status": "STAGING_REVIEW",
+      "source": "Owner instruction 9 Oct 2026: owner-set HCC price; details rewritten from travloger.in reference pages (working reference).",
+      "publishApproved": [],
+      "catalogItems": [],
+      "cities": {
+        "hyderabad": {
+          "fields": {
+            "price": "OWNER CONFIRMED 2026-10-09: ₹2,000 per person (owner table)",
+            "departureDays": "WORKING REFERENCE: travloger.in campsite page (owner instruction, 9 Oct 2026): Saturdays, check-out Sunday",
+            "departureDates": "NEEDS CONFIRMATION: no dated departures; reference lists Saturdays",
+            "departureTime": "WORKING REFERENCE: travloger.in campsite page (owner instruction, 9 Oct 2026)",
+            "returnTime": "WORKING REFERENCE: travloger.in campsite page (owner instruction, 9 Oct 2026)",
+            "transport": "WORKING REFERENCE: travloger.in campsite page (owner instruction, 9 Oct 2026)",
+            "accommodation": "WORKING REFERENCE: travloger.in campsite page (owner instruction, 9 Oct 2026)",
+            "itinerary": "WORKING REFERENCE: travloger.in campsite page (owner instruction, 9 Oct 2026)",
+            "inclusions": "WORKING REFERENCE: travloger.in campsite page (owner instruction, 9 Oct 2026)",
+            "exclusions": "WORKING REFERENCE: travloger.in campsite page (owner instruction, 9 Oct 2026)",
+            "food": "WORKING REFERENCE: travloger.in campsite page (owner instruction, 9 Oct 2026)",
+            "advance": "NEEDS CONFIRMATION: reference payment terms conflict (full payment vs ₹2,000 hold)",
+            "cancellation": "NEEDS CONFIRMATION: reference terms differ by campsite; HCC site policy applies until confirmed",
+            "difficulty": "WORKING REFERENCE: travloger.in campsite page (owner instruction, 9 Oct 2026)"
+          }
+        }
+      },
+      "otherFacts": {
+        "resortPartnership": "NEEDS CONFIRMATION: the owner asked HCC to list this campsite (9 Oct); a formal partnership/authorisation is not confirmed and is not claimed on the site",
+        "hccPrice": "OWNER CONFIRMED 2026-10-09: ₹2,000",
+        "gst": "UNVERIFIED: competitor reference (travloger.in, read 9 Oct 2026): 5% GST extra (page inconsistent)",
+        "childPolicy": "UNVERIFIED: competitor reference (travloger.in, read 9 Oct 2026): under 5 free",
+        "tentSharingRules": "NEEDS CONFIRMATION",
+        "safety": "NEEDS CONFIRMATION",
+        "photos": "NEEDS CONFIRMATION: no HCC photos; draft uses a licensed Wikimedia view of the Ananthagiri Hills (not the campsite)",
+        "rules": "UNVERIFIED: competitor reference (travloger.in, read 9 Oct 2026): govt photo ID; no hookah; no vehicles on lawn; unmarried couples not permitted"
+      },
+      "referenceNotes": {
+        "price": "UNVERIFIED: competitor reference (travloger.in, read 9 Oct 2026): ₹2,000 pp, 2-sharing (page also says ₹1,900 + 5% GST); single tent +₹500",
+        "cancellation": "UNVERIFIED: competitor reference (travloger.in, read 9 Oct 2026): non-refundable once confirmed; one date change ≥7 days before",
+        "advance": "UNVERIFIED: competitor reference (travloger.in, read 9 Oct 2026): page conflicts: full payment online vs ₹2,000 hold",
+        "departureDates": "UNVERIFIED: competitor reference (travloger.in, read 9 Oct 2026): Saturday dates listed Oct–Dec 2026; HCC dates not confirmed"
+      }
+    },
+    "ananthagiri-sarpanpally-lake-camping": {
+      "title": "Lakeside Camping at Sarpanpally Lake (Wilderness), Ananthagiri Hills",
+      "status": "STAGING_REVIEW",
+      "source": "Owner instruction 9 Oct 2026: owner-set HCC price; details rewritten from travloger.in reference pages (working reference).",
+      "publishApproved": [],
+      "catalogItems": [],
+      "cities": {
+        "hyderabad": {
+          "fields": {
+            "price": "OWNER CONFIRMED 2026-10-09: ₹2,000 per person (owner table)",
+            "departureDays": "WORKING REFERENCE: travloger.in campsite page (owner instruction, 9 Oct 2026): Saturdays, check-out Sunday",
+            "departureDates": "NEEDS CONFIRMATION: no dated departures; reference lists Saturdays",
+            "departureTime": "WORKING REFERENCE: travloger.in campsite page (owner instruction, 9 Oct 2026)",
+            "returnTime": "WORKING REFERENCE: travloger.in campsite page (owner instruction, 9 Oct 2026)",
+            "transport": "WORKING REFERENCE: travloger.in campsite page (owner instruction, 9 Oct 2026)",
+            "accommodation": "WORKING REFERENCE: travloger.in campsite page (owner instruction, 9 Oct 2026)",
+            "itinerary": "WORKING REFERENCE: travloger.in campsite page (owner instruction, 9 Oct 2026)",
+            "inclusions": "WORKING REFERENCE: travloger.in campsite page (owner instruction, 9 Oct 2026)",
+            "exclusions": "WORKING REFERENCE: travloger.in campsite page (owner instruction, 9 Oct 2026)",
+            "food": "WORKING REFERENCE: travloger.in campsite page (owner instruction, 9 Oct 2026)",
+            "advance": "NEEDS CONFIRMATION: reference payment terms conflict (full payment vs ₹2,000 hold)",
+            "cancellation": "NEEDS CONFIRMATION: reference terms differ by campsite; HCC site policy applies until confirmed",
+            "difficulty": "WORKING REFERENCE: travloger.in campsite page (owner instruction, 9 Oct 2026)"
+          }
+        }
+      },
+      "otherFacts": {
+        "resortPartnership": "NEEDS CONFIRMATION: the owner asked HCC to list this campsite (9 Oct); a formal partnership/authorisation is not confirmed and is not claimed on the site",
+        "hccPrice": "OWNER CONFIRMED 2026-10-09: ₹2,000",
+        "gst": "UNVERIFIED: competitor reference (travloger.in, read 9 Oct 2026): 5% GST extra (page inconsistent)",
+        "childPolicy": "UNVERIFIED: competitor reference (travloger.in, read 9 Oct 2026): under 5 free",
+        "tentSharingRules": "NEEDS CONFIRMATION",
+        "safety": "NEEDS CONFIRMATION",
+        "photos": "NEEDS CONFIRMATION: no HCC photos; draft uses a licensed Wikimedia view of the Ananthagiri Hills (not the campsite)",
+        "location": "UNVERIFIED: competitor reference (travloger.in, read 9 Oct 2026): Godamguda village, Sarpanpally Lake, Vikarabad",
+        "paidExtras": "UNVERIFIED: competitor reference (travloger.in, read 9 Oct 2026): optional paid activities exist; HCC must decide what to mention (one-price rule: no add-on price boxes)"
+      },
+      "referenceNotes": {
+        "price": "UNVERIFIED: competitor reference (travloger.in, read 9 Oct 2026): ₹2,000 pp + 5% GST, 2-sharing (struck-through ₹2,799); single tent +₹500",
+        "cancellation": "UNVERIFIED: competitor reference (travloger.in, read 9 Oct 2026): non-refundable, non-transferable; one date change ≥7 days before",
+        "advance": "UNVERIFIED: competitor reference (travloger.in, read 9 Oct 2026): page conflicts: full payment online vs ₹2,000 hold",
+        "departureDates": "UNVERIFIED: competitor reference (travloger.in, read 9 Oct 2026): Saturday dates listed Oct–Dec 2026; HCC dates not confirmed"
+      }
+    },
+    "ananthagiri-trance-veechika-camping": {
+      "title": "Premium Camping at Trance Veechika Resort, Ananthagiri Hills",
+      "status": "STAGING_REVIEW",
+      "source": "Owner instruction 9 Oct 2026: owner-set HCC price; details rewritten from travloger.in reference pages (working reference).",
+      "publishApproved": [],
+      "catalogItems": [],
+      "cities": {
+        "hyderabad": {
+          "fields": {
+            "price": "OWNER CONFIRMED 2026-10-09: ₹2,999 per person (owner table)",
+            "departureDays": "WORKING REFERENCE: travloger.in campsite page (owner instruction, 9 Oct 2026): Saturdays, check-out Sunday",
+            "departureDates": "NEEDS CONFIRMATION: no dated departures; reference lists Saturdays",
+            "departureTime": "WORKING REFERENCE: travloger.in campsite page (owner instruction, 9 Oct 2026)",
+            "returnTime": "WORKING REFERENCE: travloger.in campsite page (owner instruction, 9 Oct 2026)",
+            "transport": "WORKING REFERENCE: travloger.in campsite page (owner instruction, 9 Oct 2026)",
+            "accommodation": "WORKING REFERENCE: travloger.in campsite page (owner instruction, 9 Oct 2026)",
+            "itinerary": "WORKING REFERENCE: travloger.in campsite page (owner instruction, 9 Oct 2026)",
+            "inclusions": "WORKING REFERENCE: travloger.in campsite page (owner instruction, 9 Oct 2026)",
+            "exclusions": "WORKING REFERENCE: travloger.in campsite page (owner instruction, 9 Oct 2026)",
+            "food": "WORKING REFERENCE: travloger.in campsite page (owner instruction, 9 Oct 2026)",
+            "advance": "NEEDS CONFIRMATION: reference payment terms conflict (full payment vs ₹2,000 hold)",
+            "cancellation": "NEEDS CONFIRMATION: reference terms differ by campsite; HCC site policy applies until confirmed",
+            "difficulty": "WORKING REFERENCE: travloger.in campsite page (owner instruction, 9 Oct 2026)"
+          }
+        }
+      },
+      "otherFacts": {
+        "resortPartnership": "NEEDS CONFIRMATION: the owner asked HCC to list this campsite (9 Oct); a formal partnership/authorisation is not confirmed and is not claimed on the site",
+        "hccPrice": "OWNER CONFIRMED 2026-10-09: ₹2,999",
+        "gst": "UNVERIFIED: competitor reference (travloger.in, read 9 Oct 2026): 5% GST extra (page inconsistent)",
+        "childPolicy": "UNVERIFIED: competitor reference (travloger.in, read 9 Oct 2026): under 5 free (one per couple); 5–10 ₹1,499 + GST",
+        "tentSharingRules": "NEEDS CONFIRMATION",
+        "safety": "NEEDS CONFIRMATION",
+        "photos": "NEEDS CONFIRMATION: no HCC photos; draft uses a licensed Wikimedia view of the Ananthagiri Hills (not the campsite)"
+      },
+      "referenceNotes": {
+        "price": "UNVERIFIED: competitor reference (travloger.in, read 9 Oct 2026): ₹2,999 pp, 2–3 sharing (struck-through ₹3,999) + 5% GST; single tent +₹500",
+        "cancellation": "UNVERIFIED: competitor reference (travloger.in, read 9 Oct 2026): 15+ days 75% refund, 7–14 days 50%, under 7 days none; one date change",
+        "advance": "UNVERIFIED: competitor reference (travloger.in, read 9 Oct 2026): page conflicts: full payment online vs ₹2,000 hold",
+        "departureDates": "UNVERIFIED: competitor reference (travloger.in, read 9 Oct 2026): Saturday dates listed Oct–Dec 2026; HCC dates not confirmed"
+      }
+    }
+  },
+  "approvalProcess": {
+    "essentialFacts": [
+      "price",
+      "departureDays",
+      "departureDates",
+      "departureTime",
+      "returnTime",
+      "transport",
+      "accommodation",
+      "itinerary",
+      "inclusions",
+      "exclusions",
+      "advance",
+      "cancellation"
+    ],
+    "rule": "A trip page (trip × city) is indexable in production when the owner has approved it (city listed in publishApproved; all previously indexable trip pages are approved) and none of its essential facts is in CONFLICT. Missing facts are flagged NEEDS CONFIRMATION in the ledger and audit but do not block the page. Pending records (status PENDING_APPROVAL, e.g. Travloger-based campsite drafts) are never live.",
+    "steps": [
+      "npm run catalog:audit lists each page as NOT ELIGIBLE (with the missing essential facts) or ELIGIBLE FOR APPROVAL.",
+      "The owner reviews an eligible page on staging and approves it.",
+      "Add the city to publishApproved for that trip (one page at a time).",
+      "PUBLIC_ALLOW_INDEXING=true npm run build && npm run check:all: check:integrity fails if an approved page has unverified essential facts or an unapproved page is indexable."
+    ]
+  }
+}

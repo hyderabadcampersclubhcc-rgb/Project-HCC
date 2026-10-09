@@ -44,6 +44,7 @@ const optPrice = (t: string, s: string) => sel?.prices[comboKey(t, s)];
 const payload = {
   tripId: trip.id,
   title: d.title,
+  waSubject: d.whatsappSubject ?? null,
   origin: o.city,
   originLabel: o.label,
   gstPercent: d.gstPercent ?? null,
@@ -196,7 +197,7 @@ const flagFor = (x: (typeof deps)[number]) =>
     <WhatsAppCTA
       location="booking_card"
       tripId={trip.id}
-      context={{ tripTitle: d.title, originLabel: o.label, date: sel?.start }}
+      context={{ tripTitle: d.title, subject: d.whatsappSubject, originLabel: o.label, date: sel?.start }}
       label={sel ? `WhatsApp HCC about ${dateLong(sel.start).split(' ').slice(1).join(' ')}` : 'WhatsApp HCC'}
       block
       data-booking-wa

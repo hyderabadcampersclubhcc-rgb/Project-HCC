@@ -17,6 +17,7 @@
 import { readdir, readFile } from 'node:fs/promises';
 import { existsSync } from 'node:fs';
 import path from 'node:path';
+import { pageStatus } from '../catalog/verification.mjs';
 
 const DIST = path.resolve('dist');
 const TODAY = new Date().toLocaleDateString('en-CA', { timeZone: 'Asia/Kolkata' });
@@ -111,9 +112,41 @@ const byCanonical = new Map();
 for (const [u, p] of pages) if (p.indexable && p.canonical) byCanonical.set(p.canonical, [...(byCanonical.get(p.canonical) ?? []), u]);
 for (const [c, us] of byCanonical) if (us.length > 1) errors.push(`duplicate canonical ${c} on ${us.join(', ')}`);
 
+// 1b. Legacy 301 redirects (old WordPress URLs → new pages, from dist/.htaccess): every target must be
+// a built page, no target may itself be redirected (chains), and noindex targets are flagged.
+const htaccess = path.join(DIST, '.htaccess');
+if (existsSync(htaccess)) {
+  const rules = [...(await readFile(htaccess, 'utf8')).matchAll(/^RewriteRule \^(.+?)\/\?\$ (\/[^\s]*) \[R=301,L\]/gm)].map((m) => ({ from: `/${m[1]}/`, to: m[2] }));
+  const sources = new Set(rules.map((r) => r.from));
+  for (const r of rules) {
+    const target = r.to.split(/[?#]/)[0];
+    if (sources.has(target)) errors.push(`redirect chain: ${r.from} → ${r.to}, which redirects again`);
+    else if (!pages.has(target)) errors.push(`redirect ${r.from} → ${r.to}: target page isn't built`);
+    else if (!pages.get(target).indexable) warnings.push(`redirect ${r.from} → ${r.to}: target is noindex`);
+  }
+  if (!rules.length) warnings.push('no legacy 301 rules found in .htaccess');
+}
+
 // 2. Index policy
 for (const [u, p] of pages) if (p.indexable && MUST_BE_NOINDEX.some((r) => r.test(u))) errors.push(`${u} is indexable but must stay noindex until the owner approves`);
 for (const u of MUST_NOT_EXIST) if (pages.has(u)) errors.push(`${u} is placeholder content and must not be published`);
+// Trip pages may be indexed only when the owner approved the page and no essential fact is in
+// CONFLICT (catalog/verification.json, rule in catalog/verification.mjs). Missing facts are flagged, not blocking.
+const verification = JSON.parse(await readFile('catalog/verification.json', 'utf8'));
+for (const [tripId, t] of Object.entries(verification.trips))
+  for (const city of t.publishApproved ?? []) {
+    const s = pageStatus(verification, tripId, city);
+    if (s.conflicts.length) errors.push(`/trips/${tripId}-from-${city}/ is approved but has conflicting essential facts: ${s.conflicts.join(', ')}`);
+  }
+// Draft records awaiting approval (e.g. campsites drafted from competitor references) must never be live pages.
+for (const [tripId, t] of Object.entries(verification.trips))
+  if (t.status === 'PENDING_APPROVAL' && [...pages.keys()].some((u) => u.startsWith(`/trips/${tripId}-from-`)))
+    errors.push(`/trips/${tripId}-from-…/ is built as a live trip page but its record is PENDING_APPROVAL (set status: draft until the owner approves)`);
+for (const [u, p] of pages) {
+  const m = u.match(/^\/trips\/(.+)-from-([a-z]+)\/$/);
+  if (m && p.indexable && !pageStatus(verification, m[1], m[2]).indexable)
+    errors.push(`${u} is indexable but not owner-approved, or has a conflicting essential fact (catalog/verification.json)`);
+}
 
 // 3–4. Wording and claims (visible text inside <main>)
 for (const [u, p] of pages) {

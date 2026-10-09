@@ -39,6 +39,21 @@ So a change made once appears everywhere. Never copy trip facts into page copy b
 | WhatsApp message | derived from title + city | ✅ | |
 | Open questions | `origins[].incomplete` | ✅ | Internal only, never shown |
 
+## Data status and indexing (catalog/verification.json)
+
+Owner decision (9 Oct 2026): the weekendyaari.in import is HCC's **working reference** data. Every fact for every trip × city has a status:
+- `OWNER CONFIRMED`: confirmed explicitly by the owner.
+- `VERIFIED (catalog WA-…)`: matches the WhatsApp Business Catalog.
+- `WORKING REFERENCE`: usable working data.
+- `NEEDS CONFIRMATION`: missing. Flagged in the audit, but **does not block** the page.
+- `CONFLICT`: sources disagree. Blocks that page until resolved.
+
+Rules:
+- A trip page is indexed in production when the owner has approved it (`publishApproved`) and none of its essential facts is in CONFLICT.
+- All previously indexable trip pages are approved. New trips (for example the three Ananthagiri campsites added on 9 Oct) stay noindex in production until the owner approves them.
+- Never overwrite trip files automatically.
+- One rule, shared by the build and the checks: `catalog/verification.mjs`.
+
 ## WhatsApp Business Catalog intake
 
 Nothing from the catalog is published straight away.
@@ -55,10 +70,12 @@ Nothing from the catalog is published straight away.
    - **DUPLICATE**: same as another catalog item.
    - **CONFLICT**: disagrees with the site or another item in a way only HCC can resolve. List it in `conflicts`.
 4. Run `npm run catalog:audit`. It suggests matching site trips, lists the missing fields, and rejects malformed entries.
-5. When the owner approves the consolidated list:
+5. When the owner says **FINISHED**, prepare one consolidated report: new trips, existing trips needing updates, duplicates, conflicts and missing information.
+6. When the owner approves the consolidated list:
    - set `status: "APPROVED"`;
    - apply the approved values to the trip files;
    - add the schedule to `tools/departure-schedules.json` and run `npm run departures`;
+   - mark the confirmed facts in `catalog/verification.json` and add the city to `publishApproved`;
    - run `npm run check:all` after a production build.
 
 ## Reports

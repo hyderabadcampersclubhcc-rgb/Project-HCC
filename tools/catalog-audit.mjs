@@ -11,6 +11,7 @@ import { readdir, readFile, writeFile } from 'node:fs/promises';
 import { existsSync } from 'node:fs';
 import path from 'node:path';
 import YAML from 'yaml';
+import { pageStatus, isUsable } from '../catalog/verification.mjs';
 
 const TRIPS = 'src/content/trips';
 const DEPS = 'src/content/departures';
@@ -27,6 +28,9 @@ for (const f of (await readdir(DEPS)).filter((f) => f.endsWith('.yml'))) {
   const key = `${d.trip}|${d.origin}`;
   deps.set(key, [...(deps.get(key) ?? []), d]);
 }
+
+// Verification ledger: which facts are confirmed by the HCC catalog / owner, and which trips are approved for Google.
+const verification = existsSync('catalog/verification.json') ? JSON.parse(await readFile('catalog/verification.json', 'utf8')) : { trips: {} };
 
 const trips = [];
 for (const f of (await readdir(TRIPS)).filter((f) => f.endsWith('.md'))) {
@@ -77,8 +81,18 @@ for (const t of trips.filter((t) => t.status === 'live')) {
     if (!t.groupSize) ask('Group size', 'not stated');
     for (const n of o.incomplete ?? []) ask('Open item', n);
 
+    const vf = verification.trips[t.id]?.cities?.[o.city]?.fields ?? {};
+    const vTotal = Object.keys(vf).length;
+    const vOk = Object.values(vf).filter((v) => isUsable(v)).length;
+    const status = verification.approvalProcess ? pageStatus(verification, t.id, o.city) : { approved: false, conflicts: [], flagged: [], indexable: false };
+    const approved = status.approved;
     rows.push({
       trip: t.id,
+      verified: vTotal ? `${vOk}/${vTotal}` : 'no ledger',
+      approved,
+      indexableGate: status.indexable,
+      conflicts: status.conflicts,
+      flagged: status.flagged,
       title: t.title,
       city: o.label,
       indexable: o.indexable !== false,
@@ -138,11 +152,25 @@ const md = `# HCC master trip catalog: status
 _Generated ${TODAY} by \`npm run catalog:audit\` from src/content/trips and src/content/departures. Do not edit by hand._
 _Field definitions and the intake workflow: catalog/README.md._
 
+## Data status
+
+Sources: owner confirmation, the HCC WhatsApp Business Catalog, and the weekendyaari.in import, which the owner approved on 9 Oct 2026 as HCC's working reference data. Only a specific missing fact is flagged (NEEDS CONFIRMATION); it does not block the trip. A page is blocked only by a CONFLICT in an essential fact, or if the owner hasn't approved it. Code: catalog/verification.mjs. Destination, hub and other pages keep their own indexing rules.
+
+- Trip/city pages indexable in production: **${rows.filter((r) => r.indexableGate).length} of ${rows.length}** (approved: ${rows.filter((r) => r.approved).length}; blocked by a conflict: ${rows.filter((r) => r.conflicts.length).length})
+- Usable facts (owner confirmed, catalog-verified or working reference): **${rows.reduce((a, r) => a + Number(String(r.verified).split('/')[0] || 0), 0)} of ${rows.reduce((a, r) => a + Number(String(r.verified).split('/')[1] || 0), 0)}**. Owner-confirmed: ${Object.values(verification.trips).flatMap((t) => Object.values(t.cities ?? {}).flatMap((c) => Object.values(c.fields ?? {}))).filter((v) => /^OWNER CONFIRMED/.test(v)).length}
+- Rule: ${verification.approvalProcess?.rule ?? ''}
+
+### Flagged facts per page (missing; not blocking)
+
+| Page | Flagged | Conflicts |
+|---|---|---|
+${rows.filter((r) => r.flagged.length || r.conflicts.length).map((r) => `| ${r.trip} (${r.city}) | ${r.flagged.join(', ') || '—'} | ${r.conflicts.join(', ') || '—'} |`).join('\n')}
+
 ## Live trips × departure cities (${rows.length})
 
-| Trip | City | Price | Ref. price | Duration | Departure days | Dated departures (future) | Times | Transport (included) | Stay | Itinerary | Incl/Excl | Food | Advance | Cancel | Coordinator | Photos | FAQs | SEO |
-|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-${rows.map((r) => `| ${r.trip} | ${r.city}${r.indexable ? '' : ' (noindex)'} | ₹${r.price} | ${r.refPrice ? '₹' + r.refPrice : ''} | ${r.duration} | ${esc(r.recurrence)} | ${r.dates} | ${esc(r.times)} | ${esc(r.transport)} | ${esc(r.stay)} | ${r.itinerary} | ${r.incExc} | ${r.food} | ${r.advance} | ${r.cancel} | ${r.captain} | ${r.photos} | ${r.faqs} | ${r.seo} |`).join('\n')}
+| Trip | City | Usable facts | Indexable | Price | Ref. price | Duration | Departure days | Dated departures (future) | Times | Transport (included) | Stay | Itinerary | Incl/Excl | Food | Advance | Cancel | Coordinator | Photos | FAQs | SEO |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+${rows.map((r) => `| ${r.trip} | ${r.city}${r.indexable ? '' : ' (no page)'} | ${r.verified} | ${r.indexableGate ? '✅' : r.conflicts.length ? 'blocked (conflict)' : '—'} | ₹${r.price} | ${r.refPrice ? '₹' + r.refPrice : ''} | ${r.duration} | ${esc(r.recurrence)} | ${r.dates} | ${esc(r.times)} | ${esc(r.transport)} | ${esc(r.stay)} | ${r.itinerary} | ${r.incExc} | ${r.food} | ${r.advance} | ${r.cancel} | ${r.captain} | ${r.photos} | ${r.faqs} | ${r.seo} |`).join('\n')}
 
 Photos: "HCC" = HCC's own photos (no third-party credit); "stock" = licensed Wikimedia/stock photos; "AI" = labelled AI illustrations.
 

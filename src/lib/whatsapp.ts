@@ -6,9 +6,13 @@
  */
 import { whatsappNumber } from './settings';
 import { dateLong } from './format';
+import { subjectMessage } from './wa-message';
+export { subjectMessage };
 
 export interface WaContext {
   tripTitle?: string;
+  /** Natural subject from trip data (whatsappSubject), e.g. "Harivillu Resort camping in Ananthagiri Hills". */
+  subject?: string;
   originLabel?: string;
   date?: string; // YYYY-MM-DD
   destination?: string;
@@ -17,6 +21,7 @@ export interface WaContext {
 
 export function waMessage(ctx: WaContext = {}): string {
   if (ctx.custom) return ctx.custom;
+  if (ctx.subject) return subjectMessage(ctx.subject, ctx.date ? dateLong(ctx.date) : undefined);
   if (ctx.tripTitle) {
     const from = ctx.originLabel ? ` from ${ctx.originLabel}` : '';
     const when = ctx.date ? ` (departure: ${dateLong(ctx.date)})` : '';

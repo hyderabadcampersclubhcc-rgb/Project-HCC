@@ -10,6 +10,8 @@
  *  - sample content is excluded unless PUBLIC_SHOW_SAMPLES=true or { samples: true }
  */
 import { getCollection, type CollectionEntry } from 'astro:content';
+import verification from '../../catalog/verification.json';
+import { pageStatus } from '../../catalog/verification.mjs';
 import { settings } from './settings';
 import { isoDate, todayIST } from './format';
 
@@ -43,6 +45,8 @@ export interface TripOriginView {
   city: string;
   label: string;
   indexable: boolean;
+  /** Owner-approved and no conflicting essential fact (catalog/verification.json). Otherwise the page is built but noindex. */
+  verified: boolean;
   url: string;
   departures: ResolvedDeparture[]; // future, not cancelled/closed, sorted (sold out kept for proof of demand)
   bookable: ResolvedDeparture[];
@@ -211,6 +215,7 @@ async function loadTrips(opts: Options): Promise<TripView[]> {
         city: o.city,
         label: o.label,
         indexable: o.indexable,
+        verified: pageStatus(verification, entry.id, o.city).indexable,
         url: tripUrl(entry.id, o.city),
         departures,
         bookable,

@@ -7,6 +7,7 @@
  *    (EnquirySheet listens; that's where BookingIntents and, later, Razorpay plug in)
  */
 import { track } from './analytics';
+import { subjectMessage } from '@/lib/wa-message';
 
 interface Dep {
   id: string;
@@ -23,6 +24,7 @@ interface Dep {
 interface Data {
   tripId: string;
   title: string;
+  waSubject: string | null;
   origin: string;
   originLabel: string;
   gstPercent: number | null;
@@ -203,7 +205,9 @@ function init(root: HTMLElement) {
     // WhatsApp: date-specific message + ref code
     const wa = $<HTMLAnchorElement>('[data-booking-wa]');
     if (wa && data.wa && dep) {
-      const msg = `Hi HCC! I'm interested in the ${data.title} trip from ${data.originLabel} (departure: ${dateLong(dep.start)}).`;
+      const msg = data.waSubject
+        ? subjectMessage(data.waSubject, dateLong(dep.start))
+        : `Hi HCC! I'm interested in the ${data.title} trip from ${data.originLabel} (departure: ${dateLong(dep.start)}).`;
       wa.href = `https://wa.me/${data.wa}?text=${encodeURIComponent(msg)}`;
       wa.dataset.departureDate = dep.start;
       wa.dataset.waRef = `${data.tripId.split('-')[0].slice(0, 6).toUpperCase()}-${dep.start.slice(5, 7)}${dep.start.slice(8, 10)}`;

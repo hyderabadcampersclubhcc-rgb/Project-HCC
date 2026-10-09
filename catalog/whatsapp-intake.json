@@ -31,9 +31,82 @@
       "coordinator": "NEEDS CONFIRMATION",
       "photos": "NEEDS CONFIRMATION"
     },
-    "changes": ["For EXISTING_UPDATE_NEEDED: field: website value → catalog value"],
-    "conflicts": ["For CONFLICT: what disagrees with the website or another catalog item"],
+    "changes": [
+      "For EXISTING_UPDATE_NEEDED: field: website value → catalog value"
+    ],
+    "conflicts": [
+      "For CONFLICT: what disagrees with the website or another catalog item"
+    ],
     "notes": ""
   },
-  "entries": []
+  "entries": [
+    {
+      "id": "WA-001",
+      "name": "Shirdi + 3 Jyotirlingas Special",
+      "received": "2026-10-09",
+      "source": "WhatsApp Business Catalog",
+      "status": "PENDING_APPROVAL",
+      "classification": "NEW_TRIP",
+      "catalogText": "Not received. Only the trip name and price were given in the owner's message of 9 Oct 2026; the catalog item text is still needed.",
+      "fields": {
+        "destination": "NEEDS CONFIRMATION",
+        "departureCity": "NEEDS CONFIRMATION",
+        "duration": "NEEDS CONFIRMATION",
+        "basePrice": "₹7,999 per person (owner message, 9 Oct 2026)",
+        "referencePrice": "NEEDS CONFIRMATION",
+        "departureDays": "NEEDS CONFIRMATION",
+        "departureDates": "NEEDS CONFIRMATION",
+        "departureTime": "NEEDS CONFIRMATION",
+        "returnTime": "NEEDS CONFIRMATION",
+        "transport": "NEEDS CONFIRMATION",
+        "accommodation": "NEEDS CONFIRMATION",
+        "itinerary": "NEEDS CONFIRMATION",
+        "inclusions": "NEEDS CONFIRMATION",
+        "exclusions": "NEEDS CONFIRMATION",
+        "difficulty": "NEEDS CONFIRMATION",
+        "food": "NEEDS CONFIRMATION",
+        "advance": "NEEDS CONFIRMATION",
+        "cancellation": "NEEDS CONFIRMATION",
+        "coordinator": "NEEDS CONFIRMATION",
+        "photos": "NEEDS CONFIRMATION"
+      },
+      "changes": [],
+      "conflicts": [],
+      "notes": "No HCC trip on the site covers this destination. Destination page, departure city, dates, itinerary and photos all needed before it can be built. Pilgrimage trip type does not exist yet on the site (trip types: weekend, trek, camping, backpacking, long, couple, family, corporate)."
+    },
+    {
+      "id": "WA-002",
+      "name": "Ujjain & Omkareshwar Jyotirlingas Tour",
+      "received": "2026-10-09",
+      "source": "WhatsApp Business Catalog",
+      "status": "PENDING_APPROVAL",
+      "classification": "NEW_TRIP",
+      "catalogText": "Not received. Only the trip name and price were given in the owner's message of 9 Oct 2026; the catalog item text is still needed.",
+      "fields": {
+        "destination": "NEEDS CONFIRMATION",
+        "departureCity": "NEEDS CONFIRMATION",
+        "duration": "NEEDS CONFIRMATION",
+        "basePrice": "₹7,999 per person (owner message, 9 Oct 2026)",
+        "referencePrice": "NEEDS CONFIRMATION",
+        "departureDays": "NEEDS CONFIRMATION",
+        "departureDates": "NEEDS CONFIRMATION",
+        "departureTime": "NEEDS CONFIRMATION",
+        "returnTime": "NEEDS CONFIRMATION",
+        "transport": "NEEDS CONFIRMATION",
+        "accommodation": "NEEDS CONFIRMATION",
+        "itinerary": "NEEDS CONFIRMATION",
+        "inclusions": "NEEDS CONFIRMATION",
+        "exclusions": "NEEDS CONFIRMATION",
+        "difficulty": "NEEDS CONFIRMATION",
+        "food": "NEEDS CONFIRMATION",
+        "advance": "NEEDS CONFIRMATION",
+        "cancellation": "NEEDS CONFIRMATION",
+        "coordinator": "NEEDS CONFIRMATION",
+        "photos": "NEEDS CONFIRMATION"
+      },
+      "changes": [],
+      "conflicts": [],
+      "notes": "No HCC trip on the site covers this destination. Destination page, departure city, dates, itinerary and photos all needed before it can be built. Pilgrimage trip type does not exist yet on the site (trip types: weekend, trek, camping, backpacking, long, couple, family, corporate)."
+    }
+  ]
 }

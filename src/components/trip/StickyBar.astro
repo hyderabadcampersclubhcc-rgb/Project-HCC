@@ -27,7 +27,7 @@ const price = next?.price ?? o.fromPrice;
   <WhatsAppCTA
     location="sticky_bar"
     tripId={trip.id}
-    context={{ tripTitle: trip.data.title, originLabel: o.label, date: next?.start }}
+    context={{ tripTitle: trip.data.title, subject: trip.data.whatsappSubject, originLabel: o.label, date: next?.start }}
     iconOnly
     label="WhatsApp HCC"
     data-sbar-wa

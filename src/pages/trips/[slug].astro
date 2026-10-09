@@ -13,6 +13,7 @@ import { getTrips, type TripView } from '@/lib/catalog';
 import { tripSeo } from '@/lib/seo';
 import { faqLd, organizationLd, touristTripLd } from '@/lib/schema';
 import { tripFaqs } from '@/lib/trip-facts';
+import { subjectMessage } from '@/lib/whatsapp';
 
 export const getStaticPaths = (async () => {
   const trips = await getTrips();
@@ -45,8 +46,11 @@ const og = trip.data.heroImage ? await getImage({ src: trip.data.heroImage, widt
   ogImage={og?.src}
   ogImageAlt={trip.data.heroAlt}
   mobileBar="none"
+  noindex={!origin.verified}
   whatsapp={{
-    message: `Hi HCC, I'm interested in the ${trip.data.title} trip from ${origin.label}. Please share the available dates and booking details.`,
+    message: trip.data.whatsappSubject
+      ? subjectMessage(trip.data.whatsappSubject)
+      : `Hi HCC, I'm interested in the ${trip.data.title} trip from ${origin.label}. Please share the available dates and booking details.`,
     tripId: trip.id,
     tripName: trip.data.title,
   }}

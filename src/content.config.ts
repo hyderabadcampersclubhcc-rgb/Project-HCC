@@ -179,6 +179,8 @@ const trips = defineCollection({
         title: z.string(), // "Ooty & Coonoor"
         /** Shorter name for Google titles when the full title is too long (e.g. "Ananthagiri Hills Camping"). */
         seoName: z.string().optional(),
+        /** Natural WhatsApp subject, e.g. "Harivillu Resort camping in Ananthagiri Hills" (else "the <title> trip from <city>"). */
+        whatsappSubject: z.string().optional(),
         tagline: z.string().max(110), // one-line hook used on cards
         tripTypes: z.array(z.enum(TRIP_TYPES)).min(1),
         destinations: z.array(reference('destinations')).min(1),
@@ -374,6 +376,10 @@ const landings = defineCollection({
       })
       .default({}),
     faqs: z.array(faq).default([]),
+    /** Natural WhatsApp subject for the floating button, e.g. "Ananthagiri Hills camping". */
+    whatsappSubject: z.string().optional(),
+    /** Parent page for the breadcrumb (default: Trips), e.g. the camping hub for /camping-near-hyderabad/ananthagiri-hills/. */
+    parent: z.object({ label: z.string(), href: z.string() }).optional(),
     activeFrom: z.coerce.date().optional(),
     activeUntil: z.coerce.date().optional(),
     primaryKeyword: z.string().optional(),

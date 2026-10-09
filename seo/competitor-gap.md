@@ -15,7 +15,7 @@
 - HCC's site is on staging (noindex), so **HCC has no organic rankings yet**. The comparison is about what the sites offer, not how they rank.
 - Competitors' backlinks, reviews and speed were not measured with tools; the entries below say "not measured" where that applies.
 
-> ⚠ **Open question for the owner:** HCC's trip catalogue was imported on 4 Oct 2026 from weekendyaari.in (itineraries and prices, rewritten). My project notes record it as HCC's own trip data. Weekend Yaari is now on the competitor list. **Please confirm whether weekendyaari.in is HCC's own site or a separate business.** If it's separate, every imported itinerary and price must be re-confirmed from HCC's own sources (the WhatsApp Business Catalog intake is the right place) before production launch.
+> **Owner decision, 9 Oct 2026 (final):** Weekend Yaari is a competitor, but its trip data is the same as HCC's and is HCC's **working reference** data. Keep HCC prices and owner-confirmed schedules; flag only specific missing or conflicting fields (`catalog/verification.json`). All previously indexable trip pages remain indexable.
 
 ## Priority scale
 
@@ -28,7 +28,7 @@
 
 | # | Area | Competitor advantage (observed) | HCC gap | Recommended action | Priority | Owner | Status |
 |---|---|---|---|---|---|---|---|
-| 1 | **Data provenance** | – | Trip itineraries and prices came from weekendyaari.in (see the open question above) | Confirm ownership. If separate, re-confirm every trip through the WhatsApp catalog intake | **CRITICAL** | HCC | Open, awaiting owner |
+| 1 | **Data provenance** | – | Trip data is the weekendyaari.in import (owner-approved working reference) plus 23 owner-confirmed facts. 97 specific fields are missing (flagged) | Fill the flagged fields from the WhatsApp catalog or owner answers; no page is blocked | HIGH | HCC (answers), Claude (apply) | In progress |
 | 2 | **Reviews / social proof** | Travloger shows a Google rating, review count and traveller count. HTC shows an aggregate rating | No reviews shown (by design: genuine only). Google Business Profile reviews exist but aren't linked into the page content | Send genuine Google reviews; link the GBP; show verbatim reviews with name and month. No AggregateRating schema unless allowed | **CRITICAL** | HCC (material), Claude (display) | Open, awaiting reviews |
 | 3 | **Real photos** | Competitors use their own trip photos (Travloger, HTC) | All 36 trip/city pages use stock (Wikimedia) or labelled AI images; 0 HCC photos | Send 6–10 real photos per Tier 1 trip; replace hero images first | **CRITICAL** | HCC (photos), Claude (optimise + place) | Open |
 | 4 | **Production launch** | Competitors are indexed and ranking | HCC is staging/noindex; production is still the old WordPress site | Owner review of staging, then launch, Search Console and Bing, sitemap submission | **CRITICAL** | HCC (approve), Claude (execute) | Open, awaiting go-live approval |

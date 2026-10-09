@@ -34,6 +34,8 @@ The [Ananthagiri Hills camp](/trips/ananthagiri-camping-from-hyderabad/) is HCC'
 
 **Getting there:** drive yourself, or take train 12702 from Nampally (2:55 pm, also stopping at Begumpet and Lingampalli) or train 12732 from Secunderabad (4:00 pm) to Vikarabad. The campsite is about 9 km from Vikarabad station by auto or cab. From ₹1,600 per person.
 
+**More Ananthagiri campsites:** HCC also offers [Harivillu Resort](/trips/ananthagiri-harivillu-camping-from-hyderabad/) (rope course and cycling), [lakeside camping at Sarpanpally Lake](/trips/ananthagiri-sarpanpally-lake-camping-from-hyderabad/) and [premium camping at Trance Veechika](/trips/ananthagiri-trance-veechika-camping-from-hyderabad/) (pool and sunrise trek). [Compare all four Ananthagiri campsites](/camping-near-hyderabad/ananthagiri-hills/).
+
 ### Narsapur forest
 
 The [Narsapur camp](/trips/narsapur-camping-from-hyderabad/) is the closest to the city: an 8-acre paddy field about 30 minutes off the ORR, beside Narsapur forest. Arrive between 4 and 5 pm for tea, games and the sunset over the fields, then a local-style dinner, a campfire and a movie night. A short forest trek after breakfast, and you're home by lunchtime. Every Saturday, from ₹1,199.

@@ -50,7 +50,7 @@ const related = l.related.map((path) => TRIP_TYPE_LINKS.find((t) => t.href === p
 
 <div class="container">
   {preview && <SectionNote n={1} title="Title + intro" purpose="One template for all 8 trip types. H1 = the exact search people type ('Weekend Trips from Hyderabad'). A short, specific intro, then trips immediately: no wall of text before the product." data="Category page in the CMS (path, H1, intro, rule that picks the trips). Facts line computed from the trips." />}
-  <PageIntro title={l.title} intro={l.intro} crumbs={[{ label: 'Trips', href: '/trips/' }, { label: l.title }]} facts={facts} />
+  <PageIntro title={l.title} intro={l.intro} crumbs={[l.parent ?? { label: 'Trips', href: '/trips/' }, { label: l.title }]} facts={facts} />
 
   {preview && <SectionNote n={2} title="Trips in this category" purpose="The product first. Same filters and compare as /trips/, scoped to this category." data="Trips matching the page's rule (trip types / destinations / max nights / departure city). Add a trip in the CMS and it appears here automatically." />}
   <TripListing trips={trips} origin={l.rule.origin} listName={`category_${landing.id}`} today={catalog.today} chipKeys={['month', 'style']} />

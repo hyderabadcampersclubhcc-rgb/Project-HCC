@@ -233,7 +233,8 @@
   color: var(--ink-700);
 }
 .badge--glass {
-  background: rgb(10 36 28 / 0.55);
+  /* 0.72: white text stays above 4.5:1 contrast even over bright photos */
+  background: rgb(10 36 28 / 0.72);
   color: var(--white);
   backdrop-filter: blur(6px);
 }
