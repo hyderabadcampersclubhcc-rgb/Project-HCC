@@ -7,6 +7,7 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import DestinationPage from '@/components/pages/DestinationPage.astro';
 import { getTripsForDestination } from '@/lib/catalog';
 import { destinationIndexable } from '@/lib/indexing';
+import { faqLd } from '@/lib/schema';
 
 export const getStaticPaths = (async () => {
   const showSamples = import.meta.env.PUBLIC_SHOW_SAMPLES === 'true';
@@ -47,7 +48,7 @@ const ld = {
   headerOverlay
   ogImage={og?.src}
   ogImageAlt={d.heroAlt}
-  jsonLd={ld}
+  jsonLd={[ld, ...(d.faqs.length ? [faqLd(d.faqs)] : [])]}
   whatsapp={{
     message: `Hi HCC, I'm interested in ${d.name} trips${hubs.length ? ` from ${hubs.join(' or ')}` : ''}. Please share the available dates and booking details.`,
     destination: d.name,

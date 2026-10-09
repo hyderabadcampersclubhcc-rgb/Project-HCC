@@ -9,6 +9,7 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import CategoryPage from '@/components/pages/CategoryPage.astro';
 import { getTripsForRule } from '@/lib/catalog';
 import { categoryIndexable } from '@/lib/indexing';
+import { faqLd } from '@/lib/schema';
 
 export const getStaticPaths = (async () => {
   const showSamples = import.meta.env.PUBLIC_SHOW_SAMPLES === 'true';
@@ -42,7 +43,7 @@ const itemList = {
   rawTitle
   description={l.seo.description ?? l.intro.slice(0, 160)}
   noindex={!indexable}
-  jsonLd={trips.length ? itemList : undefined}
+  jsonLd={[...(trips.length ? [itemList] : []), ...(l.faqs.length ? [faqLd(l.faqs)] : [])]}
 >
   <CategoryPage landing={landing} />
 </BaseLayout>

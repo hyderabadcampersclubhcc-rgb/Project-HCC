@@ -15,6 +15,7 @@
     "check:integrity": "node tools/check-integrity.mjs",
     "check:all": "node tools/check-seo.mjs && node tools/check-links.mjs && node tools/check-integrity.mjs",
     "seo:report": "node tools/seo-report.mjs",
+    "catalog:audit": "node tools/catalog-audit.mjs",
     "make:og": "node tools/make-og.mjs",
     "departures": "node tools/generate-departures.mjs",
     "audit": "astro check && astro build && node tools/check-links.mjs && node tools/check-seo.mjs"

@@ -81,7 +81,7 @@ Decision needed before the first import: whether `seo/data/` is committed or git
 
 ## 5. Automation
 
-**Built (local, 8 Oct 2026):** `tools/check-integrity.mjs`, `tools/seo-report.mjs` and the npm scripts `check:integrity`, `check:all`, `seo:report`. They read the built site and these files and write a local report. They never publish, deploy, email or call external services.
+**Built (local, 8 Oct 2026):** `tools/check-integrity.mjs`, `tools/seo-report.mjs` and the npm scripts `check:integrity`, `check:all`, `seo:report`. Added 9 Oct 2026: `npm run catalog:audit` (master trip catalog completeness, NEEDS CONFIRMATION list, WhatsApp catalog intake ledger; see `catalog/README.md`), and integrity checks for required structured data per page type, FAQPage = visible Q&As, duplicate trip pages, and the same departure dates on every page. They read the built site and these files and write a local report. They never publish, deploy, email or call external services.
 
 **Not built: scheduled GitHub Actions report (proposal below).** The existing deploy workflow wasn't touched.
 

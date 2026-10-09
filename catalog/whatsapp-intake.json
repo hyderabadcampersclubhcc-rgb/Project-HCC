@@ -1,0 +1,39 @@
+{
+  "_about": "Trips received from HCC's WhatsApp Business Catalog, recorded BEFORE anything is published. One entry per catalog item. Workflow and field rules: catalog/README.md. Check with: npm run catalog:audit",
+  "_template": {
+    "id": "WA-001",
+    "name": "Trip name exactly as in the catalog item",
+    "received": "YYYY-MM-DD",
+    "source": "WhatsApp Business Catalog",
+    "status": "PENDING_APPROVAL",
+    "classification": "NEW_TRIP | EXISTING_NO_CHANGE | EXISTING_UPDATE_NEEDED | DUPLICATE | CONFLICT",
+    "existingTrip": "trip id in src/content/trips, when it matches one (else omit)",
+    "catalogText": "The catalog item's text, verbatim",
+    "fields": {
+      "destination": "NEEDS CONFIRMATION",
+      "departureCity": "NEEDS CONFIRMATION",
+      "duration": "NEEDS CONFIRMATION",
+      "basePrice": "NEEDS CONFIRMATION",
+      "referencePrice": "NEEDS CONFIRMATION",
+      "departureDays": "NEEDS CONFIRMATION",
+      "departureDates": "NEEDS CONFIRMATION",
+      "departureTime": "NEEDS CONFIRMATION",
+      "returnTime": "NEEDS CONFIRMATION",
+      "transport": "NEEDS CONFIRMATION",
+      "accommodation": "NEEDS CONFIRMATION",
+      "itinerary": "NEEDS CONFIRMATION",
+      "inclusions": "NEEDS CONFIRMATION",
+      "exclusions": "NEEDS CONFIRMATION",
+      "difficulty": "NEEDS CONFIRMATION",
+      "food": "NEEDS CONFIRMATION",
+      "advance": "NEEDS CONFIRMATION",
+      "cancellation": "NEEDS CONFIRMATION",
+      "coordinator": "NEEDS CONFIRMATION",
+      "photos": "NEEDS CONFIRMATION"
+    },
+    "changes": ["For EXISTING_UPDATE_NEEDED: field: website value → catalog value"],
+    "conflicts": ["For CONFLICT: what disagrees with the website or another catalog item"],
+    "notes": ""
+  },
+  "entries": []
+}

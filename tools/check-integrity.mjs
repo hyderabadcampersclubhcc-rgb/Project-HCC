@@ -173,6 +173,61 @@ for (const [u, p] of pages) {
     }
   }
 }
+// 8. Structured data each page type must carry (indexable pages), and FAQPage must match visible Q&As.
+const ldTypes = (html) =>
+  [...html.matchAll(/<script type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/g)].flatMap((m) => {
+    try {
+      return [JSON.parse(m[1])].flat();
+    } catch {
+      return [];
+    }
+  });
+for (const [u, p] of pages) {
+  if (!p.indexable) continue;
+  const nodes = ldTypes(p.html);
+  const types = new Set(nodes.map((n) => n['@type']));
+  const need = [];
+  if (u === '/') need.push('Organization', 'WebSite');
+  else need.push('BreadcrumbList');
+  if (/^\/trips\/.+-from-[a-z]+\/$/.test(u)) need.push('TouristTrip', 'Organization');
+  if (/^\/destinations\/[^/]+\/$/.test(u)) need.push('TouristDestination');
+  if (['/trips/', '/weekend-trips-from-hyderabad/', '/camping-near-hyderabad/'].includes(u)) need.push('ItemList');
+  if (/<section id="faqs"|id="dest-faq"|id="cat-faq"/.test(p.html)) need.push('FAQPage');
+  for (const t of need) if (!types.has(t)) errors.push(`${u}: missing ${t} structured data`);
+  for (const faq of nodes.filter((n) => n['@type'] === 'FAQPage'))
+    for (const q of faq.mainEntity ?? []) {
+      const name = decode(q.name).replace(/\s+/g, ' ').trim();
+      if (!p.text.includes(name)) errors.push(`${u}: FAQPage question not visible on the page: "${name.slice(0, 70)}"`);
+    }
+}
+
+// 9. Duplicate trip pages (two URLs with the same H1)
+const byH1 = new Map();
+for (const [u, p] of pages) {
+  if (!u.startsWith('/trips/') || !p.indexable) continue;
+  const h1 = visible(p.html.match(/<h1[\s\S]*?<\/h1>/)?.[0] ?? '').trim();
+  if (h1) byH1.set(h1, [...(byH1.get(h1) ?? []), u]);
+}
+for (const [h, us] of byH1) if (us.length > 1) errors.push(`duplicate trip pages "${h}": ${us.join(', ')}`);
+
+// 10. Dates are the same everywhere: every dated link (?d=YYYY-MM-DD) on any page must be a
+// future departure listed on that trip page's Dates section.
+const tripDates = new Map();
+for (const [u, p] of pages) {
+  if (!/^\/trips\/.+-from-[a-z]+\/$/.test(u)) continue;
+  const sec = p.html.match(/<section id="dates"[\s\S]*?<\/section>/)?.[0] ?? '';
+  tripDates.set(u, new Set([...sec.matchAll(/data-dep-start="(\d{4}-\d{2}-\d{2})"/g)].map((m) => m[1])));
+}
+const dateIssues = new Set();
+for (const [u, p] of pages) {
+  for (const m of p.html.matchAll(/href="(\/trips\/[^"?#]+\/)\?d=(\d{4}-\d{2}-\d{2})"/g)) {
+    const [, trip, date] = m;
+    if (date < TODAY) dateIssues.add(`${u}: links a past departure ${date} for ${trip} (rebuild needed)`);
+    else if (tripDates.has(trip) && !tripDates.get(trip).has(date)) dateIssues.add(`${u}: links ${trip} on ${date}, which isn't in that trip's dates`);
+  }
+}
+errors.push(...dateIssues);
+
 // Written "from ₹X" next to a trip link (hubs, guides, destination pages) must match the live price.
 for (const [u, p] of pages) {
   for (const block of p.html.matchAll(/<(li|p|tr)\b[^>]*>([\s\S]*?)<\/\1>/g)) {
