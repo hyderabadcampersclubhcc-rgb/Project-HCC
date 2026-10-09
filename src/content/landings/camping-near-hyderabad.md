@@ -1,74 +1,67 @@
 ---
-# Phase A content. Facts come from HCC's camping trips (src/content/trips/*-camping.md and trips with camp nights).
+# Camping hub. Owner decision, 9 Oct 2026: the listing shows exactly the four Ananthagiri Hills camps
+# (rule below); Narsapur Forest Camping is retired (catalog/archive/narsapur-camping/).
+# Facts come from the four trip files (prices are the owner's HCC prices).
 # Renamed from /camping/ (301 redirect in src/data/legacy-redirects.ts).
 path: /camping-near-hyderabad/
 title: Camping near Hyderabad
-intro: "One-night camps a short drive from Hyderabad (Ananthagiri Hills, Narsapur and the Gandikota canyon), plus weekend trips with nights at beach and river camps. Tents, meals and the evening programme are arranged by HCC."
+intro: "Overnight camping in the Ananthagiri Hills near Vikarabad, about two hours from Hyderabad. Choose from four campsites: a pool and music night, an activity camp with a rope course, lakeside tents at Sarpanpally Lake, or a premium camp with a sunrise trek."
 rule:
   tripTypes: [camping]
+  destinations: [ananthagiri]
   origin: hyderabad
-related: ['/weekend-trips-from-hyderabad/', '/treks/', '/customised-trips/']
+related: ['/camping-near-hyderabad/ananthagiri-hills/', '/weekend-trips-from-hyderabad/', '/customised-trips/']
 primaryKeyword: camping near hyderabad
+whatsappSubject: camping in the Ananthagiri Hills near Hyderabad
 seo:
-  title: 'Camping near Hyderabad: Ananthagiri, Narsapur & Gandikota | HCC'
-  description: 'Overnight camping near Hyderabad at Ananthagiri Hills, Narsapur and Gandikota canyon, with tents, meals and campfire. From ₹1,199 per person.'
+  title: 'Camping near Hyderabad: 4 Ananthagiri Hills Campsites | HCC'
+  description: 'Overnight camping near Hyderabad in the Ananthagiri Hills: pool and music night, rope adventures, lakeside tents or premium camping. One price per person.'
 indexable: true
 faqs:
   - q: Where can I go camping near Hyderabad?
-    a: "HCC runs camps at Ananthagiri Hills near Vikarabad, at Narsapur (about 38 km from JNTU, 30 minutes from the ORR) and at the Gandikota canyon in Andhra Pradesh. For a longer trip, Gokarna–Dandeli includes a beach camp and a river camp."
+    a: "HCC's camps are in the Ananthagiri Hills near Vikarabad, about 80 km from Hyderabad: Heaven's Resort (Lakeview), Harivillu Resort, the lakeside campsite at Sarpanpally Lake, and Trance Veechika Resort."
   - q: How much does camping near Hyderabad cost?
-    a: "One-night camps start from ₹1,199 at Narsapur, ₹1,600 at Ananthagiri Hills and ₹1,800 at Gandikota (transport from Hyderabad included). Each trip page lists what's included."
+    a: "One price per person for a night with meals: ₹1,600 at Heaven's Resort, ₹2,000 at Harivillu Resort, ₹2,000 at Sarpanpally Lake and ₹2,999 for premium camping at Trance Veechika. Each camp page lists exactly what's included."
   - q: Is transport included?
-    a: "For Ananthagiri and Narsapur you reach the campsite yourself (by car or bike, or for Ananthagiri by train to Vikarabad and then an auto or cab). The Gandikota camp includes a non-AC vehicle from Hyderabad."
-  - q: Are the tents private?
-    a: "Tents are shared, usually by 2 or 3 people. Ask HCC when booking if you'd like a couple tent."
+    a: "No. You reach the campsite yourself: drive (about 2 to 2.5 hours), or take a train or bus to Vikarabad and an auto or cab from there."
+  - q: Are the tents shared?
+    a: "Yes. Tents are for 2 or 3 people, depending on the campsite. Ask HCC on WhatsApp if you have a specific request."
   - q: Is camping suitable for families and first-timers?
-    a: "Yes. These are organised campsites with meals, games and washrooms, not wild camping. Gandikota is free for children under 6, and Ananthagiri has a swimming pool."
+    a: "Yes. These are organised campsites with meals, games and washrooms, not wild camping."
 ---
 
-## Overnight camps near Hyderabad
+## Four campsites in the Ananthagiri Hills
 
-### Ananthagiri Hills, Vikarabad
+- **[Heaven's Resort (Lakeview)](/trips/ananthagiri-camping-from-hyderabad/)**: tents for 2 or 3 with bedding, a swimming pool (5–10 pm), box cricket and games, a Saturday DJ night, a campfire, and a hot buffet dinner and breakfast. Check in at 4 pm, check out at 11 am. From ₹1,600.
+- **[Harivillu Resort](/trips/ananthagiri-harivillu-camping-from-hyderabad/)**: two-person tents with a rope adventure course of about ten activities, cycling, a short trek, sports, a bonfire and a movie night (weather permitting). From ₹2,000.
+- **[Lakeside camping at Sarpanpally Lake](/trips/ananthagiri-sarpanpally-lake-camping-from-hyderabad/)**: tents on the bank of the lake, high tea, a bonfire hour, outdoor and indoor games, and a live-kitchen dinner and breakfast. From ₹2,000.
+- **[Premium camping at Trance Veechika](/trips/ananthagiri-trance-veechika-camping-from-hyderabad/)**: a pool and rain dance, sports, a bonfire, and a guided 6 am sunrise trek. From ₹2,999.
 
-The [Ananthagiri Hills camp](/trips/ananthagiri-camping-from-hyderabad/) is HCC's most complete one-night camp: tents for 2 or 3 with bedding and pillows, a swimming pool (5–10 pm), box cricket and games, a Saturday DJ night, a campfire and a hot buffet dinner of bagara rice, chicken curry and veg curry, then breakfast. Check-in is at 4 pm and check-out at 11 am.
-
-**Getting there:** drive yourself, or take train 12702 from Nampally (2:55 pm, also stopping at Begumpet and Lingampalli) or train 12732 from Secunderabad (4:00 pm) to Vikarabad. The campsite is about 9 km from Vikarabad station by auto or cab. From ₹1,600 per person.
-
-**More Ananthagiri campsites:** HCC also offers [Harivillu Resort](/trips/ananthagiri-harivillu-camping-from-hyderabad/) (rope course and cycling), [lakeside camping at Sarpanpally Lake](/trips/ananthagiri-sarpanpally-lake-camping-from-hyderabad/) and [premium camping at Trance Veechika](/trips/ananthagiri-trance-veechika-camping-from-hyderabad/) (pool and sunrise trek). [Compare all four Ananthagiri campsites](/camping-near-hyderabad/ananthagiri-hills/).
-
-### Narsapur forest
-
-The [Narsapur camp](/trips/narsapur-camping-from-hyderabad/) is the closest to the city: an 8-acre paddy field about 30 minutes off the ORR, beside Narsapur forest. Arrive between 4 and 5 pm for tea, games and the sunset over the fields, then a local-style dinner, a campfire and a movie night. A short forest trek after breakfast, and you're home by lunchtime. Every Saturday, from ₹1,199.
-
-### Gandikota canyon
-
-The [Gandikota camp](/trips/gandikota-camping-from-hyderabad/) is the most dramatic: tents on the edge of the Pennar river gorge below the old Gandikota fort. A non-AC vehicle leaves Hyderabad at 6 am (about 7 hours, 390 km), with a bonfire and barbecue that night, sunrise over the canyon, then trekking, rock climbing and the fort. Includes 2 breakfasts, a lunch and a dinner. From ₹1,800.
-
-## Weekend trips with camping nights
-
-Several HCC weekend trips include nights under canvas:
-
-- **[Gokarna, Dandeli & Murudeshwar](/trips/gokarna-dandeli-from-hyderabad/)**: a beach camp at Nirvana Beach and a riverside camp in Dandeli with a rain dance and bonfire. From ₹5,999.
-- **[Dudhsagar & Dandeli](/trips/dudhsagar-dandeli-from-hyderabad/)**: a Dandeli river camp with kayaking and zorbing, then Dudhsagar falls. From ₹6,999.
-- **[Lonavala & Matheran](/trips/lonavala-matheran-from-hyderabad/)**: a night camping beside Pawna Lake. From ₹7,999.
-
-For more two- and three-night trips, see [weekend trips from Hyderabad](/weekend-trips-from-hyderabad/).
+To see them side by side, [compare all four Ananthagiri campsites](/camping-near-hyderabad/ananthagiri-hills/).
 
 ## Which camp should I choose?
 
-- **Closest and simplest:** Narsapur. Drive out on Saturday afternoon and be back the next day.
-- **Most to do at the campsite:** Ananthagiri Hills, with the pool, games and a music night.
-- **The best views and a proper day trip:** Gandikota, with transport from Hyderabad included.
-- **Camping as part of a bigger trip:** Gokarna–Dandeli, for the beach and the river.
+- **Lowest price, pool and music:** Heaven's Resort.
+- **Keep busy all afternoon:** Harivillu Resort, with the rope course and cycling.
+- **Wake up by the water:** Sarpanpally Lake.
+- **More comfort and a sunrise trek:** Trance Veechika.
+
+## Getting there
+
+Ananthagiri Hills is near Vikarabad, about 80 km from Hyderabad, roughly 2 to 2.5 hours by road. Without a car, take train 12702 from Nampally (2:55 pm, also stopping at Begumpet and Lingampalli) or train 12732 from Secunderabad (4:00 pm) to Vikarabad, or a TSRTC bus, then an auto or cab to your campsite.
+
+For two- and three-night trips, some with beach and river camps, see [weekend trips from Hyderabad](/weekend-trips-from-hyderabad/).
 
 ## What to carry
 
 - A government photo ID
 - Comfortable clothes and trekking or sports shoes
 - A torch, and a light jacket or hoodie for the night
-- An extra pair of clothes (for the pool at Ananthagiri)
+- Swimwear or an extra pair of clothes for the pool
 - Personal medicines and toiletries
 
 ## Camp rules to know
 
-Arrive on time; late arrivals may miss meals and activities. Drugs, illegal activity and nuisance aren't tolerated, and anyone breaking camp rules is asked to leave without a refund. Keep valuables with you, and note that parking is at the owner's risk.
+- Arrive on time; late arrivals may miss meals and activities.
+- Drugs, illegal activity and nuisance aren't tolerated. Anyone breaking camp rules is asked to leave without a refund.
+- Keep valuables with you.

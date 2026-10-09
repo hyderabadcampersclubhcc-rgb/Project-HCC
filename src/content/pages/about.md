@@ -18,7 +18,7 @@ Hyderabad Campers Club (HCC) runs group trips for people who want to get out of 
 ## What we run
 
 - **[Weekend trips from Hyderabad](/weekend-trips-from-hyderabad/):** Coorg, Chikmagalur, Gokarna, Ooty, Wayanad, Munnar, Hampi, Pondicherry, Araku and more, mostly leaving on a Thursday or Friday evening.
-- **[Camping near Hyderabad](/camping-near-hyderabad/):** Ananthagiri Hills, Narsapur forest and Gandikota canyon.
+- **[Camping near Hyderabad](/camping-near-hyderabad/):** four campsites in the Ananthagiri Hills.
 - **Treks:** monsoon treks in the Sahyadris, including Andharban, Devkund and Harishchandragad.
 - **Longer trips:** Kerala, Goa, Manali, Kashmir and the Golden Triangle.
 - **Couples trips** and **[customised trips](/customised-trips/)** for friends, families and teams.

@@ -15,8 +15,6 @@ bestMonths:
   - 1
   - 2
 idealDuration: 1 night
-nearby:
-  - narsapur
 heroImage: ../../assets/photos/ananthagiri.jpg
 heroAlt: Forest view from Ananthagiri Hills
 heroCredit:

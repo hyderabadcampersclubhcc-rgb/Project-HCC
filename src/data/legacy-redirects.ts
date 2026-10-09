@@ -20,6 +20,9 @@ export interface LegacyRedirect {
 export const LEGACY_REDIRECTS: LegacyRedirect[] = [
   // Site structure
   { from: '/home/', to: '/' },
+  // Narsapur Forest Camping retired (owner, 9 Oct 2026): send its pages to the camping hub. Record: catalog/archive/narsapur-camping/
+  { from: '/trips/narsapur-camping-from-hyderabad/', to: '/camping-near-hyderabad/' },
+  { from: '/destinations/narsapur/', to: '/camping-near-hyderabad/' },
   { from: '/all-trips/', to: '/trips/' },
   { from: '/all-trips-2/', to: '/trips/' },
   { from: '/winter-trips/', to: '/trips/' },

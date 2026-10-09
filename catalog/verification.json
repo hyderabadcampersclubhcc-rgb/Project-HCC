@@ -770,34 +770,6 @@
         }
       }
     },
-    "narsapur-camping": {
-      "title": "Narsapur Forest Camping",
-      "source": "weekendyaari.in import (4 Oct 2026), owner-approved as HCC working reference (9 Oct 2026)",
-      "publishApproved": [
-        "hyderabad"
-      ],
-      "catalogItems": [],
-      "cities": {
-        "hyderabad": {
-          "fields": {
-            "price": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
-            "departureDays": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
-            "departureDates": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
-            "departureTime": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
-            "returnTime": "NEEDS CONFIRMATION: no return time",
-            "transport": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
-            "accommodation": "NEEDS CONFIRMATION: stay type not stated",
-            "itinerary": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
-            "inclusions": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
-            "exclusions": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
-            "food": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
-            "advance": "NEEDS CONFIRMATION: no advance amount",
-            "cancellation": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
-            "difficulty": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)"
-          }
-        }
-      }
-    },
     "ooty-coonoor-couple": {
       "title": "Ooty & Coonoor for Couples",
       "source": "weekendyaari.in import (4 Oct 2026), owner-approved as HCC working reference (9 Oct 2026)",
@@ -1118,5 +1090,36 @@
       "Add the city to publishApproved for that trip (one page at a time).",
       "PUBLIC_ALLOW_INDEXING=true npm run build && npm run check:all: check:integrity fails if an approved page has unverified essential facts or an unapproved page is indexable."
     ]
+  },
+  "archivedTrips": {
+    "narsapur-camping": {
+      "title": "Narsapur Forest Camping",
+      "source": "weekendyaari.in import (4 Oct 2026), owner-approved as HCC working reference (9 Oct 2026)",
+      "publishApproved": [
+        "hyderabad"
+      ],
+      "catalogItems": [],
+      "cities": {
+        "hyderabad": {
+          "fields": {
+            "price": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "departureDays": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "departureDates": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "departureTime": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "returnTime": "NEEDS CONFIRMATION: no return time",
+            "transport": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "accommodation": "NEEDS CONFIRMATION: stay type not stated",
+            "itinerary": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "inclusions": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "exclusions": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "food": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "advance": "NEEDS CONFIRMATION: no advance amount",
+            "cancellation": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)",
+            "difficulty": "WORKING REFERENCE: weekendyaari.in import, owner-approved as HCC working data (9 Oct 2026)"
+          }
+        }
+      },
+      "retired": "2026-10-09: owner says HCC no longer offers Narsapur Forest Camping; pages 301 to /camping-near-hyderabad/; files in catalog/archive/narsapur-camping/"
+    }
   }
 }

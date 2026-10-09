@@ -63,7 +63,7 @@ HCC weekend trips are small group departures that fit into a normal working week
 
 ### Short camping nights
 
-Only have one night? See **[camping near Hyderabad](/camping-near-hyderabad/)**: [Ananthagiri Hills](/trips/ananthagiri-camping-from-hyderabad/) near Vikarabad (from ₹1,600), [Narsapur](/trips/narsapur-camping-from-hyderabad/) (from ₹1,199) and the Gandikota canyon (from ₹1,800). The **[Dudhsagar & Dandeli](/trips/dudhsagar-dandeli-from-hyderabad/)** trip packs a river camp and one of India's tallest waterfalls into a single night (from ₹6,999).
+Only have one night? See **[camping near Hyderabad](/camping-near-hyderabad/)**: four campsites in the [Ananthagiri Hills](/trips/ananthagiri-camping-from-hyderabad/) near Vikarabad (from ₹1,600), and the Gandikota canyon (from ₹1,800). The **[Dudhsagar & Dandeli](/trips/dudhsagar-dandeli-from-hyderabad/)** trip packs a river camp and one of India's tallest waterfalls into a single night (from ₹6,999).
 
 ## How to choose your weekend trip
 

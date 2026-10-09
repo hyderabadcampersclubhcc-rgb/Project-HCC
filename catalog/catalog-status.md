@@ -7,8 +7,8 @@ _Field definitions and the intake workflow: catalog/README.md._
 
 Sources: owner confirmation, the HCC WhatsApp Business Catalog, and the weekendyaari.in import, which the owner approved on 9 Oct 2026 as HCC's working reference data. Only a specific missing fact is flagged (NEEDS CONFIRMATION); it does not block the trip. A page is blocked only by a CONFLICT in an essential fact, or if the owner hasn't approved it. Code: catalog/verification.mjs. Destination, hub and other pages keep their own indexing rules.
 
-- Trip/city pages indexable in production: **36 of 39** (approved: 36; blocked by a conflict: 0)
-- Usable facts (owner confirmed, catalog-verified or working reference): **440 of 546**. Owner-confirmed: 26
+- Trip/city pages indexable in production: **35 of 38** (approved: 35; blocked by a conflict: 0)
+- Usable facts (owner confirmed, catalog-verified or working reference): **429 of 532**. Owner-confirmed: 26
 - Rule: A trip page (trip × city) is indexable in production when the owner has approved it (city listed in publishApproved; all previously indexable trip pages are approved) and none of its essential facts is in CONFLICT. Missing facts are flagged NEEDS CONFIRMATION in the ledger and audit but do not block the page. Pending records (status PENDING_APPROVAL, e.g. Travloger-based campsite drafts) are never live.
 
 ### Flagged facts per page (missing; not blocking)
@@ -44,14 +44,13 @@ Sources: owner confirmation, the HCC WhatsApp Business Catalog, and the weekendy
 | munnar (Hyderabad) | departureDates, departureTime, accommodation, advance | — |
 | munnar (Bangalore) | departureTime, accommodation, advance | — |
 | munnar (Vijayawada) | departureDates, departureTime, returnTime, accommodation, advance | — |
-| narsapur-camping (Hyderabad) | returnTime, accommodation, advance | — |
 | ooty-coonoor-couple (Hyderabad) | departureTime, accommodation, advance | — |
 | pondicherry (Hyderabad) | departureDates, returnTime, accommodation, itinerary, advance | — |
 | shimla-manali (Delhi) | departureTime, accommodation, advance | — |
 | wayanad-ooty-mysore (Hyderabad) | departureTime, accommodation, advance | — |
 | wayanad (Hyderabad) | accommodation, advance | — |
 
-## Live trips × departure cities (39)
+## Live trips × departure cities (38)
 
 | Trip | City | Usable facts | Indexable | Price | Ref. price | Duration | Departure days | Dated departures (future) | Times | Transport (included) | Stay | Itinerary | Incl/Excl | Food | Advance | Cancel | Coordinator | Photos | FAQs | SEO |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
@@ -87,7 +86,6 @@ Sources: owner confirmation, the HCC WhatsApp Business Catalog, and the weekendy
 | munnar | Hyderabad | 10/14 | ✅ | ₹8999 | ₹12500 | 2N/3D | Weekly departures | none | return stated | Sleeper train | NEEDS CONFIRMATION | 3 days | 6/4 | stated | NEEDS CONFIRMATION | trip | yes | 4 stock | 0 | auto |
 | munnar | Bangalore | 11/14 | ✅ | ₹8999 | ₹12500 | 2N/3D | Weekly departures | 11 (2026-10-09 → 2026-12-18) | return stated | Sleeper train | NEEDS CONFIRMATION | 3 days (shared) | 6/4 | stated | NEEDS CONFIRMATION | trip | yes | 4 stock | 0 | auto |
 | munnar | Vijayawada | 9/14 | ✅ | ₹8999 | ₹12500 | 2N/3D | Weekly departures | none | NEEDS CONFIRMATION | Sleeper train | NEEDS CONFIRMATION | 3 days (shared) | 6/4 | stated | NEEDS CONFIRMATION | trip | yes | 4 stock | 0 | auto |
-| narsapur-camping | Hyderabad | 11/14 | ✅ | ₹1199 | ₹2500 | 1N/2D | Every Saturday | 12 (2026-10-10 → 2026-12-26) | 16:00 | Reach the campsite yourself | NEEDS CONFIRMATION | 2 days | 3/3 | stated | NEEDS CONFIRMATION | site | NEEDS CONFIRMATION | 4 stock | 0 | auto |
 | ooty-coonoor-couple | Hyderabad | 11/14 | ✅ | ₹18500 | ₹22500 | 2N/3D | Your dates, on request | none | return stated | Sleeper train | NEEDS CONFIRMATION | 3 days | 4/4 | stated | NEEDS CONFIRMATION | trip | NEEDS CONFIRMATION | 4 stock | 0 | auto |
 | ooty-coonoor | Hyderabad | 14/14 | ✅ | ₹7999 | ₹9500 | 2N/3D | Every Thursday & Friday from Hyderabad | 24 (2026-10-09 → 2026-12-31) | Thu/Fri 7:00 PM → Mon/Tue 6:00 AM | Sleeper train | Hotel / homestay | 4 days | 6/5 | stated | ₹2000 | trip | yes | 3 stock, 3 AI | 2 | auto |
 | pondicherry | Hyderabad | 9/14 | ✅ | ₹7199 | ₹9999 | 2N/3D | Weekly departures | none | 17:00 | Sleeper train | NEEDS CONFIRMATION | NEEDS CONFIRMATION | 5/3 | stated | NEEDS CONFIRMATION | trip | yes | 4 stock | 3 | auto |
@@ -97,9 +95,9 @@ Sources: owner confirmation, the HCC WhatsApp Business Catalog, and the weekendy
 
 Photos: "HCC" = HCC's own photos (no third-party credit); "stock" = licensed Wikimedia/stock photos; "AI" = labelled AI illustrations.
 
-## NEEDS CONFIRMATION (331)
+## NEEDS CONFIRMATION (321)
 
-### Photos (39)
+### Photos (38)
 
 - **ananthagiri-camping** (hyderabad): no HCC trip photos yet (4 stock)
 - **ananthagiri-harivillu-camping** (hyderabad): no HCC trip photos yet (3 stock)
@@ -133,7 +131,6 @@ Photos: "HCC" = HCC's own photos (no third-party credit); "stock" = licensed Wik
 - **munnar** (hyderabad): no HCC trip photos yet (4 stock)
 - **munnar** (bangalore): no HCC trip photos yet (4 stock)
 - **munnar** (vijayawada): no HCC trip photos yet (4 stock)
-- **narsapur-camping** (hyderabad): no HCC trip photos yet (4 stock)
 - **ooty-coonoor-couple** (hyderabad): no HCC trip photos yet (4 stock)
 - **ooty-coonoor** (hyderabad): no HCC trip photos yet (3 stock, 3 AI)
 - **pondicherry** (hyderabad): no HCC trip photos yet (4 stock)
@@ -141,7 +138,7 @@ Photos: "HCC" = HCC's own photos (no third-party credit); "stock" = licensed Wik
 - **wayanad-ooty-mysore** (hyderabad): no HCC trip photos yet (5 stock)
 - **wayanad** (hyderabad): no HCC trip photos yet (4 stock)
 
-### Departure dates (39)
+### Departure dates (38)
 
 - **ananthagiri-camping** (hyderabad): no dated departures (recurrence text: "Call to check availability")
 - **ananthagiri-harivillu-camping** (hyderabad): no dated departures (recurrence text: "Saturdays (check availability on WhatsApp)")
@@ -175,7 +172,6 @@ Photos: "HCC" = HCC's own photos (no third-party credit); "stock" = licensed Wik
 - **munnar** (hyderabad): no dated departures (recurrence text: "Weekly departures")
 - **munnar** (bangalore): dated departures end on 2026-12-18; schedule for 2027 needed
 - **munnar** (vijayawada): no dated departures (recurrence text: "Weekly departures")
-- **narsapur-camping** (hyderabad): dated departures end on 2026-12-26; schedule for 2027 needed
 - **ooty-coonoor-couple** (hyderabad): no dated departures (recurrence text: "Your dates, on request")
 - **ooty-coonoor** (hyderabad): dated departures end on 2026-12-31; schedule for 2027 needed
 - **pondicherry** (hyderabad): no dated departures (recurrence text: "Weekly departures")
@@ -183,7 +179,7 @@ Photos: "HCC" = HCC's own photos (no third-party credit); "stock" = licensed Wik
 - **wayanad-ooty-mysore** (hyderabad): no dated departures (recurrence text: "Group dates on request")
 - **wayanad** (hyderabad): dated departures end on 2026-12-31; schedule for 2027 needed
 
-### Reference price (35)
+### Reference price (34)
 
 - **andharban-devkund-lohagad-trek** (hyderabad): crossed-out price ₹8500 is shown; confirm it is a genuine previous price
 - **araku-vanajangi-vizag** (hyderabad): crossed-out price ₹8500 is shown; confirm it is a genuine previous price
@@ -213,7 +209,6 @@ Photos: "HCC" = HCC's own photos (no third-party credit); "stock" = licensed Wik
 - **munnar** (hyderabad): crossed-out price ₹12500 is shown; confirm it is a genuine previous price
 - **munnar** (bangalore): crossed-out price ₹12500 is shown; confirm it is a genuine previous price
 - **munnar** (vijayawada): crossed-out price ₹12500 is shown; confirm it is a genuine previous price
-- **narsapur-camping** (hyderabad): crossed-out price ₹2500 is shown; confirm it is a genuine previous price
 - **ooty-coonoor-couple** (hyderabad): crossed-out price ₹22500 is shown; confirm it is a genuine previous price
 - **ooty-coonoor** (hyderabad): crossed-out price ₹9500 is shown; confirm it is a genuine previous price
 - **pondicherry** (hyderabad): crossed-out price ₹9999 is shown; confirm it is a genuine previous price
@@ -221,7 +216,7 @@ Photos: "HCC" = HCC's own photos (no third-party credit); "stock" = licensed Wik
 - **wayanad-ooty-mysore** (hyderabad): crossed-out price ₹18999 is shown; confirm it is a genuine previous price
 - **wayanad** (hyderabad): crossed-out price ₹11500 is shown; confirm it is a genuine previous price
 
-### Suitable for (34)
+### Suitable for (33)
 
 - **andharban-devkund-lohagad-trek** (hyderabad): not stated
 - **araku-vanajangi-vizag** (hyderabad): not stated
@@ -251,14 +246,13 @@ Photos: "HCC" = HCC's own photos (no third-party credit); "stock" = licensed Wik
 - **munnar** (hyderabad): not stated
 - **munnar** (bangalore): not stated
 - **munnar** (vijayawada): not stated
-- **narsapur-camping** (hyderabad): not stated
 - **ooty-coonoor-couple** (hyderabad): not stated
 - **pondicherry** (hyderabad): not stated
 - **shimla-manali** (delhi): not stated
 - **wayanad-ooty-mysore** (hyderabad): not stated
 - **wayanad** (hyderabad): not stated
 
-### Accommodation (31)
+### Accommodation (30)
 
 - **andharban-devkund-lohagad-trek** (hyderabad): no stay type
 - **araku-vanajangi-vizag** (hyderabad): no stay type
@@ -285,14 +279,13 @@ Photos: "HCC" = HCC's own photos (no third-party credit); "stock" = licensed Wik
 - **munnar** (hyderabad): no stay type
 - **munnar** (bangalore): no stay type
 - **munnar** (vijayawada): no stay type
-- **narsapur-camping** (hyderabad): no stay type
 - **ooty-coonoor-couple** (hyderabad): no stay type
 - **pondicherry** (hyderabad): no stay type
 - **shimla-manali** (delhi): no stay type
 - **wayanad-ooty-mysore** (hyderabad): no stay type
 - **wayanad** (hyderabad): no stay type
 
-### Group size (30)
+### Group size (29)
 
 - **ananthagiri-camping** (hyderabad): not stated
 - **ananthagiri-harivillu-camping** (hyderabad): not stated
@@ -319,13 +312,12 @@ Photos: "HCC" = HCC's own photos (no third-party credit); "stock" = licensed Wik
 - **munnar** (hyderabad): not stated
 - **munnar** (bangalore): not stated
 - **munnar** (vijayawada): not stated
-- **narsapur-camping** (hyderabad): not stated
 - **ooty-coonoor-couple** (hyderabad): not stated
 - **pondicherry** (hyderabad): not stated
 - **shimla-manali** (delhi): not stated
 - **wayanad-ooty-mysore** (hyderabad): not stated
 
-### Booking / advance (30)
+### Booking / advance (29)
 
 - **ananthagiri-harivillu-camping** (hyderabad): no advance amount
 - **ananthagiri-sarpanpally-lake-camping** (hyderabad): no advance amount
@@ -351,14 +343,13 @@ Photos: "HCC" = HCC's own photos (no third-party credit); "stock" = licensed Wik
 - **munnar** (hyderabad): no advance amount
 - **munnar** (bangalore): no advance amount
 - **munnar** (vijayawada): no advance amount
-- **narsapur-camping** (hyderabad): no advance amount
 - **ooty-coonoor-couple** (hyderabad): no advance amount
 - **pondicherry** (hyderabad): no advance amount
 - **shimla-manali** (delhi): no advance amount
 - **wayanad-ooty-mysore** (hyderabad): no advance amount
 - **wayanad** (hyderabad): no advance amount
 
-### Trip coordinator (25)
+### Trip coordinator (24)
 
 - **ananthagiri-camping** (hyderabad): inclusions do not mention a trip captain/coordinator
 - **ananthagiri-harivillu-camping** (hyderabad): inclusions do not mention a trip captain/coordinator
@@ -381,7 +372,6 @@ Photos: "HCC" = HCC's own photos (no third-party credit); "stock" = licensed Wik
 - **kerala-munnar-alleppey** (hyderabad): inclusions do not mention a trip captain/coordinator
 - **kerala-munnar-alleppey** (bangalore): inclusions do not mention a trip captain/coordinator
 - **manali-kasol** (delhi): inclusions do not mention a trip captain/coordinator
-- **narsapur-camping** (hyderabad): inclusions do not mention a trip captain/coordinator
 - **ooty-coonoor-couple** (hyderabad): inclusions do not mention a trip captain/coordinator
 - **shimla-manali** (delhi): inclusions do not mention a trip captain/coordinator
 - **wayanad-ooty-mysore** (hyderabad): inclusions do not mention a trip captain/coordinator
@@ -449,19 +439,11 @@ Photos: "HCC" = HCC's own photos (no third-party credit); "stock" = licensed Wik
 - **munnar** (bangalore): uses the Hyderabad inclusions; confirm for Bangalore
 - **munnar** (vijayawada): uses the Hyderabad inclusions; confirm for Vijayawada
 
-### Cancellation (4)
+### Cancellation (3)
 
 - **ananthagiri-harivillu-camping** (hyderabad): no trip-specific summary (site-wide policy applies)
 - **ananthagiri-sarpanpally-lake-camping** (hyderabad): no trip-specific summary (site-wide policy applies)
 - **ananthagiri-trance-veechika-camping** (hyderabad): no trip-specific summary (site-wide policy applies)
-- **narsapur-camping** (hyderabad): no trip-specific summary (site-wide policy applies)
-
-### Return time (4)
-
-- **kerala-munnar-alleppey** (bangalore): not stated
-- **munnar** (vijayawada): not stated
-- **narsapur-camping** (hyderabad): not stated
-- **pondicherry** (hyderabad): not stated
 
 ### Departure days (3)
 
@@ -474,6 +456,12 @@ Photos: "HCC" = HCC's own photos (no third-party credit); "stock" = licensed Wik
 - **kerala-munnar-alleppey** (bangalore): uses the Hyderabad itinerary; confirm or add a Bangalore itinerary
 - **munnar** (bangalore): uses the Hyderabad itinerary; confirm or add a Bangalore itinerary
 - **munnar** (vijayawada): uses the Hyderabad itinerary; confirm or add a Vijayawada itinerary
+
+### Return time (3)
+
+- **kerala-munnar-alleppey** (bangalore): not stated
+- **munnar** (vijayawada): not stated
+- **pondicherry** (hyderabad): not stated
 
 ## Duplicate trips
 
