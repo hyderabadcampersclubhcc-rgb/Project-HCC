@@ -133,6 +133,13 @@ gallery:
 sortOrder: 84
 recurrence: Saturdays (check availability on WhatsApp)
 primaryKeyword: premium camping ananthagiri hills
+confirmOnWhatsApp:
+  - Advance and payment
+  - Cancellation and date changes
+  - GST
+  - Children's policy
+  - Group size
+  - Safety arrangements
 status: live
 ---
 

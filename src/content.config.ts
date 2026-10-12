@@ -233,6 +233,8 @@ const trips = defineCollection({
         suitableFor: z.array(z.string()).default([]),
         notSuitableFor: z.array(z.string()).default([]),
         cancellationPolicy: z.string().optional(), // short summary; full policy page linked
+        /** Details HCC hasn't confirmed for this trip: shown as "<label>: Contact us on WhatsApp to confirm." (never a guessed answer). */
+        confirmOnWhatsApp: z.array(z.string()).default([]),
         faqs: z.array(faq).default([]),
 
         heroImage: image().optional(),

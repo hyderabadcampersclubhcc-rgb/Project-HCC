@@ -29,6 +29,7 @@ Some trips work differently. The rule shown on the trip page is the one that app
 | [Pondicherry](/trips/pondicherry-from-hyderabad/) | Full refund up to 15 days before departure. 7–14 days: 50% fee. Less than 7 days: no refund. |
 | [Ananthagiri Hills camping](/trips/ananthagiri-camping-from-hyderabad/) | The ₹500 per head advance is non-refundable. |
 | [Gandikota camping](/trips/gandikota-camping-from-hyderabad/) | No refund once the booking is confirmed. If weather or government restrictions cancel the trip, you get a full refund or another date. |
+| [Harivillu Resort](/trips/ananthagiri-harivillu-camping-from-hyderabad/), [Sarpanpally Lake](/trips/ananthagiri-sarpanpally-lake-camping-from-hyderabad/) and [Trance Veechika](/trips/ananthagiri-trance-veechika-camping-from-hyderabad/) camping | Not confirmed yet. Contact us on WhatsApp to confirm. |
 | Sahyadri treks and Lonavala–Matheran | HCC's cancellation policy applies; train tickets follow IRCTC cancellation rules. |
 
 ## Train tickets

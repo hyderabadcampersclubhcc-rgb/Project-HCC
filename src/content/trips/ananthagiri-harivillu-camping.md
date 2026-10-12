@@ -131,6 +131,13 @@ gallery:
 sortOrder: 82
 recurrence: Saturdays (check availability on WhatsApp)
 primaryKeyword: harivillu resort camping ananthagiri
+confirmOnWhatsApp:
+  - Advance and payment
+  - Cancellation and date changes
+  - GST
+  - Children's policy
+  - Group size
+  - Safety arrangements
 status: live
 ---
 

@@ -132,6 +132,13 @@ gallery:
 sortOrder: 83
 recurrence: Saturdays (check availability on WhatsApp)
 primaryKeyword: sarpanpally lake camping
+confirmOnWhatsApp:
+  - Advance and payment
+  - Cancellation and date changes
+  - GST
+  - Children's policy
+  - Group size
+  - Safety arrangements
 status: live
 ---
 

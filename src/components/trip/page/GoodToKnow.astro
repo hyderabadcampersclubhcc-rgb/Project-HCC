@@ -8,6 +8,7 @@ import Icon from '@/components/ui/Icon.astro';
 import type { TripView, TripOriginView } from '@/lib/catalog';
 import { inr } from '@/lib/format';
 import { settings } from '@/lib/settings';
+import { waHref, waRef } from '@/lib/whatsapp';
 
 interface Props {
   trip: TripView;
@@ -19,7 +20,10 @@ const { trip, origin } = Astro.props;
 const d = trip.data;
 const thingsToCarry = origin?.thingsToCarry ?? d.thingsToCarry;
 const importantInfo = origin?.importantInfo ?? d.importantInfo;
-const hasPayment = d.advanceAmount != null || d.cancellationPolicy;
+const toConfirm = d.confirmOnWhatsApp;
+const hasPayment = d.advanceAmount != null || d.cancellationPolicy || toConfirm.length > 0;
+// Unconfirmed details link to HCC's WhatsApp with this trip's message (tracked like every WhatsApp CTA).
+const confirmHref = waHref({ subject: d.whatsappSubject, tripTitle: d.title, originLabel: origin?.label });
 const any = d.suitableFor.length || d.notSuitableFor.length || thingsToCarry.length || importantInfo.length || hasPayment;
 ---
 
@@ -91,6 +95,18 @@ const any = d.suitableFor.length || d.notSuitableFor.length || thingsToCarry.len
               )}
               {d.gstPercent != null && <li>GST of {d.gstPercent}% applies and is shown in the price summary.</li>}
               {d.cancellationPolicy && <li>{d.cancellationPolicy}</li>}
+              {toConfirm.map((label) => (
+                <li>
+                  <b>{label}:</b>{' '}
+                  {confirmHref ? (
+                    <a href={confirmHref} target="_blank" rel="noopener" data-wa data-wa-ref={waRef(trip.id)} data-cta-location="confirm_details" data-trip-id={trip.id}>
+                      Contact us on WhatsApp to confirm.
+                    </a>
+                  ) : (
+                    'Contact us on WhatsApp to confirm.'
+                  )}
+                </li>
+              ))}
             </ul>
             <a class="btn btn--text gtk__more" href="/cancellation-policy/">
               Read the full cancellation policy <Icon name="arrow" />

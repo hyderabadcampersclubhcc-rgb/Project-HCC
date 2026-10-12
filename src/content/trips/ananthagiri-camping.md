@@ -163,6 +163,11 @@ gallery:
       author: Framesnlight
       license: CC BY-SA 4.0
       source: https://commons.wikimedia.org/wiki/File:Jungle_trek.jpg
+confirmOnWhatsApp:
+  - GST
+  - Children's policy
+  - Group size
+  - Safety arrangements
 status: live
 sample: false
 ---
