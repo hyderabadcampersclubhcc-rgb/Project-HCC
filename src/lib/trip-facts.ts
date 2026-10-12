@@ -109,8 +109,22 @@ export function quickFaqs(trip: TripView, origin: TripOriginView): { q: string; 
     out.push({ q: isSelfCamp(trip, origin) ? 'When does the camp run, and how long is it?' : `When does it leave ${origin.label}, and how long is it?`, a: parts.join(' ') });
   }
   if (raw?.pickupPoints.length && !has('start')) {
-    const pts = raw.pickupPoints.map((p) => (p.time ? `${p.name} at ${p.time}` : p.name));
-    out.push({ q: 'Where does the trip start?', a: `From ${origin.label}, the group meets at ${pts.join(', or ')}.` });
+    if (isSelfCamp(trip, origin)) {
+      // No HCC transport or meeting point: name the campsite and how to reach it, from trip data only.
+      const site = raw.pickupPoints.find((p) => /campsite/i.test(p.name)) ?? raw.pickupPoints[0];
+      const how = raw.outbound ? ` Getting there: ${raw.outbound.replace(/\.$/, '')}.` : '';
+      // "Campsite: Harivillu Resort, …" / "Campsite, Ananthagiri Hills (Vikarabad)" → the place itself.
+      const place = site.name.replace(/^Campsite[:,]\s*/i, '');
+      // "16:00" → "4:00 pm"
+      const time = site.time?.replace(/^(\d{1,2}):(\d{2})$/, (_m, h: string, m: string) => `${Number(h) % 12 || 12}:${m} ${Number(h) < 12 ? 'am' : 'pm'}`);
+      out.push({
+        q: 'Where is the campsite, and how do I get there?',
+        a: `You travel to the campsite on your own; there's no HCC transport from ${origin.label}. The campsite is at ${place}${time ? `; check-in is at ${time}` : ''}.${how}`,
+      });
+    } else {
+      const pts = raw.pickupPoints.map((p) => (p.time ? `${p.name} at ${p.time}` : p.name));
+      out.push({ q: 'Where does the trip start?', a: `From ${origin.label}, the group meets at ${pts.join(', or ')}.` });
+    }
   }
   if (!has('book')) {
     const wa = settings.contact.whatsapp;
@@ -123,8 +137,15 @@ export function quickFaqs(trip: TripView, origin: TripOriginView): { q: string; 
   }
   if (d.suitableFor.some((s) => /solo/i.test(s)) && !has('solo')) {
     out.push({
-      q: 'Can I join on my own?',
-      a: `Yes. Solo travellers join the group, and the price is the same per person whether you come alone or with friends.`,
+      ...(isSelfCamp(trip, origin)
+        ? {
+            q: 'Can I book on my own?',
+            a: 'Yes. You can enquire and book individually on WhatsApp. The price is per person, the same whether you come alone or with friends, and you travel to the campsite on your own.',
+          }
+        : {
+            q: 'Can I join on my own?',
+            a: 'Yes. Solo travellers join the group, and the price is the same per person whether you come alone or with friends.',
+          }),
     });
   }
   if (d.cancellationPolicy && !has('cancel')) {

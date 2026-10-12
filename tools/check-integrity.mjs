@@ -206,6 +206,20 @@ for (const [u, p] of pages) {
     }
   }
 }
+// 7b. Reach-it-yourself camps (At a glance → Transport: "…yourself" / "on your own") have no HCC group
+// journey: their visible text and FAQ structured data must not suggest a group meeting or pickup.
+const GROUP_WORDING = /\b(the group meets|meets? the group|join(s|ing)? the group|travel(s|ling)? with the group|group (journey|departure|travel)|group trip from|pick-?up points? in)\b/i;
+for (const [u, p] of pages) {
+  if (!/^\/trips\/.+-from-[a-z]+\/$/.test(u)) continue;
+  const glance = visible(p.html.match(/<section id="glance"[\s\S]*?<\/section>/)?.[0] ?? '');
+  if (!/Transport (Reach the campsite yourself|[^|]*on your own)/i.test(glance)) continue;
+  const ld = [...p.html.matchAll(/<script type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/g)].map((m) => m[1]).join(' ');
+  for (const [where, text] of [['page text', p.text], ['structured data', ld]]) {
+    const m = text.match(GROUP_WORDING);
+    if (m) errors.push(`${u}: reach-it-yourself camp, but the ${where} implies a group journey: "…${ctx(text, m.index)}…"`);
+  }
+}
+
 // 8. Structured data each page type must carry (indexable pages), and FAQPage must match visible Q&As.
 const ldTypes = (html) =>
   [...html.matchAll(/<script type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/g)].flatMap((m) => {

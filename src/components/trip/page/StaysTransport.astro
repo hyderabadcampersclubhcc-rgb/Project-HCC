@@ -7,6 +7,7 @@
 import TripSection from './TripSection.astro';
 import Icon from '@/components/ui/Icon.astro';
 import type { TripView, TripOriginView } from '@/lib/catalog';
+import { isSelfCamp } from '@/lib/trip-facts';
 
 interface Props {
   trip: TripView;
@@ -19,9 +20,11 @@ const o = d.origins.find((x) => x.city === origin.city)!;
 const WASH: Record<string, string> = { attached: 'Attached washroom', shared: 'Shared washroom', common: 'Common washroom' };
 // One trip price per person: options show what the base price includes, never an add-on price.
 const delta = (n: number) => (n === 0 ? 'Included' : 'On request');
+// Reach-it-yourself camps have no HCC pickup: the "pickup points" are the campsite and the ways to get there.
+const selfCamp = isSelfCamp(trip, origin);
 ---
 
-<TripSection id="stays" title="Stays, transport & pickup">
+<TripSection id="stays" title={selfCamp ? 'Stay & getting to the campsite' : 'Stays, transport & pickup'}>
   <div class="st">
     {
       d.stays.length > 0 && (
@@ -100,7 +103,7 @@ const delta = (n: number) => (n === 0 ? 'Included' : 'On request');
       o.pickupPoints.length > 0 && (
         <div class="st__block">
           <h3>
-            <Icon name="pin" /> Pickup points in {origin.label}
+            <Icon name="pin" /> {selfCamp ? 'Getting to the campsite (you travel on your own)' : `Pickup points in ${origin.label}`}
           </h3>
           <ul class="st__pick">
             {o.pickupPoints.map((p) => (
