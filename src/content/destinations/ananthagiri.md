@@ -38,7 +38,7 @@ experiences:
   - title: Campfire under the stars
     text: Evenings at the campsite end around the fire after the dinner buffet.
     image: ../../assets/photos/campfire.jpg
-    imageAlt: Tents and campfire under the stars
+    imageAlt: A lit tent under a starry night sky (illustrative)
     imageCredit:
       author: Joshua Tree National Park
       license: Public domain
@@ -46,7 +46,7 @@ experiences:
   - title: Tent stay with bedding
     text: Tents for 2 or 3, with bedding and pillows, set among the trees.
     image: ../../assets/photos/tents.jpg
-    imageAlt: Tents at a campsite
+    imageAlt: Camping tents pitched on open ground (illustrative)
     imageCredit:
       author: USFWSAlaska
       license: Public domain
@@ -62,7 +62,7 @@ experiences:
   - title: Morning walks
     text: Nearby trails and viewpoints for the morning before check-out.
     image: ../../assets/photos/forest-trek.jpg
-    imageAlt: Forest trail
+    imageAlt: A forest trail through tall trees (illustrative)
     imageCredit:
       author: Framesnlight
       license: CC BY-SA 4.0

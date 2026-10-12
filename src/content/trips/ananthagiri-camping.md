@@ -77,7 +77,7 @@ itinerary:
       - dinner
     stay: Tents, Ananthagiri Hills
     image: ../../assets/photos/campfire.jpg
-    imageAlt: Tents and campfire under the stars
+    imageAlt: A lit tent under a starry night sky (illustrative)
     imageCredit:
       author: Joshua Tree National Park
       license: Public domain
@@ -88,7 +88,7 @@ itinerary:
     meals:
       - breakfast
     image: ../../assets/photos/ananthagiri.jpg
-    imageAlt: Forest view from Ananthagiri Hills
+    imageAlt: Forested Ananthagiri Hills near Vikarabad (area view)
     imageCredit:
       author: Praveen120
       license: CC BY-SA 3.0
@@ -139,26 +139,26 @@ legacyPaths:
   - /ananthagiri-hills/
   - /ananthagiri/
 heroImage: ../../assets/photos/campfire.jpg
-heroAlt: Tents and campfire under the stars
+heroAlt: A lit tent under a starry night sky (illustrative stock photo, not the campsite)
 heroCredit:
   author: Joshua Tree National Park
   license: Public domain
   source: https://commons.wikimedia.org/wiki/File:Campers_and_tent_underneath_a_night_sky_(49950611437).jpg
 gallery:
   - src: ../../assets/photos/ananthagiri.jpg
-    alt: Forest view from Ananthagiri Hills
+    alt: Forested Ananthagiri Hills near Vikarabad (area view, not the campsite)
     credit:
       author: Praveen120
       license: CC BY-SA 3.0
       source: https://commons.wikimedia.org/wiki/File:Ananthagiri_Hills.JPG
   - src: ../../assets/photos/tents.jpg
-    alt: Tents at a campsite
+    alt: Camping tents pitched on open ground (illustrative)
     credit:
       author: USFWSAlaska
       license: Public domain
       source: https://commons.wikimedia.org/wiki/File:Field_camp_tents_(53707969369).jpg
   - src: ../../assets/photos/forest-trek.jpg
-    alt: Forest trail
+    alt: A forest trail through tall trees (illustrative)
     credit:
       author: Framesnlight
       license: CC BY-SA 4.0
