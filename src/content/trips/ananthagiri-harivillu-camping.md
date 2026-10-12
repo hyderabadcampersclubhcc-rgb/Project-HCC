@@ -2,9 +2,12 @@
 # Ananthagiri campsite added 9 Oct 2026 on the owner's instruction. Price = the owner's HCC price.
 # Details rewritten from travloger.in reference pages (owner-approved working reference). Open items: origins[].incomplete
 # and catalog/verification.json. Not indexable in production until the owner approves it (publishApproved).
-title: Harivillu Resort Camping, Ananthagiri Hills
-seoName: "Harivillu Resort Camping, Ananthagiri Hills"
-whatsappSubject: "Harivillu Resort camping in Ananthagiri Hills"
+title: Premium Adventure Camping in Ananthagiri Hills
+seoName: Premium Adventure Camping in Ananthagiri Hills
+whatsappSubject: "Premium Adventure Camping in Ananthagiri Hills (Harivillu Resort)"
+seo:
+  title: "Premium Adventure Camping in Ananthagiri Hills | HCC"
+  description: "Adventure camping at Harivillu Resort: a rope course, cycling, a short trek, sports, bonfire and movie night. ₹2,000/person. Book with HCC on WhatsApp."
 tagline: Tents, a 10-activity rope course, cycling, sports and a movie night at Harivillu Resort, Ananthagiri Hills.
 tripTypes:
   - camping

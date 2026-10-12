@@ -2,9 +2,12 @@
 # Ananthagiri campsite added 9 Oct 2026 on the owner's instruction. Price = the owner's HCC price.
 # Details rewritten from travloger.in reference pages (owner-approved working reference). Open items: origins[].incomplete
 # and catalog/verification.json. Not indexable in production until the owner approves it (publishApproved).
-title: Lakeside Camping at Sarpanpally Lake, Ananthagiri Hills
-seoName: "Sarpanpally Lake Camping, Ananthagiri Hills"
-whatsappSubject: "lakeside camping at Sarpanpally Lake, Ananthagiri Hills"
+title: Lakeside Camping Near Hyderabad
+seoName: Lakeside Camping Near Hyderabad
+whatsappSubject: "Lakeside Camping Near Hyderabad (Sarpanpally Lake)"
+seo:
+  title: "Lakeside Camping at Sarpanpally Near Hyderabad | HCC"
+  description: "Lakeside camping in tents on the bank of Sarpanpally Lake: bonfire, games, live-kitchen meals and a farm visit. ₹2,000/person. Book with HCC on WhatsApp."
 tagline: "Lakeside tents at Sarpanpally Lake near Ananthagiri: bonfire, games, live-kitchen meals and a farm visit."
 tripTypes:
   - camping

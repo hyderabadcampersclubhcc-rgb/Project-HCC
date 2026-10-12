@@ -2,9 +2,12 @@
 # Ananthagiri campsite added 9 Oct 2026 on the owner's instruction. Price = the owner's HCC price.
 # Details rewritten from travloger.in reference pages (owner-approved working reference). Open items: origins[].incomplete
 # and catalog/verification.json. Not indexable in production until the owner approves it (publishApproved).
-title: Premium Camping at Trance Veechika Resort, Ananthagiri Hills
-seoName: "Trance Veechika Premium Camping, Ananthagiri"
-whatsappSubject: "premium camping at Trance Veechika Resort, Ananthagiri Hills"
+title: Premium Camping in Ananthagiri Hills
+seoName: Premium Camping in Ananthagiri Hills
+whatsappSubject: "Premium Camping in Ananthagiri Hills (Trance Veechika Resort)"
+seo:
+  title: "Premium Camping in Ananthagiri Hills | HCC"
+  description: "Premium camping at Trance Veechika Resort: pool and rain dance, bonfire, games and a guided 6 am sunrise trek. ₹2,999/person. Book with HCC on WhatsApp."
 tagline: Premium tents with a pool, rain dance, sports, bonfire and a guided sunrise trek in the Ananthagiri forest.
 tripTypes:
   - camping

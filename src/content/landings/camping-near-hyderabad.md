@@ -5,7 +5,7 @@
 # Renamed from /camping/ (301 redirect in src/data/legacy-redirects.ts).
 path: /camping-near-hyderabad/
 title: Camping near Hyderabad
-intro: "Overnight camping in the Ananthagiri Hills near Vikarabad, about two hours from Hyderabad. Choose from four campsites: a pool and music night, an activity camp with a rope course, lakeside tents at Sarpanpally Lake, or a premium camp with a sunrise trek."
+intro: "Overnight camping in the Ananthagiri Hills near Vikarabad, about two hours from Hyderabad. Choose from four campsites: a pool and Saturday DJ night, an activity camp with a rope course, lakeside tents at Sarpanpally Lake, or a premium camp with a sunrise trek."
 rule:
   tripTypes: [camping]
   destinations: [ananthagiri]
@@ -15,13 +15,13 @@ primaryKeyword: camping near hyderabad
 whatsappSubject: camping in the Ananthagiri Hills near Hyderabad
 seo:
   title: 'Camping near Hyderabad: 4 Ananthagiri Hills Campsites | HCC'
-  description: 'Overnight camping near Hyderabad in the Ananthagiri Hills: pool and music night, rope adventures, lakeside tents or premium camping. One price per person.'
+  description: 'Overnight camping near Hyderabad in the Ananthagiri Hills: a pool and Saturday DJ night, rope adventures, lakeside tents or premium camping. One price per person.'
 indexable: true
 faqs:
   - q: Where can I go camping near Hyderabad?
-    a: "HCC's camps are in the Ananthagiri Hills near Vikarabad, about 80 km from Hyderabad: budget-friendly camping, Harivillu Resort, the lakeside campsite at Sarpanpally Lake, and Trance Veechika Resort."
+    a: "HCC's camps are in the Ananthagiri Hills near Vikarabad, about 80 km from Hyderabad: budget camping, Harivillu Resort, the lakeside campsite at Sarpanpally Lake, and Trance Veechika Resort."
   - q: How much does camping near Hyderabad cost?
-    a: "One price per person for a night with meals: ₹1,600 for budget-friendly camping, ₹2,000 at Harivillu Resort, ₹2,000 at Sarpanpally Lake and ₹2,999 for premium camping at Trance Veechika. Each camp page lists exactly what's included."
+    a: "One price per person for a night with meals: ₹1,600 for budget camping, ₹2,000 at Harivillu Resort, ₹2,000 at Sarpanpally Lake and ₹2,999 for premium camping at Trance Veechika. Each camp page lists exactly what's included."
   - q: Is transport included?
     a: "No. You reach the campsite yourself: drive (about 2 to 2.5 hours), or take a train or bus to Vikarabad and an auto or cab from there."
   - q: Are the tents shared?
@@ -38,10 +38,10 @@ faqs:
 
 ## Four campsites in the Ananthagiri Hills
 
-- **[Budget-Friendly Camping Near Ananthagiri Hills](/trips/ananthagiri-camping-from-hyderabad/)**: a pool, games, a Saturday DJ night and a campfire. From ₹1,600.
-- **[Harivillu Resort](/trips/ananthagiri-harivillu-camping-from-hyderabad/)**: a rope course of about ten activities, cycling, a short trek and a movie night. From ₹2,000.
-- **[Sarpanpally Lake](/trips/ananthagiri-sarpanpally-lake-camping-from-hyderabad/)**: lakeside tents, a bonfire hour, games and live-kitchen meals. From ₹2,000.
-- **[Trance Veechika](/trips/ananthagiri-trance-veechika-camping-from-hyderabad/)**: premium camping with a pool, rain dance and a guided sunrise trek. From ₹2,999.
+- **[Budget Camping in Ananthagiri Hills with Pool & Music](/trips/ananthagiri-camping-from-hyderabad/)**: a pool, games, a Saturday DJ night and a campfire. From ₹1,600.
+- **[Premium Adventure Camping in Ananthagiri Hills](/trips/ananthagiri-harivillu-camping-from-hyderabad/)** at Harivillu Resort: a rope course of about ten activities, cycling, a short trek and a movie night. From ₹2,000.
+- **[Lakeside Camping Near Hyderabad](/trips/ananthagiri-sarpanpally-lake-camping-from-hyderabad/)** at Sarpanpally Lake: lakeside tents, a bonfire hour, games and live-kitchen meals. From ₹2,000.
+- **[Premium Camping in Ananthagiri Hills](/trips/ananthagiri-trance-veechika-camping-from-hyderabad/)** at Trance Veechika Resort: a pool, rain dance and a guided sunrise trek. From ₹2,999.
 
 Each campsite has one price per person. To see check-in times, meals and activities side by side, [compare the Ananthagiri campsites](/camping-near-hyderabad/ananthagiri-hills/).
 

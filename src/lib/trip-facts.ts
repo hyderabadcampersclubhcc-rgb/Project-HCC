@@ -32,13 +32,12 @@ export function isSelfCamp(trip: TripView, origin: TripOriginView) {
   return trip.data.tripTypes.includes('camping') && includedTransport(origin).every((t) => t.mode === 'self');
 }
 
-/** Page heading / schema name: "{Title} near {City}" for self-reach camps, else "{Title} Group Trip from {City}". */
+/**
+ * Page heading / schema name: the package name itself for self-reach camps (owner-approved names such as
+ * "Premium Camping in Ananthagiri Hills", 12 Oct 2026), else "{Title} Group Trip from {City}".
+ */
 export const tripHeading = (trip: TripView, origin: TripOriginView) =>
-  isSelfCamp(trip, origin)
-    ? /\bnear\b/i.test(trip.data.title)
-      ? trip.data.title // e.g. "Budget-Friendly Camping Near Ananthagiri Hills": no second "near"
-      : `${trip.data.title} near ${origin.label}`
-    : `${trip.data.title} Group Trip from ${origin.label}`;
+  isSelfCamp(trip, origin) ? trip.data.title : `${trip.data.title} Group Trip from ${origin.label}`;
 
 function rawOrigin(trip: TripView, origin: TripOriginView) {
   return trip.data.origins.find((o) => o.city === origin.city);

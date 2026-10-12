@@ -1,8 +1,11 @@
 ---
 # Imported from HCC’s trip listings (Oct 2026). Review prices, dates and inclusions in the CMS before go-live.
-title: Budget-Friendly Camping Near Ananthagiri Hills
-seoName: Budget-Friendly Camping Near Ananthagiri Hills
-whatsappSubject: budget-friendly camping near Ananthagiri Hills
+title: Budget Camping in Ananthagiri Hills with Pool & Music
+seoName: Budget Camping in Ananthagiri Hills with Pool & Music
+whatsappSubject: Budget Camping in Ananthagiri Hills with Pool & Music
+seo:
+  title: "Budget Camping with Pool Near Hyderabad | HCC"
+  description: "Budget camping in Ananthagiri Hills: tents, pool (5–10 pm), games, campfire and meals; DJ music on Saturdays only. ₹1,600/person. Book with HCC on WhatsApp."
 tagline: Tents, pool, box cricket, a Saturday DJ night, campfire and hot buffet meals in the Vikarabad woods.
 tripTypes:
   - camping
@@ -70,8 +73,8 @@ exclusions:
   - Anything not listed under inclusions
 itinerary:
   - day: 1
-    title: Check in, pool and music night
-    description: 4:00 pm check-in, tent allotment and setup. Tea and hot camp snacks 5–6 pm. The pool is open 5–10 pm and games run until 11:50 pm. Saturday DJ session from 8 pm, dinner buffet 8:30–10 pm (bagara rice, steamed rice, chicken curry, veg curry, sambar). The campsite gate closes at 10 pm.
+    title: Check in, pool, games and Saturday DJ
+    description: 4:00 pm check-in, tent allotment and setup. Tea and hot camp snacks 5–6 pm. The pool is open 5–10 pm and games run until 11:50 pm. DJ music session from 8 pm on Saturdays only, dinner buffet 8:30–10 pm (bagara rice, steamed rice, chicken curry, veg curry, sambar). The campsite gate closes at 10 pm.
     meals:
       - snacks
       - dinner
@@ -130,7 +133,7 @@ faqs:
   - q: Is the swimming pool included?
     a: Yes, from 5 pm to 10 pm. Bring an extra pair of clothes.
   - q: Is the DJ every night?
-    a: The DJ music session is on Saturdays.
+    a: No. The DJ music session is on Saturdays only.
 featured: true
 sortOrder: 80
 recurrence: Call to check availability
