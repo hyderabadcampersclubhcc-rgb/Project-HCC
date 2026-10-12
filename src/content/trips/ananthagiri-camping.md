@@ -1,8 +1,8 @@
 ---
 # Imported from HCC’s trip listings (Oct 2026). Review prices, dates and inclusions in the CMS before go-live.
-title: Ananthagiri Hills Camping with Pool & Music Night
-seoName: "Heaven's Resort Camping, Ananthagiri Hills"
-whatsappSubject: "Heaven's Resort (Lakeview) camping in Ananthagiri Hills"
+title: Budget-Friendly Camping Near Ananthagiri Hills
+seoName: Budget-Friendly Camping Near Ananthagiri Hills
+whatsappSubject: budget-friendly camping near Ananthagiri Hills
 tagline: Tents, pool, box cricket, a Saturday DJ night, campfire and hot buffet meals in the Vikarabad woods.
 tripTypes:
   - camping
@@ -94,8 +94,7 @@ itinerary:
       license: CC BY-SA 3.0
       source: https://commons.wikimedia.org/wiki/File:Ananthagiri_Hills.JPG
 stays:
-  - name: Heaven's Resort (Lakeview Camping)
-    type: Campsite tents
+  - type: Campsite tents
     location: Ananthagiri Hills, Vikarabad
     washroom: common
     description: 2 or 3 sharing tents with bedding and pillows, beside a swimming pool and games area.

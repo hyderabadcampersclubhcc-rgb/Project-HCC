@@ -71,9 +71,9 @@ faqs:
   - q: How far is Ananthagiri Hills from Hyderabad?
     a: About 80 km, near Vikarabad, roughly 2 to 2.5 hours by road. By train, the 12702 from Nampally reaches Vikarabad at 4:02 pm, and autos or cabs cover the last stretch to the campsites.
   - q: Which campsites does HCC offer at Ananthagiri Hills?
-    a: "Four: Heaven's Resort (Lakeview) with a pool and Saturday DJ night, Harivillu Resort with a rope course and cycling, lakeside camping at Sarpanpally Lake, and premium camping at Trance Veechika with a sunrise trek."
+    a: "Four: budget-friendly camping with a pool and Saturday DJ night, Harivillu Resort with a rope course and cycling, lakeside camping at Sarpanpally Lake, and premium camping at Trance Veechika with a sunrise trek."
   - q: What does camping at Ananthagiri Hills cost?
-    a: "One price per person for the night with meals: ₹1,600 at Heaven's Resort, ₹2,000 at Harivillu Resort, ₹2,000 at Sarpanpally Lake and ₹2,999 at Trance Veechika."
+    a: "One price per person for the night with meals: ₹1,600 for budget-friendly camping, ₹2,000 at Harivillu Resort, ₹2,000 at Sarpanpally Lake and ₹2,999 at Trance Veechika."
   - q: What is there to see nearby?
     a: Kotpalli Lake (boating and kayaking), Anantha Padmanabha Swamy Temple, the Ananthagiri viewpoint and Damagundam Shiva Temple, all on your own transport.
 seo:
@@ -89,7 +89,7 @@ Ananthagiri Hills near Vikarabad is one of the closest forested hill areas to Hy
 
 HCC offers four overnight camps here, each with one price per person:
 
-- **[Heaven's Resort (Lakeview)](/trips/ananthagiri-camping-from-hyderabad/)**: tents with bedding, a pool from 5 to 10 pm, games, a Saturday DJ night, a campfire and a hot buffet. Check in at 4 pm, check out at 11 am. From ₹1,600.
+- **[Budget-Friendly Camping Near Ananthagiri Hills](/trips/ananthagiri-camping-from-hyderabad/)**: tents with bedding, a pool from 5 to 10 pm, games, a Saturday DJ night, a campfire and a hot buffet. Check in at 4 pm, check out at 11 am. From ₹1,600.
 - **[Harivillu Resort](/trips/ananthagiri-harivillu-camping-from-hyderabad/)**: a rope adventure course, cycling, a short trek, sports, a bonfire and a movie night. From ₹2,000.
 - **[Sarpanpally Lake](/trips/ananthagiri-sarpanpally-lake-camping-from-hyderabad/)**: lakeside tents, a bonfire hour, games and live-kitchen meals. From ₹2,000.
 - **[Trance Veechika](/trips/ananthagiri-trance-veechika-camping-from-hyderabad/)**: premium camping with a pool, rain dance and a guided sunrise trek. From ₹2,999.

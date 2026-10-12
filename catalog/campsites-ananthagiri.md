@@ -7,7 +7,7 @@ Updated 9 Oct 2026, on the owner's instruction: build all four campsites with th
 | Page | URL | Production indexing |
 |---|---|---|
 | Comparison / landing | `/camping-near-hyderabad/ananthagiri-hills/` | noindex until owner approval (`indexable: false` in `src/content/landings/ananthagiri-hills-camping.md`) |
-| Heaven's Resort (Lakeview), ₹1,600 | `/trips/ananthagiri-camping-from-hyderabad/` (existing page, reused) | indexed, unchanged |
+| Budget-Friendly Camping Near Ananthagiri Hills (formerly listed as Heaven's), ₹1,600 | `/trips/ananthagiri-camping-from-hyderabad/` (existing page, reused) | indexed, unchanged |
 | Harivillu Resort, ₹2,000 | `/trips/ananthagiri-harivillu-camping-from-hyderabad/` | noindex until approved |
 | Sarpanpally Lake, ₹2,000 | `/trips/ananthagiri-sarpanpally-lake-camping-from-hyderabad/` | noindex until approved |
 | Trance Veechika (premium), ₹2,999 | `/trips/ananthagiri-trance-veechika-camping-from-hyderabad/` | noindex until approved |
@@ -25,7 +25,7 @@ Each camp shows one price per person: the owner's HCC price. The reference pages
 
 Tick when sent. Until then these items aren't shown on the site, or the site falls back to safe wording ("check availability on WhatsApp", the site-wide cancellation policy).
 
-| Detail | Heaven's (₹1,600) | Harivillu (₹2,000) | Sarpanpally Lake (₹2,000) | Trance Veechika (₹2,999) |
+| Detail | Budget-friendly (₹1,600) | Harivillu (₹2,000) | Sarpanpally Lake (₹2,000) | Trance Veechika (₹2,999) |
 |---|---|---|---|---|
 | Resort partnership / authorisation to sell (not claimed on the site) | [ ] existing HCC option | [ ] | [ ] | [ ] |
 | Actual dates and availability | [ ] | [ ] | [ ] | [ ] |

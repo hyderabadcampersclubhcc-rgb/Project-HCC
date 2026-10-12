@@ -19,9 +19,9 @@ seo:
 indexable: true
 faqs:
   - q: Where can I go camping near Hyderabad?
-    a: "HCC's camps are in the Ananthagiri Hills near Vikarabad, about 80 km from Hyderabad: Heaven's Resort (Lakeview), Harivillu Resort, the lakeside campsite at Sarpanpally Lake, and Trance Veechika Resort."
+    a: "HCC's camps are in the Ananthagiri Hills near Vikarabad, about 80 km from Hyderabad: budget-friendly camping, Harivillu Resort, the lakeside campsite at Sarpanpally Lake, and Trance Veechika Resort."
   - q: How much does camping near Hyderabad cost?
-    a: "One price per person for a night with meals: ₹1,600 at Heaven's Resort, ₹2,000 at Harivillu Resort, ₹2,000 at Sarpanpally Lake and ₹2,999 for premium camping at Trance Veechika. Each camp page lists exactly what's included."
+    a: "One price per person for a night with meals: ₹1,600 for budget-friendly camping, ₹2,000 at Harivillu Resort, ₹2,000 at Sarpanpally Lake and ₹2,999 for premium camping at Trance Veechika. Each camp page lists exactly what's included."
   - q: Is transport included?
     a: "No. You reach the campsite yourself: drive (about 2 to 2.5 hours), or take a train or bus to Vikarabad and an auto or cab from there."
   - q: Are the tents shared?
@@ -38,7 +38,7 @@ faqs:
 
 ## Four campsites in the Ananthagiri Hills
 
-- **[Heaven's Resort (Lakeview)](/trips/ananthagiri-camping-from-hyderabad/)**: a pool, games, a Saturday DJ night and a campfire. From ₹1,600.
+- **[Budget-Friendly Camping Near Ananthagiri Hills](/trips/ananthagiri-camping-from-hyderabad/)**: a pool, games, a Saturday DJ night and a campfire. From ₹1,600.
 - **[Harivillu Resort](/trips/ananthagiri-harivillu-camping-from-hyderabad/)**: a rope course of about ten activities, cycling, a short trek and a movie night. From ₹2,000.
 - **[Sarpanpally Lake](/trips/ananthagiri-sarpanpally-lake-camping-from-hyderabad/)**: lakeside tents, a bonfire hour, games and live-kitchen meals. From ₹2,000.
 - **[Trance Veechika](/trips/ananthagiri-trance-veechika-camping-from-hyderabad/)**: premium camping with a pool, rain dance and a guided sunrise trek. From ₹2,999.
