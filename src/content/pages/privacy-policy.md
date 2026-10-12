@@ -3,8 +3,8 @@ title: Privacy Policy
 description: How Hyderabad Campers Club (HCC) collects, uses and protects personal information from trip enquiries, bookings and this website.
 updatedAt: 2026-10-07
 draft: false
-# Published for review but kept out of Google and the sitemap until HCC approves it.
-noindex: true
+# Published on staging as supplied by HCC (owner instruction, 12 Oct 2026).
+noindex: false
 ---
 
 <!--

@@ -27,7 +27,6 @@ const MUST_BE_NOINDEX = [
   /^\/weekend-trips-from-bangalore\/$/, // Bangalore hub: on hold until Bangalore operations data is confirmed
   /^\/travel-guides\//, // guides: each one needs owner review before indexing
   /^\/terms\/$/, // hidden until the owner approves the wording
-  /^\/privacy-policy\/$/,
 ];
 // Placeholder content that must never be published.
 const MUST_NOT_EXIST = ['/travel-guides/hyderabad-to-ooty-travel-guide/'];
