@@ -1,0 +1,30 @@
+---
+/**
+ * Plain text where the owner's wording for unconfirmed facts, "Contact us on WhatsApp to confirm.",
+ * becomes a WhatsApp link (same tracking attributes as every WhatsApp CTA). Text without the phrase
+ * renders unchanged, so it can wrap any trip or FAQ text field.
+ */
+import { waRef } from '@/lib/whatsapp';
+
+interface Props {
+  text: string;
+  /** wa.me link with the page's message (waHref); null leaves the phrase as plain text. */
+  href?: string | null;
+  tripId?: string;
+}
+
+const { text, href, tripId } = Astro.props;
+const parts = text.split(/(contact us on WhatsApp to confirm\.?)/i);
+---
+
+{
+  parts.map((part, i) =>
+    i % 2 === 1 && href ? (
+      <a href={href} target="_blank" rel="noopener" data-wa data-wa-ref={waRef(tripId)} data-cta-location="confirm_details" data-trip-id={tripId}>
+        {part}
+      </a>
+    ) : (
+      part
+    ),
+  )
+}

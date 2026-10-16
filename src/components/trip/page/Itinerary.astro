@@ -9,6 +9,8 @@ import Photo from '@/components/ui/Photo.astro';
 import PhotoCredit from '@/components/ui/PhotoCredit.astro';
 import type { TripView, TripOriginView } from '@/lib/catalog';
 import { dayShort } from '@/lib/format';
+import ConfirmText from '@/components/content/ConfirmText.astro';
+import { waHref } from '@/lib/whatsapp';
 
 interface Props {
   trip: TripView;
@@ -16,6 +18,7 @@ interface Props {
 }
 
 const { trip, origin } = Astro.props;
+const confirmHref = waHref({ subject: trip.data.whatsappSubject, tripTitle: trip.data.title, originLabel: origin?.label });
 const days = [...origin.itinerary].sort((a, b) => a.day - b.day);
 const start = origin.next?.start;
 const weekday = (offset: number) => {
@@ -53,7 +56,9 @@ const MEAL: Record<string, string> = { breakfast: 'Breakfast', lunch: 'Lunch', d
                     <PhotoCredit credit={day.imageCredit} />
                   </figure>
                 )}
-                <p>{day.description}</p>
+                <p>
+                  <ConfirmText text={day.description} href={confirmHref} tripId={trip.id} />
+                </p>
                 {(day.meals.length > 0 || day.stay) && (
                   <p class="it__meta">
                     {day.meals.length > 0 && (

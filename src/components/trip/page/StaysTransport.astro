@@ -8,6 +8,8 @@ import TripSection from './TripSection.astro';
 import Icon from '@/components/ui/Icon.astro';
 import type { TripView, TripOriginView } from '@/lib/catalog';
 import { isSelfCamp } from '@/lib/trip-facts';
+import ConfirmText from '@/components/content/ConfirmText.astro';
+import { waHref } from '@/lib/whatsapp';
 
 interface Props {
   trip: TripView;
@@ -15,6 +17,7 @@ interface Props {
 }
 
 const { trip, origin } = Astro.props;
+const confirmHref = waHref({ subject: trip.data.whatsappSubject, tripTitle: trip.data.title, originLabel: origin?.label });
 const d = trip.data;
 const o = d.origins.find((x) => x.city === origin.city)!;
 const WASH: Record<string, string> = { attached: 'Attached washroom', shared: 'Shared washroom', common: 'Common washroom' };
@@ -110,7 +113,11 @@ const selfCamp = isSelfCamp(trip, origin);
               <li>
                 <div>
                   <b>{p.name}</b>
-                  {p.note && <small>{p.note}</small>}
+                  {p.note && (
+                    <small>
+                      <ConfirmText text={p.note} href={confirmHref} tripId={trip.id} />
+                    </small>
+                  )}
                 </div>
                 {p.time && <span class="badge badge--outline num">{p.time}</span>}
                 {p.mapUrl && (

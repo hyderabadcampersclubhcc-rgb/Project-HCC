@@ -21,8 +21,7 @@ origins:
     label: Hyderabad
     pickupPoints:
       - name: "Campsite: Harivillu Resort, Ananthagiri Hills, Vikarabad"
-        time: 16:00
-        note: Check-in 4:00 pm, check-out 11:00 am the next day.
+        note: "Check-in time: Contact us on WhatsApp to confirm. Check-out 11:00 am the next day."
     outbound: Self-drive (about 80 km, 2 to 2.5 hours), or train/bus to Vikarabad and an auto or cab
     return: Check out at 11:00 am on Sunday and head back on your own
     incomplete:
@@ -72,7 +71,7 @@ exclusions:
 itinerary:
   - day: 1
     title: Check in, rope course and movie night
-    description: Check in at 4 pm and settle into your two-person tent. Evening tea with samosa, then the rope adventure course, cycling and a short trek. Box cricket, sand volleyball, badminton, table tennis and carrom until dark. Music and a bonfire at night, a movie screening if the weather allows, then dinner.
+    description: "Check in and settle into your two-person tent (check-in time: Contact us on WhatsApp to confirm.) Evening tea with samosa, then the rope adventure course, cycling and a short trek. Box cricket, sand volleyball, badminton, table tennis and carrom until dark. Music and a bonfire at night, a movie screening if the weather allows, then dinner."
     meals:
       - snacks
       - dinner
@@ -109,7 +108,7 @@ faqs:
   - q: What adventure activities are included at Harivillu?
     a: A rope adventure course with about 10 activities, cycling and a short trek, plus outdoor sports and indoor games. All are included in the price.
   - q: What time is check-in and check-out?
-    a: Check-in is at 4 pm on Saturday and check-out at 11 am on Sunday.
+    a: "Check-in time: Contact us on WhatsApp to confirm. Check-out is at 11 am on Sunday."
   - q: Is there a movie screening every time?
     a: It runs at night when the weather allows.
 heroImage: ../../assets/photos/ananthagiri.jpg
@@ -135,6 +134,7 @@ sortOrder: 82
 recurrence: Saturdays (check availability on WhatsApp)
 primaryKeyword: harivillu resort camping ananthagiri
 confirmOnWhatsApp:
+  - Check-in time
   - Advance and payment
   - Cancellation and date changes
   - GST

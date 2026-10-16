@@ -7,8 +7,8 @@ seoName: Premium Camping in Ananthagiri Hills
 whatsappSubject: "Premium Camping in Ananthagiri Hills (Trance Veechika Resort)"
 seo:
   title: "Premium Camping in Ananthagiri Hills | HCC"
-  description: "Premium camping at Trance Veechika Resort: pool and rain dance, bonfire, games and a guided 6 am sunrise trek. ₹2,999/person. Book with HCC on WhatsApp."
-tagline: Premium tents with a pool, rain dance, sports, bonfire and a guided sunrise trek in the Ananthagiri forest.
+  description: "Premium camping at Trance Veechika Resort: pool, bonfire, games and a guided 6 am sunrise trek. ₹2,999/person. Book with HCC on WhatsApp."
+tagline: Premium tents with a pool, sports, bonfire and a guided sunrise trek in the Ananthagiri forest.
 tripTypes:
   - camping
 destinations:
@@ -21,8 +21,7 @@ origins:
     label: Hyderabad
     pickupPoints:
       - name: "Campsite: Trance Veechika Resort, Ananthagiri Hills, Vikarabad"
-        time: 15:00
-        note: Check-in 3:00 pm, check-out 11:00 am the next day.
+        note: "Check-in time: Contact us on WhatsApp to confirm. Check-out 11:00 am the next day."
     outbound: Self-drive (about 80 km, 2 to 2.5 hours), or train/bus to Vikarabad and an auto or cab
     return: Check out at 11:00 am on Sunday and head back on your own
     incomplete:
@@ -43,7 +42,7 @@ stayOptions:
     priceDelta: 0
 basePrice: 2999
 highlights:
-  - Swimming pool and rain dance (4 to 6 pm)
+  - Swimming pool (4 to 6 pm)
   - Sand volleyball and a mini cricket box (4 to 9 pm)
   - Table tennis, badminton and carrom
   - Evening bonfire
@@ -57,7 +56,7 @@ inclusions:
     icon: food
     showOnCard: true
     cardLabel: Meals
-  - text: Swimming pool and rain dance
+  - text: Swimming pool
     icon: check
     showOnCard: true
     cardLabel: Pool
@@ -75,7 +74,7 @@ exclusions:
 itinerary:
   - day: 1
     title: Pool, games and bonfire
-    description: Check in at 3 pm and have hi-tea. Pool and rain dance from 4 to 6 pm, sand volleyball and the mini cricket box until 9 pm, and indoor games any time. A bonfire after dark, then dinner.
+    description: "Check in and have hi-tea (check-in time: Contact us on WhatsApp to confirm.) Pool from 4 to 6 pm, sand volleyball and the mini cricket box until 9 pm, and indoor games any time. A bonfire after dark, then dinner. Rain dance: Contact us on WhatsApp to confirm."
     meals:
       - snacks
       - dinner
@@ -102,18 +101,18 @@ importantInfo:
   - Carry a valid government photo ID for every guest; it is checked at check-in.
   - Activities depend on the weather and may change for safety.
   - Check availability on WhatsApp before you travel; the camp runs on Saturdays with check-out on Sunday.
-  - Bring swimwear and an extra set of clothes for the pool and rain dance.
+  - Bring swimwear and an extra set of clothes for the pool.
 suitableFor:
   - Couples
   - Groups of friends
   - Families
 faqs:
   - q: What makes this the premium option?
-    a: A private campsite with a swimming pool and rain dance, sports, a bonfire and a guided sunrise trek, all included in the price.
+    a: "A private campsite with a swimming pool, sports, a bonfire and a guided sunrise trek, all included in the price. Rain dance: Contact us on WhatsApp to confirm."
   - q: What time does the sunrise trek start?
     a: At 6 am on Sunday, before breakfast.
   - q: What time is check-in and check-out?
-    a: Check-in is at 3 pm on Saturday and check-out at 11 am on Sunday.
+    a: "Check-in time: Contact us on WhatsApp to confirm. Check-out is at 11 am on Sunday."
 heroImage: ../../assets/photos/ananthagiri.jpg
 heroAlt: Forested Ananthagiri Hills near Vikarabad (area view, not the campsite)
 heroCredit:
@@ -137,6 +136,8 @@ sortOrder: 84
 recurrence: Saturdays (check availability on WhatsApp)
 primaryKeyword: premium camping ananthagiri hills
 confirmOnWhatsApp:
+  - Check-in time
+  - Rain dance
   - Advance and payment
   - Cancellation and date changes
   - GST
@@ -146,6 +147,6 @@ confirmOnWhatsApp:
 status: live
 ---
 
-The most comfortable way to camp at Ananthagiri. You stay in tents on a private campsite at Trance Veechika Resort, with a swimming pool and rain dance in the afternoon, sports until late evening and a bonfire after dark.
+The most comfortable way to camp at Ananthagiri. You stay in tents on a private campsite at Trance Veechika Resort, with a swimming pool in the afternoon, sports until late evening and a bonfire after dark.
 
 The highlight is the guided 6 am sunrise trek through the Ananthagiri forest trails, followed by breakfast before check-out.

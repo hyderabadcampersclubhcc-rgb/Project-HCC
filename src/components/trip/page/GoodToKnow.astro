@@ -9,6 +9,7 @@ import type { TripView, TripOriginView } from '@/lib/catalog';
 import { inr } from '@/lib/format';
 import { settings } from '@/lib/settings';
 import { waHref, waRef } from '@/lib/whatsapp';
+import ConfirmText from '@/components/content/ConfirmText.astro';
 
 interface Props {
   trip: TripView;
@@ -76,7 +77,9 @@ const any = d.suitableFor.length || d.notSuitableFor.length || thingsToCarry.len
             </h3>
             <ul class="gtk__list">
               {importantInfo.map((t) => (
-                <li>{t}</li>
+                <li>
+                  <ConfirmText text={t} href={confirmHref} tripId={trip.id} />
+                </li>
               ))}
             </ul>
           </div>

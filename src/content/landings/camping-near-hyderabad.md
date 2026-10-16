@@ -41,13 +41,13 @@ faqs:
 - **[Budget Camping in Ananthagiri Hills with Pool & Music](/trips/ananthagiri-camping-from-hyderabad/)**: a pool, games, a Saturday DJ night and a campfire. From ₹1,600.
 - **[Premium Adventure Camping in Ananthagiri Hills](/trips/ananthagiri-harivillu-camping-from-hyderabad/)** at Harivillu Resort: a rope course of about ten activities, cycling, a short trek and a movie night. From ₹2,000.
 - **[Lakeside Camping Near Hyderabad](/trips/ananthagiri-sarpanpally-lake-camping-from-hyderabad/)** at Sarpanpally Lake: lakeside tents, a bonfire hour, games and live-kitchen meals. From ₹2,000.
-- **[Premium Camping in Ananthagiri Hills](/trips/ananthagiri-trance-veechika-camping-from-hyderabad/)** at Trance Veechika Resort: a pool, rain dance and a guided sunrise trek. From ₹2,999.
+- **[Premium Camping in Ananthagiri Hills](/trips/ananthagiri-trance-veechika-camping-from-hyderabad/)** at Trance Veechika Resort: a pool and a guided sunrise trek. From ₹2,999.
 
 Each campsite has one price per person. To see check-in times, meals and activities side by side, [compare the Ananthagiri campsites](/camping-near-hyderabad/ananthagiri-hills/).
 
 ## How a camping night works
 
-- **Arrive in the afternoon.** Check-in is at 3 pm or 4 pm, depending on the campsite. You reach the campsite yourself.
+- **Arrive in the afternoon.** Check-in is in the afternoon; the time depends on the campsite. For your campsite, [Contact us on WhatsApp to confirm.](https://wa.me/918179321382?text=Hi%20HCC%2C%20what%20is%20the%20check-in%20time%20at%20the%20Ananthagiri%20campsite%20I'm%20interested%20in%3F) You reach the campsite yourself.
 - **Evening:** tea and snacks, the campsite's activities, a bonfire or campfire after dark, then dinner.
 - **Night:** tents for 2 or 3 people, depending on the campsite.
 - **Morning:** breakfast (and a sunrise trek at Trance Veechika), then check-out at 11 am.

@@ -3,14 +3,20 @@
  * FAQ accordion with native <details> (crawlable, works without JS).
  * FAQPage schema is intentionally NOT emitted: Google restricts FAQ rich results to
  * government/health sites, so the markup adds weight without benefit.
+ * "Contact us on WhatsApp to confirm." in an answer links to WhatsApp (confirmHref, else HCC's general chat).
  */
+import ConfirmText from './ConfirmText.astro';
+import { waHref } from '@/lib/whatsapp';
 interface Props {
   items: { q: string; a: string }[];
   openFirst?: boolean;
   class?: string;
+  /** WhatsApp link (with the page's message) for unconfirmed-fact answers. */
+  confirmHref?: string | null;
+  tripId?: string;
 }
 
-const { items, openFirst = false, class: className } = Astro.props;
+const { items, openFirst = false, class: className, confirmHref = waHref(), tripId } = Astro.props;
 ---
 
 {
@@ -21,7 +27,9 @@ const { items, openFirst = false, class: className } = Astro.props;
           <summary>{f.q}</summary>
           <div class="faq__a">
             {f.a.split(/\n{2,}/).map((p) => (
-              <p>{p}</p>
+              <p>
+                <ConfirmText text={p} href={confirmHref} tripId={tripId} />
+              </p>
             ))}
           </div>
         </details>

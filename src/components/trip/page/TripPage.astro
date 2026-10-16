@@ -24,6 +24,7 @@ import BookingCard from '@/components/trip/BookingCard.astro';
 import StickyBar from '@/components/trip/StickyBar.astro';
 import EnquirySheet from '@/components/trip/EnquirySheet.astro';
 import FAQ from '@/components/content/FAQ.astro';
+import { waHref } from '@/lib/whatsapp';
 import Reviews from '@/components/trust/Reviews.astro';
 import WhatsAppBand from '@/components/cta/WhatsAppBand.astro';
 import SectionNote from '@/components/home/SectionNote.astro';
@@ -109,7 +110,7 @@ const sections = [
           <>
             {preview && <SectionNote n={10} title="Trip FAQs" purpose="Trip-specific questions only (general ones live on /faq/), so there's no duplicate content across pages." data="Trip FAQs (CMS)." status="needs-data" />}
             <TripSection id="faqs" title="Questions about this trip">
-              <FAQ items={faqs} />
+              <FAQ items={faqs} confirmHref={waHref({ subject: trip.data.whatsappSubject, tripTitle: trip.data.title, originLabel: o.label })} tripId={trip.id} />
             </TripSection>
           </>
         )

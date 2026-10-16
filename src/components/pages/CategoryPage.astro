@@ -10,6 +10,7 @@ import PageIntro from '@/components/listing/PageIntro.astro';
 import TripListing from '@/components/listing/TripListing.astro';
 import PlannerTable from '@/components/listing/PlannerTable.astro';
 import FAQ from '@/components/content/FAQ.astro';
+import { waHref } from '@/lib/whatsapp';
 import BlogCard from '@/components/content/BlogCard.astro';
 import WhatsAppBand from '@/components/cta/WhatsAppBand.astro';
 import SectionNote from '@/components/home/SectionNote.astro';
@@ -78,7 +79,7 @@ const related = l.related.map((path) => TRIP_TYPE_LINKS.find((t) => t.href === p
             <h2 id="cat-faq" class="cat__h2">
               Questions about {l.title}
             </h2>
-            <FAQ items={l.faqs} />
+            <FAQ items={l.faqs} confirmHref={waHref({ subject: l.whatsappSubject })} />
           </section>
         </>
       )

@@ -26,7 +26,7 @@ seoTier: a
 indexable: true
 howToReach:
   - mode: self
-    duration: Check in by 4 pm
+    duration: About 2 to 2.5 hours
     note: Drive yourself by car or bike to the campsite at Ananthagiri Hills, Vikarabad.
   - mode: train
     duration: About 1 hour
@@ -92,7 +92,7 @@ HCC offers four overnight camps here, each with one price per person:
 - **[Budget Camping in Ananthagiri Hills with Pool & Music](/trips/ananthagiri-camping-from-hyderabad/)**: tents with bedding, a pool from 5 to 10 pm, games, a Saturday DJ night, a campfire and a hot buffet. Check in at 4 pm, check out at 11 am. From ₹1,600.
 - **[Premium Adventure Camping in Ananthagiri Hills](/trips/ananthagiri-harivillu-camping-from-hyderabad/)** at Harivillu Resort: a rope adventure course, cycling, a short trek, sports, a bonfire and a movie night. From ₹2,000.
 - **[Lakeside Camping Near Hyderabad](/trips/ananthagiri-sarpanpally-lake-camping-from-hyderabad/)** at Sarpanpally Lake: lakeside tents, a bonfire hour, games and live-kitchen meals. From ₹2,000.
-- **[Premium Camping in Ananthagiri Hills](/trips/ananthagiri-trance-veechika-camping-from-hyderabad/)** at Trance Veechika Resort: a pool, rain dance and a guided sunrise trek. From ₹2,999.
+- **[Premium Camping in Ananthagiri Hills](/trips/ananthagiri-trance-veechika-camping-from-hyderabad/)** at Trance Veechika Resort: a pool and a guided sunrise trek. From ₹2,999.
 
 To see them side by side, [compare the Ananthagiri campsites](/camping-near-hyderabad/ananthagiri-hills/). For other ideas, see [camping near Hyderabad](/camping-near-hyderabad/).
 

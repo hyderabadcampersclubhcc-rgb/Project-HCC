@@ -66,7 +66,7 @@ inclusions:
     icon: check
 exclusions:
   - Transport to and from the campsite
-  - Optional paid activities at the campsite (ATV and dirt-bike rides, paintball, archery, shooting, axe throwing), extra bonfire time and barbecue set-ups
+  - "Optional paid activities and extras at the campsite: Contact us on WhatsApp to confirm."
   - Extra food and drinks
   - Anything not listed under inclusions
 itinerary:
@@ -101,7 +101,7 @@ importantInfo:
   - Check availability on WhatsApp before you travel; the camp runs on Saturdays with check-out on Sunday.
   - Outside food, alcohol and hazardous items are not allowed; guests under the influence may be refused activities.
   - Some activities have age, height or weight limits.
-  - Optional activities at the campsite are paid there; ask HCC on WhatsApp what is available on your date.
+  - "Optional paid activities at the campsite and their charges: Contact us on WhatsApp to confirm."
 suitableFor:
   - Groups of friends
   - Families
@@ -110,7 +110,7 @@ faqs:
   - q: Where exactly is the Sarpanpally Lake campsite?
     a: On the bank of Sarpanpally Lake at Godamguda village, Vikarabad, about 80 to 90 km from Hyderabad.
   - q: Are all activities included?
-    a: The outdoor and indoor games, the bonfire hour and the farm visit are included. ATV and dirt-bike rides, paintball, archery and similar activities are optional and paid at the campsite.
+    a: "The outdoor and indoor games, the bonfire hour and the farm visit are included. Optional paid activities at the campsite and their charges: Contact us on WhatsApp to confirm."
   - q: What time is check-in and check-out?
     a: Check-in is at 3 pm on Saturday and check-out at 11 am on Sunday.
 heroImage: ../../assets/photos/ananthagiri.jpg
@@ -136,6 +136,7 @@ sortOrder: 83
 recurrence: Saturdays (check availability on WhatsApp)
 primaryKeyword: sarpanpally lake camping
 confirmOnWhatsApp:
+  - Paid activities at the campsite
   - Advance and payment
   - Cancellation and date changes
   - GST
@@ -147,4 +148,4 @@ status: live
 
 Wake up beside the water: this campsite sits on the bank of Sarpanpally Lake at Godamguda village, a short drive from the Ananthagiri Hills. Evenings bring high tea, an hour around the bonfire and a live-kitchen dinner. Mornings start with breakfast by the lake and a walk to the organic farm and petting zoo.
 
-The outdoor and indoor games are included. ATV rides, paintball and archery are optional and paid at the campsite.
+The outdoor and indoor games are included. For optional paid activities at the campsite and their charges, [Contact us on WhatsApp to confirm.](https://wa.me/918179321382?text=Hi%20HCC%2C%20which%20optional%20paid%20activities%20are%20available%20at%20the%20Sarpanpally%20Lake%20campsite%2C%20and%20what%20do%20they%20cost%3F)

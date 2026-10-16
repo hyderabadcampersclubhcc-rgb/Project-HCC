@@ -11,6 +11,7 @@ import Experiences from '@/components/destination/Experiences.astro';
 import DestinationTrips from '@/components/destination/DestinationTrips.astro';
 import NearbyDestinations from '@/components/destination/NearbyDestinations.astro';
 import FAQ from '@/components/content/FAQ.astro';
+import { waHref } from '@/lib/whatsapp';
 import BlogCard from '@/components/content/BlogCard.astro';
 import WhatsAppBand from '@/components/cta/WhatsAppBand.astro';
 import SectionNote from '@/components/home/SectionNote.astro';
@@ -85,7 +86,7 @@ const guides = (await getCollection('guides', (g) => !g.data.draft && (showSampl
         <h2 id="dest-faq" class="dest__h2">
           {d.name}: questions travellers ask
         </h2>
-        <FAQ items={d.faqs} />
+        <FAQ items={d.faqs} confirmHref={waHref({ destination: d.name })} />
       </section>
     )
   }

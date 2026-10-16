@@ -6,6 +6,8 @@
 import TripSection from './TripSection.astro';
 import Icon from '@/components/ui/Icon.astro';
 import type { TripView, TripOriginView } from '@/lib/catalog';
+import ConfirmText from '@/components/content/ConfirmText.astro';
+import { waHref } from '@/lib/whatsapp';
 
 interface Props {
   trip: TripView;
@@ -14,6 +16,7 @@ interface Props {
 }
 
 const { trip, origin } = Astro.props;
+const confirmHref = waHref({ subject: trip.data.whatsappSubject, tripTitle: trip.data.title, originLabel: origin?.label });
 const inc = origin?.inclusions ?? trip.data.inclusions;
 const exc = origin?.exclusions ?? trip.data.exclusions;
 ---
@@ -50,7 +53,9 @@ const exc = origin?.exclusions ?? trip.data.exclusions;
               {exc.map((e) => (
                 <li class="inc__no">
                   <Icon name="x" />
-                  <span>{e}</span>
+                  <span>
+                    <ConfirmText text={e} href={confirmHref} tripId={trip.id} />
+                  </span>
                 </li>
               ))}
             </ul>
