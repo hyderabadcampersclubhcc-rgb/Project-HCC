@@ -35,7 +35,7 @@ faqs:
   - q: Is there lakeside camping near Hyderabad?
     a: "Yes. The Sarpanpally Lake campsite at Godamguda village, near Vikarabad, has tents on the bank of the lake, about 80 to 90 km from Hyderabad."
   - q: What time is check-in and check-out?
-    a: "Check-in is at 4 pm at the budget camp and 3 pm at Sarpanpally Lake. Check-in time at Harivillu and Trance Veechika: Contact us on WhatsApp to confirm. Check-out is at 11 am the next morning at all four."
+    a: "Check-in is at 4 pm at the budget camp. Check-in time at Harivillu, Sarpanpally Lake and Trance Veechika: Contact us on WhatsApp to confirm. Check-out is at 11 am the next morning at all four."
   - q: Are there extra charges at the campsites?
     a: "The price covers what each campsite page lists as included. Optional paid activities at Sarpanpally Lake and their charges: Contact us on WhatsApp to confirm. Food and drinks beyond the included meals are extra everywhere."
   - q: What else is there to see near the campsites?
@@ -48,7 +48,7 @@ faqs:
 |---|---|---|---|---|
 | **Best for** | A pool and a Saturday DJ night on a budget | Adventure activities | Camping by the water | A pool and a sunrise trek |
 | **Tent** | 2 or 3 sharing | 2 sharing | 2 sharing, lakeside | 2 or 3 sharing |
-| **Check-in / out** | 4 pm / 11 am | Check-in: [Contact us on WhatsApp to confirm.](https://wa.me/918179321382?text=Hi%20HCC%2C%20what%20is%20the%20check-in%20time%20at%20Harivillu%20Resort%3F) Check-out: 11 am | 3 pm / 11 am | Check-in: [Contact us on WhatsApp to confirm.](https://wa.me/918179321382?text=Hi%20HCC%2C%20what%20is%20the%20check-in%20time%20at%20Trance%20Veechika%20Resort%3F) Check-out: 11 am |
+| **Check-in / out** | 4 pm / 11 am | Check-in: [Contact us on WhatsApp to confirm.](https://wa.me/918179321382?text=Hi%20HCC%2C%20what%20is%20the%20check-in%20time%20at%20Harivillu%20Resort%3F) Check-out: 11 am | Check-in: [Contact us on WhatsApp to confirm.](https://wa.me/918179321382?text=Hi%20HCC%2C%20what%20is%20the%20check-in%20time%20at%20the%20Sarpanpally%20Lake%20campsite%3F) Check-out: 11 am | Check-in: [Contact us on WhatsApp to confirm.](https://wa.me/918179321382?text=Hi%20HCC%2C%20what%20is%20the%20check-in%20time%20at%20Trance%20Veechika%20Resort%3F) Check-out: 11 am |
 | **Meals** | Tea and snacks, dinner buffet, breakfast | Tea and samosa, dinner, breakfast | High tea, live-kitchen dinner, breakfast | Hi-tea, dinner, breakfast |
 | **Included activities** | Pool, box cricket, games, Saturday DJ, campfire, rain dance | Rope course (about 10 activities), cycling, short trek, sports, movie night, bonfire | Beach volleyball, box cricket and football, adventure rope, indoor games, bonfire hour, farm and petting zoo | Pool, sand volleyball, mini cricket, indoor games, bonfire, sunrise trek. Rain dance: [Contact us on WhatsApp to confirm.](https://wa.me/918179321382?text=Hi%20HCC%2C%20is%20the%20rain%20dance%20available%20at%20Trance%20Veechika%20Resort%20on%20my%20date%3F) |
 | **Paid extras on site** | – | – | [Contact us on WhatsApp to confirm.](https://wa.me/918179321382?text=Hi%20HCC%2C%20which%20optional%20paid%20activities%20are%20available%20at%20the%20Sarpanpally%20Lake%20campsite%2C%20and%20what%20do%20they%20cost%3F) | – |

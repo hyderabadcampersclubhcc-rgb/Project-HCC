@@ -21,8 +21,7 @@ origins:
     label: Hyderabad
     pickupPoints:
       - name: "Campsite: Wilderness campsite, Sarpanpally Lake, Godamguda village, Sarpanpally Lake, Vikarabad"
-        time: 15:00
-        note: Check-in 3:00 pm, check-out 11:00 am the next day.
+        note: "Check-in time: Contact us on WhatsApp to confirm. Check-out 11:00 am the next day."
     outbound: Self-drive (about 80 km, 2 to 2.5 hours), or train/bus to Vikarabad and an auto or cab
     return: Check out at 11:00 am on Sunday and head back on your own
     incomplete:
@@ -72,7 +71,7 @@ exclusions:
 itinerary:
   - day: 1
     title: Lakeside check-in and bonfire
-    description: Check in at 3 pm at the lakeside tents. High tea from 5 to 6 pm, games by the water, then an hour of bonfire if the weather allows. Dinner (veg or non-veg) from 8 to 10 pm.
+    description: "Check in at the lakeside tents (check-in time: Contact us on WhatsApp to confirm.) High tea from 5 to 6 pm, games by the water, then an hour of bonfire if the weather allows. Dinner (veg or non-veg) from 8 to 10 pm."
     meals:
       - snacks
       - dinner
@@ -112,7 +111,7 @@ faqs:
   - q: Are all activities included?
     a: "The outdoor and indoor games, the bonfire hour and the farm visit are included. Optional paid activities at the campsite and their charges: Contact us on WhatsApp to confirm."
   - q: What time is check-in and check-out?
-    a: Check-in is at 3 pm on Saturday and check-out at 11 am on Sunday.
+    a: "Check-in time: Contact us on WhatsApp to confirm. Check-out is at 11 am on Sunday."
 heroImage: ../../assets/photos/ananthagiri.jpg
 heroAlt: Forested Ananthagiri Hills near Vikarabad (area view, not the campsite)
 heroCredit:
@@ -136,6 +135,7 @@ sortOrder: 83
 recurrence: Saturdays (check availability on WhatsApp)
 primaryKeyword: sarpanpally lake camping
 confirmOnWhatsApp:
+  - Check-in time
   - Paid activities at the campsite
   - Advance and payment
   - Cancellation and date changes
