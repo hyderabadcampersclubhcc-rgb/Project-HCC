@@ -40,7 +40,7 @@ highlights:
   - Jatayu Earth Centre and Varkala cliff
   - Padmanabhaswamy Temple and Poovar backwaters
 inclusions:
-  - text: Return sleeper train tickets
+  - text: Non-AC sleeper-class train tickets (onward and return journey included)
     icon: train
     showOnCard: true
     cardLabel: Train

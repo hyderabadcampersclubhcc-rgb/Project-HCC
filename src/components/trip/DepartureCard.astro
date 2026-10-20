@@ -4,7 +4,7 @@ import Photo from '@/components/ui/Photo.astro';
 import Badge from '@/components/ui/Badge.astro';
 import Icon from '@/components/ui/Icon.astro';
 import { toneFor, type UpcomingItem } from '@/lib/catalog';
-import { dayShort, dayNum, monShort, durationLabel, travelSuffix, inr, dateRange } from '@/lib/format';
+import { dayShort, dayNum, monShort, durationLabel, travelSuffix, inr, dateRange, dateShort } from '@/lib/format';
 import { itemParams, toAttr } from '@/lib/tracking';
 
 interface Props {
@@ -33,7 +33,7 @@ const track = toAttr(itemParams(trip, origin, { listName, index, departure: dep 
     <H class="dcard__title">
       <a href={href} data-track="select_item" data-track-params={track}>
         {d.title}
-        <span class="sr-only">, {dateRange(dep.start, dep.end)}</span>
+        <span class="sr-only">, {origin.returnDateUnconfirmed ? dateShort(dep.start) : dateRange(dep.start, dep.end)}</span>
       </a>
     </H>
     <p class="dcard__meta">

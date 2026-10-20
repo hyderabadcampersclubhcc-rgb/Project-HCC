@@ -10,6 +10,7 @@ import { inr } from '@/lib/format';
 import { settings } from '@/lib/settings';
 import { waHref, waRef } from '@/lib/whatsapp';
 import ConfirmText from '@/components/content/ConfirmText.astro';
+import WhatsAppCTA from '@/components/cta/WhatsAppCTA.astro';
 
 interface Props {
   trip: TripView;
@@ -22,10 +23,14 @@ const d = trip.data;
 const thingsToCarry = origin?.thingsToCarry ?? d.thingsToCarry;
 const importantInfo = origin?.importantInfo ?? d.importantInfo;
 const toConfirm = d.confirmOnWhatsApp;
-const hasPayment = d.advanceAmount != null || d.cancellationPolicy || toConfirm.length > 0;
+const terms = d.paymentTerms;
+const hasPayment = d.advanceAmount != null || d.cancellationPolicy || toConfirm.length > 0 || terms.length > 0;
+const phone = settings.contact.phone || settings.contact.whatsapp;
+const tel = phone ? `tel:+${phone.replace(/\D/g, '').replace(/^(?!91)(\d{10})$/, '91$1')}` : null;
 // Unconfirmed details link to HCC's WhatsApp with this trip's message (tracked like every WhatsApp CTA).
 const confirmHref = waHref({ subject: d.whatsappSubject, tripTitle: d.title, originLabel: origin?.label });
-const any = d.suitableFor.length || d.notSuitableFor.length || thingsToCarry.length || importantInfo.length || hasPayment;
+const any =
+  d.suitableFor.length || d.notSuitableFor.length || thingsToCarry.length || importantInfo.length || hasPayment || d.infoSections.length || d.contactCard;
 ---
 
 {
@@ -84,13 +89,30 @@ const any = d.suitableFor.length || d.notSuitableFor.length || thingsToCarry.len
             </ul>
           </div>
         )}
+        {d.infoSections.map((s) => (
+          <div class="gtk__card gtk__card--wide">
+            <h3>
+              <Icon name="info" /> {s.title}
+            </h3>
+            <ul class="gtk__list">
+              {s.points.map((t) => (
+                <li>
+                  <ConfirmText text={t} href={confirmHref} tripId={trip.id} />
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
         {hasPayment && (
           <div class="gtk__card gtk__card--wide" id="policies">
             <h3>
               <Icon name="shield" /> Payment & cancellation
             </h3>
             <ul class="gtk__list">
-              {d.advanceAmount != null && (
+              {terms.map((t) => (
+                <li>{t}</li>
+              ))}
+              {terms.length === 0 && d.advanceAmount != null && (
                 <li>
                   Reserve your seat with <b>{inr(d.advanceAmount)} per person</b>
                   {settings.payments.enabled ? ', paid securely online.' : '. The HCC team confirms your seat and shares payment details.'}
@@ -114,6 +136,19 @@ const any = d.suitableFor.length || d.notSuitableFor.length || thingsToCarry.len
             <a class="btn btn--text gtk__more" href="/cancellation-policy/">
               Read the full cancellation policy <Icon name="arrow" />
             </a>
+          </div>
+        )}
+        {d.contactCard && phone && (
+          <div class="gtk__card gtk__card--wide gtk__contact">
+            <h3>
+              <Icon name="whatsapp" /> Call / WhatsApp
+            </h3>
+            <p>
+              <a href={tel ?? undefined} data-cta-location="trip_contact_call">
+                {phone}
+              </a>
+            </p>
+            <WhatsAppCTA location="trip_contact" tripId={trip.id} context={{ subject: d.whatsappSubject, tripTitle: d.title, originLabel: origin?.label }} size="sm" />
           </div>
         )}
       </div>
@@ -176,6 +211,19 @@ const any = d.suitableFor.length || d.notSuitableFor.length || thingsToCarry.len
   .gtk__more {
     margin-top: var(--s-3);
     font-size: 0.875rem;
+  }
+  .gtk__contact {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--s-2) var(--s-4);
+  }
+  .gtk__contact h3 {
+    margin: 0;
+  }
+  .gtk__contact p {
+    margin: 0;
+    font-weight: 700;
   }
   @media (min-width: 768px) {
     .gtk {

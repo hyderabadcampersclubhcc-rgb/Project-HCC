@@ -40,7 +40,7 @@ highlights:
   - Kailasagiri and Vizag beach
   - Bonfire and music
 inclusions:
-  - text: Return non-AC sleeper train tickets
+  - text: Non-AC sleeper-class train tickets (onward and return journey included)
     icon: train
     showOnCard: true
     cardLabel: Train

@@ -1,0 +1,101 @@
+---
+/**
+ * Private-trip pricing (owner-approved, per person): its own clearly labelled section so these prices are never
+ * mistaken for the group-departure price. Not used by the booking card, offers, "from" prices or schema.
+ */
+import TripSection from './TripSection.astro';
+import WhatsAppCTA from '@/components/cta/WhatsAppCTA.astro';
+import type { TripView, TripOriginView } from '@/lib/catalog';
+import { inr } from '@/lib/format';
+
+interface Props {
+  trip: TripView;
+  origin: TripOriginView;
+}
+
+const { trip, origin } = Astro.props;
+const p = trip.data.privatePricing;
+const message = `Hi HCC, I'd like to plan a private ${trip.data.title} trip from ${origin.label}. We are __ people, and our preferred dates are __.`;
+---
+
+{
+  p && (
+    <TripSection id="private" title="Private trip pricing" subtitle="Per person, for your own group">
+      <div class="pp">
+        <table class="pp__table">
+          <thead>
+            <tr>
+              <th scope="col">Group size</th>
+              <th scope="col">Price per person</th>
+            </tr>
+          </thead>
+          <tbody>
+            {p.tiers.map((t) => (
+              <tr>
+                <td>{t.group}</td>
+                <td>
+                  <b>{inr(t.price)}</b>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        <div class="pp__side">
+          {p.note && <p>{p.note}</p>}
+          <p class="pp__sep">These prices are for private trips only. They don't apply to the group departures listed above.</p>
+          <WhatsAppCTA location="private_trip" tripId={trip.id} context={{ custom: message }} label="Enquire about a private trip" />
+        </div>
+      </div>
+    </TripSection>
+  )
+}
+
+<style>
+  .pp {
+    display: grid;
+    gap: var(--s-4);
+  }
+  .pp__table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--r-lg);
+    overflow: hidden;
+    font-size: 0.9375rem;
+  }
+  .pp__table th,
+  .pp__table td {
+    padding: 12px 16px;
+    text-align: left;
+    border-bottom: 1px solid var(--line);
+  }
+  .pp__table th {
+    background: var(--surface-2);
+    font-size: 0.8125rem;
+    font-weight: 700;
+    color: var(--text-2);
+  }
+  .pp__table tr:last-child td {
+    border-bottom: 0;
+  }
+  .pp__side {
+    display: grid;
+    gap: var(--s-3);
+    align-content: start;
+    color: var(--ink-700);
+    font-size: 0.9375rem;
+  }
+  .pp__side p {
+    margin: 0;
+  }
+  .pp__sep {
+    color: var(--text-2);
+    font-size: 0.875rem;
+  }
+  @media (min-width: 768px) {
+    .pp {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+</style>

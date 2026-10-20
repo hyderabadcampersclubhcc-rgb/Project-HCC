@@ -39,7 +39,7 @@ highlights:
   - Amber Palace, Jal Mahal and Nahargarh
   - Red Fort, India Gate and Lotus Temple
 inclusions:
-  - text: Sleeper train tickets, both ways
+  - text: Non-AC sleeper-class train tickets (onward and return journey included)
     icon: train
     showOnCard: true
     cardLabel: Train

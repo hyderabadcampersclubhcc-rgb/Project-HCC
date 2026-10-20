@@ -15,6 +15,26 @@ difficulty: easy
 origins:
   - city: hyderabad
     label: Hyderabad
+    # Owner, 19 Oct 2026: train wording for Hyderabad only; other cities keep the trip's inclusions.
+    inclusions:
+      - text: Non-AC sleeper-class train tickets (onward and return journey included)
+        icon: train
+        showOnCard: true
+        cardLabel: Train
+      - text: "2 nights camping: beachside and riverside"
+        icon: tent
+        showOnCard: true
+        cardLabel: Camping
+      - text: 1 breakfast, 1 lunch, 1 dinner
+        icon: food
+        showOnCard: true
+        cardLabel: Meals
+      - text: Non-AC local transport
+        icon: compass
+        showOnCard: true
+        cardLabel: Sightseeing
+      - text: Water activities, bonfire and entry tickets
+        icon: mountain
     pickupPoints:
       - name: Nampally Railway Station
         time: 15:45

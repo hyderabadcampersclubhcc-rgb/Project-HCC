@@ -43,7 +43,7 @@ highlights:
   - Auroville and the French Colony
   - Mahabalipuram’s shore temples
 inclusions:
-  - text: Return sleeper train or semi-sleeper bus
+  - text: Non-AC sleeper-class train or semi-sleeper bus tickets, as confirmed for your departure (onward and return journey included)
     icon: train
     showOnCard: true
     cardLabel: Train

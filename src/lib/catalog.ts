@@ -62,8 +62,10 @@ export interface TripOriginView {
   /** Destination names on this city's route (route line, schema). */
   destinationNames: string[];
   /** City-specific duration messaging: overnight journeys and the door-to-door window. */
-  overnightTravel: 'train' | 'bus' | undefined;
+  overnightTravel: 'train' | 'bus' | 'train or bus' | 'train-onward' | undefined;
   travelWindow: string | undefined;
+  /** Show departure start dates only (the stored end date is not a confirmed return). */
+  returnDateUnconfirmed: boolean;
   thingsToCarry: string[];
   importantInfo: string[];
 }
@@ -231,6 +233,7 @@ async function loadTrips(opts: Options): Promise<TripView[]> {
         destinationNames: (o.stops ?? entry.data.destinations.map((d) => d.id)).map((id) => destNames.get(id) ?? id),
         overnightTravel: o.overnightTravel,
         travelWindow: o.travelWindow,
+        returnDateUnconfirmed: o.returnDateUnconfirmed,
         thingsToCarry: o.thingsToCarry ?? entry.data.thingsToCarry,
         importantInfo: o.importantInfo ?? entry.data.importantInfo,
       };

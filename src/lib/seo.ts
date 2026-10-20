@@ -1,6 +1,6 @@
 /** Page-title and meta-description templates generated from content (CMS overrides win). */
 import type { TripView, TripOriginView } from './catalog';
-import { inr, dateLong } from './format';
+import { inr, dateLong, travelSuffix, overnightTitle } from './format';
 import { isSelfCamp } from './trip-facts';
 
 const clip = (s: string, max: number) => (s.length <= max ? s : `${s.slice(0, max - 1).replace(/\s+\S*$/, '')}…`);
@@ -11,7 +11,7 @@ export function tripSeo(trip: TripView, origin: TripOriginView) {
   const from = origin.fromPrice != null ? ` from ${inr(origin.fromPrice)}` : '';
   // A city with overnight journeys both ways says so ("2N/3D + Train"); the price moves to the description to keep the title short.
   const mode = origin.overnightTravel;
-  const extra = mode ? ` + ${mode[0].toUpperCase()}${mode.slice(1)}` : from;
+  const extra = mode ? ` + ${overnightTitle(mode)}` : from;
   // Longest version that fits Google's ~65 characters: drop the price, then "Trip", then use the short name.
   // "+ Train" is never dropped: it is the overnight-travel clarification, not an optional extra.
   const name = d.seoName ?? d.title;
@@ -51,7 +51,7 @@ export function tripSeo(trip: TripView, origin: TripOriginView) {
   const next = origin.next ? `Next departure ${dateLong(origin.next.start)}.` : '';
   const parts = mode
     ? // Overnight-travel trips lead with the schedule and price, so neither is cut off.
-      [`${dur} + overnight ${mode} travel from ${origin.label}${origin.travelWindow ? ` (${origin.travelWindow})` : ''}.`, price, d.tagline.replace(/\.?$/, '.')]
+      [`${dur} ${travelSuffix(origin)} from ${origin.label}${origin.travelWindow ? ` (${origin.travelWindow})` : ''}.`, price, d.tagline.replace(/\.?$/, '.')]
     : camp
       ? // Camp + price first so Google's ~160-character cut never drops the price.
         [`${dur} camp near ${origin.label}${origin.fromPrice != null ? `, ${inr(origin.fromPrice)}/person` : ''}.`, d.tagline.replace(/\.?$/, '.')]

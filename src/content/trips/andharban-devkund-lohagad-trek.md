@@ -38,7 +38,7 @@ highlights:
   - Village homestay
   - Experienced trek leaders
 inclusions:
-  - text: Sleeper train tickets, Hyderabad–Pune–Hyderabad
+  - text: Non-AC sleeper-class train tickets, Hyderabad–Pune–Hyderabad (onward and return journey included)
     icon: train
     showOnCard: true
     cardLabel: Train

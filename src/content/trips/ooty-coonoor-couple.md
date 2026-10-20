@@ -13,8 +13,8 @@ difficulty: easy
 origins:
   - city: hyderabad
     label: Hyderabad
-    outbound: Train to Mysore (arrive by 10 am)
-    return: From Mysore on day 3
+    outbound: "Train to Mysore (arrive by 10 am). Boarding point and departure time: Contact us on WhatsApp to confirm."
+    return: "Sleeper-class train from Mysore on day 3. Return timings: Contact us on WhatsApp to confirm."
 transportOptions:
   - id: sl
     label: Sleeper train
@@ -35,6 +35,10 @@ highlights:
   - Dolphin’s Nose and a tea factory
   - Boat ride and the Pine Forest
 inclusions:
+  - text: Non-AC sleeper-class train tickets (onward and return journey included)
+    icon: train
+    showOnCard: true
+    cardLabel: Train
   - text: Couple room accommodation
     icon: bed
     showOnCard: true

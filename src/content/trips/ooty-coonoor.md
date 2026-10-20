@@ -1,7 +1,7 @@
 ---
 # Imported from HCC’s trip listings (Oct 2026). Review prices, dates and inclusions in the CMS before go-live.
 title: Ooty & Coonoor
-tagline: Mysore Palace, Pykara falls, the Nilgiri toy train and two nights in the Queen of Hill Stations.
+tagline: Bandipur forest, Pykara falls, Coonoor’s tea gardens and two nights in the Queen of Hill Stations.
 tripTypes:
   - weekend
 destinations:
@@ -17,24 +17,19 @@ groupSize:
 origins:
   - city: hyderabad
     label: Hyderabad
-    overnightTravel: train
-    travelWindow: Thu/Fri 7:00 PM → Mon/Tue 6:00 AM
-    pickupPoints:
-      - name: Kacheguda Railway Station
-        time: 19:00
-    outbound: Overnight Mysore Express, Thursday or Friday 7:00 pm
-    return: Overnight train from Mysore, back in Hyderabad around 6:00 am on Monday (Thursday batch) or Tuesday (Friday batch)
+    # Owner, 17 Oct 2026: Day 1 starts in Bangalore. Owner, 20 Oct 2026: outbound is a non-AC sleeper train only
+    # (no bus alternative) and the return journey is included. Boarding point, timings, train numbers and the return
+    # class are NOT confirmed: they stay "Contact us on WhatsApp to confirm."
+    overnightTravel: train-onward
+    # Owner, 21 Oct 2026: the stored end dates (Mon/Tue) are not a confirmed return; show start dates only.
+    returnDateUnconfirmed: true
+    outbound: "Non-AC sleeper train to Bangalore, on Thursday or Friday. Boarding point and departure time: Contact us on WhatsApp to confirm."
+    return: "Return journey included. Travel details and arrival time: Contact us on WhatsApp to confirm."
 transportOptions:
   - id: sl
-    label: Sleeper train
+    label: Non-AC sleeper train (onward); return journey included
     mode: train
-    class: Sleeper
     priceDelta: 0
-  - id: 3a
-    label: 3AC train
-    mode: train
-    class: 3AC
-    priceDelta: 1400
 stayOptions:
   - id: quad
     label: Quad sharing
@@ -52,70 +47,72 @@ basePrice: 7999
 originalPrice: 9500
 advanceAmount: 2000
 highlights:
-  - Mysore Palace and Chamundi Hill
   - Drive through Bandipur forest to Ooty
-  - Needle Rock, Pykara falls and Shooting Point
-  - Nilgiri toy train from Ooty to Coonoor
-  - Dolphin’s Nose, tea gardens and a tea factory
+  - Pykara falls and Shooting Point
+  - Nilgiri toy train from Ooty to Coonoor (subject to availability)
+  - Dolphin Nose Point or Doddabetta, tea gardens and a tea factory
   - Pine Forest and Ooty Lake
 inclusions:
-  - text: Return train tickets, Hyderabad–Mysore (sleeper; 3AC on request)
+  - text: "Onward journey: non-AC sleeper-class train ticket, Hyderabad to Bangalore"
     icon: train
     showOnCard: true
     cardLabel: Train
-  - text: 2 nights in Ooty on 3/4 sharing (couple rooms may be possible on request)
+  - text: "Return journey included (travel details: Contact us on WhatsApp to confirm.)"
+    icon: train
+  - text: Accommodation in 3/4-sharing rooms, with male and female accommodation arrangements
     icon: bed
     showOnCard: true
     cardLabel: Stays
-  - text: Local transport for all 3 days
+  - text: Local transportation for three days
     icon: compass
     showOnCard: true
     cardLabel: Sightseeing
-  - text: HCC trip captain throughout the trip
+  - text: Trip guide
     icon: users
-  - text: Tolls, parking, permits and driver allowances
+  - text: Permits, taxes, tolls, parking and driver allowances
     icon: check
   - text: Basic first aid
     icon: shield
 exclusions:
   - Food
-  - Toy train ticket (about ₹150)
-  - Mysore Palace and other entry tickets
+  - All entry tickets and activities
+  - Toy train ticket (the toy train ride is subject to availability)
   - Personal expenses
-  - Anything not listed under inclusions
+  - Anything not explicitly mentioned in the inclusions
+optionalExtras:
+  - Double-sharing room
+  - Tatkal and Premium Tatkal train tickets
 itinerary:
-  - day: 0
-    title: Depart Hyderabad
-    description: Meet the group at Kacheguda station and board the overnight Mysore Express at 7 pm.
-    image: ../../assets/photos/train.jpg
-    imageAlt: View from an Indian train window
-    imageCredit:
-      author: Vikramaditya V. V.
-      license: CC BY-SA 4.0
-      source: https://commons.wikimedia.org/wiki/File:A_view_from_Indian_Railways_Train.jpg
   - day: 1
-    title: Mysore to Ooty
-    description: Reach Mysore by 10 am, freshen up and have breakfast. Visit Mysore Palace and Chamundi Hill, then drive up through Bandipur forest to Needle Rock viewpoint, Pykara falls and Shooting Point.
-    stay: Ooty
-    image: ../../assets/photos/mysore-palace.jpg
-    imageAlt: Mysore Palace
-    imageCredit:
-      author: Whistleraja
-      license: CC BY-SA 4.0
-      source: https://commons.wikimedia.org/wiki/File:Mysore_Palace_-_Amba_Vilas_Palace.jpg
+    title: Ooty Odyssey
+    points:
+      - Reach Bangalore and start by 6:00 AM.
+      - Basic freshening up on the way; shower not available.
+      - Bandipur Forest Drive.
+      - Eucalyptus Trees.
+      - Pykara Waterfalls.
+      - Shooting Point.
+      - Stay in Ooty.
   - day: 2
-    title: Toy train to Coonoor
-    description: Ride the Nilgiri Mountain Railway from Ooty to Coonoor. Dolphin’s Nose, the tea gardens or Sim’s Park, a tea-factory visit, the Rose Garden and a boat ride on Ooty Lake.
-    stay: Ooty
-    image: ../../assets/photos/toy-train.jpg
-    imageAlt: Nilgiri Mountain Railway toy train crossing a bridge
-    imageCredit:
-      author: Stephan Niewolik
-      license: CC BY 3.0
-      source: https://commons.wikimedia.org/wiki/File:Nilgiri_Mountain_Railway_on_Bridge,_May_2010.JPG
+    title: Coonoor Charms
+    start: Start by 6:00 AM
+    points:
+      - Dolphin Nose Point or Doddabetta.
+      - Stroll through tea gardens.
+      - Tea Factory and Chocolate Factory.
+      - Toy Train from Ooty to Coonoor, subject to availability.
+      - Ooty Lake Boathouse.
+      - Shopping in Ooty.
+      - Return to the stay and rest.
   - day: 3
-    title: Pine Forest and home
-    description: A slow morning in the Pine Forest, lunch, then the drive back to Mysore for the overnight train to Hyderabad.
+    title: Return Journey to Mysore
+    start: Start by 6:00 AM
+    points:
+      - Pine Forest.
+      - Valley View Point.
+      - Travel back to Mysore.
+      - Mysore Palace, only if time permits.
+      - Return to the respective city with cherished memories.
     image: ../../assets/photos/pine-forest.jpg
     imageAlt: Pine Forest near Ooty
     imageCredit:
@@ -125,29 +122,57 @@ itinerary:
 stays:
   - type: Hotel / homestay
     location: Ooty
-    description: 3–4 sharing rooms. Couple rooms may be possible on request; ask HCC on WhatsApp.
+    description: 3/4-sharing rooms, with male and female accommodation arrangements. A double-sharing room is an optional add-on at additional cost; ask HCC on WhatsApp.
 thingsToCarry:
-  - Government photo ID (needed on trains)
+  - Government photo ID required for travel
   - Comfortable walking shoes
   - Power bank
   - Personal medicines
   - Reusable water bottle
   - Light jacket or hoodie (hill evenings get cool)
 importantInfo:
-  - "This is a budget group trip: comfortable and well run, not a luxury tour."
-  - Sightseeing order can change with weather, traffic or local restrictions; your trip captain decides on the day for everyone’s safety.
   - If a departure doesn’t reach the minimum group size, HCC may merge it with another batch or move you to the next date.
   - Please reach the boarding point on time; missed trains or buses can’t be refunded.
 suitableFor:
   - Solo travellers
   - Friends
   - First-time group travellers
+paymentTerms:
+  - "Advance booking amount: ₹2,000 per person."
+  - The advance payment is non-refundable.
+  - The full remaining payment must be completed 3 days before boarding.
+infoSections:
+  - title: Important trip information
+    points:
+      - This is an experience-focused budget trip where we cover maximum places in minimum time. There may be long travel hours, but the focus is on experiences and sightseeing.
+      - The itinerary may be modified, adjusted or rearranged depending on weather, road conditions, local situations, transport availability or other unforeseen circumstances.
+      - The trip host/organizer’s decision will be final when changes are required for safety or operational reasons.
+      - This is a budget group trip, not a luxury trip. We focus on maximum experiences at an affordable price. Traveler cooperation and flexibility are appreciated.
+  - title: Train travel
+    points:
+      - Tatkal train tickets are not guaranteed and are subject to availability.
+  - title: Safety and itinerary changes
+    points:
+      - The trip host/organizer may add, remove or modify destinations, activities, routes, timings or duration based on weather conditions, road conditions, transport availability, local situations or participant safety.
+      - Travelers are requested to cooperate with the organizer’s decisions when changes are required for safety or operational reasons.
+contactCard: true
+privatePricing:
+  note: Private trips include a separate vehicle and rooms.
+  tiers:
+    - group: 2 members
+      price: 16000
+    - group: 4 members
+      price: 14000
+    - group: 6 members
+      price: 12000
+    - group: Above 10 members
+      price: 10000
 cancellationPolicy: "30+ days before departure: 25% cancellation fee. 15–30 days: 50%. Under 15 days: no refund. The booking amount is non-refundable."
 faqs:
   - q: Can I join if I’m travelling alone?
-    a: Yes. Solo travellers are welcome, and you’ll be in a group with an HCC trip captain from the start.
+    a: Yes. Solo travellers are welcome, and you’ll be in a group with an HCC trip guide from the start.
   - q: Is the toy train ticket included?
-    a: No. It’s bought at Ooty station on the day (about ₹150); your trip captain helps the group get tickets.
+    a: No. The toy train ticket isn’t included, and the ride is subject to availability.
 featured: true
 sortOrder: 10
 recurrence: Every Thursday & Friday from Hyderabad
@@ -196,6 +221,6 @@ status: live
 sample: false
 ---
 
-Two days in the Nilgiris: you board the Mysore Express on Thursday or Friday night, wake up in Mysore, and spend the trip between Ooty’s viewpoints and Coonoor’s tea estates.
+Two days in the Nilgiris: you leave Hyderabad on a Thursday or Friday batch, start from Bangalore by 6:00 AM on day 1, and spend the trip between Ooty’s viewpoints and Coonoor’s tea estates.
 
-The highlight is the toy train from Ooty to Coonoor, the UNESCO-listed Nilgiri Mountain Railway. Your HCC trip captain handles trains, stays and the day plan, so all you do is turn up at Kacheguda with a backpack.
+The highlight is the toy train from Ooty to Coonoor, the UNESCO-listed Nilgiri Mountain Railway (subject to availability). Your HCC trip guide handles travel, stays and the day plan, so all you do is turn up with a backpack.

@@ -34,9 +34,23 @@ export function dateRange(start: string, end: string) {
 
 /** "2N/3D" */
 export const durationLabel = (nights: number, days: number) => `${nights}N/${days}D`;
+/**
+ * Overnight-journey wording per mode: [short, long, title]. 'train-onward' = only the onward journey is a confirmed
+ * overnight train (the return is included but its timing isn't confirmed), so nothing implies an overnight return.
+ */
+const OVERNIGHT: Record<string, [string, string, string]> = {
+  train: ['train', 'train travel', 'Train'],
+  bus: ['bus', 'bus travel', 'Bus'],
+  'train or bus': ['train or bus', 'train or bus travel', 'Train or bus'],
+  'train-onward': ['onward train', 'onward train journey', 'Onward train'],
+};
 /** "+ overnight train travel" for a city whose trip adds overnight journeys to the stay nights; "" otherwise. */
-export const travelSuffix = (o: { overnightTravel?: string }, short = false) =>
-  o.overnightTravel ? (short ? `+ overnight ${o.overnightTravel}` : `+ overnight ${o.overnightTravel} travel`) : '';
+export const travelSuffix = (o: { overnightTravel?: string }, short = false) => {
+  const w = o.overnightTravel ? OVERNIGHT[o.overnightTravel] : null;
+  return w ? `+ overnight ${short ? w[0] : w[1]}` : '';
+};
+/** Title form of the overnight journey, e.g. "Train" in "2N/3D + Train". */
+export const overnightTitle = (mode: string) => OVERNIGHT[mode]?.[2] ?? mode;
 
 /** Monday-based week helpers for "This weekend" / "Next weekend" chips. Weekend = Thu–Sun departures. */
 export function weekendWindow(todayIso: string, weeksAhead = 0): [string, string] {

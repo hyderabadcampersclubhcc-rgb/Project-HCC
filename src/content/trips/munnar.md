@@ -12,6 +12,28 @@ difficulty: easy
 origins:
   - city: hyderabad
     label: Hyderabad
+    # Owner, 19 Oct 2026: train wording for Hyderabad only; other cities keep the trip's inclusions.
+    inclusions:
+      - text: Non-AC sleeper-class train tickets (onward and return journey included)
+        icon: train
+        showOnCard: true
+        cardLabel: Train
+      - text: 3-star hotel stay
+        icon: bed
+        showOnCard: true
+        cardLabel: Stays
+      - text: Daily breakfast
+        icon: food
+        showOnCard: true
+        cardLabel: Meals
+      - text: Local transport for 3 days
+        icon: compass
+        showOnCard: true
+        cardLabel: Sightseeing
+      - text: Tolls, parking, green tax, fuel and driver allowances
+        icon: check
+      - text: HCC trip captain throughout the trip
+        icon: users
     outbound: Train to Coimbatore
     return: Train from Coimbatore on day 3
   - city: bangalore

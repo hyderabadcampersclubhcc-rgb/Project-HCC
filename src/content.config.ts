@@ -117,7 +117,11 @@ const inclusion = z.object({
 const originDay = (image: ImageFn) => z.object({
   day: z.number().int().min(0),
   title: z.string(),
-  description: z.string(),
+  /** Start time line, e.g. "Start by 6:00 AM". */
+  start: z.string().optional(),
+  description: z.string().default(''),
+  /** The day's stops/activities in order, shown as bullets. */
+  points: z.array(z.string()).default([]),
   meals: z.array(z.enum(['breakfast', 'lunch', 'dinner', 'snacks'])).default([]),
   stay: z.string().optional(),
   image: image().optional(),
@@ -149,9 +153,13 @@ const origin = (image: ImageFn) => z.object({
   /** Overnight journeys both ways on top of the stay nights (shown as "2N/3D + overnight train travel"). The trip's duration stays the stay count. */
   thingsToCarry: z.array(z.string()).optional(),
   importantInfo: z.array(z.string()).optional(),
-  overnightTravel: z.enum(['train', 'bus']).optional(),
+  // 'train or bus' while HCC hasn't confirmed which one runs; 'train-onward' when only the onward overnight train is
+  // confirmed (return included, timing unconfirmed), so no wording implies an overnight return.
+  overnightTravel: z.enum(['train', 'bus', 'train or bus', 'train-onward']).optional(),
   /** Door-to-door window for this city, e.g. "Thu/Fri 7:00 PM → Mon/Tue 6:00 AM". */
   travelWindow: z.string().optional(),
+  /** Return date not confirmed: dates show the start date only, never the stored end date (owner, 21 Oct 2026). */
+  returnDateUnconfirmed: z.boolean().default(false),
   /** Details HCC still has to confirm for this city. Internal only: never shown on the site. */
   incomplete: z.array(z.string()).default([]),
 });
@@ -207,7 +215,11 @@ const trips = defineCollection({
             z.object({
               day: z.number().int().min(0),
               title: z.string(),
-              description: z.string(),
+              /** Start time line, e.g. "Start by 6:00 AM". */
+              start: z.string().optional(),
+              description: z.string().default(''),
+              /** The day's stops/activities in order, shown as bullets. */
+              points: z.array(z.string()).default([]),
               meals: z.array(z.enum(MEALS)).default([]),
               stay: z.string().optional(),
               image: image().optional(),
@@ -235,6 +247,24 @@ const trips = defineCollection({
         cancellationPolicy: z.string().optional(), // short summary; full policy page linked
         /** Details HCC hasn't confirmed for this trip: shown as "<label>: Contact us on WhatsApp to confirm." (never a guessed answer). */
         confirmOnWhatsApp: z.array(z.string()).default([]),
+        /** Optional add-ons at additional cost, listed without prices (one price per person); cost confirmed on WhatsApp. */
+        optionalExtras: z.array(z.string()).default([]),
+        /** Owner-confirmed payment terms; when set they replace the generic advance line in "Payment & cancellation". */
+        paymentTerms: z.array(z.string()).default([]),
+        /** Extra titled notes for "Good to know" (e.g. important trip information, train/bus travel, safety). */
+        infoSections: z.array(z.object({ title: z.string(), points: z.array(z.string()).min(1) })).default([]),
+        /** Shows a "Call / WhatsApp" contact card with HCC's number in "Good to know". */
+        contactCard: z.boolean().default(false),
+        /**
+         * Owner-approved private-trip prices (per person, separate vehicle and rooms). Shown in their own section;
+         * never used for group departures, the booking card, offers or "from" prices.
+         */
+        privatePricing: z
+          .object({
+            note: z.string().optional(),
+            tiers: z.array(z.object({ group: z.string(), price: z.number().int().positive() })).min(1),
+          })
+          .optional(),
         faqs: z.array(faq).default([]),
 
         heroImage: image().optional(),

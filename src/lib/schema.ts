@@ -70,7 +70,16 @@ export function touristTripLd(trip: TripView, origin: TripOriginView, site: URL,
           numberOfItems: origin.itinerary.length,
           itemListElement: [...origin.itinerary]
             .sort((a, b) => a.day - b.day)
-            .map((day, i) => ({ '@type': 'ListItem', position: i + 1, name: `Day ${day.day}: ${day.title}`, description: day.description })),
+            .map((day, i) => ({
+              '@type': 'ListItem',
+              position: i + 1,
+              name: `Day ${day.day}: ${day.title}`,
+              // Same text as the page: start line, description, then the day's points.
+              description: [day.start, day.description, ...(day.points ?? [])]
+                .filter(Boolean)
+                .map((s) => s!.trim().replace(/([^.!?])$/, '$1.'))
+                .join(' '),
+            })),
         }
       : {
           '@type': 'ItemList',

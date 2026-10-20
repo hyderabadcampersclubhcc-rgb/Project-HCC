@@ -132,7 +132,7 @@ highlights:
   - Water sports at Yagachi dam
   - Sunrise at Mullayanagiri, Karnataka’s highest peak
 inclusions:
-  - text: Return sleeper train tickets
+  - text: Non-AC sleeper-class train tickets (onward and return journey included)
     icon: train
     showOnCard: true
     cardLabel: Train

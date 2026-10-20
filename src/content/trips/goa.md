@@ -34,7 +34,7 @@ highlights:
   - Water sports day
   - Parra Road, Old Goa church and Goa Museum
 inclusions:
-  - text: Return train tickets
+  - text: Non-AC sleeper-class train tickets (onward and return journey included)
     icon: train
     showOnCard: true
     cardLabel: Train

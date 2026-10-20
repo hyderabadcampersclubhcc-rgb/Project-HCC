@@ -7,6 +7,8 @@
 import TripSection from './TripSection.astro';
 import type { TripView, TripOriginView } from '@/lib/catalog';
 import { tripFacts } from '@/lib/trip-facts';
+import ConfirmText from '@/components/content/ConfirmText.astro';
+import { waHref } from '@/lib/whatsapp';
 
 interface Props {
   trip: TripView;
@@ -15,6 +17,7 @@ interface Props {
 
 const { trip, origin } = Astro.props;
 const facts = tripFacts(trip, origin);
+const confirmHref = waHref({ subject: trip.data.whatsappSubject, tripTitle: trip.data.title, originLabel: origin.label });
 ---
 
 <TripSection id="glance" title="At a glance">
@@ -23,7 +26,7 @@ const facts = tripFacts(trip, origin);
       facts.map((f) => (
         <div class="aag__row">
           <dt>{f.label}</dt>
-          <dd>{f.href ? <a href={f.href}>{f.value}</a> : f.value}</dd>
+          <dd>{f.href ? <a href={f.href}>{f.value}</a> : <ConfirmText text={f.value} href={confirmHref} tripId={trip.id} />}</dd>
         </div>
       ))
     }

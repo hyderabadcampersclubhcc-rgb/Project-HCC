@@ -16,6 +16,7 @@ origins:
       - name: Nampally Railway Station
         time: 17:00
     outbound: Departs Nampally at 5:00 pm
+    return: "Sleeper-class train back to Hyderabad. Return timings: Contact us on WhatsApp to confirm."
 transportOptions:
   - id: sl
     label: Sleeper train
@@ -36,7 +37,7 @@ highlights:
   - Sunrise and sunset on the coast
   - Boat ride through the Pichavaram mangroves
 inclusions:
-  - text: Return travel from Hyderabad
+  - text: Non-AC sleeper-class train tickets (onward and return journey included)
     icon: train
     showOnCard: true
     cardLabel: Train

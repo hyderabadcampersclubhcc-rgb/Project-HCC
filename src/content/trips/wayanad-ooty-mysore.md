@@ -38,7 +38,7 @@ highlights:
   - Toy train to Coonoor (ticket included)
   - Campfire night in Ooty
 inclusions:
-  - text: Non-AC sleeper train tickets
+  - text: Non-AC sleeper-class train tickets (onward and return journey included)
     icon: train
     showOnCard: true
     cardLabel: Train

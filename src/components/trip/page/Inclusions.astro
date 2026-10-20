@@ -19,10 +19,12 @@ const { trip, origin } = Astro.props;
 const confirmHref = waHref({ subject: trip.data.whatsappSubject, tripTitle: trip.data.title, originLabel: origin?.label });
 const inc = origin?.inclusions ?? trip.data.inclusions;
 const exc = origin?.exclusions ?? trip.data.exclusions;
+// Optional add-ons are listed without prices (one price per person); the cost is confirmed on WhatsApp.
+const extras = trip.data.optionalExtras;
 ---
 
 {
-  (inc.length > 0 || exc.length > 0) && (
+  (inc.length > 0 || exc.length > 0 || extras.length > 0) && (
     <TripSection id="inclusions" title="What's included">
       <div class="inc">
         {inc.length > 0 && (
@@ -33,7 +35,7 @@ const exc = origin?.exclusions ?? trip.data.exclusions;
                 <li class="inc__yes">
                   <Icon name="check" />
                   <span>
-                    {i.text}
+                    <ConfirmText text={i.text} href={confirmHref} tripId={trip.id} />
                     {i.conditional && (
                       <>
                         <span class="badge badge--info inc__cond">Subject to availability</span>
@@ -59,6 +61,23 @@ const exc = origin?.exclusions ?? trip.data.exclusions;
                 </li>
               ))}
             </ul>
+          </div>
+        )}
+        {extras.length > 0 && (
+          <div class="inc__col inc__col--wide">
+            <h3>Optional add-ons (additional cost)</h3>
+            <ul>
+              {extras.map((x) => (
+                <li class="inc__opt">
+                  <Icon name="plus" />
+                  <span>{x}</span>
+                </li>
+              ))}
+            </ul>
+            <p class="inc__note">
+              Prices aren't fixed for these.{' '}
+              <ConfirmText text="Contact us on WhatsApp to confirm." href={confirmHref} tripId={trip.id} />
+            </p>
           </div>
         )}
       </div>
@@ -116,9 +135,20 @@ const exc = origin?.exclusions ?? trip.data.exclusions;
     font-size: 0.8rem;
     color: var(--text-2);
   }
+  .inc__opt :global(.icon) {
+    color: var(--text-2);
+  }
+  .inc__note {
+    margin: var(--s-3) 0 0;
+    font-size: 0.875rem;
+    color: var(--text-2);
+  }
   @media (min-width: 768px) {
     .inc {
       grid-template-columns: 1fr 1fr;
+    }
+    .inc__col--wide {
+      grid-column: 1 / -1;
     }
   }
 </style>

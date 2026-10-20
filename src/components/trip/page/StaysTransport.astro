@@ -88,13 +88,17 @@ const selfCamp = isSelfCamp(trip, origin);
             {o.outbound && (
               <div>
                 <dt>Outbound</dt>
-                <dd>{o.outbound}</dd>
+                <dd>
+                  <ConfirmText text={o.outbound} href={confirmHref} tripId={trip.id} />
+                </dd>
               </div>
             )}
             {o.return && (
               <div>
                 <dt>Return</dt>
-                <dd>{o.return}</dd>
+                <dd>
+                  <ConfirmText text={o.return} href={confirmHref} tripId={trip.id} />
+                </dd>
               </div>
             )}
           </dl>

@@ -49,6 +49,12 @@ const CLAIMS = [
   [/\b(rated|rating:?)\s+[1-5](\.\d)?\b|\b[1-5](\.\d)?\s?(★|out of 5\b|stars?\b)/i, 'rating claim'],
   [/\b(hurry|selling fast|filling fast|last chance)\b/i, 'urgency claim'],
 ];
+// Owner-confirmed cross-city mentions (page → section → allowed term). Reported as warnings, never silently.
+const CITY_EXCEPTIONS = {
+  // Owner, 17 Oct 2026: the Hyderabad batch's Day 1 is "Reach Bangalore and start by 6:00 AM" (supplied itinerary),
+  // so the outbound journey ("… to Bangalore", At a glance and Stays & travel) names Bangalore too.
+  '/trips/ooty-coonoor-from-hyderabad/': { itinerary: /^Bangalore$/, glance: /^Bangalore$/, stays: /^Bangalore$/ },
+};
 const CITY_TERMS = {
   hyderabad: /\b(Hyderabad|Kacheguda|Nampally|Secunderabad|Lingampalli)\b/,
   bangalore: /\b(Bangalore|Bengaluru|Majestic|KSR)\b/,
@@ -200,8 +206,12 @@ for (const [u, p] of pages) {
     if (other === city || !own) continue;
     for (const id of ['glance', 'dates', 'itinerary', 'stays']) {
       const sec = p.html.match(new RegExp(`<section id="${id}"[\\s\\S]*?</section>`))?.[0];
-      const hit = sec && visible(sec).match(re);
-      if (hit) errors.push(`${u}: "${hit[0]}" appears in the ${id} section of a ${city} page`);
+      if (!sec) continue;
+      const allowed = CITY_EXCEPTIONS[u]?.[id];
+      const hits = [...visible(sec).matchAll(new RegExp(re.source, 'g'))].map((h) => h[0]);
+      const bad = hits.find((h) => !allowed?.test(h));
+      if (bad) errors.push(`${u}: "${bad}" appears in the ${id} section of a ${city} page`);
+      else if (hits.length) warnings.push(`${u}: "${hits[0]}" in the ${id} section of a ${city} page (owner-confirmed exception)`);
     }
   }
 }

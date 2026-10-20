@@ -18,6 +18,7 @@ import Itinerary from './Itinerary.astro';
 import StaysTransport from './StaysTransport.astro';
 import Inclusions from './Inclusions.astro';
 import GoodToKnow from './GoodToKnow.astro';
+import PrivatePricing from './PrivatePricing.astro';
 import TripSection from './TripSection.astro';
 import RelatedTrips from './RelatedTrips.astro';
 import BookingCard from '@/components/trip/BookingCard.astro';
@@ -64,7 +65,8 @@ const sections = [
   o.itinerary.length && { id: 'itinerary', label: 'Itinerary' },
   { id: 'stays', label: 'Stays & travel' },
   (o.inclusions.length || o.exclusions.length) && { id: 'inclusions', label: 'Inclusions' },
-  (o.thingsToCarry.length || o.importantInfo.length || d.suitableFor.length || d.advanceAmount != null || d.cancellationPolicy) && {
+  d.privatePricing && { id: 'private', label: 'Private trip' },
+  (o.thingsToCarry.length || o.importantInfo.length || d.suitableFor.length || d.advanceAmount != null || d.cancellationPolicy || d.infoSections.length) && {
     id: 'info',
     label: 'Good to know',
   },
@@ -96,13 +98,14 @@ const sections = [
       <AtAGlance trip={trip} origin={o} />
       <TripOverview trip={trip} origin={o} />
       {preview && <SectionNote n={5} title="Dates & prices" purpose="Every departure with honest status. Sold-out dates stay visible as proof of demand. 'Select' picks the date in the booking card." data="Departures for this city. Seat counts only when entered by the team and under the threshold." />}
-      <DatesTable origin={o} recurrence={o.recurrence} />
-      {preview && <SectionNote n={6} title="Day-wise itinerary" purpose="The #1 thing people check before booking. Native accordions (crawlable), first day open, 'Expand all'. Weekday labels follow the next departure." data="Itinerary days with meals and overnight stay." />}
+      <DatesTable origin={o} recurrence={o.recurrence} trip={trip} />
+      {preview && <SectionNote n={6} title="Day-wise itinerary" purpose="The #1 thing people check before booking. One lead photo, then each day as a plain text section (always visible, crawlable). Weekday labels follow the next departure." data="Itinerary days with meals and overnight stay." />}
       <Itinerary trip={trip} origin={o} />
       {preview && <SectionNote n={7} title="Stays, transport & pickup" purpose="Transparency that competitors skip: property type, washroom, 'or similar' stated honestly; every travel/room option with its price difference; pickup points with reporting time and map link." data="Stays, transport and stay options, and this city's pickup points and journey notes." />}
       <StaysTransport trip={trip} origin={o} />
       {preview && <SectionNote n={8} title="What's included" purpose="Side-by-side ✓/✗. Conditional items show 'Subject to availability' plus the fallback, turning a common complaint into a trust signal." data="Inclusions (each can also show a short label on trip cards) and exclusions." />}
       <Inclusions trip={trip} origin={o} />
+      <PrivatePricing trip={trip} origin={o} />
       {preview && <SectionNote n={9} title="Good to know" purpose="Pre-empts objections: who it's for and not for, what to pack, important notes, and a plain-language payment & cancellation summary." data="Suitable/not suitable, things to carry, important info, advance, GST, cancellation summary (links to the full policy page)." status="needs-data" />}
       <GoodToKnow trip={trip} origin={o} />
       {

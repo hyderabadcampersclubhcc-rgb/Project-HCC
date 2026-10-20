@@ -1,7 +1,9 @@
 ---
 /**
- * Day-wise itinerary as native <details> (crawlable, works without JS). Day 1 opens by
- * default; "Expand all" toggles every day. Weekday labels come from the next departure.
+ * Day-wise itinerary: one lead photo (the first itinerary photo that isn't the page's hero image, if any),
+ * then every day as a plain text section (Day label, title, description, meals and stay), always visible
+ * and crawlable. Per-day photos stay in the trip data but are not shown. Weekday labels come from the
+ * next departure.
  */
 import TripSection from './TripSection.astro';
 import Icon from '@/components/ui/Icon.astro';
@@ -28,53 +30,64 @@ const weekday = (offset: number) => {
   return dayShort(d.toISOString().slice(0, 10));
 };
 const firstDay = days[0]?.day ?? 0;
+// Which itinerary day falls on the departure date: day 0 when the plan lists it; for an overnight journey
+// that starts at day 1, day 1 is the morning after departure; otherwise day 1 is the departure date.
+const departureDay = firstDay === 0 || origin.overnightTravel ? 0 : 1;
 const MEAL: Record<string, string> = { breakfast: 'Breakfast', lunch: 'Lunch', dinner: 'Dinner', snacks: 'Snacks' };
+const heroSrc = trip.data.heroImage?.src;
+const lead = days.find((d) => d.image && d.image.src !== heroSrc);
 ---
 
 {
   days.length > 0 && (
     <TripSection id="itinerary" title="Day-wise itinerary">
-      <button slot="action" type="button" class="btn btn--text it__toggle" data-it-toggle aria-expanded="false">
-        Expand all
-      </button>
+      {lead?.image && (
+        <figure class="it__lead">
+          <Photo src={lead.image} alt={lead.imageAlt ?? lead.title} sizes="(min-width: 1024px) 720px, 92vw" widths={[360, 560, 720, 1080]} />
+          <PhotoCredit credit={lead.imageCredit} />
+        </figure>
+      )}
       <ol class="it">
-        {days.map((day, i) => (
+        {days.map((day) => (
           <li class="it__day">
-            <details open={i === 0 || (firstDay === 0 && i === 1)} data-it-day>
-              <summary>
-                <span class="it__num">
-                  <b>Day {day.day}</b>
-                  {weekday(day.day - firstDay) && <small>{weekday(day.day - firstDay)}</small>}
-                </span>
-                <span class="it__title">{day.title}</span>
-                <Icon name="chevron" class="it__chev" />
-              </summary>
-              <div class="it__body">
-                {day.image && (
-                  <figure class="it__photo">
-                    <Photo src={day.image} alt={day.imageAlt ?? day.title} sizes="(min-width: 1024px) 560px, 90vw" widths={[360, 560, 840]} />
-                    <PhotoCredit credit={day.imageCredit} />
-                  </figure>
+            <p class="it__num">
+              Day {day.day}
+              {weekday(day.day - departureDay) && <span> · {weekday(day.day - departureDay)}</span>}
+            </p>
+            <h3 class="it__title">{day.title}</h3>
+            {day.start && (
+              <p class="it__start">
+                <Icon name="clock" /> {day.start}
+              </p>
+            )}
+            {day.description && (
+              <p class="it__text">
+                <ConfirmText text={day.description} href={confirmHref} tripId={trip.id} />
+              </p>
+            )}
+            {day.points.length > 0 && (
+              <ul class="it__points">
+                {day.points.map((pt) => (
+                  <li>
+                    <ConfirmText text={pt} href={confirmHref} tripId={trip.id} />
+                  </li>
+                ))}
+              </ul>
+            )}
+            {(day.meals.length > 0 || day.stay) && (
+              <p class="it__meta">
+                {day.meals.length > 0 && (
+                  <span>
+                    <Icon name="food" /> {day.meals.map((m) => MEAL[m]).join(', ')}
+                  </span>
                 )}
-                <p>
-                  <ConfirmText text={day.description} href={confirmHref} tripId={trip.id} />
-                </p>
-                {(day.meals.length > 0 || day.stay) && (
-                  <p class="it__meta">
-                    {day.meals.length > 0 && (
-                      <span>
-                        <Icon name="food" /> {day.meals.map((m) => MEAL[m]).join(', ')}
-                      </span>
-                    )}
-                    {day.stay && (
-                      <span>
-                        <Icon name="bed" /> {day.stay}
-                      </span>
-                    )}
-                  </p>
+                {day.stay && (
+                  <span>
+                    <Icon name="bed" /> {day.stay}
+                  </span>
                 )}
-              </div>
-            </details>
+              </p>
+            )}
           </li>
         ))}
       </ol>
@@ -82,25 +95,13 @@ const MEAL: Record<string, string> = { breakfast: 'Breakfast', lunch: 'Lunch', d
   )
 }
 
-<script>
-  document.querySelectorAll<HTMLButtonElement>('[data-it-toggle]').forEach((btn) => {
-    const days = [...(btn.closest('section')?.querySelectorAll<HTMLDetailsElement>('[data-it-day]') ?? [])];
-    btn.addEventListener('click', () => {
-      const open = btn.getAttribute('aria-expanded') !== 'true';
-      days.forEach((d) => (d.open = open));
-      btn.setAttribute('aria-expanded', String(open));
-      btn.textContent = open ? 'Collapse all' : 'Expand all';
-    });
-  });
-</script>
-
 <style>
-  .it__photo {
+  .it__lead {
     position: relative;
-    aspect-ratio: 16 / 9;
-    margin: 0 0 var(--s-3);
+    aspect-ratio: 16 / 7;
+    margin: 0 0 var(--s-5);
     overflow: hidden;
-    border-radius: var(--r-md);
+    border-radius: var(--r-lg);
     background: var(--surface-2);
   }
   .it {
@@ -109,85 +110,102 @@ const MEAL: Record<string, string> = { breakfast: 'Breakfast', lunch: 'Lunch', d
     padding: 0;
     list-style: none;
   }
-  /* Trail line down the left */
+  /* Trail line down the left, one dot per day */
   .it::before {
     content: '';
     position: absolute;
-    left: 27px;
-    top: 24px;
-    bottom: 24px;
+    left: 5px;
+    top: 10px;
+    bottom: 10px;
     width: 2px;
     background: radial-gradient(circle, var(--line-strong) 1px, transparent 1.5px) 50% 0 / 2px 6px repeat-y;
   }
-  .it__day + .it__day {
-    margin-top: var(--s-2);
-  }
-  details {
+  .it__day {
     position: relative;
-    background: var(--surface);
-    border: 1px solid var(--line);
-    border-radius: var(--r-lg);
+    padding-left: 28px;
   }
-  summary {
-    display: flex;
+  .it__day::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 5px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--brand);
+    box-shadow: 0 0 0 3px var(--surface);
+  }
+  .it__day + .it__day {
+    margin-top: var(--s-5);
+    padding-top: var(--s-5);
+    border-top: 1px solid var(--line);
+  }
+  .it__day + .it__day::before {
+    top: calc(var(--s-5) + 5px);
+  }
+  .it__start {
+    display: inline-flex;
     align-items: center;
-    gap: var(--s-3);
-    min-height: 64px;
-    padding: 10px 14px 10px 10px;
-    list-style: none;
-    cursor: pointer;
+    gap: 6px;
+    margin: 0 0 var(--s-2);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--text-2);
   }
-  summary::-webkit-details-marker {
-    display: none;
+  .it__start :global(.icon) {
+    color: var(--forest-500);
+  }
+  .it__points {
+    display: grid;
+    gap: 6px;
+    margin: var(--s-2) 0 0;
+    padding: 0;
+    list-style: none;
+    color: var(--ink-700);
+    font-size: 0.9375rem;
+    line-height: 1.5;
+  }
+  .it__points li {
+    position: relative;
+    padding-left: 16px;
+  }
+  .it__points li::before {
+    content: '';
+    position: absolute;
+    left: 2px;
+    top: 0.62em;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--forest-500);
   }
   .it__num {
-    display: grid;
-    justify-items: center;
-    align-content: center;
-    width: 36px;
-    min-height: 44px;
-    border-radius: 10px;
-    background: var(--forest-50);
+    margin: 0;
     color: var(--forest-700);
-    line-height: 1.1;
-    flex: none;
-  }
-  .it__num b {
-    font: 800 0.625rem / 1 var(--font-body);
+    font: 800 0.75rem / 1.2 var(--font-body);
     letter-spacing: 0.06em;
     text-transform: uppercase;
   }
-  .it__num small {
-    margin-top: 3px;
-    font-size: 0.625rem;
+  .it__num span {
     font-weight: 600;
-  }
-  details[open] .it__num {
-    background: var(--brand);
-    color: var(--white);
+    letter-spacing: 0.02em;
+    color: var(--text-2);
   }
   .it__title {
-    flex: 1;
-    font: 700 1rem / 1.3 var(--font-display);
+    margin: 4px 0 var(--s-2);
+    font: 700 1.0625rem / 1.3 var(--font-display);
   }
-  summary :global(.it__chev) {
-    color: var(--text-3);
-    transition: transform var(--t) var(--ease);
-  }
-  details[open] summary :global(.it__chev) {
-    transform: rotate(180deg);
-  }
-  .it__body {
-    display: grid;
-    gap: var(--s-3);
-    padding: 0 16px 16px 58px;
+  .it__text {
+    margin: 0;
     color: var(--ink-700);
     font-size: 0.9375rem;
+    line-height: 1.6;
   }
   .it__meta {
     display: flex;
     flex-wrap: wrap;
     gap: 6px 16px;
+    margin: var(--s-2) 0 0;
     font-size: 0.8125rem;
     color: var(--text-2);
   }
@@ -198,8 +216,5 @@ const MEAL: Record<string, string> = { breakfast: 'Breakfast', lunch: 'Lunch', d
   }
   .it__meta :global(.icon) {
     color: var(--forest-500);
-  }
-  .it__toggle {
-    font-size: 0.875rem;
   }
 </style>

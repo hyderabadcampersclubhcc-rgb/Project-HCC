@@ -6,16 +6,24 @@
  */
 import TripSection from './TripSection.astro';
 import Badge from '@/components/ui/Badge.astro';
-import { type TripOriginView } from '@/lib/catalog';
-import { inr, dateRange, dayShort } from '@/lib/format';
+import { type TripView, type TripOriginView } from '@/lib/catalog';
+import { inr, dateRange, dateShort, dayShort } from '@/lib/format';
+import ConfirmText from '@/components/content/ConfirmText.astro';
+import { waHref } from '@/lib/whatsapp';
 
 interface Props {
   origin: TripOriginView;
   recurrence?: string;
+  /** For the WhatsApp link when the return date is not confirmed. */
+  trip?: TripView;
 }
 
-const { origin, recurrence } = Astro.props;
+const { origin, recurrence, trip } = Astro.props;
 const deps = origin.departures;
+// Unconfirmed return: show the start date only, never the stored end date (it is not a promised return).
+const startOnly = origin.returnDateUnconfirmed;
+const when = (d: { start: string; end: string }) => (startOnly ? dateShort(d.start) : dateRange(d.start, d.end));
+const confirmHref = trip ? waHref({ subject: trip.data.whatsappSubject, tripTitle: trip.data.title, originLabel: origin.label }) : null;
 ---
 
 <TripSection id="dates" title="Dates & prices" subtitle={deps.length ? `Departures from ${origin.label}. Prices are per person, cheapest room and travel option.` : undefined}>
@@ -25,9 +33,18 @@ const deps = origin.departures;
         {deps.map((d) => (
           <li class:list={['dates__row', !d.bookable && 'is-off']} data-dep-start={d.start}>
             <div class="dates__when">
-              <b>{dateRange(d.start, d.end)}</b>
+              <b>{when(d)}</b>
               <small>
-                {dayShort(d.start)} to {dayShort(d.end)}
+                {startOnly ? (
+                  <>
+                    {dayShort(d.start)} departure · Return:{' '}
+                    <ConfirmText text="Contact us on WhatsApp to confirm." href={confirmHref} tripId={trip?.id} />
+                  </>
+                ) : (
+                  <>
+                    {dayShort(d.start)} to {dayShort(d.end)}
+                  </>
+                )}
                 {d.note && <> · {d.note}</>}
               </small>
             </div>
@@ -48,7 +65,7 @@ const deps = origin.departures;
               {d.originalPrice && <s class="price__was num">{inr(d.originalPrice)}</s>}
               <b class="num">{inr(d.price)}</b>
             </div>
-            <button type="button" class="btn btn--sm btn--secondary dates__btn" data-select-dep={d.id} disabled={!d.bookable} aria-label={`Select ${dateRange(d.start, d.end)}`}>
+            <button type="button" class="btn btn--sm btn--secondary dates__btn" data-select-dep={d.id} disabled={!d.bookable} aria-label={`Select ${when(d)}`}>
               {d.status === 'waitlist' ? 'Join' : 'Select'}
             </button>
           </li>

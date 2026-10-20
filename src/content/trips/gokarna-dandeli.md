@@ -19,6 +19,30 @@ groupSize:
 origins:
   - city: hyderabad
     label: Hyderabad
+    # Owner, 19 Oct 2026: train wording for Hyderabad only; other cities keep the trip's inclusions.
+    inclusions:
+      - text: Non-AC sleeper-class train tickets (onward and return journey included)
+        icon: train
+        showOnCard: true
+        cardLabel: Train
+      - text: "2 nights camping: beachside and riverside"
+        icon: tent
+        showOnCard: true
+        cardLabel: Camping
+      - text: 1 breakfast, 1 lunch, 1 dinner
+        icon: food
+        showOnCard: true
+        cardLabel: Meals
+      - text: Non-AC local transport
+        icon: compass
+        showOnCard: true
+        cardLabel: Sightseeing
+      - text: Kayaking, zorbing and river boating
+        icon: mountain
+      - text: Bonfire, entry tickets and organiser charges
+        icon: check
+      - text: Basic first aid
+        icon: shield
     overnightTravel: train
     travelWindow: Thu/Fri 3:00 PM → Mon/Tue 10:00 AM
     pickupPoints:
@@ -31,7 +55,6 @@ origins:
     label: Bangalore
     incomplete:
       - "Arrival time back in Bangalore"
-      - "Whether the 3AC upgrade price (+₹1,700) is the same from Bangalore"
     pickupPoints:
       - name: KSR Bengaluru
         time: 23:00
@@ -65,7 +88,6 @@ origins:
           - breakfast
     transport:
       - sl
-      - 3a
   - city: vijayawada
     label: Vijayawada
     outbound: Train to Hubballi, Friday 2:00 pm
@@ -81,23 +103,12 @@ origins:
       - *a3
     transport:
       - sl
-      - 3a
 transportOptions:
   - id: sl
     label: Sleeper train
     mode: train
     class: Sleeper
     priceDelta: 0
-  - id: 3a
-    label: 3AC train
-    mode: train
-    class: 3AC
-    priceDelta: 1700
-  - id: bus
-    label: Sleeper bus (from Hyderabad)
-    mode: bus
-    class: Sleeper bus
-    priceDelta: 3500
 stayOptions:
   - id: camp
     label: Camping, 2/3 sharing

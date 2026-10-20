@@ -35,7 +35,7 @@ highlights:
   - Campfire and night music
   - Dudhsagar falls by jeep or on foot
 inclusions:
-  - text: Sleeper train tickets
+  - text: Non-AC sleeper-class train tickets (onward and return journey included)
     icon: train
     showOnCard: true
     cardLabel: Train

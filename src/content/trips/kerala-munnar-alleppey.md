@@ -13,6 +13,28 @@ difficulty: easy
 origins:
   - city: hyderabad
     label: Hyderabad
+    # Owner, 19 Oct 2026: train wording for Hyderabad only; other cities keep the trip's inclusions.
+    inclusions:
+      - text: Non-AC sleeper-class train tickets, Hyderabad–Kochi (onward and return journey included)
+        icon: train
+        showOnCard: true
+        cardLabel: Train
+      - text: Hotels on triple/quad sharing + 1 night houseboat
+        icon: bed
+        showOnCard: true
+        cardLabel: Stays
+      - text: Daily breakfast; lunch and dinner on the houseboat
+        icon: food
+        showOnCard: true
+        cardLabel: Meals
+      - text: Local transport for 4 days
+        icon: compass
+        showOnCard: true
+        cardLabel: Sightseeing
+      - text: Tolls, parking, state permit, driver allowance and food
+        icon: check
+      - text: Basic first aid
+        icon: shield
     outbound: Sleeper train to Kochi
     return: Train from Kochi on day 4
   - city: bangalore

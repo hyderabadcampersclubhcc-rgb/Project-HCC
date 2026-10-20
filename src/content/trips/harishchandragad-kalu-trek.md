@@ -22,11 +22,6 @@ transportOptions:
     mode: train
     class: Sleeper
     priceDelta: 0
-  - id: 3a
-    label: 3AC train
-    mode: train
-    class: 3AC
-    priceDelta: 1200
 stayOptions:
   - id: sharing
     label: Village homestay / camp, sharing
@@ -42,7 +37,7 @@ highlights:
   - Drive through Malshej Ghat
   - Certified trek leaders
 inclusions:
-  - text: Sleeper train tickets, Hyderabad–Pune–Hyderabad
+  - text: Non-AC sleeper-class train tickets, Hyderabad–Pune–Hyderabad (onward and return journey included)
     icon: train
     showOnCard: true
     cardLabel: Train
