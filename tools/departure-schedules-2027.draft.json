@@ -1,0 +1,133 @@
+{
+  "$comment": "DRAFT 2027 weekly departure patterns for owner review (prepared 16 Oct 2026). NOT read by `npm run departures` (it reads only tools/departure-schedules.json), so nothing here is on the site or bookable. Patterns, times and return rules are copied unchanged from the 2026 schedule and trip data; no business fact is added. Report: `node tools/schedule-draft-report.mjs` writes docs/schedule-2027-draft.md. To apply once HCC confirms: extend the matching entry's `to` in tools/departure-schedules.json (or add an entry for a route not yet there) and run `npm run departures`. Never add a second entry for the same trip + origin: the generator deletes that route's files outside each entry's own range, so two entries would delete each other's dates.",
+  "status": "draft",
+  "from": "2027-01-01",
+  "to": "2027-12-31",
+  "schedules": [
+    {
+      "trip": "coorg-chikmagalur",
+      "origin": "hyderabad",
+      "tier": "confirmed-2026",
+      "source": "Owner confirmed Thu & Fri batches on 5 Oct 2026 for 8 Oct–31 Dec 2026 (tools/departure-schedules.json). 2027 not confirmed.",
+      "batches": [
+        { "weekday": "thu", "departs": "19:00", "returnDays": 4, "returns": "Monday 06:00" },
+        { "weekday": "fri", "departs": "19:00", "returnDays": 4, "returns": "Tuesday 06:00" }
+      ]
+    },
+    {
+      "trip": "ooty-coonoor",
+      "origin": "hyderabad",
+      "tier": "confirmed-2026",
+      "source": "Owner confirmed Thu & Fri batches on 5 Oct 2026 for 8 Oct–31 Dec 2026. 2027 not confirmed.",
+      "batches": [
+        { "weekday": "thu", "departs": "19:00", "returnDays": 4, "returns": "Monday 06:00" },
+        { "weekday": "fri", "departs": "19:00", "returnDays": 4, "returns": "Tuesday 06:00" }
+      ]
+    },
+    {
+      "trip": "gokarna-dandeli",
+      "origin": "hyderabad",
+      "tier": "confirmed-2026",
+      "source": "Owner confirmed Thu & Fri batches on 5 Oct 2026 for 8 Oct–31 Dec 2026. 2027 not confirmed.",
+      "batches": [
+        { "weekday": "thu", "departs": "15:00", "returnDays": 4, "returns": "Monday 10:00" },
+        { "weekday": "fri", "departs": "15:00", "returnDays": 4, "returns": "Tuesday 10:00" }
+      ]
+    },
+    {
+      "trip": "isha-ooty-coonoor",
+      "origin": "hyderabad",
+      "tier": "confirmed-2026",
+      "source": "Owner confirmed Thu & Fri batches on 5 Oct 2026 for 8 Oct–31 Dec 2026. 2027 not confirmed.",
+      "batches": [
+        { "weekday": "thu", "departs": "19:00", "returnDays": 4, "returns": "Monday 06:00" },
+        { "weekday": "fri", "departs": "19:00", "returnDays": 4, "returns": "Tuesday 06:00" }
+      ]
+    },
+    {
+      "trip": "coorg-chikmagalur",
+      "origin": "bangalore",
+      "tier": "confirmed-2026",
+      "source": "Owner confirmed Fri & Sat batches on 5 Oct 2026 for 9 Oct–19 Dec 2026 (why the range ends on 19 Dec is not recorded). 2027 not confirmed.",
+      "batches": [
+        { "weekday": "fri", "departs": "06:00", "returnDays": 2, "returns": "Sunday (no fixed time shown)" },
+        { "weekday": "sat", "departs": "06:00", "returnDays": 2, "returns": "Monday ~18:00" }
+      ]
+    },
+    {
+      "trip": "araku-vanajangi-vizag",
+      "origin": "hyderabad",
+      "tier": "trip-data-weekday",
+      "source": "Weekday from HCC trip data (\"Every Thursday from Hyderabad\"; Weekend Yaari import, owner-approved working reference 9 Oct 2026). Not owner-confirmed as a weekly schedule.",
+      "batches": [
+        { "weekday": "thu", "departs": "17:30", "returnDays": 3, "returns": "Train from Vizag at 8:00 pm, back 7:00 am (end date in data = last trip day, Sunday)" }
+      ]
+    },
+    {
+      "trip": "wayanad",
+      "origin": "hyderabad",
+      "tier": "trip-data-weekday",
+      "source": "Weekday from HCC trip data (\"Every Thursday from Hyderabad\"; working reference). Not owner-confirmed as a weekly schedule.",
+      "batches": [
+        { "weekday": "thu", "departs": "19:00", "returnDays": 3, "returns": "Train from Mysore at 3:00 pm on day 3 (end date in data = last trip day, Sunday)" }
+      ]
+    },
+    {
+      "trip": "lonavala-matheran",
+      "origin": "hyderabad",
+      "tier": "trip-data-weekday",
+      "source": "Weekday from HCC trip data (\"Every Thursday from Hyderabad\"; working reference). Departure time NEEDS CONFIRMATION in catalog/verification.json.",
+      "batches": [
+        { "weekday": "thu", "departs": null, "returnDays": 3, "returns": "Train from Pune on day 3 (end date in data = last trip day, Sunday)" }
+      ]
+    },
+    {
+      "trip": "gokarna-dandeli-couple",
+      "origin": "hyderabad",
+      "tier": "trip-data-weekday",
+      "source": "Weekday from HCC trip data (\"Every Friday\"; working reference). Not owner-confirmed as a weekly schedule.",
+      "batches": [
+        { "weekday": "fri", "departs": "15:45", "returnDays": 3, "returns": "9:05 pm train from Hubballi, back 10–11 am (end date in data = last trip day, Monday)" }
+      ]
+    },
+    {
+      "trip": "gokarna-dandeli",
+      "origin": "vijayawada",
+      "tier": "trip-data-weekday",
+      "source": "Weekday from HCC trip data (\"Every Friday from Vijayawada\"; working reference). The trip text says Friday 2:00 pm, but catalog/verification.json marks the departure time NEEDS CONFIRMATION.",
+      "batches": [
+        { "weekday": "fri", "departs": "14:00 (unconfirmed)", "returnDays": 3, "returns": "Train from Hubballi on day 3 (end date in data = last trip day, Monday)" }
+      ]
+    },
+    {
+      "trip": "gokarna-dandeli",
+      "origin": "bangalore",
+      "tier": "trip-data-weekday",
+      "source": "Weekday from HCC trip data (\"Every Friday from Bangalore\"; working reference). The 2026 date range (stopping 11 Dec) came from a competitor reference and is NOT evidence of an HCC December break.",
+      "batches": [
+        { "weekday": "fri", "departs": "23:00", "returnDays": 3, "returns": "Train from Hubballi on day 3 (9:05 pm) (end date in data = last trip day, Monday)" }
+      ]
+    },
+    {
+      "trip": "gokarna-dandeli-couple",
+      "origin": "bangalore",
+      "tier": "trip-data-weekday",
+      "source": "Weekday from HCC trip data (\"Every Friday from Bangalore\"; working reference). 2026 dates followed the main Gokarna trip (competitor-derived range).",
+      "batches": [
+        { "weekday": "fri", "departs": "23:00", "returnDays": 3, "returns": "Train from Hubballi on day 3 (9:05 pm) (end date in data = last trip day, Monday)" }
+      ]
+    }
+  ],
+  "notDrafted": [
+    {
+      "trip": "munnar",
+      "origin": "bangalore",
+      "reason": "HCC trip data gives no weekday (\"Weekly departures\"). The 2026 Friday dates came only from a competitor reference, so no 2027 dates are drafted until HCC gives the weekday."
+    },
+    {
+      "trip": "kerala-munnar-alleppey",
+      "origin": "bangalore",
+      "reason": "HCC trip data says \"Group dates on request\". The two 2026 dates (16 Oct, 6 Nov) came from a competitor reference; no weekly pattern exists."
+    }
+  ]
+}
