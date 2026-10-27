@@ -332,6 +332,20 @@ for (const [u, p] of pages) {
   if (cheapest != null && b.advance > cheapest) errors.push(`${u}: advance ₹${b.advance} exceeds the trip price ₹${cheapest}`);
 }
 
+// 11. Guide live-data tokens ({{trip-table: …}}, {{price: …}}; src/lib/guide-tokens.ts): every token names a real
+// trip, and no token is left unexpanded on a built page (a typo would otherwise show "{{…}}" to readers).
+const tripIds = new Set((await readdir('src/content/trips')).filter((f) => f.endsWith('.md')).map((f) => f.slice(0, -3)));
+for (const f of (await readdir('src/content/guides')).filter((x) => /\.mdx?$/.test(x))) {
+  const src = await readFile(path.join('src/content/guides', f), 'utf8');
+  for (const m of src.matchAll(/\{\{\s*(?:trip-table|trip|price|next)\s*:\s*([^}|]+)/g))
+    for (const id of m[1].split(',').map((s) => s.trim().replace(/@.*$/, '')).filter(Boolean))
+      if (!tripIds.has(id)) errors.push(`src/content/guides/${f}: token refers to unknown trip "${id}"`);
+}
+for (const [u, p] of pages) {
+  const hit = p.text.match(/\{\{\s*[a-z-]+\s*(:[^}]*)?\}\}/);
+  if (hit) errors.push(`${u}: unexpanded token "${hit[0]}"`);
+}
+
 console.log(`Checked ${pages.size} pages (${[...pages.values()].filter((p) => p.indexable).length} indexable), ${tripPrice.size} trip prices, today ${TODAY} IST.`);
 if (warnings.length) console.log(`\n${warnings.length} warning(s):\n  ${warnings.join('\n  ')}`);
 if (errors.length) {

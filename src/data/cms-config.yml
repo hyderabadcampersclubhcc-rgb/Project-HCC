@@ -355,6 +355,7 @@ collections:
     fields:
       - { label: URL id, name: slug, widget: string, hint: 'e.g. hyderabad-to-ooty-travel-guide. No dates in URLs.' }
       - { label: Draft, name: draft, widget: boolean, default: true }
+      - { label: Show in Google (indexable), name: indexable, widget: boolean, default: false, hint: 'Leave off until HCC has reviewed the guide. Off = noindex and left out of the sitemap.' }
       - { label: Title (H1), name: title, widget: string }
       - { label: Meta description, name: description, widget: text, hint: 'Max 170 characters' }
       - { label: Card excerpt, name: excerpt, widget: text }
@@ -385,7 +386,10 @@ collections:
         fields:
           - { label: Title, name: title, widget: string, required: false }
           - { label: Description, name: description, widget: text, required: false }
-      - { label: Body, name: body, widget: markdown }
+      - label: Body
+        name: body
+        widget: markdown
+        hint: 'Live trip data: put {{trip-table: ooty-coonoor, wayanad | Caption}} or {{trip: ooty-coonoor}} on a line of its own, or write {{price: ooty-coonoor}} / {{next: ooty-coonoor}} inside a sentence. Never type prices by hand.'
 
   - name: authors
     label: Authors

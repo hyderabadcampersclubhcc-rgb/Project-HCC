@@ -2,7 +2,8 @@
 /**
  * /travel-guides/{id}/: owns informational searches ("hyderabad to ooty travel guide",
  * "ooty vs coorg") and hands readers to the trips that own the transactional ones.
- * MDX bodies can embed live trips: <TripCallout trip="ooty-coonoor" />
+ * MDX bodies can embed live trips: <TripCallout trip="ooty-coonoor" />. CMS-editable .md bodies use
+ * plain-text tokens instead ({{trip-table: …}}, {{trip: …}}, {{price: …}}): see src/lib/guide-tokens.ts.
  */
 import { getCollection, getEntry, render, type CollectionEntry } from 'astro:content';
 import Photo from '@/components/ui/Photo.astro';
@@ -20,6 +21,7 @@ import WhatsAppBand from '@/components/cta/WhatsAppBand.astro';
 import SectionNote from '@/components/home/SectionNote.astro';
 import { getTrips, guideUrl } from '@/lib/catalog';
 import { isoDate } from '@/lib/format';
+import { hasGuideTokens, splitGuideHtml, expandInlineTokens } from '@/lib/guide-tokens';
 
 interface Props {
   guide: CollectionEntry<'guides'>;
@@ -45,6 +47,10 @@ const words = guide.body?.split(/\s+/).length ?? 0;
 const readMinutes = Math.max(3, Math.round(words / 220));
 
 const allTrips = await getTrips(catalog);
+// .md guides with live-data tokens render from their HTML, split around the live blocks.
+const blocks = guide.filePath?.endsWith('.md') && guide.rendered?.html && hasGuideTokens(guide.body ?? '') ? splitGuideHtml(guide.rendered.html, allTrips) : null;
+const quickAnswer = g.quickAnswer && expandInlineTokens(g.quickAnswer, allTrips);
+const faqs = g.faqs.map((f) => ({ ...f, a: expandInlineTokens(f.a, allTrips) }));
 const relatedTrips = g.relatedTrips.map((r) => allTrips.find((t) => t.id === r.id)).filter((t): t is NonNullable<typeof t> => !!t);
 
 const showSamples = catalog.samples ?? import.meta.env.PUBLIC_SHOW_SAMPLES === 'true';
@@ -74,21 +80,29 @@ const moreGuides = (await getCollection('guides', (x) => !x.data.draft && x.id !
     </figure>
 
     {preview && <SectionNote n={2} title="Quick answer + contents" purpose="Answers the question in 2–3 sentences up top (snippet / AI-overview target), then a contents list for skimmers. Contents is a collapsible box on phones and a sticky sidebar on desktop." data="Quick answer (CMS); contents generated from the article's headings." />}
-    {g.quickAnswer && <QuickAnswer text={g.quickAnswer} />}
+    {quickAnswer && <QuickAnswer text={quickAnswer} />}
     <div class="guide__toc-mobile"><TableOfContents headings={headings} /></div>
 
     {preview && <SectionNote n={3} title="Article body with live trip cards" purpose="The article itself. Writers drop a live trip card anywhere with <TripCallout trip=…/>; it always shows the current price and next date, so guides never go stale and readers are one tap from booking." data="Guide body (MDX, CMS)." status="needs-data" />}
     <article class="prose guide__body">
-      <Content components={{ TripCallout: preview ? TripCalloutSample : TripCallout, TripTable }} />
+      {
+        blocks ? (
+          blocks.map((b) =>
+            b.kind === 'html' ? <Fragment set:html={b.html} /> : b.kind === 'table' ? <TripTable trips={b.trips} caption={b.caption} /> : <TripCallout trip={b.trip} />,
+          )
+        ) : (
+          <Content components={{ TripCallout: preview ? TripCalloutSample : TripCallout, TripTable }} />
+        )
+      }
     </article>
 
     {
-      g.faqs.length > 0 && (
+      faqs.length > 0 && (
         <section aria-labelledby="guide-faq" class="guide__block">
           <h2 id="guide-faq" class="guide__h2">
             FAQs
           </h2>
-          <FAQ items={g.faqs} />
+          <FAQ items={faqs} />
         </section>
       )
     }
