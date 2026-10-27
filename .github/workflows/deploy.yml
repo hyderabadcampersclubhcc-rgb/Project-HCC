@@ -78,6 +78,14 @@ jobs:
       # state only when a run completes, so every retry restarted from scratch. A part that
       # finishes now stays done; a part that drops is retried once. Excluded paths are also
       # filtered from the server state, so part 1 never deletes the trip pages.
+      # Before every upload attempt, remove temp files left by an interrupted upload (tools/ftp-cleanup.sh).
+      - name: Remove leftover upload temp files (before part 1)
+        run: bash tools/ftp-cleanup.sh
+        env:
+          FTP_HOST: ${{ steps.ftp.outputs.host }}
+          FTP_USER: ${{ steps.ftp.outputs.user }}
+          LFTP_PASSWORD: ${{ steps.ftp.outputs.pass }}
+          FTP_DIR: ${{ steps.ftp.outputs.dir }}
       # Part 1: everything except /trips/ (assets first, then pages), same state file as before.
       - name: Deploy to Hostinger (staging, part 1 of 2)
         id: part1
@@ -89,6 +97,9 @@ jobs:
           username: ${{ steps.ftp.outputs.user }}
           password: ${{ steps.ftp.outputs.pass }}
           protocol: ${{ vars.FTP_PROTOCOL || 'ftps' }}
+          # 2 min instead of the 30 s default: the control connection sits idle while a large file uploads
+          # (runs failed with 'Timeout (control socket)').
+          timeout: 120000
           local-dir: ./dist/
           server-dir: ${{ steps.ftp.outputs.dir }}
           # Fresh sync state (Oct 2026): the old .ftp-deploy-sync-state.json still listed the removed
@@ -99,6 +110,18 @@ jobs:
             **/.git*/**
             api/config.php
             trips/**
+            # Retired page still listed in the sync state; excluding it stops the failing delete of a
+            # folder that no longer exists ("550 /staging/destinations/narsapur").
+            destinations/narsapur
+            destinations/narsapur/**
+      - name: Remove leftover upload temp files before retrying part 1
+        if: steps.part1.outcome == 'failure'
+        run: bash tools/ftp-cleanup.sh
+        env:
+          FTP_HOST: ${{ steps.ftp.outputs.host }}
+          FTP_USER: ${{ steps.ftp.outputs.user }}
+          LFTP_PASSWORD: ${{ steps.ftp.outputs.pass }}
+          FTP_DIR: ${{ steps.ftp.outputs.dir }}
       - name: Retry part 1
         if: steps.part1.outcome == 'failure'
         timeout-minutes: 20
@@ -108,6 +131,9 @@ jobs:
           username: ${{ steps.ftp.outputs.user }}
           password: ${{ steps.ftp.outputs.pass }}
           protocol: ${{ vars.FTP_PROTOCOL || 'ftps' }}
+          # 2 min instead of the 30 s default: the control connection sits idle while a large file uploads
+          # (runs failed with 'Timeout (control socket)').
+          timeout: 120000
           local-dir: ./dist/
           server-dir: ${{ steps.ftp.outputs.dir }}
           # Fresh sync state (Oct 2026): the old .ftp-deploy-sync-state.json still listed the removed
@@ -118,6 +144,17 @@ jobs:
             **/.git*/**
             api/config.php
             trips/**
+            # Retired page still listed in the sync state; excluding it stops the failing delete of a
+            # folder that no longer exists ("550 /staging/destinations/narsapur").
+            destinations/narsapur
+            destinations/narsapur/**
+      - name: Remove leftover upload temp files (before part 2)
+        run: bash tools/ftp-cleanup.sh
+        env:
+          FTP_HOST: ${{ steps.ftp.outputs.host }}
+          FTP_USER: ${{ steps.ftp.outputs.user }}
+          LFTP_PASSWORD: ${{ steps.ftp.outputs.pass }}
+          FTP_DIR: ${{ steps.ftp.outputs.dir }}
       # Part 2: the trip pages, with their own sync state inside /trips/.
       - name: Deploy to Hostinger (staging, part 2 of 2)
         id: part2
@@ -129,9 +166,20 @@ jobs:
           username: ${{ steps.ftp.outputs.user }}
           password: ${{ steps.ftp.outputs.pass }}
           protocol: ${{ vars.FTP_PROTOCOL || 'ftps' }}
+          # 2 min instead of the 30 s default: the control connection sits idle while a large file uploads
+          # (runs failed with 'Timeout (control socket)').
+          timeout: 120000
           local-dir: ./dist/trips/
           server-dir: ${{ steps.ftp.outputs.dir }}trips/
           state-name: .ftp-deploy-sync-state-trips.json
+      - name: Remove leftover upload temp files before retrying part 2
+        if: steps.part2.outcome == 'failure'
+        run: bash tools/ftp-cleanup.sh
+        env:
+          FTP_HOST: ${{ steps.ftp.outputs.host }}
+          FTP_USER: ${{ steps.ftp.outputs.user }}
+          LFTP_PASSWORD: ${{ steps.ftp.outputs.pass }}
+          FTP_DIR: ${{ steps.ftp.outputs.dir }}
       - name: Retry part 2
         if: steps.part2.outcome == 'failure'
         timeout-minutes: 20
@@ -141,6 +189,9 @@ jobs:
           username: ${{ steps.ftp.outputs.user }}
           password: ${{ steps.ftp.outputs.pass }}
           protocol: ${{ vars.FTP_PROTOCOL || 'ftps' }}
+          # 2 min instead of the 30 s default: the control connection sits idle while a large file uploads
+          # (runs failed with 'Timeout (control socket)').
+          timeout: 120000
           local-dir: ./dist/trips/
           server-dir: ${{ steps.ftp.outputs.dir }}trips/
           state-name: .ftp-deploy-sync-state-trips.json
