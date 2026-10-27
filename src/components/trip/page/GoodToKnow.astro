@@ -6,11 +6,11 @@
 import TripSection from './TripSection.astro';
 import Icon from '@/components/ui/Icon.astro';
 import type { TripView, TripOriginView } from '@/lib/catalog';
-import { inr } from '@/lib/format';
 import { settings } from '@/lib/settings';
 import { waHref, waRef } from '@/lib/whatsapp';
 import ConfirmText from '@/components/content/ConfirmText.astro';
 import WhatsAppCTA from '@/components/cta/WhatsAppCTA.astro';
+import { paymentLines, summaryLines } from '@/lib/cancellation';
 
 interface Props {
   trip: TripView;
@@ -24,7 +24,9 @@ const thingsToCarry = origin?.thingsToCarry ?? d.thingsToCarry;
 const importantInfo = origin?.importantInfo ?? d.importantInfo;
 const toConfirm = d.confirmOnWhatsApp;
 const terms = d.paymentTerms;
-const hasPayment = d.advanceAmount != null || d.cancellationPolicy || toConfirm.length > 0 || terms.length > 0;
+// Every trip shows the shared Cancellation & Refund Policy (src/data/cancellation-policy.json) with its own advance lines.
+const payment = paymentLines(trip.id);
+const hasPayment = true;
 const phone = settings.contact.phone || settings.contact.whatsapp;
 const tel = phone ? `tel:+${phone.replace(/\D/g, '').replace(/^(?!91)(\d{10})$/, '91$1')}` : null;
 // Unconfirmed details link to HCC's WhatsApp with this trip's message (tracked like every WhatsApp CTA).
@@ -109,17 +111,19 @@ const any =
               <Icon name="shield" /> Payment & cancellation
             </h3>
             <ul class="gtk__list">
+              {payment.map((t) => (
+                <li>
+                  <ConfirmText text={t} href={confirmHref} tripId={trip.id} />
+                </li>
+              ))}
               {terms.map((t) => (
                 <li>{t}</li>
               ))}
-              {terms.length === 0 && d.advanceAmount != null && (
-                <li>
-                  Reserve your seat with <b>{inr(d.advanceAmount)} per person</b>
-                  {settings.payments.enabled ? ', paid securely online.' : '. The HCC team confirms your seat and shares payment details.'}
-                </li>
-              )}
+              <li>{settings.payments.enabled ? 'The advance is paid securely online.' : 'The HCC team confirms your seat and shares payment details.'}</li>
               {d.gstPercent != null && <li>GST of {d.gstPercent}% applies and is shown in the price summary.</li>}
-              {d.cancellationPolicy && <li>{d.cancellationPolicy}</li>}
+              {summaryLines().map((t) => (
+                <li>{t}</li>
+              ))}
               {toConfirm.map((label) => (
                 <li>
                   <b>{label}:</b>{' '}

@@ -28,6 +28,7 @@ stayOptions:
     priceDelta: 0
 basePrice: 18500
 originalPrice: 22500
+advanceAmount: 2000
 highlights:
   - Mysore Palace
   - Needle Rock, Pykara falls and Shooting Point
@@ -95,7 +96,6 @@ thingsToCarry:
   - Light jacket or hoodie (hill evenings get cool)
 importantInfo:
   - Price shown is per person; the package is sold per couple (two travellers sharing a room).
-cancellationPolicy: "30+ days before departure: 25% cancellation fee. 15–30 days: 50%. Under 15 days: no refund. The booking amount is non-refundable."
 sortOrder: 270
 recurrence: Your dates, on request
 primaryKeyword: ooty couple package from hyderabad

@@ -8,6 +8,7 @@ import { getCollection, type CollectionEntry } from 'astro:content';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import StaticPage from '@/components/pages/StaticPage.astro';
 import { faqLd } from '@/lib/schema';
+import { expandFaqs } from '@/lib/cancellation';
 
 export const getStaticPaths = (async () => (await getCollection('pages')).map((page) => ({ params: { page: page.id }, props: { page } }))) satisfies GetStaticPaths;
 
@@ -22,7 +23,7 @@ const { page } = Astro.props;
   title={page.data.seo.title ?? page.data.title}
   description={page.data.seo.description ?? page.data.description}
   noindex={page.data.draft || page.data.noindex}
-  jsonLd={!page.data.draft && page.data.faqs.length ? faqLd(page.data.faqs) : undefined}
+  jsonLd={!page.data.draft && page.data.faqs.length ? faqLd(expandFaqs(page.data.faqs)) : undefined}
 >
   <StaticPage page={page} />
 </BaseLayout>

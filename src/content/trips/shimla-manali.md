@@ -33,6 +33,7 @@ stayOptions:
     priceDelta: 2001
 basePrice: 11999
 originalPrice: 14000
+advanceAmount: 2000
 highlights:
   - Hadimba Temple, Old Manali and Vashisht
   - Solang Valley and Sissu via the Atal Tunnel
@@ -134,9 +135,7 @@ thingsToCarry:
   - Personal medicines
 importantInfo:
   - Sightseeing order can change with weather, traffic or local restrictions; your trip captain decides on the day for everyone’s safety.
-  - If a departure doesn’t reach the minimum group size, HCC may merge it with another batch or move you to the next date.
   - Please reach the boarding point on time; missed trains or buses can’t be refunded.
-cancellationPolicy: "30+ days before departure: 25% cancellation fee. 15–30 days: 50%. Under 15 days: no refund. The booking amount is non-refundable."
 sortOrder: 150
 recurrence: Group dates on request
 primaryKeyword: shimla manali tour package

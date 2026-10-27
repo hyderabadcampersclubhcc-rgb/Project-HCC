@@ -29,7 +29,7 @@ stayOptions:
     priceDelta: 0
 basePrice: 6999
 originalPrice: 8500
-advanceAmount: 1999
+advanceAmount: 2000
 gstPercent: 5
 highlights:
   - Lohagad Fort trek
@@ -115,12 +115,10 @@ thingsToCarry:
 importantInfo:
   - "This is a budget group trip: comfortable and well run, not a luxury tour."
   - Sightseeing order can change with weather, traffic or local restrictions; your trip captain decides on the day for everyone’s safety.
-  - If a departure doesn’t reach the minimum group size, HCC may merge it with another batch or move you to the next date.
   - Please reach the boarding point on time; missed trains or buses can’t be refunded.
   - Trekking shoes are compulsory; trails get slippery.
   - Mobile network is limited in the forest.
   - No alcohol, smoking or drugs.
-cancellationPolicy: HCC cancellation policy applies; train ticket cancellations follow IRCTC rules.
 faqs:
   - q: Is it suitable for beginners?
     a: "Yes, with moderate fitness: the walks are long and the monsoon terrain is muddy."

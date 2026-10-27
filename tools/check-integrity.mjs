@@ -18,6 +18,7 @@ import { readdir, readFile } from 'node:fs/promises';
 import { existsSync } from 'node:fs';
 import path from 'node:path';
 import { pageStatus } from '../catalog/verification.mjs';
+import { readFileSync } from 'node:fs';
 
 const DIST = path.resolve('dist');
 const TODAY = new Date().toLocaleDateString('en-CA', { timeZone: 'Asia/Kolkata' });
@@ -293,6 +294,42 @@ for (const [u, p] of pages) {
     const written = visible(block[2]).match(/\bfrom ₹([\d,]+)/i)?.[1];
     if (live && written && num(written) !== live) errors.push(`${u}: says "from ₹${written}" for ${links[0]}, live price is ₹${live.toLocaleString('en-IN')}`);
   }
+}
+
+// 10. One Cancellation & Refund Policy (src/data/cancellation-policy.json, owner decisions 16–21 Oct 2026):
+//     no old refund tiers, trip-specific policies or merge-or-move wording anywhere, and on every trip page the
+//     advance matches the policy and the booking data and stays within the trip price.
+const POLICY = JSON.parse(readFileSync('src/data/cancellation-policy.json', 'utf8'));
+const OLD_POLICY = [
+  [/\b25% (cancellation )?fee\b|\b30\+? (or more )?days before departure\b/i, 'old 25%/30-day refund tier'],
+  [/\b15[–-]30 days\b|\bunder 15 days\b|\bless than 15 days\b/i, 'old 15–30-day refund tier'],
+  [/full refund up to 15 days/i, 'old Pondicherry rule'],
+  [/no refund (once|after) (the )?booking is confirmed/i, 'old Gandikota rule'],
+  [/non-refundable in every case/i, 'old "in every case" rule'],
+  [/merge it with another batch|move you to the next date/i, 'old merge-or-move rule'],
+  [/₹500 per head/i, 'old ₹500 wording'],
+  [/the trip page applies|have their own rules/i, 'trip-specific policy override'],
+];
+for (const [u, p] of pages) {
+  const text = visible(p.html);
+  for (const [re, label] of OLD_POLICY) {
+    const hit = text.match(re);
+    if (hit) errors.push(`${u}: ${label} ("${hit[0]}"); the shared cancellation policy replaces it`);
+  }
+  const m = u.match(/^\/trips\/(.+)-from-([a-z]+)\/$/);
+  if (!m) continue;
+  const data = p.html.match(/<script type="application\/json" data-booking-data>([\s\S]*?)<\/script>/)?.[1];
+  if (!data) continue;
+  const b = JSON.parse(data);
+  const want = POLICY.advance.exceptions[m[1]]?.advance ?? POLICY.advance.standard;
+  if (b.advance !== want) errors.push(`${u}: booking advance ₹${b.advance} ≠ policy advance ₹${want}`);
+  const card = visible(p.html.match(/id="policies"[\s\S]*?<\/ul>/)?.[0] ?? '');
+  if (!card.includes(`₹${want.toLocaleString('en-IN')} advance payment per person`)) errors.push(`${u}: Payment & cancellation card does not show the ₹${want} advance`);
+  const prices = (b.departures ?? []).flatMap((d) => Object.values(d.prices ?? {}));
+  // Undated trips (no departures in the booking data) fall back to the "At a glance" price.
+  const cheapest = prices.length ? Math.min(...prices) : (tripPrice.get(u) ?? null);
+  if (cheapest == null) warnings.push(`${u}: no price found to compare with the ₹${b.advance} advance`);
+  if (cheapest != null && b.advance > cheapest) errors.push(`${u}: advance ₹${b.advance} exceeds the trip price ₹${cheapest}`);
 }
 
 console.log(`Checked ${pages.size} pages (${[...pages.values()].filter((p) => p.indexable).length} indexable), ${tripPrice.size} trip prices, today ${TODAY} IST.`);

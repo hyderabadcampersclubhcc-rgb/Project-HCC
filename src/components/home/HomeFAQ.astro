@@ -7,13 +7,14 @@
 import FAQ from '@/components/content/FAQ.astro';
 import WhatsAppBand from '@/components/cta/WhatsAppBand.astro';
 import { home } from '@/lib/home';
+import { expandFaqs } from '@/lib/cancellation';
 
 interface Props {
   preview?: boolean;
 }
 
 const { preview = false } = Astro.props;
-const answered = home.faq.items.filter((f) => f.a);
+const answered = expandFaqs(home.faq.items.filter((f) => f.a));
 const items = answered.length ? answered : preview ? home.faq.items.map((f) => ({ q: f.q, a: 'Answer needed from HCC (policy, pickup point, advance amount).' })) : [];
 ---
 

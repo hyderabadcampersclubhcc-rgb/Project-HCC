@@ -1,0 +1,61 @@
+---
+/**
+ * The full Cancellation & Refund Policy, rendered from src/data/cancellation-policy.json (the single source).
+ * Shown on /cancellation-policy/ above the page's own "How to cancel" text.
+ */
+import ConfirmText from './ConfirmText.astro';
+import { policy, policyExceptions } from '@/lib/cancellation';
+import { waHref } from '@/lib/whatsapp';
+
+const href = waHref();
+const camps = policyExceptions();
+---
+
+<section class="cpol" aria-label="Cancellation and refund policy">
+  <h2>Advance payment</h2>
+  <ul>
+    {policy.advance.standardLines.map((l) => <li>{l}</li>)}
+  </ul>
+  <p>These camping trips have their own advance:</p>
+  <ul>
+    {
+      camps.map((c) => (
+        <li>
+          <b>{c.label}:</b>{' '}
+          {c.lines.map((l, i) => (
+            <>
+              {i > 0 && ' '}
+              <ConfirmText text={l} href={href} />
+            </>
+          ))}
+        </li>
+      ))
+    }
+  </ul>
+  <p>{policy.eligible}</p>
+  <p>{policy.counting}</p>
+
+  {
+    policy.bands.map((b) => (
+      <>
+        <h2>{b.title}</h2>
+        <ul>
+          {b.lines.map((l) => (
+            <li>{l}</li>
+          ))}
+        </ul>
+      </>
+    ))
+  }
+  <p>{policy.personal}</p>
+
+  <h2>{policy.hcc.title}</h2>
+  <p>{policy.hcc.intro}</p>
+  <ul>
+    {policy.hcc.reasons.map((r) => <li>{r}</li>)}
+  </ul>
+  <p>{policy.hcc.outcome}</p>
+
+  <h2>Train tickets</h2>
+  <p>{policy.irctc}</p>
+</section>

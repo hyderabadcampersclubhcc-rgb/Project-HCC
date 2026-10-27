@@ -31,6 +31,7 @@ stayOptions:
     priceDelta: 0
 basePrice: 7999
 originalPrice: 8500
+advanceAmount: 2000
 highlights:
   - Walk into car-free Matheran
   - Echo Point, Charlotte Lake and Lord’s Point
@@ -115,12 +116,10 @@ thingsToCarry:
 importantInfo:
   - "This is a budget group trip: comfortable and well run, not a luxury tour."
   - Sightseeing order can change with weather, traffic or local restrictions; your trip captain decides on the day for everyone’s safety.
-  - If a departure doesn’t reach the minimum group size, HCC may merge it with another batch or move you to the next date.
   - Please reach the boarding point on time; missed trains or buses can’t be refunded.
   - "Matheran is vehicle-free: expect to walk."
   - No alcohol or smoking during the trip.
   - Travellers under 18 must come with a parent or guardian.
-cancellationPolicy: HCC cancellation policy applies; train ticket cancellations follow IRCTC rules.
 faqs:
   - q: Can I join if I’m travelling alone?
     a: Yes. Solo travellers are welcome, and you’ll be in a group with an HCC trip captain from the start.

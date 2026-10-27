@@ -66,10 +66,8 @@ const sections = [
   { id: 'stays', label: 'Stays & travel' },
   (o.inclusions.length || o.exclusions.length) && { id: 'inclusions', label: 'Inclusions' },
   d.privatePricing && { id: 'private', label: 'Private trip' },
-  (o.thingsToCarry.length || o.importantInfo.length || d.suitableFor.length || d.advanceAmount != null || d.cancellationPolicy || d.infoSections.length) && {
-    id: 'info',
-    label: 'Good to know',
-  },
+  // Always present: every trip shows the shared Cancellation & Refund Policy under Good to know.
+  { id: 'info', label: 'Good to know' },
   faqs.length && { id: 'faqs', label: 'FAQs' },
   showReviews && { id: 'reviews', label: 'Reviews' },
 ].filter((s): s is { id: string; label: string } => !!s);

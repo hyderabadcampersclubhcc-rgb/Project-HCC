@@ -9,6 +9,7 @@
 import type { TripView, TripOriginView } from './catalog';
 import { inr, travelSuffix } from './format';
 import { settings } from './settings';
+import { summaryText } from './cancellation';
 
 export interface TripFact {
   label: string;
@@ -151,8 +152,9 @@ export function quickFaqs(trip: TripView, origin: TripOriginView): { q: string; 
           }),
     });
   }
-  if (d.cancellationPolicy && !has('cancel')) {
-    out.push({ q: 'What if I need to cancel?', a: `${d.cancellationPolicy} The full cancellation policy is linked under Good to know.` });
+  if (!has('cancel')) {
+    // Shared Cancellation & Refund Policy (src/data/cancellation-policy.json): the same text on every trip.
+    out.push({ q: 'What if I need to cancel?', a: `${summaryText()} The full cancellation policy is linked under Good to know.` });
   }
   return out;
 }

@@ -8,7 +8,7 @@ faqs:
   - q: How do I book a trip?
     a: Pick a trip and date on the website, then send an enquiry or message HCC on WhatsApp at +91 81793 21382. We confirm availability, you pay the advance to hold your seat, and you get the full trip details before departure.
   - q: How much is the advance, and when is the balance due?
-    a: It depends on the trip. Several trips take a ₹2,000 per person advance; Ananthagiri camping takes ₹500 per head, with the balance paid at the campsite. The trip page and your WhatsApp confirmation show the exact amount and when the balance is due.
+    a: "{{advance-summary}}"
   - q: Can I join if I'm travelling alone?
     a: Yes. Solo travellers are welcome on HCC group trips. You're part of the group from the departure point, and the trip captain is with the group throughout.
   - q: Where do trips leave from?
@@ -18,9 +18,9 @@ faqs:
   - q: What is included in the price?
     a: It varies by trip. Every trip page lists what's included and what isn't, the transport class and timings, and the type of stay and room sharing, so you can check before you pay.
   - q: What is the cancellation policy?
-    a: For most trips, cancelling 30 or more days before departure costs 25% of the trip price, 15 to 30 days costs 50%, and under 15 days there's no refund. The booking amount is non-refundable. A few trips have their own rules; see the cancellation policy page.
+    a: "{{cancellation-summary}} See the cancellation policy page for the full policy."
   - q: What if my trip doesn't fill up?
-    a: If a departure doesn't reach the minimum group size, HCC may merge it with another batch or move you to the next date.
+    a: "{{hcc-cancellation}}"
   - q: Can the plan change during the trip?
     a: Yes, the sightseeing order can change with weather, traffic or local restrictions. Your trip captain decides on the day, for everyone's safety.
   - q: Are these luxury tours?

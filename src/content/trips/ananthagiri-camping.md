@@ -111,7 +111,7 @@ thingsToCarry:
   - Government photo ID
 importantInfo:
   - "Always call or WhatsApp to check availability before booking. No walk-ins: spot entries are not allowed without a booking."
-  - Book with a ₹500 per head advance; the balance is paid at the campsite at check-in. Share every traveller’s name and age and one Aadhaar copy on WhatsApp to confirm.
+  - Book with a ₹500 advance per person, which blocks your slot and is non-refundable; the remaining ₹1,100 per person is paid after you reach the campsite. Share every traveller’s name and age and one Aadhaar copy on WhatsApp to confirm.
   - Arrive about 10 minutes before check-in; late arrivals may miss meals and activities.
   - Keep valuables with you; don’t leave cash or gold in the tents.
   - Other-state alcohol and hookah are not allowed in the campsite.
@@ -124,12 +124,11 @@ suitableFor:
   - Groups of friends
   - Couples
   - Families
-cancellationPolicy: The advance payment is non-refundable.
 faqs:
   - q: Is transport included?
     a: No. Drive yourself, or take the 12702 from Nampally (2:55 pm) or the 12732 from Secunderabad (4:00 pm) to Vikarabad; autos and cabs cover the last 9 km.
   - q: How do I book?
-    a: Message HCC on WhatsApp to check availability, pay the ₹500 per head advance, then send the payment screenshot with names, ages and one Aadhaar copy.
+    a: Message HCC on WhatsApp to check availability, pay the ₹500 per person advance (non-refundable), then send the payment screenshot with names, ages and one Aadhaar copy.
   - q: Is the swimming pool included?
     a: Yes, from 5 pm to 10 pm. Bring an extra pair of clothes.
   - q: Is the DJ every night?

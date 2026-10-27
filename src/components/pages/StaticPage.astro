@@ -9,6 +9,8 @@ import FAQ from '@/components/content/FAQ.astro';
 import WhatsAppBand from '@/components/cta/WhatsAppBand.astro';
 import Icon from '@/components/ui/Icon.astro';
 import { isoDate } from '@/lib/format';
+import CancellationPolicy from '@/components/content/CancellationPolicy.astro';
+import { expandFaqs } from '@/lib/cancellation';
 
 interface Props {
   page: CollectionEntry<'pages'>;
@@ -17,6 +19,7 @@ interface Props {
 const { page } = Astro.props;
 const p = page.data;
 const { Content } = await render(page);
+const faqs = expandFaqs(p.faqs);
 const fmt = (d: Date) => new Intl.DateTimeFormat('en-IN', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' }).format(d);
 ---
 
@@ -38,9 +41,10 @@ const fmt = (d: Date) => new Intl.DateTimeFormat('en-IN', { day: 'numeric', mont
           </p>
         )}
         <article class="prose sp__body">
+          {p.policy === 'cancellation' && <CancellationPolicy />}
           <Content />
         </article>
-        {p.faqs.length > 0 && <FAQ items={p.faqs} />}
+        {faqs.length > 0 && <FAQ items={faqs} />}
       </>
     )
   }

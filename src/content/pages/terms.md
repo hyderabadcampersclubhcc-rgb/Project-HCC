@@ -11,22 +11,22 @@ Compiled only from rules already stated on HCC trip pages. HCC to check, add the
 name and address, and ideally have it reviewed before setting draft: false.
 -->
 
-These terms apply when you book a trip with Hyderabad Campers Club ("HCC"). Each trip page may add rules of its own; where it does, the trip page applies.
+These terms apply when you book a trip with Hyderabad Campers Club ("HCC"). The [Cancellation & Refund Policy](/cancellation-policy/) applies to every HCC trip.
 
 ## Booking and payment
 
 - A seat is confirmed once HCC receives the advance and confirms your booking on WhatsApp or by message.
-- The advance and the balance due date are shown on the trip page or in your confirmation. Some trips have their own schedule (for example, a balance paid at the campsite, or staged payments).
+- The advance and the balance payment are set out in the [Cancellation & Refund Policy](/cancellation-policy/): a ₹2,000 non-refundable advance per person (₹500 on the camping trips listed there), with the remaining balance due 7 days before departure unless the policy says otherwise for a camping trip.
 - Prices are per person unless the trip page says otherwise (couples packages are sold per couple).
 - Some trips need each traveller's name and age, and an ID copy, to confirm the booking.
 
 ## Cancellations and refunds
 
-See the [Cancellation & Refund Policy](/cancellation-policy/). The booking amount is non-refundable. Train ticket refunds follow IRCTC rules.
+See the [Cancellation & Refund Policy](/cancellation-policy/). The advance is non-refundable. Where HCC books train tickets for the group, refunds on those tickets follow IRCTC rules and timelines.
 
 ## Changes by HCC
 
-- If a departure doesn't reach the minimum group size, HCC may merge it with another batch or move you to the next date.
+- HCC may cancel, postpone, modify or reschedule a trip for the reasons listed in the [Cancellation & Refund Policy](/cancellation-policy/). If HCC cancels a trip, participants will be offered an alternative available trip or a full refund, as applicable.
 - The sightseeing order can change with weather, traffic, forest-department rules or local restrictions. The trip captain decides on the day, for everyone's safety.
 - If a listed stay is unavailable, a similar standard stay is arranged.
 

@@ -27,6 +27,7 @@ stayOptions:
     priceDelta: 0
 basePrice: 22500
 originalPrice: 24000
+advanceAmount: 2000
 highlights:
   - Athirappilly waterfalls
   - Kundala Lake, Mattupetty Dam and the Tea Museum
@@ -102,7 +103,6 @@ thingsToCarry:
 importantInfo:
   - Price shown is per person; the package is sold per couple (two travellers sharing a room).
   - The itinerary may be adjusted for weather or safety.
-cancellationPolicy: "30+ days before departure: 25% cancellation fee. 15–30 days: 50%. Under 15 days: no refund. The booking amount is non-refundable."
 sortOrder: 290
 recurrence: Your dates, on request
 primaryKeyword: kerala honeymoon package

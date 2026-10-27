@@ -1,0 +1,80 @@
+{
+  "$comment": "HCC Cancellation & Refund Policy: the single source for every page (policy page, trip pages, FAQs). Owner decisions 16–21 Oct 2026. Edit the wording here only. Advance amounts must match each trip's advanceAmount (tools/check-integrity.mjs verifies this).",
+  "updatedAt": "2026-10-21",
+  "advance": {
+    "standard": 2000,
+    "standardLines": [
+      "A ₹2,000 advance payment per person is non-refundable.",
+      "The remaining balance is due 7 days before departure."
+    ],
+    "exceptions": {
+      "ananthagiri-camping": {
+        "advance": 500,
+        "label": "Budget Ananthagiri camping",
+        "lines": [
+          "A ₹500 advance payment per person blocks your slot and is non-refundable.",
+          "The remaining ₹1,100 per person is paid after you reach the campsite."
+        ]
+      },
+      "gandikota-camping": {
+        "advance": 500,
+        "label": "Gandikota camping",
+        "lines": ["A ₹500 advance payment per person is non-refundable.", "Balance payment deadline: Contact us on WhatsApp to confirm."]
+      },
+      "ananthagiri-harivillu-camping": {
+        "advance": 500,
+        "label": "Harivillu camping",
+        "lines": ["A ₹500 advance payment per person is non-refundable.", "Balance payment deadline: Contact us on WhatsApp to confirm."]
+      },
+      "ananthagiri-sarpanpally-lake-camping": {
+        "advance": 500,
+        "label": "Sarpanpally camping",
+        "lines": ["A ₹500 advance payment per person is non-refundable.", "Balance payment deadline: Contact us on WhatsApp to confirm."]
+      },
+      "ananthagiri-trance-veechika-camping": {
+        "advance": 500,
+        "label": "Trance Veechika camping",
+        "lines": ["A ₹500 advance payment per person is non-refundable.", "Balance payment deadline: Contact us on WhatsApp to confirm."]
+      }
+    }
+  },
+  "eligible": "The eligible trip amount is the amount paid, excluding the non-refundable advance. A 50% refund is 50% of the eligible trip amount, less applicable deductions.",
+  "counting": "Days are counted before the departure date. The cancellation date is the day HCC receives your message.",
+  "bands": [
+    {
+      "title": "Cancellation 7 or more days before departure",
+      "lines": [
+        "Cancellation may be considered based on bookings and supplier commitments.",
+        "Applicable refunds will be processed after deducting non-refundable expenses and payment gateway charges."
+      ]
+    },
+    {
+      "title": "Cancellation 3–6 days before departure",
+      "lines": ["50% refund of the eligible trip amount after applicable deductions."]
+    },
+    {
+      "title": "Cancellation 48 hours to fewer than 3 days before departure",
+      "lines": ["50% refund of the eligible trip amount after applicable deductions."]
+    },
+    {
+      "title": "Cancellation less than 48 hours before departure",
+      "lines": ["No refund.", "No transfer or postponement to another trip."]
+    }
+  ],
+  "personal": "Work commitments, personal reasons, health issues or other last-minute circumstances do not qualify for a refund.",
+  "hcc": {
+    "title": "Cancellation or postponement by HCC",
+    "intro": "HCC reserves the right to cancel, postpone, modify or reschedule a trip due to:",
+    "reasons": [
+      "Insufficient participants",
+      "Severe weather conditions",
+      "Natural disasters",
+      "Political or local situations",
+      "Transport cancellations",
+      "Government restrictions",
+      "Other circumstances beyond our control"
+    ],
+    "outcome": "If HCC cancels a trip, participants will be offered an alternative available trip or a full refund, as applicable."
+  },
+  "irctc": "Where HCC books train tickets for the group, refunds on those tickets follow IRCTC rules and timelines."
+}

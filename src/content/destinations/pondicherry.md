@@ -78,7 +78,7 @@ faqs:
   - q: Are meals included?
     a: No, food is paid separately; Pondicherry has cafés for every budget.
   - q: What is the cancellation policy?
-    a: Full refund up to 15 days before departure, 50% fee from 7 to 14 days, and no refund within 7 days.
+    a: HCC's Cancellation & Refund Policy applies, the same as on every HCC trip. The full policy is on the cancellation policy page.
   - q: Can I add Arunachalam?
     a: Yes. The Arunachalam, Pondicherry & Mahabalipuram trip (from ₹7,499) adds Tiruvannamalai, the Pichavaram mangroves and Mahabalipuram, with AC stays and an AC vehicle.
 seo:
@@ -108,4 +108,4 @@ October to February is the most pleasant time for sightseeing and the beaches. M
 - Food isn't included; Pondicherry has plenty of cafés.
 - Children are welcome; ask HCC for the child price.
 - Freshen-up rooms aren't provided on long weekends.
-- Cancellation: full refund up to 15 days before, 50% from 7 to 14 days, no refund within 7 days.
+- Cancellation: HCC's [Cancellation & Refund Policy](/cancellation-policy/) applies.

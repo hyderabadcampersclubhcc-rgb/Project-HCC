@@ -31,6 +31,7 @@ stayOptions:
     priceDelta: 0
 basePrice: 1800
 originalPrice: 2500
+advanceAmount: 500
 highlights:
   - The Gandikota canyon on the Pennar river
   - Gandikota Fort
@@ -93,9 +94,7 @@ thingsToCarry:
 importantInfo:
   - Children under 6 go free; 6–12 years have a child rate.
   - Sightseeing order can change with weather, traffic or local restrictions; your trip captain decides on the day for everyone’s safety.
-  - If a departure doesn’t reach the minimum group size, HCC may merge it with another batch or move you to the next date.
   - Please reach the boarding point on time; missed trains or buses can’t be refunded.
-cancellationPolicy: No refund after booking is confirmed. If weather or government restrictions cancel the trip, you get a full refund or another date.
 sortOrder: 230
 recurrence: Weekly departures
 primaryKeyword: gandikota camping from hyderabad

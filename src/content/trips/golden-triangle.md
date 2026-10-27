@@ -31,6 +31,7 @@ stayOptions:
     priceDelta: 0
 basePrice: 9999
 originalPrice: 12999
+advanceAmount: 2000
 gstPercent: 5
 highlights:
   - Taj Mahal at sunrise
@@ -126,10 +127,8 @@ thingsToCarry:
   - Sunglasses, cap and sunscreen
 importantInfo:
   - Sightseeing order can change with weather, traffic or local restrictions; your trip captain decides on the day for everyone’s safety.
-  - If a departure doesn’t reach the minimum group size, HCC may merge it with another batch or move you to the next date.
   - Please reach the boarding point on time; missed trains or buses can’t be refunded.
   - "Delhi traffic is heavy: the group keeps buffer time before the return train."
-cancellationPolicy: "30+ days before departure: 25% cancellation fee. 15–30 days: 50%. Under 15 days: no refund. The booking amount is non-refundable."
 sortOrder: 160
 recurrence: Group dates on request
 primaryKeyword: golden triangle tour from hyderabad

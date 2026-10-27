@@ -104,7 +104,6 @@ origins:
     importantInfo:
       - "This is a budget group trip: comfortable and well run, not a luxury tour."
       - Sightseeing order can change with weather, traffic or local restrictions; your trip captain decides on the day for everyone’s safety.
-      - If a departure doesn’t reach the minimum group size, HCC may merge it with another batch or move you to the next date.
       - Please reach the pickup point on time; a missed pickup can’t be refunded.
 transportOptions:
   - id: sl
@@ -124,6 +123,7 @@ stayOptions:
     priceDelta: 0
 basePrice: 6999
 originalPrice: 8500
+advanceAmount: 2000
 highlights:
   - Abbey Falls and Mandalpatti peak
   - Raja’s Seat sunset
@@ -212,9 +212,7 @@ thingsToCarry:
 importantInfo:
   - "This is a budget group trip: comfortable and well run, not a luxury tour."
   - Sightseeing order can change with weather, traffic or local restrictions; your trip captain decides on the day for everyone’s safety.
-  - If a departure doesn’t reach the minimum group size, HCC may merge it with another batch or move you to the next date.
   - Please reach the boarding point on time; missed trains or buses can’t be refunded.
-cancellationPolicy: "30+ days before departure: 25% cancellation fee. 15–30 days: 50%. Under 15 days: no refund. The booking amount is non-refundable."
 faqs:
   - q: Can I join if I’m travelling alone?
     a: Yes. Solo travellers are welcome, and you’ll be in a group with an HCC trip captain from the start.

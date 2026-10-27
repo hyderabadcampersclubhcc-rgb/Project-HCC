@@ -25,8 +25,7 @@ origins:
     outbound: Self-drive (about 80 km, 2 to 2.5 hours), or train/bus to Vikarabad and an auto or cab
     return: Check out at 11:00 am on Sunday and head back on your own
     incomplete:
-      - Advance amount and payment terms
-      - Cancellation terms for this campsite
+      - Balance payment deadline
       - GST (reference pages say +5%; HCC price is shown without GST)
       - Children policy
       - "Dated departures (reference: Saturdays)"
@@ -41,6 +40,7 @@ stayOptions:
     sharing: 3
     priceDelta: 0
 basePrice: 2999
+advanceAmount: 500
 highlights:
   - Swimming pool (4 to 6 pm)
   - Sand volleyball and a mini cricket box (4 to 9 pm)
@@ -138,8 +138,6 @@ primaryKeyword: premium camping ananthagiri hills
 confirmOnWhatsApp:
   - Check-in time
   - Rain dance
-  - Advance and payment
-  - Cancellation and date changes
   - GST
   - Children's policy
   - Group size

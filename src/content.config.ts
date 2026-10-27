@@ -439,6 +439,8 @@ const pages = defineCollection({
     draft: z.boolean().default(true),
     /** Published but kept out of Google and the sitemap (e.g. a policy awaiting final approval). */
     noindex: z.boolean().default(false),
+    /** Render a shared policy above the body ('cancellation' = src/data/cancellation-policy.json). */
+    policy: z.enum(['cancellation']).optional(),
     seo,
   }),
 });

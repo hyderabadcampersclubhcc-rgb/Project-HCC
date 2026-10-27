@@ -25,8 +25,7 @@ origins:
     outbound: Self-drive (about 80 km, 2 to 2.5 hours), or train/bus to Vikarabad and an auto or cab
     return: Check out at 11:00 am on Sunday and head back on your own
     incomplete:
-      - Advance amount and payment terms
-      - Cancellation terms for this campsite
+      - Balance payment deadline
       - GST (reference pages say +5%; HCC price is shown without GST)
       - Children policy
       - "Dated departures (reference: Saturdays)"
@@ -41,6 +40,7 @@ stayOptions:
     sharing: 2
     priceDelta: 0
 basePrice: 2000
+advanceAmount: 500
 highlights:
   - Rope adventure course with about 10 activities
   - Cycling and a short trek
@@ -135,8 +135,6 @@ recurrence: Saturdays (check availability on WhatsApp)
 primaryKeyword: harivillu resort camping ananthagiri
 confirmOnWhatsApp:
   - Check-in time
-  - Advance and payment
-  - Cancellation and date changes
   - GST
   - Children's policy
   - Group size

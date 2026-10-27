@@ -126,4 +126,4 @@ October to March is the best time for Gokarna's beaches, with calmer seas and pl
 - Camping is on a 2/3 sharing basis.
 - Children under 4 travel free; from 5 years they pay the adult price.
 - Food in coastal Karnataka may not be Telugu style; carry snacks if you're particular.
-- A booking amount of ₹2,000 holds your seat, with the balance due a week before departure.
+- A ₹2,000 non-refundable advance per person holds your seat; the remaining balance is due 7 days before departure.

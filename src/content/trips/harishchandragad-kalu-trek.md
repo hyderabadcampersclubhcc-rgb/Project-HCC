@@ -29,6 +29,7 @@ stayOptions:
     priceDelta: 0
 basePrice: 6999
 originalPrice: 8999
+advanceAmount: 2000
 highlights:
   - Five-tier Kalu waterfall
   - Harishchandreshwar temple and Kedareshwar cave
@@ -128,12 +129,10 @@ thingsToCarry:
 importantInfo:
   - "This is a budget group trip: comfortable and well run, not a luxury tour."
   - Sightseeing order can change with weather, traffic or local restrictions; your trip captain decides on the day for everyone’s safety.
-  - If a departure doesn’t reach the minimum group size, HCC may merge it with another batch or move you to the next date.
   - Please reach the boarding point on time; missed trains or buses can’t be refunded.
   - Good basic fitness is recommended; trails get slippery in the monsoon.
   - No alcohol, smoking or drugs.
   - Routes can change with weather or forest-department rules.
-cancellationPolicy: HCC cancellation policy applies; train ticket cancellations follow IRCTC rules.
 faqs:
   - q: Is this trek suitable for beginners?
     a: Yes, if you have reasonable fitness. It’s rated easy to moderate with some slippery sections in the monsoon.

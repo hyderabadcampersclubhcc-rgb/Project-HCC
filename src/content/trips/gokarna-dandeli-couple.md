@@ -79,6 +79,7 @@ stayOptions:
     priceDelta: 0
 basePrice: 18500
 originalPrice: 20000
+advanceAmount: 2000
 highlights:
   - Vibhuthi falls
   - Honnavar boating
@@ -159,7 +160,6 @@ thingsToCarry:
 importantInfo:
   - Price shown is per person; the package is sold per couple (two travellers sharing a room).
   - "Payment: 40% at booking, 40% four days before travel, 20% on day 1."
-cancellationPolicy: "30+ days before departure: 25% cancellation fee. 15–30 days: 50%. Under 15 days: no refund. The booking amount is non-refundable."
 sortOrder: 280
 recurrence: Every Friday
 primaryKeyword: gokarna couple package

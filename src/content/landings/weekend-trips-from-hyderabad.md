@@ -36,7 +36,7 @@ HCC weekend trips are small group departures that fit into a normal working week
 - **On the ground:** a tempo traveller or similar vehicle for all the sightseeing in the itinerary.
 - **Stays:** homestays, hotels or camps on a sharing basis, usually 3–4 people a room. Other room arrangements may be possible on request; ask HCC on WhatsApp.
 - **Meals:** these vary by trip. Some include camp meals or breakfasts (Gokarna–Dandeli, Munnar, Lonavala); many budget trips don't. Each trip page lists exactly what's included.
-- **Booking:** enquire on WhatsApp and the HCC team confirms your seat. Several trips take a booking amount of ₹2,000 per person, with the balance before departure.
+- **Booking:** enquire on WhatsApp and the HCC team confirms your seat. A ₹2,000 non-refundable advance per person holds your seat, and the remaining balance is due 7 days before departure.
 
 ## Popular weekend trips from Hyderabad
 
@@ -78,4 +78,4 @@ Only have one night? See **[camping near Hyderabad](/camping-near-hyderabad/)**:
 - These are budget group trips: comfortable and well organised, not luxury tours.
 - Carry a government photo ID; it's needed on the train.
 - Sightseeing order can change with weather or local restrictions; the trip captain decides on the day.
-- If a departure doesn't reach the minimum group size, HCC may merge it with another batch or move you to the next date.
+- If HCC cancels a trip, participants will be offered an alternative available trip or a full refund, as applicable. See the [cancellation policy](/cancellation-policy/).

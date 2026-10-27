@@ -134,7 +134,7 @@
       },
       {
         "q": "How do I reserve a seat, and how much is the advance?",
-        "a": "Send an enquiry or message HCC on WhatsApp to check seats, then pay the advance to confirm. The advance depends on the trip (for example ₹2,000 per person on several weekend trips, ₹500 for Ananthagiri camping) and is shown on the trip page."
+        "a": "Send an enquiry or message HCC on WhatsApp to check seats, then pay the advance to confirm. {{advance-summary}}"
       },
       {
         "q": "Where do trips leave from?",
@@ -142,7 +142,7 @@
       },
       {
         "q": "What happens if I need to cancel?",
-        "a": "On most trips, cancelling 30+ days before departure costs 25%, 15–30 days costs 50%, and under 15 days there’s no refund. The booking amount is non-refundable. A few trips have their own rules, listed on the cancellation policy page."
+        "a": "{{cancellation-summary}} The full policy is on the cancellation policy page."
       },
       {
         "q": "What’s included in the trip price?",

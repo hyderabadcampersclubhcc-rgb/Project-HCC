@@ -131,16 +131,11 @@ thingsToCarry:
   - Reusable water bottle
   - Light jacket or hoodie (hill evenings get cool)
 importantInfo:
-  - If a departure doesn’t reach the minimum group size, HCC may merge it with another batch or move you to the next date.
   - Please reach the boarding point on time; missed trains or buses can’t be refunded.
 suitableFor:
   - Solo travellers
   - Friends
   - First-time group travellers
-paymentTerms:
-  - "Advance booking amount: ₹2,000 per person."
-  - The advance payment is non-refundable.
-  - The full remaining payment must be completed 3 days before boarding.
 infoSections:
   - title: Important trip information
     points:
@@ -167,7 +162,6 @@ privatePricing:
       price: 12000
     - group: Above 10 members
       price: 10000
-cancellationPolicy: "30+ days before departure: 25% cancellation fee. 15–30 days: 50%. Under 15 days: no refund. The booking amount is non-refundable."
 faqs:
   - q: Can I join if I’m travelling alone?
     a: Yes. Solo travellers are welcome, and you’ll be in a group with an HCC trip guide from the start.
