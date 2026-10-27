@@ -22,4 +22,6 @@ return [
     // Decap CMS login via GitHub (GitHub → Settings → Developer settings → OAuth Apps)
     'github_client_id' => '',
     'github_client_secret' => '',
+    // GitHub usernames allowed to sign in to /admin/ (empty = nobody). They also need write access to the repo.
+    'cms_allowed_users' => [],
 ];

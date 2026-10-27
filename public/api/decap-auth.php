@@ -93,4 +93,20 @@ curl_close($ch);
 if (!is_array($res) || empty($res['access_token'])) {
     finish('error', ['message' => 'GitHub did not return a token: ' . ($res['error_description'] ?? 'unknown error')], $origin);
 }
+
+// Only approved GitHub accounts may sign in (cms_allowed_users in config.php). An empty list
+// allows nobody, so a missing setting fails closed. The token is never handed to anyone else.
+$allowed = array_map('strtolower', array_map('strval', (array) ($config['cms_allowed_users'] ?? [])));
+$ch = curl_init('https://api.github.com/user');
+curl_setopt_array($ch, [
+    CURLOPT_HTTPHEADER => ['Accept: application/vnd.github+json', 'Authorization: Bearer ' . $res['access_token'], 'User-Agent: hcc-cms-login'],
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_TIMEOUT => 10,
+]);
+$user = json_decode((string) curl_exec($ch), true);
+curl_close($ch);
+$login = strtolower((string) ($user['login'] ?? ''));
+if ($login === '' || !in_array($login, $allowed, true)) {
+    finish('error', ['message' => 'This GitHub account is not approved for the HCC admin panel.'], $origin);
+}
 finish('success', ['token' => $res['access_token'], 'provider' => 'github'], $origin);
