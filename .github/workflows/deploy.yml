@@ -65,12 +65,24 @@ jobs:
           done
           echo "::add-mask::$host"; echo "::add-mask::$user"; echo "::add-mask::$pass"
           { echo "host=$host"; echo "user=$user"; echo "pass=$pass"; } >> "$GITHUB_OUTPUT"
+          # Staging folder with exactly one trailing slash, so "<dir>trips/" is always a valid path.
+          dir="${STAGING_DIR%/}/"; echo "dir=$dir" >> "$GITHUB_OUTPUT"
           echo "FTP login prepared (user length ${#user}, password length ${#pass})"
         env:
           RAW_HOST: ${{ secrets.FTP_SERVER }}
           RAW_USER: ${{ secrets.FTP_USERNAME }}
           RAW_PASS: ${{ secrets.FTP_PASSWORD }}
-      - name: Deploy to Hostinger (staging)
+          STAGING_DIR: ${{ vars.STAGING_DIR }}
+      # The upload is split in two parts, each with its own sync state (Oct 2026): a single long
+      # upload kept stopping after ~6 minutes at the same point, and FTP-Deploy-Action saves its
+      # state only when a run completes, so every retry restarted from scratch. A part that
+      # finishes now stays done; a part that drops is retried once. Excluded paths are also
+      # filtered from the server state, so part 1 never deletes the trip pages.
+      # Part 1: everything except /trips/ (assets first, then pages), same state file as before.
+      - name: Deploy to Hostinger (staging, part 1 of 2)
+        id: part1
+        continue-on-error: true
+        timeout-minutes: 20
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           server: ${{ steps.ftp.outputs.host }}
@@ -78,7 +90,7 @@ jobs:
           password: ${{ steps.ftp.outputs.pass }}
           protocol: ${{ vars.FTP_PROTOCOL || 'ftps' }}
           local-dir: ./dist/
-          server-dir: ${{ vars.STAGING_DIR }}
+          server-dir: ${{ steps.ftp.outputs.dir }}
           # Fresh sync state (Oct 2026): the old .ftp-deploy-sync-state.json still listed the removed
           # /camping/ folder, so every run failed with "550 /staging/camping" before saving its state.
           state-name: .ftp-deploy-sync-state-v2.json
@@ -86,6 +98,52 @@ jobs:
             **/.git*
             **/.git*/**
             api/config.php
+            trips/**
+      - name: Retry part 1
+        if: steps.part1.outcome == 'failure'
+        timeout-minutes: 20
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ steps.ftp.outputs.host }}
+          username: ${{ steps.ftp.outputs.user }}
+          password: ${{ steps.ftp.outputs.pass }}
+          protocol: ${{ vars.FTP_PROTOCOL || 'ftps' }}
+          local-dir: ./dist/
+          server-dir: ${{ steps.ftp.outputs.dir }}
+          # Fresh sync state (Oct 2026): the old .ftp-deploy-sync-state.json still listed the removed
+          # /camping/ folder, so every run failed with "550 /staging/camping" before saving its state.
+          state-name: .ftp-deploy-sync-state-v2.json
+          exclude: |
+            **/.git*
+            **/.git*/**
+            api/config.php
+            trips/**
+      # Part 2: the trip pages, with their own sync state inside /trips/.
+      - name: Deploy to Hostinger (staging, part 2 of 2)
+        id: part2
+        continue-on-error: true
+        timeout-minutes: 20
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ steps.ftp.outputs.host }}
+          username: ${{ steps.ftp.outputs.user }}
+          password: ${{ steps.ftp.outputs.pass }}
+          protocol: ${{ vars.FTP_PROTOCOL || 'ftps' }}
+          local-dir: ./dist/trips/
+          server-dir: ${{ steps.ftp.outputs.dir }}trips/
+          state-name: .ftp-deploy-sync-state-trips.json
+      - name: Retry part 2
+        if: steps.part2.outcome == 'failure'
+        timeout-minutes: 20
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ steps.ftp.outputs.host }}
+          username: ${{ steps.ftp.outputs.user }}
+          password: ${{ steps.ftp.outputs.pass }}
+          protocol: ${{ vars.FTP_PROTOCOL || 'ftps' }}
+          local-dir: ./dist/trips/
+          server-dir: ${{ steps.ftp.outputs.dir }}trips/
+          state-name: .ftp-deploy-sync-state-trips.json
 
   production:
     if: >-
